@@ -6,17 +6,17 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 
-import { Provider } from "./context/appContext";
+import { AuthProvider } from "./context/AuthContext";
 
 
 function App() {
   return (
     <div className="App">
-      <Provider>
+      <AuthProvider>
         <Routes>
           <Route path="/*" element={<Home />} />
         </Routes>
-      </Provider>
+      </AuthProvider>
     </div>
   );}
 

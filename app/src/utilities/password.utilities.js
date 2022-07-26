@@ -1,7 +1,7 @@
-function Eye (passId, eyeId) {
+function Eye (id) {
     const togglePassword = () => {
-        var password = document.getElementById(passId);
-        var eye = document.getElementById(eyeId);
+        var password = document.getElementById(id.passId);
+        var eye = document.getElementById(id.eyeId);
         
         if(password.type === "password"){
             password.type = "text";
@@ -20,7 +20,8 @@ function Eye (passId, eyeId) {
             <i 
             style={{transform:'translate(10px,7px)'}} 
             className="fa fa-eye-slash position-relative" 
-            aria-hidden="true" id={eyeId}
+            aria-hidden="true" 
+            id={id.eyeId}
             onClick={togglePassword}
             />
         </div>
