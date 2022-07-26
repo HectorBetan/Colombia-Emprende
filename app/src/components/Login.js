@@ -1,20 +1,28 @@
 import Button from "react-bootstrap/Button";
 import Eye from "../utilities/password.utilities";
 import Alert from "../utilities/alert.utilities";
+import { useAuth } from "../context/AuthContext";
+import { handleResetPassword, handleLogin } from "../services/user.service";
 import {useState} from 'react';
 function Login (){
+    const { resetPassword, login } = useAuth();
     const [user, setUser] = useState({
         email: '',
         password: ''
     });
-    const [error, setError] = useState("");
+    const [msg, setMsg] = useState("");
     const handleChange = ({ target: { value, name } }) => setUser({ ...user, [name]: value });
+    if (msg){
+        setTimeout(() => {
+            setMsg("");
+        }, 5000);
+    }
     return(
         <div>
             <div className="d-flex flex-wrap justify-content-center mt-1 mb-2">
-                {error && <Alert message={error} />}
+                {msg && <Alert text={msg} />}
             </div>
-            <form >
+            <form onSubmit={(e)=> {e.preventDefult(); handleLogin(login, user)}}>
                 <div className="form-group mb-3 me-5 ms-5 pe-3 ps-3">
                     <label className="m-1">Email</label>
                     <input 
@@ -46,10 +54,14 @@ function Login (){
                 <div className="text-center">
                     <a
                     className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-                    href="#!"
-                    
-                    >
-                        Olvidaste tu contraseña?
+                    href="#!" onClick={(e) => {
+                        e.preventDefault();
+                        handleResetPassword(user.email, resetPassword)
+                        .then(res => {
+                            setMsg(res);
+                        }) 
+                    }}>
+                        ¿Olvidaste tu contraseña?
                     </a>
                 </div>
                 <div className="d-grid mt-4 mb-3 me-5 ms-5 ps-4">
