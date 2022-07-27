@@ -10,6 +10,8 @@ import {
     onAuthStateChanged,
     GoogleAuthProvider,
     signInWithPopup,
+    signInWithRedirect,
+    getRedirectResult,
     sendPasswordResetEmail,
     updateProfile,
     sendEmailVerification,
@@ -69,6 +71,14 @@ export function AuthProvider({ children }) {
         const googleProvider = new GoogleAuthProvider();
         return signInWithPopup(auth, googleProvider)
     };
+    const loginWithGoogleRedirect = async () => {
+        const googleProvider = new GoogleAuthProvider();
+        await signInWithRedirect(auth, googleProvider);
+        await getRedirectResult(auth).then((result) => {
+            console.log(result.credential);
+            console.log(result.user);
+        });
+    };
     const reAuthenticateGoogle = () => {
         const googleProvider = new GoogleAuthProvider();
         return reauthenticateWithPopup(auth.currentUser, googleProvider);
@@ -103,6 +113,7 @@ export function AuthProvider({ children }) {
                 passwordUpdate,
                 reAuthenticate,
                 loginWithGoogle,
+                loginWithGoogleRedirect,
                 resetPassword,
                 uploadPhoto,
                 updatePhotoURL,

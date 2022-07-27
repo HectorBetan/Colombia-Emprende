@@ -75,7 +75,7 @@ export const LoginButtonNav = () => {
     const [key, setKey] = useState('login');
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const {loginWithGoogle} = useAuth();
+    const {loginWithGoogleRedirect} = useAuth();
     const ModalLogin = () => {
         return(
             <Modal show={show} onHide={handleClose} backdrop="static">
@@ -96,7 +96,7 @@ export const LoginButtonNav = () => {
                     <hr />
                     <p className="text-center">O ingresa con:</p>
                     <div className="d-flex flex-row justify-content-evenly pb-3">
-                        <form onSubmit={(e) => {e.preventDefault(); handleGoogleSignin(loginWithGoogle)}}>
+                        <form onSubmit={(e) => {e.preventDefault(); handleGoogleSignin(loginWithGoogleRedirect)}}>
                         <button 
                             className="d-flex flex-row m-3 p-2 justify-content-center" 
                             style={{width:'150px', border:"1.5px solid rgb(0 , 175 ,  255)", borderRadius:"10px"}} 
