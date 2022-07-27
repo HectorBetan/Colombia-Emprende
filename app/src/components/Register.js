@@ -3,11 +3,21 @@ import Alert from '../utilities/alert.utilities'
 import Button from 'react-bootstrap/Button';
 import Eye from '../utilities/password.utilities'
 import PolicyModal from '../utilities/policyModal.utilities';
-import PhotoView from '../utilities/photoView.utilities';
+import {PhotoView, UserLogo} from '../utilities/photoView.utilities';
+import { useAuth } from "../context/AuthContext";
 import {cityList} from '../utilities/citys.utilities';
+import Compressor from "compressorjs";
+import { useNavigate, useLocation } from "react-router-dom";
 function Register () {
+    const location = useLocation();
+    const [cargando, setCargando] = useState(false);
+    const navigate = useNavigate();
+    
+    const {signup, updatePhotoURL, updateName, uploadPhoto, 
+        emailVerification, getPhotoURL, createUser, loading } = useAuth();
     const [img, setImg] = useState(null);
-    const [error, setError] = useState('');
+    const [imgResult, setImgResult] = useState(null);
+    const [msg, setMsg] = useState("");
     const [user, setUser] = useState({
         email: "",
         password: "",
@@ -17,11 +27,93 @@ function Register () {
         city: "",
     });
     const changeImg = (e) => {
-        setImg(e.target.files[0]);
+        setImg(e.target.files[0])
         const file = e.target.files[0];
+        reduceUserImg(file)
     };
-    const submit = (e) => {
-
+    const reduceUserImg = (file) => {
+        new Compressor(file, {
+            maxHeight: 300,
+            maxWidth: 300,
+            minHeight: 150,
+            minWidth: 150,
+            success: file => {
+                setImgResult(file);
+            }
+        });
+    }
+    function camelize(str) {
+        const palabras = str.split(" ");
+        for (let i = 0; i < palabras.length; i++) {
+            palabras[i] = palabras[i][0].toUpperCase() + palabras[i].substr(1).toLowerCase();
+        }
+        return palabras.join(" ");
+    };
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        setCargando(true);
+        let dName = user.firstName + " " + user.lastName;
+        let uid;
+        try {
+            await signup(user.email, user.password)
+            .then(res => {
+                uid = res.user.uid;
+            })
+        } catch (error) {
+            return ({msg: {type: "error", message: error.message}});
+        }
+        try {
+            
+            dName = camelize(dName);
+            console.log(dName);
+            await updateName(dName);
+            const newUser = {
+                Uid: uid,
+                Email: user.email,
+                Nombre: dName,
+                Celular: user.phoneNumber,
+                Ciudad: user.city,
+            }
+            await createUser(newUser);       
+        } catch (error) {
+            return ({msg: {type: "error", message: error.message}});
+        }
+        if (img !== null) {
+            try {
+                await uploadPhoto(user.email, imgResult, "/perfil/profilePhoto"); 
+            } catch (error) {
+                console.log(error);
+                return ({msg: {type: "error", message: error.message}});
+            }
+            try {
+                console.log("va a tomar la foto");
+                const url = "/perfil/profilePhoto"
+                await getPhotoURL(user.email, url)
+                .then((url) => { 
+                updatePhotoURL(url)
+                })
+            } catch (error) {
+                console.log(error);
+                return ({msg: {type: "error", message: error.message}});
+            }
+            try {
+                    sessionStorage.setItem("location", location.pathname);
+                    await emailVerification()
+                    .then(
+                    navigate(`/verificacion`, { replace: true })
+                    )
+            } catch (error) {
+                return ({msg: {type: "error", message: error.message}});
+            }
+        }
+        else {
+            sessionStorage.setItem("location", location.pathname);
+            try {
+                await emailVerification().then(navigate(`../verificacion`, { replace: true }));
+            } catch (error) {
+                return ({msg: {type: "error", message: error.message}});
+            }
+        };
     }
     const ProfilePhoto = () => {
         if (img) {
@@ -32,19 +124,31 @@ function Register () {
         }
         else {
             return (
-                <div>
-                    <i className="fa-solid fa-circle-user fa-3x m-1"></i>
-                </div>
+                <UserLogo w="60" h="60" />
             );
         }
     };
+    if (msg){
+        setTimeout(() => {
+            setMsg("");
+        }, 5000);
+    }
     const handleChange = ({ target: { value, name } }) => setUser({ ...user, [name]: value });
+    if (cargando || loading){
+        return(
+            <div className="d-flex justify-content-center">
+                <div className="spinner-border text-primary" role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>
+            </div>
+        )
+    }
     return (
         <div>
             <div className="d-flex flex-wrap justify-content-center mt-1 mb-2">
-                {error && <Alert message={error} />}
+                {msg && <Alert message={msg} />}
             </div>
-            <form onClick={submit}>
+            <form onSubmit={handleRegister}>
                 <div className="form-group d-flex flex-row justify-content-between mb-1 me-3 ms-3">
                     <div className="d-flex flex-column me-2">
                         <label className="m-1">Nombre</label>
@@ -71,7 +175,7 @@ function Register () {
                     </div>
                     <div className="d-flex flex-column  col-7">
                         <label className="m-1">Ciudad</label>
-                        <select onChange={handleChange} name="city" className="form-select" defaultValue={"default"}>
+                        <select onChange={handleChange} name="city" className="form-select" defaultValue={"default"} required>
                             <option value="default" disabled>Selecciona la ciudad</option>
                             {cityList}
                         </select>

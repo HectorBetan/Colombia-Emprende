@@ -12,15 +12,24 @@ function Home() {
     const { user } = useAuth();
     const SetButton = () => {
         if (user) {
-            return <UserButton />;
+            return (
+                <div className="d-none d-lg-block d-xl-block d-xxl-block">
+                    <UserButton />
+                </div>
+            )
+            
         }
         else {
-            return <LoginButton />;
+            return (
+                <div className="d-none d-lg-block d-xl-block d-xxl-block">
+                    <LoginButton />
+                </div>
+            )
         }
     } 
     return (
         <div>
-            <Navbar className="flex-lg-row flex-md-row flex-sm-column flex-column justify-content-between mt-2 me-2 ms-2 p-2" expand="lg">
+            <Navbar className="d-none d-lg-flex d-xl-flex d-xxl-flex flex-lg-row flex-xl-row flex-xxl-row justify-content-between mt-2 me-2 ms-2 p-2" expand="lg">
                 <Navbar.Brand href="/" className="ms-3"><img style={{ maxHeight: '75px' }} src={Logo} alt="Logo Colombia Emprende" /></Navbar.Brand>
                 <SetButton />   
             </Navbar>

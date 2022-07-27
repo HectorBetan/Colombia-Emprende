@@ -1,6 +1,7 @@
 import React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import { storage, auth } from "../firebase";
+import axios from "axios";
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
@@ -18,7 +19,6 @@ import {
     deleteUser,
 } from "firebase/auth";
 import { ref, getDownloadURL, uploadBytes, deleteObject } from "firebase/storage";
-import axios from "axios";
 const authContext = createContext();
 
 export const useAuth = () => {
@@ -27,10 +27,9 @@ export const useAuth = () => {
     return context;
 };
 export function AuthProvider({ children }) {
+    const userUrl= 'http://localhost:4000/users/';
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
-    const [userData, setUserData] = useState(null);
-    const [userEmprendimiento, setUserEmprendimiento] = useState(null);
     const signup = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password);
     };
@@ -39,15 +38,12 @@ export function AuthProvider({ children }) {
     };
     const updateName = async (displayName) => {
         await updateProfile(auth.currentUser, {displayName}).then(() => {
-            setUser(auth.currentUser);
+            return setUser(auth.currentUser);
         });
-        return;
     };
     const updatePhotoURL = (photoURL) => {
-        setLoading(true);
         updateProfile(auth.currentUser, {photoURL}).then(() => {
             setUser(auth.currentUser);
-            setLoading(false);
             return;
         });
     };
@@ -85,10 +81,12 @@ export function AuthProvider({ children }) {
     const reAuthenticate = (credential) => {
         return reauthenticateWithCredential(auth.currentUser, credential)
     };
+    const createUser = async (user) => {
+        await axios.post(`${userUrl}create-user`, user);
+    }
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
-            console.log(currentUser);
             setLoading(false);
         });
         return () => unsubscribe();
@@ -115,6 +113,7 @@ export function AuthProvider({ children }) {
                 delUser,
                 reAuthenticateGoogle,
                 emailReVerification,
+                createUser,
             }}
         >
             {children}
