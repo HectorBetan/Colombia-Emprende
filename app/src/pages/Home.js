@@ -5,7 +5,6 @@ import Stores from "../components/Stores";
 import Footer from "../components/Footer";
 import Navbar from "react-bootstrap/Navbar";
 import Logo from "../assets/logos/logo-colombia.png";
-import '../styles/Nav.style.css'
 import { Routes, Route } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
@@ -34,11 +33,7 @@ function Home() {
                 <Navbar.Brand href="/" className="ms-3"><img style={{ maxHeight: '75px' }} src={Logo} alt="Logo Colombia Emprende" /></Navbar.Brand>
                 <SetButton />   
             </Navbar>
-            <div className="navigation">
-                <Navigation />    
-            </div>
-            <br />
-            <br></br>   
+            <Navigation />    
             <Routes>
                 <Route path="/"  element={<HomeView />}/>
                 <Route path="/emprendimientos"  element={<Stores />}/>

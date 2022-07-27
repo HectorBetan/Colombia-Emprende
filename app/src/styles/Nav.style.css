@@ -1,8 +1,0 @@
-@media (max-width: 1199.98px) {
-    .navigation{
-        position: fixed;
-        width: 100%;
-        z-index: 10;
-        display: contents
-    }
-}
