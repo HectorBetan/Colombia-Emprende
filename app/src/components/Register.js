@@ -149,48 +149,51 @@ function Register () {
                 {msg && <Alert message={msg} />}
             </div>
             <form onSubmit={handleRegister}>
-                <div className="form-group d-flex flex-row justify-content-between mb-1 me-3 ms-3">
+                <div className="form-group d-column d-lg-flex flex-lg-row d-xl-flex 
+                flex-xl-row d-xxl-flex flex-xxl-row justify-content-between mb-1 me-3 ms-3">
                     <div className="d-flex flex-column me-2">
-                        <label className="m-1">Nombre</label>
+                        <label className="m-1 text-center text-lg-start text-xl-start text-xxl-start">Nombre</label>
                         <input name="firstName" 
                         className="form-control" type="name" 
                         onChange={handleChange} pattern="[A-Za-z. ]{1,}" 
                         title="Ingrese un Nombre valido" required/>
                     </div>
                         <div className="d-flex flex-column">
-                        <label className="m-1">Apellido</label>
+                        <label className="m-1 text-center text-lg-start text-xl-start text-xxl-start">Apellido</label>
                         <input name="lastName" 
                         className="form-control" type="name" 
                         onChange={handleChange} pattern="[A-Za-z. ]{1,}" 
                         title="Ingrese un Apellido valido" required/>
                     </div>
                 </div>
-                <div className="form-group d-flex flex-row justify-content-between mb-1 me-3 ms-3">
+                <div className="form-group d-column d-lg-flex flex-lg-row d-xl-flex 
+                flex-xl-row d-xxl-flex flex-xxl-row  justify-content-between mb-1 me-3 ms-3">
                     <div className="d-flex flex-column me-2">
-                        <label className="m-1">Celular(opcional)</label>
+                        <label className="m-1 text-center text-lg-start text-xl-start text-xxl-start">Celular(opcional)</label>
                         <input name="phoneNumber" className="form-control" 
                         type="tel" id="celular" 
                         onChange={handleChange} pattern="[3]{1}[0-9]{9}"
                         title="Ingrese un Celular valido para Colombia. Ej: 3185733093"/>
                     </div>
-                    <div className="d-flex flex-column  col-7">
-                        <label className="m-1">Ciudad</label>
+                    <div className="d-flex flex-column">
+                        <label className="m-1 text-center text-lg-start text-xl-start text-xxl-start">Ciudad</label>
                         <select onChange={handleChange} name="city" className="form-select" defaultValue={"default"} required>
                             <option value="default" disabled>Selecciona la ciudad</option>
                             {cityList}
                         </select>
                     </div>
                 </div>
-                <div className="form-group d-flex flex-row justify-content-between  me-3 ms-3">
-                    <div className="d-flex flex-column col-6 me-2">
-                        <label className="m-1">Email</label>
+                <div className="form-group d-column d-lg-flex flex-lg-row d-xl-flex 
+                flex-xl-row d-xxl-flex flex-xxl-row justify-content-between  me-3 ms-3">
+                    <div className="d-flex flex-column me-2">
+                        <label className="m-1 text-center text-lg-start text-xl-start text-xxl-start">Email</label>
                         <input name="email" className="form-control" type="email" 
                         onChange={handleChange} 
                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" 
                         title="Ingrese un Email valido. ejemplo colombia0emprende@gmail.com" required/>  
                     </div>
                     <div className="d-flex flex-column mb-1">
-                        <label className="m-1">Contraseña</label>
+                        <label className="m-1 text-center text-lg-start text-xl-start text-xxl-start">Contraseña</label>
                         <div className="input-group" id="show_hide_password">
                         <input name="password" className="form-control" 
                         type="password" id="passwordRegister" 
@@ -201,11 +204,11 @@ function Register () {
                         </div>
                     </div>
                 </div>
-                <div className="justify-content-start mb-1 me-3 ms-3 mt-3">
-                    <label className="d-block m-1 mt-2 me-2">Foto de Perfil(opcional):</label>
-                    <div className="d-flex flex-row">
+                <div className="justify-content-center mb-1 me-3 ms-3 mt-3">
+                    <label className="d-block m-1 mt-2 me-2 text-center">Foto de Perfil(opcional):</label>
+                    <div className="d-column d-lg-flex d-xl-flex d-xxl-flex flex-row text-center">
                         <ProfilePhoto />
-                        <input type="file" className="m-1 mt-3 subirFoto" onChange={changeImg} accept="image/*"></input>
+                        <input type="file" className="ms-lg-3 ms-xl-3 ms-xxl-3 mt-3 subirFoto" onChange={changeImg} accept="image/*"></input>
                     </div>
                 </div>
                 <div className="d-flex flex-row justify-content-start mb-1 me-3 ms-3 mt-3" style={{fontSize:'15px'}}>

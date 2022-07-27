@@ -10,9 +10,9 @@ function PolicyModal() {
     const [fullscreen, setFullscreen] = useState(true);
     return (
         <div>
-            <a href="#!" role="button" type="button" onClick={handleShow}>
+            <span role="button" type="button" onClick={handleShow}>
                 politicas de privacidad y tratamiento de datos
-            </a>
+            </span>
             <Modal className="fade h-100" show={show} fullscreen={fullscreen} onHide={handleClose}
             tabIndex="-1" aria-labelledby="modalPoliticasLabel" size="lg" centered>
                 <div className="modal-dialog-scrollable">

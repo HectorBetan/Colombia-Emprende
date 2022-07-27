@@ -6,9 +6,6 @@ import Tab from "react-bootstrap/Tab";
 import Login from "../components/Login";
 import Register from "../components/Register";
 import Dropdown from "react-bootstrap/Dropdown";
-import Container from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useAuth } from "../context/AuthContext";
 import { handleLogout, handleGoogleSignin } from "../services/user.service";
 import { UserLogo } from '../utilities/photoView.utilities'
