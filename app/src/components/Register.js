@@ -211,11 +211,11 @@ function Register () {
                         <input type="file" className="ms-lg-3 ms-xl-3 ms-xxl-3 mt-3 subirFoto" onChange={changeImg} accept="image/*"></input>
                     </div>
                 </div>
-                <div className="d-flex flex-row justify-content-start mb-1 me-3 ms-3 mt-3" style={{fontSize:'15px'}}>
+                <span className="d-flex flex-row justify-content-start mb-1 me-3 ms-3 mt-3" style={{fontSize:'10px'}}>
                     <input type="checkbox" className="form-check-input me-1 ms-1" required/>
-                    <p>Acepto las&nbsp;</p>
-                    <PolicyModal />
-                </div>
+                    <span>Acepto las&nbsp;<PolicyModal /></span>
+                    
+                </span>
                 <div className="d-grid mt-3 mb-3 me-3 ms-5 ps-1 pe-3">
                     <Button variant="primary" type="submit" className="me-4 mb-1 mt-1">
                     Aceptar

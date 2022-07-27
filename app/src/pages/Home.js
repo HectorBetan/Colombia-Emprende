@@ -7,6 +7,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Logo from "../assets/logos/logo-colombia.png";
 import { Routes, Route } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+
 import { LoginButton, UserButton } from "../utilities/headerButton.utilities";
 function Home() {
     const { user } = useAuth();
@@ -17,7 +18,6 @@ function Home() {
                     <UserButton />
                 </div>
             )
-            
         }
         else {
             return (
@@ -42,5 +42,4 @@ function Home() {
         </div>
     );
 }
-
 export default Home;

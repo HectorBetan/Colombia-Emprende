@@ -9,7 +9,7 @@ function PolicyModal() {
     };
     const [fullscreen, setFullscreen] = useState(true);
     return (
-        <div>
+        <span>
             <span role="button" type="button" onClick={handleShow}>
                 politicas de privacidad y tratamiento de datos
             </span>
@@ -184,7 +184,7 @@ function PolicyModal() {
                     </div>
                 </div>
             </Modal>
-        </div>
+        </span>
     );
 }
 
