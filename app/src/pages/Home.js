@@ -36,7 +36,9 @@ function Home() {
             </Navbar>
             <div className="navigation">
                 <Navigation />    
-            </div>            
+            </div>
+            <br />
+            <br></br>   
             <Routes>
                 <Route path="/"  element={<HomeView />}/>
                 <Route path="/emprendimientos"  element={<Stores />}/>

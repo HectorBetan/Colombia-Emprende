@@ -1,4 +1,7 @@
 @media (max-width: 1199.98px) {
+    .carousel{
+        margin-top: 50px
+    }
     .carousel-indicators {
         margin-bottom: 1px!important;
     }
