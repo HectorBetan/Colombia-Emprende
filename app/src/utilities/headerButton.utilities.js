@@ -208,7 +208,7 @@ export const UserButtonNav = () => {
                                 <h6>Mi Perfil</h6>
                                 <h6>Mi Carrito</h6>
                                 <hr />
-                                <h6>Cerrar Sesión</h6>
+                                <h6 type="button" onClick={(e) => {e.preventDefault(); handleLogout(logout)}}>Cerrar Sesión</h6>
                             </div>
                         </div>
                     </div>
