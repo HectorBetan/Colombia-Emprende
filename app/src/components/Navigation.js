@@ -7,8 +7,15 @@ import Logo from "../assets/logos/logo-colombia-blanco.png";
 function NavigationBar() {
     const [show, setShow] = useState(false);
     const {user} = useAuth();
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleClose = () => {
+        document.body.style.position = 'static';
+        setShow(false);
+    }
+    
+    const handleShow = () => {
+        document.body.style.position = 'fixed';
+        setShow(true)
+    };
     const SetButton = () => {
         if (user) {
             return (
@@ -38,13 +45,13 @@ function NavigationBar() {
                         </li>
                     </ul>
                 </div>
-                <div className="container-fluid">
-                    <span class="navbar-brand mb-0 h1 d-lg-none d-xl-none d-xxl-none"><img src={Logo} alt="Logo" 
-                    style={{maxWidth:'300px'}} /></span>
+                <div className="container">
+                    <span className="navbar-brand mb-0 h1 d-lg-none d-xl-none d-xxl-none"><img src={Logo} alt="Logo" 
+                    style={{maxWidth:'220px'}} /></span>
                     <button className="navbar-toggler" type="button" onClick={handleShow}>
                         <span className="navbar-toggler-icon"></span>
                     </button>
-                    <Offcanvas placement='end' show={show} onHide={handleClose} responsive="lg" className="w-50 d-lg-none d-xl-none d-xxl-none">
+                    <Offcanvas style={{position:"fixed"}} placement='end' show={show} onHide={handleClose} className="w-50 d-lg-none d-xl-none d-xxl-none pr-0">
                         <Offcanvas.Header closeButton>
                         <Offcanvas.Title>Navbar</Offcanvas.Title>
                         </Offcanvas.Header>
