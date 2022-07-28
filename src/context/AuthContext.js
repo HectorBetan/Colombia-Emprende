@@ -29,7 +29,7 @@ export const useAuth = () => {
     return context;
 };
 export function AuthProvider({ children }) {
-    const userUrl= 'http://localhost:4000/users/';
+    const dbUrl= 'https://colombia-emprende.herokuapp.com/';
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
     const signup = (email, password) => {
@@ -92,11 +92,37 @@ export function AuthProvider({ children }) {
         return reauthenticateWithCredential(auth.currentUser, credential)
     };
     const createUser = async (user) => {
-        await axios.post(`${userUrl}create-user`, user);
+        await axios.post(`${dbUrl}users/create-user`, user);
     }
+    
     useEffect(() => {
+        const getUserData = async (user) => {
+            const userQuery = {Uid: user.uid};
+            let token;
+            await axios.post(`${dbUrl}users/get-user`, userQuery)
+                .then((response) => {
+                    if (response.data.length > 0) {
+                        token = true;
+                    }
+                    return
+                })
+                .catch((error) => {
+                    console.log(error);
+                    return
+                })
+            if (!token) {
+                const userData = {
+                    Uid: user.uid,
+                    Email: user.email,
+                    Nombre: user.displayName,
+                }
+                await createUser(userData);
+                getUserData(user.uid);
+            }
+        }
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
+            getUserData(auth.currentUser);
             setLoading(false);
         });
         return () => unsubscribe();
