@@ -73,6 +73,7 @@ function Register () {
                 Nombre: dName,
                 Celular: user.phoneNumber,
                 Ciudad: user.city,
+                Emprendimiento_id: "",
             }
             await createUser(newUser);       
         } catch (error) {
@@ -97,7 +98,7 @@ function Register () {
                 return ({msg: {type: "error", message: error.message}});
             }
             try {
-                    sessionStorage.setItem("location", location.pathname);
+                    localStorage.setItem("location", location.pathname);
                     await emailVerification()
                     .then(
                     navigate(`/verificacion`, { replace: true })
@@ -107,7 +108,7 @@ function Register () {
             }
         }
         else {
-            sessionStorage.setItem("location", location.pathname);
+            localStorage.setItem("location", location.pathname);
             try {
                 await emailVerification().then(navigate(`../verificacion`, { replace: true }));
             } catch (error) {
@@ -168,7 +169,7 @@ function Register () {
                 </div>
                 <div className="form-group d-column d-lg-flex flex-lg-row d-xl-flex 
                 flex-xl-row d-xxl-flex flex-xxl-row  justify-content-between mb-1 me-3 ms-3">
-                    <div className="d-flex flex-column me-2">
+                    <div className="d-flex flex-column  me-lg-2 me-xl-2 me-xxl-2">
                         <label className="m-1 text-center text-lg-start text-xl-start text-xxl-start">Celular(opcional)</label>
                         <input name="phoneNumber" className="form-control" 
                         type="tel" id="celular" 
@@ -185,7 +186,7 @@ function Register () {
                 </div>
                 <div className="form-group d-column d-lg-flex flex-lg-row d-xl-flex 
                 flex-xl-row d-xxl-flex flex-xxl-row justify-content-between  me-3 ms-3">
-                    <div className="d-flex flex-column me-2">
+                    <div className="d-flex flex-column me-lg-2 me-xl-2 me-xxl-2 col-lg-6 col-xl-6 col-xxl-6">
                         <label className="m-1 text-center text-lg-start text-xl-start text-xxl-start">Email</label>
                         <input name="email" className="form-control" type="email" 
                         onChange={handleChange} 
@@ -211,7 +212,7 @@ function Register () {
                         <input type="file" className="ms-lg-3 ms-xl-3 ms-xxl-3 mt-3 subirFoto" onChange={changeImg} accept="image/*"></input>
                     </div>
                 </div>
-                <span className="d-flex flex-row justify-content-start mb-1 me-3 ms-3 mt-3" style={{fontSize:'10px'}}>
+                <span className="d-flex flex-row justify-content-center mb-1 mt-3 policy">
                     <input type="checkbox" className="form-check-input me-1 ms-1" required/>
                     <span>Acepto las&nbsp;<PolicyModal /></span>
                     

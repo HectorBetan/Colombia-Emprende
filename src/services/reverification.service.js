@@ -11,7 +11,7 @@ function ReVerification() {
     const { emailVerification, user } = useAuth();
     const navigate = useNavigate();
     const show = useState(true);
-    const location = sessionStorage.getItem("location");
+    const location = localStorage.getItem("location");
     useEffect(() => {
         if (user){
             if (user.emailVerified === true){
@@ -21,7 +21,7 @@ function ReVerification() {
     });
     const handleModal = (e) => {
         e.preventDefault();
-        sessionStorage.removeItem("location");
+        localStorage.removeItem("location");
         if (location) {
             navigate(location, { replace: true });
         } else {

@@ -32,6 +32,7 @@ export function AuthProvider({ children }) {
     const dbUrl= 'https://colombia-emprende.herokuapp.com/';
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
+    const [userData, setUserData] = useState(null);
     const signup = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password);
     };
@@ -97,32 +98,32 @@ export function AuthProvider({ children }) {
     
     useEffect(() => {
         const getUserData = async (user) => {
-            const userQuery = {Uid: user.uid};
-            let token;
-            await axios.post(`${dbUrl}users/get-user`, userQuery)
-                .then((response) => {
-                    if (response.data.length > 0) {
-                        token = true;
+            await axios.get(`${dbUrl}users/get-user/${user.uid}`)
+            .then((response) => {
+                if (response.data.data.length > 0) {
+                    setUserData(response.data.data[0]);
+                    localStorage.setItem("token", response.data.token);
+                } else {
+                    const userData = {
+                        Uid: user.uid,
+                        Email: user.email,
+                        Nombre: user.displayName,
+                        Emprendimiento_id: "",
                     }
-                    return
-                })
-                .catch((error) => {
-                    console.log(error);
-                    return
-                })
-            if (!token) {
-                const userData = {
-                    Uid: user.uid,
-                    Email: user.email,
-                    Nombre: user.displayName,
+                    createUser(userData);
                 }
-                await createUser(userData);
-                getUserData(user.uid);
-            }
+                return
+            })
+            .catch((error) => {
+                console.log(error);
+                return
+            });
         }
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
-            getUserData(auth.currentUser);
+            if (currentUser) {
+                getUserData(currentUser);
+            }
             setLoading(false);
         });
         return () => unsubscribe();
@@ -133,6 +134,7 @@ export function AuthProvider({ children }) {
                 signup,
                 login,
                 user,
+                userData,
                 logout,
                 loading,
                 emailAuth,

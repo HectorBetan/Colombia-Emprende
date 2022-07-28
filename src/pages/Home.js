@@ -7,7 +7,6 @@ import Navbar from "react-bootstrap/Navbar";
 import Logo from "../assets/logos/logo-colombia.png";
 import { Routes, Route } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-
 import { LoginButton, UserButton } from "../utilities/headerButton.utilities";
 function Home() {
     const { user } = useAuth();
@@ -21,7 +20,7 @@ function Home() {
         }
         else {
             return (
-                <div className="d-none d-lg-block d-xl-block d-xxl-block">
+                <div className="d-none d-md-block d-lg-block d-xl-block d-xxl-block">
                     <LoginButton />
                 </div>
             )
@@ -29,7 +28,7 @@ function Home() {
     } 
     return (
         <div>
-            <Navbar className="d-none d-lg-flex d-xl-flex d-xxl-flex flex-lg-row flex-xl-row flex-xxl-row justify-content-between mt-2 me-2 ms-2 p-2" expand="lg">
+            <Navbar className="d-none d-md-flex d-lg-flex d-xl-flex d-xxl-flex flex-md-row flex-lg-row flex-xl-row flex-xxl-row justify-content-between mt-2 me-2 ms-2 p-2">
                 <Navbar.Brand href="/" className="ms-3"><img style={{ maxHeight: '75px' }} src={Logo} alt="Logo Colombia Emprende" /></Navbar.Brand>
                 <SetButton />   
             </Navbar>

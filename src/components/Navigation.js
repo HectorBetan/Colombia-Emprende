@@ -31,14 +31,14 @@ function NavigationBar() {
     const SetButton = () => {
         if (user) {
             return (
-                <div className="d-block d-lg-none d-xl-none d-xxl-none">
+                <div className="d-block d-md-none d-lg-none d-xl-none d-xxl-none">
                     <UserButtonNav />
                 </div>
             )
         }
         else {
             return (
-                <div className="d-block d-lg-none d-xl-none d-xxl-none">
+                <div className="d-block d-md-none d-lg-none d-xl-none d-xxl-none">
                     <LoginButtonNav />
                 </div>
             )
@@ -46,9 +46,9 @@ function NavigationBar() {
     }
     return (
         <div>
-            <nav className='navbar navbar-dark bg-dark navbar-expand-lg'>
-                <div className="d-none d-lg-block d-xl-block d-xxl-block">
-                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <nav className='navbar navbar-dark bg-dark'>
+                <div className="d-none d-md-block d-lg-block d-xl-block d-xxl-block">
+                    <ul className="navbar-nav me-auto d-flex flex-row">
                         <li className="nav-item ms-4">
                             <Link to={"/"} className="nav-link me-4 ms-2">Inicio</Link>
                         </li>
@@ -57,15 +57,15 @@ function NavigationBar() {
                         </li>
                     </ul>
                 </div>
-                <div className="container">
+                <div className="container d-md-none d-lg-none d-xl-none d-xxl-none">
                     <Return />
-                    <span className="navbar-brand mb-0 d-lg-none d-xl-none d-xxl-none"><img src={Logo} alt="Logo" 
+                    <span className="navbar-brand mb-0 d-md-none d-lg-none d-xl-none d-xxl-none"><img src={Logo} alt="Logo" 
                     style={{maxWidth:'220px'}} /></span>
                     <button className="navbar-toggler" type="button" onClick={handleShow}>
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <Offcanvas style={{position:"fixed"}} placement='end' show={show} onHide={handleClose}
-                    className="w-75 d-lg-none d-xl-none d-xxl-none pr-0">
+                    className="w-50 d-md-none d-lg-none d-xl-none d-xxl-none pr-0">
                         <Offcanvas.Header closeButton>
                         <Offcanvas.Title>Navbar</Offcanvas.Title>
                         </Offcanvas.Header>

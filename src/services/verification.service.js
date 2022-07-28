@@ -7,7 +7,7 @@ import { useAuth } from "../context/AuthContext";
 import Alert from "../utilities/alert.utilities";
 
 function Verification() {
-    const location = sessionStorage.getItem("location");
+    const location = localStorage.getItem("location");
     const [error, setError] = useState("");
     const { emailVerification, user} = useAuth();
     const navigate = useNavigate();
@@ -21,7 +21,7 @@ function Verification() {
     });
     const handleModal = (e) => {
         e.preventDefault();
-        sessionStorage.removeItem("location");
+        localStorage.removeItem("location");
         if (location) {
             navigate(location, { replace: true });
         } else {
