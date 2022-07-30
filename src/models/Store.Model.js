@@ -1,0 +1,15 @@
+export const emprendimientoModel = {
+    Nombre: "",
+    Email: "",
+    Celular: 0,
+    Telefono: 0,
+    Ciudad: "",
+    Direccion: "",
+    Categoria: "",
+    Imagen: "",
+    Facebook: "",
+    Instagram: "",
+    Web: "",
+    Descripcion: "",
+    Calificacion: [],
+};

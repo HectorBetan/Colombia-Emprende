@@ -1,4 +1,5 @@
-export const categorias = [ "Moda", 
+export const categorys = [ 
+    "Moda", 
     "Artesanias", 
     "Turismo", 
     "Tecnología", 

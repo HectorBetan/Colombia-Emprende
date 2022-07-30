@@ -6,6 +6,7 @@ import PolicyModal from '../utilities/policyModal.utilities';
 import {PhotoView, UserLogo} from '../utilities/photoView.utilities';
 import { useAuth } from "../context/AuthContext";
 import {cityList} from '../utilities/citys.utilities';
+
 import Compressor from "compressorjs";
 import { useNavigate, useLocation } from "react-router-dom";
 function Register () {
@@ -74,6 +75,7 @@ function Register () {
                 Celular: user.phoneNumber,
                 Ciudad: user.city,
                 Emprendimiento_id: "",
+                Direccion: "",
             }
             await createUser(newUser);       
         } catch (error) {
@@ -120,7 +122,7 @@ function Register () {
         if (img) {
             const imgUrl = URL.createObjectURL(img);
             return (
-                <PhotoView img={imgUrl} />
+                <PhotoView img={imgUrl} s='60px' />
             );
         }
         else {
@@ -172,7 +174,7 @@ function Register () {
                     <div className="d-flex flex-column  me-lg-2 me-xl-2 me-xxl-2">
                         <label className="m-1 text-center text-lg-start text-xl-start text-xxl-start">Celular(opcional)</label>
                         <input name="phoneNumber" className="form-control" 
-                        type="tel" id="celular" 
+                        type="tel" 
                         onChange={handleChange} pattern="[3]{1}[0-9]{9}"
                         title="Ingrese un Celular valido para Colombia. Ej: 3185733093"/>
                     </div>

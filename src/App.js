@@ -9,17 +9,19 @@ import Verification from "./services/verification.service";
 import ReVerification from "./services/reverification.service";
 import { ProtectedUser } from "./protectedRoutes/protectedUser";
 import { AuthProvider } from "./context/AuthContext";
-
+import { StoreProvider } from "./context/StoreContext";
 
 function App() {
   return (
     <div className="App">
       <AuthProvider>
-        <Routes>
-          <Route path="/*" element={<Home />} />
-          <Route path="/verificacion/*" element={<ProtectedUser><Verification /></ProtectedUser>} />
-          <Route path="/reverificacion/*" element={<ProtectedUser><ReVerification  /></ProtectedUser>} />
-        </Routes>
+        <StoreProvider>
+          <Routes>
+            <Route path="/*" element={<Home />} />
+            <Route path="/verificacion/*" element={<ProtectedUser><Verification /></ProtectedUser>} />
+            <Route path="/reverificacion/*" element={<ProtectedUser><ReVerification  /></ProtectedUser>} />
+          </Routes>
+        </StoreProvider>
       </AuthProvider>
     </div>
   );}

@@ -1,4 +1,3 @@
-import React from "react";
 import '../styles/Carousel.style.css';
 import Carousel from 'react-bootstrap/Carousel';
 import Banner1 from "../assets/bannerHome/banner1.jpg";

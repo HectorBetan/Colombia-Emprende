@@ -1,4 +1,3 @@
-import React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import { storage, auth } from "../firebase";
 import axios from "axios";
@@ -32,7 +31,9 @@ export function AuthProvider({ children }) {
     const dbUrl= 'https://colombia-emprende.herokuapp.com/';
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
+    const [token, setToken] = useState(null);
     const [userData, setUserData] = useState(null);
+    const [userEmprendimiento, setUserEmprendimiento] = useState(null);
     const signup = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password);
     };
@@ -75,10 +76,7 @@ export function AuthProvider({ children }) {
     const loginWithGoogleRedirect = async () => {
         const googleProvider = new GoogleAuthProvider();
         await signInWithRedirect(auth, googleProvider);
-        await getRedirectResult(auth).then((result) => {
-            console.log(result.credential);
-            console.log(result.user);
-        });
+        await getRedirectResult(auth);
     };
     const reAuthenticateGoogle = () => {
         const googleProvider = new GoogleAuthProvider();
@@ -93,24 +91,68 @@ export function AuthProvider({ children }) {
         return reauthenticateWithCredential(auth.currentUser, credential)
     };
     const createUser = async (user) => {
-        await axios.post(`${dbUrl}users/create-user`, user);
+        await axios.post(`${dbUrl}users/create-user`, user)
+        .catch(error => {})
     }
-    
+
+    const updateUser = async (data) => {
+        if (!token){
+            let config = localStorage.getItem('token')
+            setToken(config) 
+        }
+        await axios.put(`${dbUrl}users/update-user`, data, token)
+        .then(res => {
+            if (res)
+            setUserData(data);
+        })
+        .catch(error => {})
+        return;
+    };
+    const deleteUserDoc = async (id) => {
+        if (!token){
+            let config = localStorage.getItem('token')
+            setToken(config) 
+        }
+        await axios.delete(`${dbUrl}users/delete-user`, id, token);
+        return;
+    }
+    const createStore = async (emprendimiento) => {
+        let id = {};
+        if (!token){
+            let config = localStorage.getItem('token')
+            setToken(config) 
+        }
+        await axios.post(`${dbUrl}create-store`, emprendimiento, token)
+        .then(res => {id={Emprendimiento_id:res.data._id}; setUserEmprendimiento(res.data)})
+        updateUser(id);
+        return;
+    }
     useEffect(() => {
         const getUserData = async (user) => {
             await axios.get(`${dbUrl}users/get-user/${user.uid}`)
             .then((response) => {
                 if (response.data.data.length > 0) {
                     setUserData(response.data.data[0]);
-                    localStorage.setItem("token", response.data.token);
+                    let config = {
+                        headers: {
+                            token: `Bearer ${response.data.token}`,
+                            'Content-Type': 'application/json'
+                        },
+                    }
+                    localStorage.setItem("token", config);
+                    setToken(config);
                 } else {
                     const userData = {
                         Uid: user.uid,
                         Email: user.email,
                         Nombre: user.displayName,
                         Emprendimiento_id: "",
+                        Celular: "",
+                        Ciudad: "",
+                        Direccion: "",
                     }
                     createUser(userData);
+                    getUserData(user);
                 }
                 return
             })
@@ -118,13 +160,15 @@ export function AuthProvider({ children }) {
                 console.log(error);
                 return
             });
+            setLoading(false);
         }
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
+            console.log(currentUser);
             if (currentUser) {
                 getUserData(currentUser);
             }
-            setLoading(false);
+            
         });
         return () => unsubscribe();
     }, [user]);
@@ -153,6 +197,9 @@ export function AuthProvider({ children }) {
                 reAuthenticateGoogle,
                 emailReVerification,
                 createUser,
+                updateUser,
+                deleteUserDoc,
+                createStore,
             }}
         >
             {children}

@@ -1,16 +1,23 @@
-import React from "react";
 import Navigation from "../components/Navigation";
 import HomeView from "../components/HomeView";
 import Stores from "../components/Stores";
 import Footer from "../components/Footer";
 import Navbar from "react-bootstrap/Navbar";
 import Logo from "../assets/logos/logo-colombia.png";
+import Admin from "./Admin";
 import { Routes, Route } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { LoginButton, UserButton } from "../utilities/headerButton.utilities";
+import { LoginButton, UserButton } from "../utilities/loginButton.utilities";
 function Home() {
-    const { user } = useAuth();
+    const { user, loading } = useAuth();
     const SetButton = () => {
+        if (loading) return (
+            <div style={{width:"239.61px", minHeight:"80px"}} className="text-end me-5">
+                <div className="spinner-border text-primary" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+            </div> 
+        );
         if (user) {
             return (
                 <div className="d-none d-lg-block d-xl-block d-xxl-block">
@@ -35,7 +42,8 @@ function Home() {
             <Navigation />    
             <Routes>
                 <Route path="/"  element={<HomeView />}/>
-                <Route path="/emprendimientos"  element={<Stores />}/>
+                <Route path="/emprendimientos"  element={<Stores />}/>^
+                <Route path="/admin/*" element={<Admin />} />
             </Routes>
             <Footer />
         </div>

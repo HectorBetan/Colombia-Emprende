@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {Link} from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
 import Nav from "react-bootstrap/Nav";
 import Tabs from "react-bootstrap/Tabs";
@@ -8,9 +9,7 @@ import Register from "../components/Register";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useAuth } from "../context/AuthContext";
 import { handleLogout, handleGoogleSignin } from "../services/user.service";
-import { UserLogo } from '../utilities/photoView.utilities'
-
-
+import { UserLogo, PhotoView } from './photoView.utilities'
 export const LoginButton = () => {
     const [show, setShow] = useState(false);
     const [key, setKey] = useState('login');
@@ -123,20 +122,6 @@ export const LoginButtonNav = () => {
         </div>
     );
 }
-const ResolvePhoto = (user) => {
-    if (user.user.photoURL){
-    return (
-        <div>
-            <img style={{maxWidth:'48px', maxHeight: '48px', minWidth:'48px', 
-            minHeight: '48px', borderRadius:"25px", objectFit: 'cover'}} 
-            className="me-1" src={user.user.photoURL} alt=""/>
-        </div>
-    );}
-    else{
-    return (
-        <UserLogo w="48" h="48" />
-    );}
-};
 export const UserButton = () => {
     const { user, loading, logout } = useAuth();
     if (loading) return (
@@ -152,10 +137,14 @@ export const UserButton = () => {
                 <Dropdown.Toggle variant="success" id="dropdown-basic" 
                 className="text-end d-flex flex-row align-middle align-items-center">
                 <h4 className="align-items-center m-2 me-2">{user.displayName}</h4>
-                <ResolvePhoto user={user}/>
+                <PhotoView img={user.photoURL} s='48px' />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                <Dropdown.Item as="button">Mi Perfil</Dropdown.Item>
+                <Dropdown.Item as="button">
+                    <Link to="/admin">
+                    Mi Perfil
+                    </Link>    
+                </Dropdown.Item>
                 <Dropdown.Item as="button">Mi Carrito</Dropdown.Item>
                 <Dropdown.Divider />
                 <Dropdown.Item as="button" onClick={(e) => {e.preventDefault(); handleLogout(logout)}}>Cerrar Sesión</Dropdown.Item>
@@ -164,20 +153,6 @@ export const UserButton = () => {
         </div>
     );
 }
-const ResolvePhotoNav = (user) => {
-    if (user.user.photoURL){
-    return (
-        <div>
-            <img style={{maxWidth:'40px', maxHeight: '40px', minWidth:'48px', 
-            minHeight: '40px', borderRadius:"20px", objectFit: 'cover'}} 
-            className="me-1" src={user.user.photoURL} alt=""/>
-        </div>
-    );}
-    else{
-    return (
-        <UserLogo w="48" h="48" />
-    );}
-};
 export const UserButtonNav = () => {
     const { user, loading, logout } = useAuth();
     if (loading) return (
@@ -196,13 +171,17 @@ export const UserButtonNav = () => {
                             data-bs-toggle="collapse" data-bs-target="#flush-collapse1" 
                             aria-expanded="false" aria-controls="flush-collapse1">
                                 <h6 className="align-items-center m-2 me-2">{user.displayName}</h6>
-                                <ResolvePhotoNav user={user}/>
+                                <PhotoView img={user.photoURL} s='40px' />
                             </button>
                         </h2>
                         <div id="flush-collapse1" className="accordion-collapse collapse" 
                         aria-labelledby="politicas-titulo-1" data-bs-parent="#acordionPoliticas">
                             <div className="accordion-body">
-                                <h6>Mi Perfil</h6>
+                                <h6>
+                                    <Link to="/admin">
+                                        Mi Perfil
+                                    </Link> 
+                                </h6>
                                 <h6>Mi Carrito</h6>
                                 <hr />
                                 <h6 type="button" onClick={(e) => {e.preventDefault(); handleLogout(logout)}}>Cerrar Sesión</h6>
