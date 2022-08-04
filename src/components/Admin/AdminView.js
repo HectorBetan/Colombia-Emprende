@@ -5,7 +5,18 @@ import UserDelete from "./UserDelete";
 import { useNavigate  } from "react-router-dom";
 function AdminView() {
     const navigate = useNavigate();
-    const { user, loading } = useAuth();
+    const { user, loading, userData } = useAuth();
+    const RegisterStore = () => {
+        if (userData){
+            if(!userData.Emprendimiento_id)
+                return (
+                <div className="">
+                    Aqui podras registrar tu emprendimiento.<br />
+                    <button className="btn btn-primary" onClick={(e) => {e.preventDefault(); navigate("/admin/registrar-emprendimiento");}} >Registrar Emprendimiento</button>
+                </div>
+            )
+        }
+    }
     if (loading) return (
         <div style={{width:"239.61px"}} className="text-end me-5">
         <div className="spinner-border text-primary text-start" role="status">
@@ -15,18 +26,26 @@ function AdminView() {
     );
     return (
         <div className="d-block">
-            <div className="d-flex flex-row w-100">
-                <div className="flex-column text-center w-100">
-                    <div>Hola {user.displayName}</div>
-                    <div>Bienvenido a Colombia Emprende</div>
-                    Desde aquí podrás actualizar tus datos, fotografía y contraseña.
-                    <div className="">
-                        Y podras registrar tu emprendimiento haciendo click en el botón de abajo.<br />
-                        <button className="btn btn-primary" onClick={(e) => {e.preventDefault(); navigate("/admin/registrar-emprendimiento");}} >Registrar Emprendimiento</button>
+            <div className="accordion accordion-flush" id="#acordionProfile">
+                <div className="accordion-item">
+                    <h2 className="accordion-header" id="myProfile">
+                        <button className="accordion-button" type="button" 
+                        data-bs-toggle="collapse" data-bs-target="#flush-collapse0" 
+                        aria-expanded="false" aria-controls="flush-collapse0">
+                            <h6 className="align-items-center m-2 me-2">Mi Perfil</h6>
+                        </button>
+                    </h2>
+                    <div id="flush-collapse0" className="accordion-collapse collapse show" 
+                    aria-labelledby="myProfile" data-bs-parent="#acordionProfile">
+                        <div className="accordion-body">
+                            <div className="flex-column text-center w-100">
+                                <div>Hola {user.displayName}</div>
+                                <div>Bienvenido a Colombia Emprende</div>
+                                <RegisterStore />
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className="accordion accordion-flush" id="#acordionProfile">
                 <div className="accordion-item">
                     <h2 className="accordion-header" id="updateProfile">
                         <button className="accordion-button collapsed" type="button" 

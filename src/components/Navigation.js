@@ -90,8 +90,6 @@ function NavigationBar() {
                         </ul>
                         </Offcanvas.Body>
                     </Offcanvas>
-                    
-                    
                 </div>
             </nav>
         </div>   

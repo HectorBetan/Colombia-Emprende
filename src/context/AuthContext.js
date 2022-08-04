@@ -33,7 +33,6 @@ export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(null);
     const [userData, setUserData] = useState(null);
-    const [userEmprendimiento, setUserEmprendimiento] = useState(null);
     const signup = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password);
     };
@@ -47,7 +46,7 @@ export function AuthProvider({ children }) {
     };
     const updatePhotoURL = (photoURL) => {
         updateProfile(auth.currentUser, {photoURL}).then(() => {
-            setUser(auth.currentUser);
+            setUser({...user, photoURL: photoURL});
             return;
         });
     };
@@ -94,17 +93,25 @@ export function AuthProvider({ children }) {
         await axios.post(`${dbUrl}users/create-user`, user)
         .catch(error => {})
     }
-
     const updateUser = async (data) => {
+        setLoading(true);
         if (!token){
             let config = localStorage.getItem('token')
             setToken(config) 
         }
         await axios.put(`${dbUrl}users/update-user`, data, token)
-        .then(res => {
-            if (res)
-            setUserData(data);
-        })
+        .then(setUserData({...userData, Nombre: data.Nombre, Celefono: data.Telefono, Direccion: data.Direccion, Ciudad: data.Ciudad}))
+        .catch(error => {})
+        setLoading(false);
+        return;
+    };
+    const updateUserStore = async (data) => {
+        if (!token){
+            let config = localStorage.getItem('token')
+            setToken(config) 
+        }
+        await axios.put(`${dbUrl}users/update-user`, data, token)
+        .then(setUserData({...userData, Emprendimiento_id: data.Emprendimiento_id}))
         .catch(error => {})
         return;
     };
@@ -116,16 +123,40 @@ export function AuthProvider({ children }) {
         await axios.delete(`${dbUrl}users/delete-user`, id, token);
         return;
     }
-    const createStore = async (emprendimiento) => {
+    const createStore = async (emprendimiento, storeName, photos, path) => {
+        setLoading(true);
         let id = {};
+        let data ={
+            Nombre: storeName,
+            Email: emprendimiento.Email,
+            Celular: emprendimiento.Celular,
+            Telefono: emprendimiento.Telefono,
+            Ciudad: emprendimiento.Ciudad,
+            Direccion: emprendimiento.Direccion,
+            Categoria: emprendimiento.Categoria,    
+            Imagen: photos,
+            Facebook: emprendimiento.Facebook,
+            Instagram: emprendimiento.Instagram,
+            Web: emprendimiento.Web,
+            Descripcion: emprendimiento.Descripcion,
+            Calificacion: emprendimiento.Calificacion,
+            Path: path,
+        }
         if (!token){
             let config = localStorage.getItem('token')
             setToken(config) 
         }
-        await axios.post(`${dbUrl}create-store`, emprendimiento, token)
-        .then(res => {id={Emprendimiento_id:res.data._id}; setUserEmprendimiento(res.data)})
-        updateUser(id);
-        return;
+        await axios.post(`${dbUrl}stores/create-store`, data, token)
+        .then(res => {
+            id={Emprendimiento_id:res.data._id};
+            setUserData({...userData, Emprendimiento_id:res.data._id});
+            updateUserStore(id);
+            setLoading(false);
+            return;
+        })
+    }
+    const findPath = async (path) => {
+        return await axios.get(`${dbUrl}stores/find-store-path/${path}`);
     }
     useEffect(() => {
         const getUserData = async (user) => {
@@ -157,14 +188,12 @@ export function AuthProvider({ children }) {
                 return
             })
             .catch((error) => {
-                console.log(error);
                 return
             });
             setLoading(false);
         }
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
-            console.log(currentUser);
             if (currentUser) {
                 getUserData(currentUser);
             }
@@ -178,6 +207,7 @@ export function AuthProvider({ children }) {
                 signup,
                 login,
                 user,
+                token,
                 userData,
                 logout,
                 loading,
@@ -200,6 +230,8 @@ export function AuthProvider({ children }) {
                 updateUser,
                 deleteUserDoc,
                 createStore,
+                findPath,
+                updateUserStore,
             }}
         >
             {children}

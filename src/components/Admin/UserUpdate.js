@@ -14,7 +14,11 @@ function UserUpdate() {
     function camelize(str) {
         const palabras = str.split(" ");
         for (let i = 0; i < palabras.length; i++) {
-            if (palabras[i].length > 0) palabras[i] = palabras[i][0].toUpperCase() + palabras[i].substr(1).toLowerCase();
+            if (palabras[i].length > 0) {
+                palabras[i] = palabras[i][0].toUpperCase() + palabras[i].substr(1).toLowerCase();
+            } else {
+                palabras.splice(i, 1);
+            }
         }
         return palabras.join(" ");
     };
@@ -55,13 +59,12 @@ function UserUpdate() {
         e.preventDefault();
         if (usuario.Nombre.length < 4) {return setError("Ingresa un nombre valido");};
         if (window.confirm("¿Realmente desea actualizar sus datos?")) {
-            setCargando(true);
+            //setCargando(true);
             const dName = camelize(usuario.Nombre);
             setUser({ ...usuario, Nombre: dName });
             try {
                 await updateName(dName)
             } catch (error) {
-                console.log(error);
                 setError(error.message);
                 setCargando(false);
                 return
@@ -71,7 +74,6 @@ function UserUpdate() {
             }catch (error) {
                 setError(error.message);
                 setCargando(false);
-                console.log(error);
                 return
             }
             if (imgResult !== null) {
@@ -116,7 +118,7 @@ function UserUpdate() {
                         <label className="m-1">Nombre Completo</label>
                         <input name="Nombre" 
                         className="form-control" type="name" 
-                        onChange={handleChange} pattern="[A-Za-z. ]{1,}[ ]{1}[A-Za-z. ]{1,}" 
+                        onChange={handleChange} pattern="[A-Za-zñáéíóú. ]{1,}[ ]{1,}[A-Za-zñáéíóú. ]{1,}"
                         title="Ingrese un Nombre valido" value={usuario.Nombre} required/>
                     </div>
                     <div className="form-group">

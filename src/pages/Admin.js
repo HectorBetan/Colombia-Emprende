@@ -3,6 +3,8 @@ import { Routes, Route } from "react-router-dom";
 import AdminNav from "../components/Admin/AdminNav";
 import AdminView from "../components/Admin/AdminView";
 import StoreRegister from "../components/Admin/StoreRegister";
+import MyStore from "../components/MyStore/MyStore";
+import { ProtectedRegisterStore, ProtectedStore } from "../protectedRoutes/protectedStore";
 function Admin() {
     const { loading } = useAuth();
     if (loading) return (
@@ -19,7 +21,8 @@ function Admin() {
                 <div className="w-100">
                     <Routes>
                         <Route path="/" element={<AdminView />} />
-                        <Route path="/registrar-emprendimiento/*" element={<StoreRegister />} />
+                        <Route path="/registrar-emprendimiento/*" element={<ProtectedRegisterStore><StoreRegister /></ProtectedRegisterStore>} />
+                        <Route path="/mi-emprendimiento/*" element={<ProtectedStore><MyStore /></ProtectedStore>} />
                     </Routes>
                 </div>
             </div>

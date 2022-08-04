@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import axios from "axios";
 import { useAuth } from "./AuthContext";
 const storeContext = createContext();
@@ -12,9 +12,7 @@ export function StoreProvider({ children }) {
     const dbUrl= 'https://colombia-emprende.herokuapp.com/';
     const { updateUser } = useAuth();
     const token = localStorage.getItem("token");
-    const [emprendimientos, setEmprendimientos] = useState(null);
     const [userEmprendimiento, setUserEmprendimiento] = useState(null);
-    const [loadingStore, setLoadingStore] = useState(true);
     const createStore = async (emprendimiento) => {
         let id = {};
         let config = {
@@ -27,7 +25,7 @@ export function StoreProvider({ children }) {
         .then(res => {id={Emprendimiento_id:res.data._id}; setUserEmprendimiento(res.data)})
         updateUser(id);
         return;
-      }
+    }
     return (
         <storeContext.Provider
             value={{

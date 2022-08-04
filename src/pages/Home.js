@@ -8,6 +8,8 @@ import Admin from "./Admin";
 import { Routes, Route } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { LoginButton, UserButton } from "../utilities/loginButton.utilities";
+import { ProtectedUser } from "../protectedRoutes/protectedUser";
+import { MyStoreProvider } from "../context/MyStoreContext";
 function Home() {
     const { user, loading } = useAuth();
     const SetButton = () => {
@@ -34,19 +36,21 @@ function Home() {
         }
     } 
     return (
-        <div>
-            <Navbar className="d-none d-md-flex d-lg-flex d-xl-flex d-xxl-flex flex-md-row flex-lg-row flex-xl-row flex-xxl-row justify-content-between mt-2 me-2 ms-2 p-2">
-                <Navbar.Brand href="/" className="ms-3"><img style={{ maxHeight: '75px' }} src={Logo} alt="Logo Colombia Emprende" /></Navbar.Brand>
-                <SetButton />   
-            </Navbar>
-            <Navigation />    
-            <Routes>
-                <Route path="/"  element={<HomeView />}/>
-                <Route path="/emprendimientos"  element={<Stores />}/>^
-                <Route path="/admin/*" element={<Admin />} />
-            </Routes>
-            <Footer />
-        </div>
+        <MyStoreProvider>
+            <div>
+                <Navbar className="d-none d-md-flex d-lg-flex d-xl-flex d-xxl-flex flex-md-row flex-lg-row flex-xl-row flex-xxl-row justify-content-between mt-2 me-2 ms-2 p-2">
+                    <Navbar.Brand href="/" className="ms-3"><img style={{ maxHeight: '75px' }} src={Logo} alt="Logo Colombia Emprende" /></Navbar.Brand>
+                    <SetButton />   
+                </Navbar>
+                <Navigation />    
+                <Routes>
+                    <Route path="/"  element={<HomeView />}/>
+                    <Route path="/emprendimientos"  element={<Stores />}/>^
+                    <Route path="/admin/*" element={<ProtectedUser><Admin /></ProtectedUser>}/>
+                </Routes>
+                <Footer />
+            </div>
+        </MyStoreProvider> 
     );
 }
 export default Home;

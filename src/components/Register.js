@@ -46,7 +46,11 @@ function Register () {
     function camelize(str) {
         const palabras = str.split(" ");
         for (let i = 0; i < palabras.length; i++) {
-            palabras[i] = palabras[i][0].toUpperCase() + palabras[i].substr(1).toLowerCase();
+            if (palabras[i].length > 0) {
+                palabras[i] = palabras[i][0].toUpperCase() + palabras[i].substr(1).toLowerCase();
+            } else {
+                palabras.splice(i, 1);
+            }
         }
         return palabras.join(" ");
     };
@@ -64,9 +68,7 @@ function Register () {
             return ({msg: {type: "error", message: error.message}});
         }
         try {
-            
             dName = camelize(dName);
-            console.log(dName);
             await updateName(dName);
             const newUser = {
                 Uid: uid,
@@ -85,18 +87,15 @@ function Register () {
             try {
                 await uploadPhoto(user.email, imgResult, "/perfil/profilePhoto"); 
             } catch (error) {
-                console.log(error);
                 return ({msg: {type: "error", message: error.message}});
             }
             try {
-                console.log("va a tomar la foto");
                 const url = "/perfil/profilePhoto"
                 await getPhotoURL(user.email, url)
                 .then((url) => { 
                 updatePhotoURL(url)
                 })
             } catch (error) {
-                console.log(error);
                 return ({msg: {type: "error", message: error.message}});
             }
             try {

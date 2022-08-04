@@ -9,13 +9,18 @@ import Register from "../components/Register";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useAuth } from "../context/AuthContext";
 import { handleLogout, handleGoogleSignin } from "../services/user.service";
-import { UserLogo, PhotoView } from './photoView.utilities'
+import { UserLogo, PhotoView } from './photoView.utilities';
+import { useMyStore } from "../context/MyStoreContext";
+
 export const LoginButton = () => {
+    
     const [show, setShow] = useState(false);
     const [key, setKey] = useState('login');
+    
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const {loginWithGoogle} = useAuth();
+    
     const ModalLogin = () => {
         return(
             <Modal show={show} onHide={handleClose} backdrop="static">
@@ -122,21 +127,34 @@ export const LoginButtonNav = () => {
         </div>
     );
 }
+
+
 export const UserButton = () => {
+    const {userStore, loadingStore, } = useMyStore();
     const { user, loading, logout } = useAuth();
-    if (loading) return (
+    if (loading || loadingStore) return (
         <div style={{width:"239.61px", minHeight:"80px"}} className="text-end me-5">
             <div className="spinner-border text-primary" role="status">
                 <span className="visually-hidden">Loading...</span>
             </div>
         </div> 
     );
+    let nombre = "";
+    if (user){
+        nombre = user.displayName.split(" ")
+        for (let i = 0; i < nombre.length; i++) {
+            if (nombre[i].length === 0) {
+                nombre.splice(i, 1)
+            }
+        }
+        nombre = nombre.slice(0,2).join(" ")
+    }
     return (
         <div>
             <Dropdown expand="lg">
                 <Dropdown.Toggle variant="success" id="dropdown-basic" 
                 className="text-end d-flex flex-row align-middle align-items-center">
-                <h4 className="align-items-center m-2 me-2">{user.displayName}</h4>
+                <h4 className="align-items-center m-2 me-2">{nombre}</h4>
                 <PhotoView img={user.photoURL} s='48px' />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
@@ -146,6 +164,12 @@ export const UserButton = () => {
                     </Link>    
                 </Dropdown.Item>
                 <Dropdown.Item as="button">Mi Carrito</Dropdown.Item>
+                {userStore && 
+                    <Dropdown.Item as="button">
+                        <Link to="/admin/mi-emprendimiento">
+                        Mi Emprendimiento
+                        </Link>
+                    </Dropdown.Item>}
                 <Dropdown.Divider />
                 <Dropdown.Item as="button" onClick={(e) => {e.preventDefault(); handleLogout(logout)}}>Cerrar Sesión</Dropdown.Item>
                 </Dropdown.Menu>
@@ -153,15 +177,27 @@ export const UserButton = () => {
         </div>
     );
 }
+
 export const UserButtonNav = () => {
+    const {userStore, loadingStore } = useMyStore();
     const { user, loading, logout } = useAuth();
-    if (loading) return (
+    if (loading || loadingStore) return (
         <div style={{width:"239.61px", minHeight:"80px"}} className="text-end me-5">
             <div className="spinner-border text-primary" role="status">
                 <span className="visually-hidden">Loading...</span>
             </div>
         </div> 
     );
+    let nombre = "";
+    if (user){
+        nombre = user.displayName.split(" ")
+        for (let i = 0; i < nombre.length; i++) {
+            if (nombre[i].length === 0) {
+                nombre.splice(i, 1)
+            }
+        }
+        nombre = nombre.slice(0,2).join(" ")
+    }
     return (
         <div>
             <div className="accordion accordion-flush" id="#acordionPoliticas">
@@ -170,7 +206,7 @@ export const UserButtonNav = () => {
                             <button className="accordion-button collapsed" type="button" 
                             data-bs-toggle="collapse" data-bs-target="#flush-collapse1" 
                             aria-expanded="false" aria-controls="flush-collapse1">
-                                <h6 className="align-items-center m-2 me-2">{user.displayName}</h6>
+                                <h6 className="align-items-center m-2 me-2">{nombre}</h6>
                                 <PhotoView img={user.photoURL} s='40px' />
                             </button>
                         </h2>
@@ -183,6 +219,12 @@ export const UserButtonNav = () => {
                                     </Link> 
                                 </h6>
                                 <h6>Mi Carrito</h6>
+                                {userStore &&
+                                    <h6>
+                                        <Link to="/admin/mi-emprendimiento">
+                                            Mi TEmprendimiento
+                                        </Link>
+                                    </h6>}
                                 <hr />
                                 <h6 type="button" onClick={(e) => {e.preventDefault(); handleLogout(logout)}}>Cerrar Sesión</h6>
                             </div>
