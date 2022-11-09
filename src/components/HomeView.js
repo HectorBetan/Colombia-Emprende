@@ -36,9 +36,9 @@ function HomeView() {
           <h1>Colombianos</h1>
         </div>
         <HomeAds />
-        <div class="row justify-content-center p-2 modulo-emprendedores-responsive">
-            <div class="col-7">
-                <div class="tarjeta-registro card col-12 ">
+        <div class="d-flex flex-row justify-content-center p-2 modulo-emprendedores-responsive">
+            <div class="me-xl-5 me-3 me-xxl-5">
+                <div class="tarjeta-registro card">
                     <img src={publicidad} class="tarjeta-emprendedor-imagen card-img" alt="..." />
                     <div class="tarjeta-emprendedor card-img-overlay">
                         ¿Eres un Emprendedor Colombiano?
@@ -47,11 +47,11 @@ function HomeView() {
                         Registrate en Colombia Emprende<br /><p>te ofrecemos un espacio gratuito para crear el perfil de tu Emprendimiento. </p>
                     </div>
                 </div>
-                <div class="tarjeta-registro-footer card col-12">
+                <div class="tarjeta-registro-footer card">
                     <a type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" href='*'>Registrate Aqui</a>
                 </div> 
             </div>    
-            <div class="seccion-noticias card col-3 p-3">
+            <div class="seccion-noticias card col-3 p-3 d-none d-lg-block d-xl-block d-xxl-block">
                 <img src={ley} class="imagen-seccion-noticias card-img-top" alt="..." />
                 <div class="card-body">
                     <h5 class="card-title">Noticias</h5>

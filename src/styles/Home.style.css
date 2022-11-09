@@ -12,7 +12,10 @@
     color: #08264d;
     margin: 40px 15px;
     }
-    
+    .tarjeta-registro{
+        width: 750px;
+
+        }
     .tarjeta-registro:hover .tarjeta-emprendedor{
     display: none;
     }
@@ -540,3 +543,246 @@
         vertical-align: middle;
     }
 }
+@media only screen and (max-width: 1137px){
+ .seccion-noticias p{
+    font-size: 14px;
+ }
+}
+@media only screen and (max-width: 1035px){
+    .seccion-noticias p{
+       font-size: 13px;
+    }
+    .tarjeta-registro{
+        width: 650px;
+
+        }
+        .tarjeta-emprendedor{
+            text-align: center;
+            font-size: 50px;
+            font-weight: 700;
+            color: #08264d;
+            margin: 60px 10px;
+            }
+   }
+   @media only screen and (max-width: 800px){
+    .tarjeta-emprendedor-imagen{
+        height: 300px;
+        border-radius: 25px 25px 0 0;
+        object-fit: cover;
+        opacity: 0.2;
+        }
+        .tarjeta-emprendedor{
+        text-align: center;
+        font-size: 50px;
+        font-weight: 700;
+        color: #08264d;
+        margin: 60px 15px;
+        }
+        .tarjeta-registro{
+            width: 600px;
+    
+            }
+        .tarjeta-emprendedor-oculta{
+        font-size: 45px;
+        font-weight: 750;
+        text-align: center;
+        display: none;
+        color: #0a5081;
+        margin-top: 10px;
+        transition: 1s ease;
+        }
+        .tarjeta-emprendedor-oculta p{
+        color: #0f2738;
+        font-size: 25px;
+        font-weight: 650;
+        }
+        .tarjeta-emprendedor-oculta h3{
+        color: #082536;
+        font-size: 30px;
+        }
+   }
+   @media only screen and (max-width: 740px){
+    .tarjeta-emprendedor-imagen{
+        height: 280px;
+        border-radius: 25px 25px 0 0;
+        object-fit: cover;
+        opacity: 0.2;
+        }
+        .tarjeta-emprendedor{
+        text-align: center;
+        font-size: 50px;
+        font-weight: 700;
+        color: #08264d;
+        margin: 50px 15px;
+        }
+        .tarjeta-registro{
+            width: 600px;
+    
+            }
+        .tarjeta-emprendedor-oculta{
+        font-size: 40px;
+        font-weight: 750;
+        text-align: center;
+        display: none;
+        color: #0a5081;
+        margin-top: 15px;
+        transition: 1s ease;
+        }
+        .tarjeta-emprendedor-oculta p{
+        color: #0f2738;
+        font-size: 25px;
+        font-weight: 650;
+        }
+        .tarjeta-emprendedor-oculta h3{
+        color: #082536;
+        font-size: 25px;
+        }
+   }
+   @media only screen and (max-width: 650px){
+    .tarjeta-emprendedor-imagen{
+        height: 250px;
+        border-radius: 25px 25px 0 0;
+        object-fit: cover;
+        opacity: 0.2;
+        }
+        .tarjeta-emprendedor{
+        text-align: center;
+        font-size: 40px;
+        font-weight: 700;
+        color: #08264d;
+        margin: 50px 15px;
+        }
+        .tarjeta-registro{
+            width: 520px;
+    
+            }
+        .tarjeta-emprendedor-oculta{
+        font-size: 33px;
+        font-weight: 750;
+        text-align: center;
+        display: none;
+        color: #0a5081;
+        margin-top: 10px;
+        transition: 1s ease;
+        }
+        .tarjeta-emprendedor-oculta p{
+        color: #0f2738;
+        font-size: 23px;
+        font-weight: 650;
+        }
+        .tarjeta-emprendedor-oculta h3{
+        color: #082536;
+        font-size: 23px;
+        }
+   }
+   @media only screen and (max-width: 550px){
+    .tarjeta-emprendedor-imagen{
+        height: 250px;
+        border-radius: 25px 25px 0 0;
+        object-fit: cover;
+        opacity: 0.2;
+        }
+        .tarjeta-emprendedor{
+        text-align: center;
+        font-size: 36px;
+        font-weight: 700;
+        color: #08264d;
+        margin: 55px 15px;
+        }
+        .tarjeta-registro{
+            width: 450px;
+    
+            }
+        .tarjeta-emprendedor-oculta{
+        font-size: 30px;
+        font-weight: 750;
+        text-align: center;
+        display: none;
+        color: #0a5081;
+        margin-top: 10px;
+        transition: 1s ease;
+        }
+        .tarjeta-emprendedor-oculta p{
+        color: #0f2738;
+        font-size: 25px;
+        font-weight: 650;
+        }
+        .tarjeta-emprendedor-oculta h3{
+        color: #082536;
+        font-size: 20px;
+        }
+   }
+   @media only screen and (max-width: 500px){
+    .tarjeta-emprendedor-imagen{
+        height: 250px;
+        border-radius: 25px 25px 0 0;
+        object-fit: cover;
+        opacity: 0.2;
+        }
+        .tarjeta-emprendedor{
+        text-align: center;
+        font-size: 35px;
+        font-weight: 700;
+        color: #08264d;
+        margin: 40px 15px;
+        }
+        .tarjeta-registro{
+            width: 400px;
+    
+            }
+        .tarjeta-emprendedor-oculta{
+        font-size: 30px;
+        font-weight: 750;
+        text-align: center;
+        display: none;
+        color: #0a5081;
+        margin-top: 10px;
+        transition: 1s ease;
+        }
+        .tarjeta-emprendedor-oculta p{
+        color: #0f2738;
+        font-size: 20px;
+        font-weight: 650;
+        }
+        .tarjeta-emprendedor-oculta h3{
+        color: #082536;
+        font-size: 20px;
+        }
+   }
+   @media only screen and (max-width: 420px){
+    .tarjeta-emprendedor-imagen{
+        height: 250px;
+        border-radius: 25px 25px 0 0;
+        object-fit: cover;
+        opacity: 0.2;
+        }
+        .tarjeta-emprendedor{
+        text-align: center;
+        font-size: 35px;
+        font-weight: 700;
+        color: #08264d;
+        margin: 40px 15px;
+        }
+        .tarjeta-registro{
+            width: 350px;
+    
+            }
+        .tarjeta-emprendedor-oculta{
+        font-size: 30px;
+        font-weight: 750;
+        text-align: center;
+        display: none;
+        color: #0a5081;
+        margin-top: 10px;
+        transition: 1s ease;
+        }
+        .tarjeta-emprendedor-oculta p{
+        color: #0f2738;
+        font-size: 20px;
+        font-weight: 650;
+        }
+        .tarjeta-emprendedor-oculta h3{
+        color: #082536;
+        font-size: 20px;
+        }
+   }
