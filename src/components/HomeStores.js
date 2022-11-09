@@ -83,8 +83,14 @@ function HomeStores() {
                             console.log(store.Nombre.length)
                             let p = "...";
                             let nombre = "";
+                            let fin;
                             if (store.Nombre.length > 21){
-                                let y = store.Nombre.length - 20;
+                                if (w < 400){
+                                    fin = 16
+                                } else{
+                                    fin = 20
+                                }
+                                let y = store.Nombre.length - fin;
                                 let newNom = store.Nombre.slice(0,-y);
                                 nombre = newNom.concat(p)
                             }
