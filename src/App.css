@@ -19,10 +19,10 @@ html, body {
     }
 }
 .navegacion{
-    width: 50%;
+    width: 50%!important;
 }
 @media (max-width: 450px) {
     .navegacion{
-        width: 75%;
+        width: 75%!important;
     }
 }
