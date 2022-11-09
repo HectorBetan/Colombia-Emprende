@@ -74,7 +74,7 @@ function NavigationBar() {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <Offcanvas style={{position:"fixed"}} placement='end' show={show} onHide={handleClose}
-                    className="w-75 d-md-none d-lg-none d-xl-none d-xxl-none pr-0">
+                    className="navegacion d-md-none d-lg-none d-xl-none d-xxl-none pr-0">
                         <Offcanvas.Header closeButton>
                         <Offcanvas.Title>Navbar</Offcanvas.Title>
                         </Offcanvas.Header>

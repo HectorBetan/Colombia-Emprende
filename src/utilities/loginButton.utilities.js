@@ -137,13 +137,13 @@ export const LoginButtonNav = () => {
             role="button"
             onClick={handleShow}>
             <h6 className="align-items-center m-2">Iniciar Sesión</h6>
-            <UserLogo w="40" h="40" />
+            <UserLogo w="35" h="35" />
             </Nav.Link>
             <Nav.Link className="m-lg-0 m-md-0 me-sm-5 me-5 text-end d-flex flex-row align-middle align-items-center" 
             role="button"
             onClick={(e)=>{e.preventDefault();setKey("singup");handleShow();}}>
             <h6 className="align-items-center m-2">Registrarse</h6>
-            <i className="fa fa-sign-in" aria-hidden="true" width="40" height="40" fill="currentColor" ></i>
+            <i className="fa fa-sign-in fa-2x" aria-hidden="true" fill="currentColor" ></i>
             </Nav.Link>
             <ModalLogin />
         </div>

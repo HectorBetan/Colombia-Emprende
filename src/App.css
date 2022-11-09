@@ -18,3 +18,11 @@ html, body {
         text-align: center;
     }
 }
+.navegacion{
+    width: 50%;
+}
+@media (max-width: 450px) {
+    .navegacion{
+        width: 75%;
+    }
+}
