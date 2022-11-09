@@ -37,7 +37,7 @@ function HomeView() {
         </div>
         <HomeAds />
         <div class="d-flex flex-row justify-content-center p-2 modulo-emprendedores-responsive">
-            <div class="me-xl-5 me-3 me-xxl-5">
+            <div class="me-xl-5 me-lg-3 me-md-3 me-0 me-xxl-5">
                 <div class="tarjeta-registro card">
                     <img src={publicidad} class="tarjeta-emprendedor-imagen card-img" alt="..." />
                     <div class="tarjeta-emprendedor card-img-overlay">

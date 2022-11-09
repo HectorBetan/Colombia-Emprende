@@ -761,10 +761,10 @@
         font-size: 35px;
         font-weight: 700;
         color: #08264d;
-        margin: 40px 12px;
+        margin: 50px 12px;
         }
         .tarjeta-registro{
-            width: 330px;
+            width: 320px;
 
             }
         .tarjeta-emprendedor-oculta{
@@ -773,7 +773,7 @@
         text-align: center;
         display: none;
         color: #0a5081;
-        margin-top: 10px;
+        margin-top: 15px;
         transition: 1s ease;
         }
         .tarjeta-emprendedor-oculta p{
