@@ -3,14 +3,16 @@ import { useMyStore } from '../../context/MyStoreContext';
 import { useAuth } from '../../context/AuthContext';
 import {cityList} from '../../utilities/citys.utilities';
 import {categoryList} from '../../utilities/categorys.utilities';
+import Alert from '../../utilities/alert.utilities';
 function StoreInfoUpdate() {
     const [cargando, setCargando] = useState(true);
     const [start, setStart] = useState(false);
     const [disable, setDisable] = useState(true);
     const { findPath } = useAuth();
-    const { userStore, updateStore, loadingStore } = useMyStore();
+    const { userStore, updateStore, loadingStore, getMyStore } = useMyStore();
     const [error, setError] = useState("");
     const [emprendimiento, setEmprendimiento] = useState({
+        _id: "",
         Nombre: "",
         Email: "",
         Celular: "",
@@ -63,7 +65,8 @@ function StoreInfoUpdate() {
     }, [userStore, start]);
     if (start) {
         if (userStore){
-            setEmprendimiento({...emprendimiento, 
+            setEmprendimiento({...emprendimiento,
+                _id: userStore._id,
                 Nombre: userStore.Nombre,
                 Email: userStore.Email,
                 Celular: userStore.Celular,
@@ -93,6 +96,7 @@ function StoreInfoUpdate() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
+        setCargando(true);
         let name = emprendimiento.Nombre;
         let pathName = name.toLowerCase().replace(/ /g, "-").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         let storeName = camelize(name);
@@ -148,11 +152,18 @@ function StoreInfoUpdate() {
     };
     const update = async (emprendimiento) => {
         try {
-            await updateStore(emprendimiento);
+            await updateStore(emprendimiento)
+            .then(
+                setError({success:true, msg:"Se actualizó correctamente tu emprendimiento"})
+                )
         } catch (error) {
             setError(error.message);
             setCargando(false);
         }
+        await getMyStore()
+        .then(() => {
+            setCargando(false);
+        })
     }
     const handleNewPhone = (e) => {
         e.preventDefault();
@@ -195,6 +206,7 @@ function StoreInfoUpdate() {
     );
     return (
         <div>
+            {error && <Alert message={error} />}
             <div className="col-12 pe-4 ps-4" style={{maxHeight:"320px", overflow:"auto"}}>
                 <form onSubmit={handleSubmit}>
                     <div className="">

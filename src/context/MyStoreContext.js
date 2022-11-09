@@ -9,21 +9,20 @@ export const useMyStore = () => {
     return context;
 };
 export function MyStoreProvider({ children }) {
-    const { token, updateUserStore, loading } = useAuth();
+    const { token, updateUserStore, userData } = useAuth();
     const dbUrl= 'https://colombia-emprende.herokuapp.com/';
     const [userStore, setUserStore] = useState(null);
     const [userProducts, setUserProducts] = useState(null);
+    const [showProducts, setShowProducts] = useState("");
     const [loadingStore, setLoadingStore] = useState(true);
     const getMyStore = async () => {
         const id = {id:"userStore"}
         await axios.post(`${dbUrl}stores/get-store`, id, token)
         .then(res => {setUserStore(res.data[0]); setLoadingStore(false)})
         .catch(err => {console.log(err)})
-        .finally(() => {setLoadingStore(false)});
         return;
     }
     const updateStore = async (emprendimiento) => {
-        setLoadingStore(true);
         await axios.put(`${dbUrl}stores/update-store`, emprendimiento, token)
         .then(getMyStore())
         .catch(err => {console.log(err)})
@@ -42,15 +41,22 @@ export function MyStoreProvider({ children }) {
     const createProduct = async (producto) => {
         setLoadingStore(true);
         await axios.post(`${dbUrl}products/create-product`, producto, token)
-        .then(getStoreProducts())
+        .then(() => {getStoreProducts(); setShowProducts("show")})
+        return;
+    };
+    const updateProduct = async (producto) => {
+        setLoadingStore(true);
+        await axios.post(`${dbUrl}products/update-product/${producto._id}`, producto, token)
+        .then(()=>{getStoreProducts(); setShowProducts("show")})
         return;
     };
     const getStoreProducts = async () => {
         setLoadingStore(true);
-        const id = {id:"userProducts"}
-        await axios.post(`${dbUrl}products/get-store-products`,id, token)
+        const id = {id:userData._id}
+        await axios.post(`${dbUrl}products/get-store-products`,id)
         .then(res => {
             setUserProducts(res.data);
+            console.log(res.data);
             setLoadingStore(false);
         })
         .catch(err => {
@@ -59,36 +65,19 @@ export function MyStoreProvider({ children }) {
         });
         return;
     };
-    useEffect(() => {
-        const getStore = async () => {
-            const id = {id:"userStore"}
-            await axios.post(`${dbUrl}stores/get-store`, id, token)
-            .then(res => {setUserStore(res.data[0]); setLoadingStore(false)})
-            .catch(err => {console.log(err)})
-            .finally(() => {getProducts()});
+    const deleteProduct = async (id) => {
+        const data = {
+            User_id:userData._id,
         }
-        const getProducts = async () => {
-            setLoadingStore(true);
-            const id = {id:"userProducts"}
-            await axios.post(`${dbUrl}products/get-store-products`,id, token)
-            .then(res => {
-                setUserProducts(res.data);
-            })
-            .catch(err => {
-                console.log(err); 
-            });
-        };
-        const setStore = async () => {
-            if (userStore === null && !loading){
-                await getStore();
-            }
-            if (userProducts !== null && userStore !== null){
-                setLoadingStore(false);
-            }
-        }
-        setStore();
-    }
-    , [ userStore, token, userProducts, loading ]);
+        await axios.post(`${dbUrl}products/delete-product/${id}`, data, token);
+        setShowProducts("show");
+        getStoreProducts();
+        return;
+    };
+    const readStorePricing = async (id) => {
+        const response = await axios.get(`${dbUrl}pricing/get-store-pricing/${id}`);
+        return response;
+      }
     return (
         <myStoreContext.Provider
             value={{
@@ -100,6 +89,10 @@ export function MyStoreProvider({ children }) {
                 createProduct,
                 getStoreProducts,
                 userProducts,
+                updateProduct,
+                deleteProduct,
+                showProducts,
+                readStorePricing,
             }} 
         >
             {children}

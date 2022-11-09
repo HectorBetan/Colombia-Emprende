@@ -5,11 +5,13 @@ import { useMyStore } from "../../../context/MyStoreContext";
 import {useAuth} from "../../../context/AuthContext";
 import {PhotoProductView, ProductLogo} from '../../../utilities/photoView.utilities';
 import {useState} from 'react';
+import Alert from '../../../utilities/alert.utilities';
 function CreateProduct() {
   const { userStore, createProduct, loadingStore  } = useMyStore();
-  const {user, uploadPhoto, getPhotoURL} = useAuth();
+  const { uploadPhoto, getPhotoURL, userData} = useAuth();
   const [cargando, setCargando] = useState(false);
   const [show, setShow] = useState(false);
+  const [error, setError] = useState("");
   const [img, setImg] = useState(null);
   const [imgs, setImgs] = useState(null);
   const handleClose = () => setShow(false);
@@ -19,7 +21,9 @@ function CreateProduct() {
     Descripcion: "",
     Precio: 0,
     Imagen: "",
+    ImgRoute: "",
     Emprendimiento_id: userStore._id,
+    User_id: userData.id,
   })
   const handleChange = ({ target: { value, name } }) => {setProduct({ ...product, [name]: value })}
   const changeImg = async (e) => {
@@ -61,12 +65,12 @@ function CreateProduct() {
             if (i < 5){
               imgURL = `emprendimiento/productos/${name}/${i}`;
               try {
-                  await uploadPhoto(user.email, imgs[i], imgURL);
+                  await uploadPhoto(imgs[i], imgURL);
               } catch (error) {
                   
               }
               try {
-                  await getPhotoURL(user.email, imgURL)
+                  await getPhotoURL(imgURL)
                       .then(url => {
                           photosURL.push(url);
                       }) 
@@ -83,6 +87,7 @@ function CreateProduct() {
         Descripcion: product.Descripcion,
         Precio: product.Precio,
         Imagen: photos,
+        ImgRoute: name,
       }
       try{
         await createProduct(newProduct);
@@ -101,11 +106,18 @@ function CreateProduct() {
       return;
       }
       catch(error){
-
+        setError(error.message);
       }
     } else {
       try{
-        await createProduct(product);
+        let newProduct = {
+          Nombre: product.Nombre,
+          Descripcion: product.Descripcion,
+          Precio: product.Precio,
+          Imagen: photos,
+          ImgRoute: name,
+        }
+        await createProduct(newProduct);
         setProduct({
           Nombre: "",
           Descripcion: "",
@@ -116,10 +128,12 @@ function CreateProduct() {
         setImg(null);
         setImgs(null);
         handleClose();
+        setError({success: true, msg: "Producto creado correctamente"});
         setCargando(false);
         return;
       }
       catch(error){
+        setError(error.message);
       }
     }
     
@@ -137,23 +151,29 @@ function CreateProduct() {
       );
     }
   };
-  if (cargando || loadingStore) return(
+  if (error){
+    setTimeout(() => {
+        setError("");
+    }, 5000);
+  }
+  if (cargando) return(
     <div className="spinner-border text-primary text-center align-middle" role="status">
         <span className="visually-hidden">Loading...</span>
     </div>
   );
   return (
     <div>
-      <Nav.Link className="btn btn-primary m-lg-0 m-md-0 me-sm-5 me-5 text-end d-flex flex-row align-middle align-items-center" 
-      role="button"
+      {error.success && <Alert message={error} />}
+      <button className="btn btn-primary" 
       onClick={handleShow}>
       <h4 className="align-items-center text-white m-2">Agregar Producto</h4>
-      </Nav.Link>
+      </button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton />
         <Modal.Body>
           <h4>Agregar Producto</h4>
           <div>
+            {error && <Alert message={error} />}
             <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <input type="text" onChange={handleChange} name="Nombre" value={product.Nombre}

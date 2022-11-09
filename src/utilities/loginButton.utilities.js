@@ -13,7 +13,6 @@ import { UserLogo, PhotoView } from './photoView.utilities';
 import { useMyStore } from "../context/MyStoreContext";
 
 export const LoginButton = () => {
-    
     const [show, setShow] = useState(false);
     const [key, setKey] = useState('login');
     
@@ -21,7 +20,7 @@ export const LoginButton = () => {
     const handleShow = () => setShow(true);
     const {loginWithGoogle} = useAuth();
     
-    const ModalLogin = () => {
+    const ModalLogin = (data) => {
         return(
             <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton />
@@ -34,6 +33,7 @@ export const LoginButton = () => {
                         <Tab eventKey="login" title="Iniciar Sesión" className="ms-4 me-4 mt-2 mb-2">
                             <Login />
                         </Tab>
+                        <UserLogo w="25" h="25" />
                         <Tab eventKey="singup" title="Registrarse" className="ms-4 me-4 mt-2 mb-2">
                             <Register />
                         </Tab>
@@ -60,14 +60,30 @@ export const LoginButton = () => {
         )
     }
     return (
-        <div>
-            <Nav.Link className="m-lg-0 m-md-0 me-sm-5 me-5 text-end d-flex flex-row align-middle align-items-center" 
+        <div className='me-3'>
+            <Nav.Link className="justify-content-end m-lg-0 m-md-0 me-sm-5 me-5 text-end d-flex flex-row align-middle align-items-center" 
             role="button"
             onClick={handleShow}>
-            <h4 className="align-items-center m-2">Iniciar Sesión</h4>
-            <UserLogo w="50" h="50" />
+                <div className='d-flex flex-column'>
+                    <h4 className="align-items-center m-2">Iniciar Sesión</h4>
+                </div>
+            
+            <UserLogo w="35" h="35" />
             </Nav.Link>
-            <ModalLogin />
+            <Nav.Link className="justify-content-end m-lg-0 m-md-0 me-sm-5 me-5 text-end d-flex flex-row align-middle align-items-center" 
+            role="button"
+            onClick={(e)=>{
+                e.preventDefault();
+                setKey("singup");
+                handleShow();
+            }}>
+                <div className='d-flex flex-column'>
+                    <h4 className="align-items-center m-2">Registrarse</h4>
+                </div>
+            
+                <i className="fa fa-address-card fa-2x" fill="currentColor" ></i>
+            </Nav.Link>
+            <ModalLogin data={{ventana:"login"}} />
         </div>
     );
 }
@@ -123,24 +139,21 @@ export const LoginButtonNav = () => {
             <h6 className="align-items-center m-2">Iniciar Sesión</h6>
             <UserLogo w="40" h="40" />
             </Nav.Link>
+            <Nav.Link className="m-lg-0 m-md-0 me-sm-5 me-5 text-end d-flex flex-row align-middle align-items-center" 
+            role="button"
+            onClick={(e)=>{e.preventDefault();setKey("singup");handleShow();}}>
+            <h6 className="align-items-center m-2">Registrarse</h6>
+            <i className="fa fa-sign-in" aria-hidden="true" width="40" height="40" fill="currentColor" ></i>
+            </Nav.Link>
             <ModalLogin />
         </div>
     );
 }
-
-
 export const UserButton = () => {
-    const {userStore, loadingStore, } = useMyStore();
-    const { user, loading, logout } = useAuth();
-    if (loading || loadingStore) return (
-        <div style={{width:"239.61px", minHeight:"80px"}} className="text-end me-5">
-            <div className="spinner-border text-primary" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </div>
-        </div> 
-    );
+    const {userStore } = useMyStore();
+    const { user, userData, logout } = useAuth();
     let nombre = "";
-    if (user){
+    if (user && user.displayName){
         nombre = user.displayName.split(" ")
         for (let i = 0; i < nombre.length; i++) {
             if (nombre[i].length === 0) {
@@ -164,7 +177,7 @@ export const UserButton = () => {
                     </Link>    
                 </Dropdown.Item>
                 <Dropdown.Item as="button">Mi Carrito</Dropdown.Item>
-                {userStore && 
+                {userData.Emprendimiento_id && 
                     <Dropdown.Item as="button">
                         <Link to="/admin/mi-emprendimiento">
                         Mi Emprendimiento
@@ -179,15 +192,8 @@ export const UserButton = () => {
 }
 
 export const UserButtonNav = () => {
-    const {userStore, loadingStore } = useMyStore();
-    const { user, loading, logout } = useAuth();
-    if (loading || loadingStore) return (
-        <div style={{width:"239.61px", minHeight:"80px"}} className="text-end me-5">
-            <div className="spinner-border text-primary" role="status">
-                <span className="visually-hidden">Loading...</span>
-            </div>
-        </div> 
-    );
+    const {userStore } = useMyStore();
+    const { user, logout, userData } = useAuth();
     let nombre = "";
     if (user){
         nombre = user.displayName.split(" ")
@@ -219,10 +225,10 @@ export const UserButtonNav = () => {
                                     </Link> 
                                 </h6>
                                 <h6>Mi Carrito</h6>
-                                {userStore &&
+                                {userData.Emprendimiento_id &&
                                     <h6>
                                         <Link to="/admin/mi-emprendimiento">
-                                            Mi TEmprendimiento
+                                            Mi Emprendimiento
                                         </Link>
                                     </h6>}
                                 <hr />

@@ -1,18 +1,21 @@
 import { useState, useEffect } from 'react';
-import { useAuth } from "../../context/AuthContext";
-import { useMyStore } from '../../context/MyStoreContext';
+import { useAuth } from "../../../context/AuthContext";
+import { useMyStore } from '../../../context/MyStoreContext';
 import Compressor from 'compressorjs';
-import {PhotoStoreView, StoreLogo} from '../../utilities/photoView.utilities';
-import Alert from '../../utilities/alert.utilities';
-function StoreImgUpdate() {
+import {PhotoProductView, ProductLogo} from '../../../utilities/photoView.utilities';
+function ProductImgUpdate(userProduct) {
     const [cargando, setCargando] = useState(true);
     const [disableImg, setDisableImg] = useState(true);
     const [start, setStart] = useState(false);
-    const { userStore, updateStore, loadingStore, getMyStore } = useMyStore();
-    const { loading, uploadPhoto,
+    const { updateProduct, loadingStore } = useMyStore();
+    const { user, loading, uploadPhoto,
     getPhotoURL, deletePhoto  } = useAuth();
     const [error, setError] = useState("");
-    const [emprendimientoImagen, setEmprendimientoImagen] = useState({ _id:"", Imagen: "",}); 
+    const [product, setProduct] = useState({ 
+        Imagen: "",
+        _id: "",
+        User_id: "",
+    }); 
     const [imgs, setImgs] = useState(null);
     const [img, setImg] = useState(null);
     const [ borrarImg ] = useState([]);
@@ -42,15 +45,16 @@ function StoreImgUpdate() {
         }   
     }
     useEffect(() => {
-        if (userStore){
+        if (userProduct.product){
             setStart(true);
         }
-    }, [userStore, start]);
+    }, [userProduct, start]);
     if (start) {
-        if (userStore.Imagen){
-            setEmprendimientoImagen({
-                _id: userStore._id,
-                Imagen: userStore.Imagen,
+        if (userProduct.product.Imagen){
+            setProduct({
+                _id: userProduct.product._id,
+                Imagen: userProduct.product.Imagen,
+                User_id: userProduct.product.User_id,
             });
         }
         setStart(false);
@@ -60,13 +64,15 @@ function StoreImgUpdate() {
         e.preventDefault();
         setError("");
         setCargando(true);
+        const name = userProduct.product.ImgRoute;
+        
         if (borrarImg){
             for (let j in borrarImg){
-                let url = "emprendimiento/perfil/"+borrarImg[j];
+                let url = "emprendimiento/productos/"+name+"/"+borrarImg[j];
                 try {
-                    await deletePhoto( url)
+                    await deletePhoto(url)
                 } catch (error) {
-                    
+                 
                 }
             }
         }
@@ -75,13 +81,13 @@ function StoreImgUpdate() {
         let iterator;
         let existImgList = [];
         let existImgPosition = [];
-        let existImg = emprendimientoImagen.Imagen;
+        let existImg = product.Imagen;
         if (existImg){
             existImgList = existImg.split(",");
         }
         if (existImgList){
             for (let k in existImgList){
-                let existPosition = existImgList[k].search(`%2Fperfil%2F`)+12;
+                let existPosition = existImgList[k].search(`alt=media`)-2;
                 existImgPosition.push(existImgList[k].slice(existPosition, existPosition+1));
             }
             iterator = existImgPosition.length;
@@ -92,7 +98,6 @@ function StoreImgUpdate() {
             let photoUrl = 0;
             for (let i in imgs){
                 if (iterator === 5){
-                    console.log("No se pueden subir más de 5 imágenes");
                 }
                 if (iterator < 5){
                     if (existImgList){
@@ -100,16 +105,16 @@ function StoreImgUpdate() {
                         photoUrl++;
                     }
                 }
-                    url = `emprendimiento/perfil/`+photoUrl;
+                    url = `emprendimiento/productos/`+name+"/"+photoUrl;
                     try {
-                        await uploadPhoto( imgs[i], url);
+                        await uploadPhoto(user.email, imgs[i], url);
                     } catch (error) {
                         setError(error.message);
                         setCargando(false);
                         return
                     }
                     try {
-                        await getPhotoURL( url)
+                        await getPhotoURL(user.email, url)
                             .then(url => {
                                 existImgList.push(url);
                             }) 
@@ -123,40 +128,38 @@ function StoreImgUpdate() {
             }
             let photos = existImgList.join(",");
             const emprendimientoImg = {Imagen: photos};
-            storeUpdate(emprendimientoImg);
+            productUpdate(emprendimientoImg);
         } else {
-            const emprendimientoImg = {Imagen: emprendimientoImagen.Imagen};
-            storeUpdate(emprendimientoImg);
+            const emprendimientoImg = {Imagen: product.Imagen};
+            productUpdate(emprendimientoImg);
         }      
     }
-    const storeUpdate = async (imagen) => {
+    const productUpdate = async (imagen) => {
         console.log(imagen);
         try {
-            await updateStore(imagen);
-            setError({success: true, msg : 'Hemos actualizado tus fotos'});
+            await updateProduct(imagen);
+            setError({error: "SiEmail", msg : 'Hemos actualizado tus fotos'});
             borrarImg.length = 0;
+            document.getElementById("image-input").value = "";
             setDisableImg(true);
             setImg(null);
-            setImgs(null);
-            await getMyStore()
-            .then(() => {
+            setImgs(null)
             setCargando(false);
-            })
         } catch (error) {
             setError(error.message);
             setCargando(false);
         }
     }
-    const StorePhoto = () => {
+    const ProductPhoto = () => {
         if (img) {
             const imgUrl = URL.createObjectURL(img);
             return (
-                <PhotoStoreView img={imgUrl} s='70px' />
+                <PhotoProductView img={imgUrl} s='50px' />
             );
         }
         else {
             return (
-                <StoreLogo w="70" h="70" />
+                <ProductLogo w="50" h="50" />
             );
         }
     };
@@ -164,14 +167,14 @@ function StoreImgUpdate() {
         e.preventDefault();
         setError("");
         let selected = e.target.value;
-        let photoList = emprendimientoImagen.Imagen.split(",");
+        let photoList = product.Imagen.split(",");
         let profilePhoto = photoList[selected];
         photoList.splice(selected,1);
         let list = photoList;
         list.unshift(profilePhoto);
         let newPhotos = list;
         let newPhotosString = newPhotos.join(",");;
-        setEmprendimientoImagen({ ...emprendimientoImagen, Imagen: newPhotosString });
+        setProduct({ ...product, Imagen: newPhotosString });
         setDisableImg(false);
     }
     const ImagesView = () => {
@@ -179,11 +182,11 @@ function StoreImgUpdate() {
         let f = [] 
         let fa = ""
         const [selected, setSelected] = useState(0);
-        if (emprendimientoImagen.Imagen) {
-            photos = emprendimientoImagen.Imagen.split(",");
+        if (product.Imagen) {
+            photos = product.Imagen.split(",");
             return (
                 <div>
-                <div className="d-flex flex-row">
+                <div className="">
                     <img
                     className="d-block  rounded"
                     style={{ maxHeight: "325px", width: "100vh", objectFit: "cover" }}
@@ -191,7 +194,7 @@ function StoreImgUpdate() {
                     alt={selected}
                     />
                     
-                    <div className="d-flex flex-column mt-1">
+                    <div className="d-flex flex-row mt-1">
                     {photos.map((img, i) => {
                         return (
                                 <button key={i} onClick={(e) => {e.preventDefault(); setSelected(i)}}>
@@ -209,11 +212,11 @@ function StoreImgUpdate() {
                 </div>
                 <div className="d-flex flex-row">
                 <button onClick={(e) => {e.preventDefault(); 
-                let borrarPosition = photos[selected].search(`%2Fperfil%2F`)+12;
+                let borrarPosition = photos[selected].search(`alt=media`)-2;
                 let borrar = photos[selected].slice(borrarPosition, borrarPosition+1);
                 borrarImg.push(borrar);
                 photos.splice(selected,1); f=photos; fa=f.join(","); setError(""); 
-                setEmprendimientoImagen({...emprendimientoImagen, Imagen:fa});
+                setProduct({...product, Imagen:fa});
                 setDisableImg(false); borrar=""}}>
                     Borrar esta foto
                 </button>
@@ -240,7 +243,6 @@ function StoreImgUpdate() {
     );
     return (
         <div>
-            {error && <Alert message={error} />}
             <div>
                 <form onSubmit={handleSubmitImg}>
                     <div className="d-flex flex-row">
@@ -249,7 +251,7 @@ function StoreImgUpdate() {
                     <div>
                         <label className="d-block m-1 mt-2 me-2">Foto de Perfil de emprendimiento:</label>
                         <div className="d-flex flex-row">
-                            <StorePhoto />
+                            <ProductPhoto />
                             <input type="file" className="m-1 subirFoto" accept="image/*" multiple
                             onChange={changeImg} id="image-input"></input>
                         </div>
@@ -262,4 +264,4 @@ function StoreImgUpdate() {
         </div>    
     );
 }
-export default StoreImgUpdate;
+export default ProductImgUpdate;

@@ -3,6 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import Button from "react-bootstrap/Button";
 import Eye from '../../utilities/password.utilities'
 import { handleResetPassword } from "../../services/user.service";
+import Alert from "../../utilities/alert.utilities";
 function PasswordChange() {
     const { user, emailAuth, resetPassword, reAuthenticate, passwordUpdate, reAuthenticateGoogle } = useAuth();
     const [error, setError] = useState("");
@@ -57,7 +58,7 @@ function PasswordChange() {
                 try {
                     await reAuthenticate(credential)
                 } catch (error) {
-
+                    setError(error.message);
                 }
             }
             if (provider === "google.com"){
@@ -68,7 +69,7 @@ function PasswordChange() {
                 try {
                     await reAuthenticateGoogle()
                 } catch (error) {
-                
+                    setError(error.message);
                 }
             };
             try {
@@ -77,13 +78,13 @@ function PasswordChange() {
                     setProvider("password");
                 })
                 setCargando(false);
-                setError({error: "SiEmail", msg : 'Hemos cambiado su contraseña'});
+                setError({success: true, msg : 'Hemos cambiado su contraseña'});
                 setUser({...usuario, newPassword: "",
                 password: "",
                 newPasswordConfirm: "",})
             } catch (error) {
+                setError(error.message);
                 setCargando(false);
-                
             }
         } 
     };
@@ -94,7 +95,7 @@ function PasswordChange() {
                     <a
                     className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
                     href="#!"
-                    onClick={handleResetPassword(user.email, resetPassword)}
+                    onClick={(e)=>{e.preventDefault();handleResetPassword(user.email, resetPassword)}}
                     > 
                         Olvidaste tu contraseña?
                     </a>
@@ -113,7 +114,8 @@ function PasswordChange() {
     )};
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+            {error && <Alert message={error} />}
+            <form>
                 <div className="d-flex flex-row justify-content-center">
                     <div className="form-group mb-3 me-2 ms-2 pe-1 ps-1">
                         <label className="m-1">{passTitle1}</label>
@@ -151,7 +153,7 @@ function PasswordChange() {
                 </div>
                 <ResetPasswordView />
                 <div className="mt-4 mb-3 me-5 ms-5 ps-5 pe-1 text-center">
-                    <Button variant="primary" type="submit" className="me-4 mb-1 mt-1">
+                    <Button  onClick={handleSubmit} variant="primary" type="submit" className="me-4 mb-1 mt-1">
                         Aceptar
                     </Button>
                 </div>

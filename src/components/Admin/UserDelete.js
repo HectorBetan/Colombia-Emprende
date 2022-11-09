@@ -4,17 +4,18 @@ import { useAuth } from "../../context/AuthContext";
 import Button from "react-bootstrap/Button";
 import Eye from '../../utilities/password.utilities'
 import { handleResetPassword } from "../../services/user.service";
+import Alert from "../../utilities/alert.utilities";
 function UserDelete() {
-  const [cargando, setCargando] = useState(false);
-  const { resetPassword, user, emailAuth, reAuthenticate, reAuthenticateGoogle, deleteEmprendimiento, userData,
-  deleteUserDoc, delUser, deletePhoto, emprendimientos, userEmprendimiento } = useAuth();
-  const [error, setError] = useState("");
-  const [provider, setProvider] = useState("");
-  const [emprendimientoImg, setEmprendimientoImg] = useState(null); 
-  const handleChange = ({ target: { value, name } }) => setUser({ ...usuario, [name]: value });
-  const [usuario, setUser] = useState({
-    email: "",
-    password: "",
+    const [cargando, setCargando] = useState(false);
+    const { resetPassword, user, emailAuth, reAuthenticate, reAuthenticateGoogle, deleteEmprendimiento, userData,
+    deleteUserDoc, delUser, deletePhoto, emprendimientos, userEmprendimiento } = useAuth();
+    const [error, setError] = useState("");
+    const [provider, setProvider] = useState("");
+    const [emprendimientoImg, setEmprendimientoImg] = useState(null); 
+    const handleChange = ({ target: { value, name } }) => setUser({ ...usuario, [name]: value });
+    const [usuario, setUser] = useState({
+        email: "",
+        password: "",
     });
     useEffect(() => {
         if (userEmprendimiento){
@@ -44,28 +45,28 @@ function UserDelete() {
                     let credential = emailAuth(usuario.email, usuario.password);
                     await reAuthenticate(credential);
                 } catch (error) {
-
+                    setError(error.message);
                 }
             }
             if (provider === "google.com"){
                 try {
                     await reAuthenticateGoogle();
                 } catch (error) {
-
+                    setError(error.message);
                 }
             }
             if (userData.Emprendimiento_id) {
                 try {
                     await deleteEmprendimiento(userData.Emprendimiento_id);
                 } catch (error) {
-                            
+                    setError(error.message);         
                 }
                 if (emprendimientoImg){
                     let url = `/emprendimiento/perfil/`;
                     let fotos = emprendimientoImg.split(",");
                     for (let i = 0; i < fotos.length; i++) {
                         try {
-                            deletePhoto(user.email, url+i);
+                            deletePhoto(url+i);
                         } catch (error) {
                                         
                         }
@@ -75,7 +76,7 @@ function UserDelete() {
             await deleteUserDoc(userData._id);
             try {
                 let userPhoto = `/perfil/profilePhoto`;
-                await deletePhoto(user.email, userPhoto);
+                await deletePhoto(userPhoto);
             } catch (error) {
             
             }
@@ -119,7 +120,7 @@ function UserDelete() {
                     <a
                             className="inline-block align-middle font-bold text-sm text-blue-500 hover:text-blue-800"
                             href="#!"
-                            onClick={handleResetPassword(user.email, resetPassword)}
+                            onClick={(e)=>{e.preventDefault();handleResetPassword(user.email, resetPassword)}}
                     > 
                             Olvidaste tu contraseña?
                     </a>
@@ -141,17 +142,17 @@ if (cargando) {return(
 if (provider === "password")
     {return (
       <div>
-        
+        {error && <Alert message={error} />}
         <div className="text-center">
           <h1>Eliminar Cuenta </h1>
           <p>Estas a punto de eliminar tu cuenta, eliminaras todos tus dtos de usuario y demas datos
             de la plataforma.
           </p>
         
-        <form onSubmit={handleSubmit} className="d-flex flex-column justify-content-center">
+        <form  className="d-flex flex-column justify-content-center">
             <ResolveProvider />
                 <div className="mt-4 mb-3 me-5 ms-5 ps-4  text-center">
-                <Button variant="danger" type="submit" className="me-4 mb-1 mt-1">
+                <Button onClick={handleSubmit} variant="danger" type="submit" className="me-4 mb-1 mt-1">
                     Eliminar Cuenta
                 </Button>
                 </div>
@@ -161,7 +162,7 @@ if (provider === "password")
     if (provider === "google.com")
     {return (
         <div>
-          
+          {error && <Alert message={error} />}
           <div className="text-center">
             <h1>Eliminar Cuenta</h1>
             <p>Estas a punto de eliminar tu cuenta, eliminaras todos tus dtos de usuario y demas datos

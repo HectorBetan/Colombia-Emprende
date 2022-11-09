@@ -3,6 +3,7 @@ import { useAuth } from "../context/AuthContext";
 
 export function UserVerified({ children }) {
     const { user, loading } = useAuth();
+    if (user.emailVerified === false) return <Navigate to={`/reverificacion`} replace={true} />;
     if (user){
         if (user.emailVerified === true){
         sessionStorage.removeItem("location");
@@ -16,6 +17,6 @@ export function UserVerified({ children }) {
         </div>
     );  
     if (!user) {sessionStorage.removeItem("location"); return <Navigate to="/" replace={true}/>;}
-    if (user.emailVerified === false) return <Navigate to={`/reverificacion`} replace={true} />;
+    
     return <>{children}</>;
 }

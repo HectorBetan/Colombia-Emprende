@@ -41,23 +41,24 @@ export function AuthProvider({ children }) {
     };
     const updateName = async (displayName) => {
         await updateProfile(auth.currentUser, {displayName}).then(() => {
-            return setUser(auth.currentUser);
+            setUser({...user, displayName: displayName});
+            return;
         });
     };
-    const updatePhotoURL = (photoURL) => {
-        updateProfile(auth.currentUser, {photoURL}).then(() => {
+    const updatePhotoURL = async (photoURL) => {
+        await updateProfile(auth.currentUser, {photoURL}).then(() => {
             setUser({...user, photoURL: photoURL});
             return;
         });
     };
-    const uploadPhoto = (email, file, photoName) => {
-        return uploadBytes(ref(storage, `${email}/${photoName}`), file)
+    const uploadPhoto = ( file, photoName) => {
+        return uploadBytes(ref(storage, `${user.uid}/${photoName}`), file)
     };
-    const getPhotoURL = async (email,photoLocation) => {
-        return await getDownloadURL(ref(storage, `${email}/${photoLocation}`));
+    const getPhotoURL = async (photoLocation) => {
+        return await getDownloadURL(ref(storage, `${user.uid}/${photoLocation}`));
     };
-    const deletePhoto = async (email,photoLocation) => {
-        return await deleteObject(ref(storage, `${email}/${photoLocation}`));
+    const deletePhoto = async (photoLocation) => {
+        return await deleteObject(ref(storage, `${user.uid}/${photoLocation}`));
     };
     const passwordUpdate = (password) => {
         updatePassword(auth.currentUser, password).then(() => {
@@ -81,6 +82,27 @@ export function AuthProvider({ children }) {
         const googleProvider = new GoogleAuthProvider();
         return reauthenticateWithPopup(auth.currentUser, googleProvider);
     };
+    const getUserData = async () => {
+        await axios.get(`${dbUrl}users/get-user/${user.uid}`)
+        .then((response) => {
+            setUserData(response.data.data[0]);
+            let config = {
+                headers: {
+                    token: `Bearer ${response.data.token}`,
+                    'Content-Type': 'application/json'
+                },
+            }
+            localStorage.setItem("token", config);
+            setToken(config);
+            setLoading(false);
+            return
+        })
+        .catch((error) => {
+            setLoading(false);
+            return
+        });
+        
+    }
     const logout = () => signOut(auth);
     const resetPassword = async (email) => sendPasswordResetEmail(auth, email);
     const emailVerification = () => sendEmailVerification(auth.currentUser);
@@ -94,15 +116,15 @@ export function AuthProvider({ children }) {
         .catch(error => {})
     }
     const updateUser = async (data) => {
-        setLoading(true);
         if (!token){
             let config = localStorage.getItem('token')
             setToken(config) 
         }
         await axios.put(`${dbUrl}users/update-user`, data, token)
-        .then(setUserData({...userData, Nombre: data.Nombre, Celefono: data.Telefono, Direccion: data.Direccion, Ciudad: data.Ciudad}))
+        .then(res => {
+            getUserData();
+        })
         .catch(error => {})
-        setLoading(false);
         return;
     };
     const updateUserStore = async (data) => {
@@ -111,7 +133,9 @@ export function AuthProvider({ children }) {
             setToken(config) 
         }
         await axios.put(`${dbUrl}users/update-user`, data, token)
-        .then(setUserData({...userData, Emprendimiento_id: data.Emprendimiento_id}))
+        .then(()=>{
+            setUserData({...userData, Emprendimiento_id: data.Emprendimiento_id}); 
+        })
         .catch(error => {})
         return;
     };
@@ -158,8 +182,111 @@ export function AuthProvider({ children }) {
     const findPath = async (path) => {
         return await axios.get(`${dbUrl}stores/find-store-path/${path}`);
     }
+    const createCart = async (pedido) => {
+        await axios.post(`${dbUrl}cart/create-cart`, pedido);
+        return;
+    };
+    const readCart = async (id) => {
+        const response = await axios.get(`${dbUrl}cart/get-cart/${id}`);
+        return response;
+      }
+      const readProducts = async (productos) => {
+        const response = await axios.post(`${dbUrl}products/get-products`, productos);
+        return response;
+      }
+      const readStores = async (tiendas) => {
+        const response = await axios.post(`${dbUrl}stores/get-stores`, tiendas);
+        return response;
+      }
+      const updateCart = async (id, pedido) => {
+        await axios.put(`${dbUrl}cart/update-cart/${id}`, pedido);
+        return;
+      }
+      const deleteCart = async (id) => {
+        await axios.delete(`${dbUrl}cart/delete-cart/${id}`);
+        return;
+      };
+      const deleteCarts = async (id) => {
+        await axios.post(`${dbUrl}cart/delete-carts`, id);
+        return;
+      };
+      const createPricing = async (cotizacion) => {
+        await axios.post(`${dbUrl}pricing/create-pricing`, cotizacion);
+        return;
+      };
+      const createEnvio = async (id,envio) => {
+        await axios.put(`${dbUrl}pricing/create-envio/${id}`, envio);
+        return;
+      };
+      const readPricing = async (id) => {
+        const response = await axios.get(`${dbUrl}pricing/get-pricing/${id}`);
+        return response;
+      }
+      const readStorePricing = async (id) => {
+        const response = await axios.get(`${dbUrl}pricing/get-store-pricing/${id}`);
+        return response;
+      }
+      const readUserInfo = async (usuarios) =>{
+        const response = await axios.post(`${dbUrl}users/get-user-info`, usuarios);
+        return response;
+      }
+      const updatePricing = async (id, pedido) => {
+        await axios.put(`${dbUrl}pricing/update-pricing/${id}`, pedido);
+      }
+      const deletePricng = async (id) => {
+        await axios.put(`${dbUrl}pricing/delete-pricing/${id}`);
+      }
+      const createOrder = async (id,pago) => {
+        await axios.put(`${dbUrl}pricing/create-order/${id}`, pago);
+      }
+      const readOrders = async (id) => {
+        const response = await axios.get(`${dbUrl}pricing/get-orders/${id}`);
+        return response;
+      }
+      const readStoreOrders = async (id) => {
+        const response = await axios.get(`${dbUrl}pricing/get-store-orders/${id}`);
+        return response;
+      }
+      const readCotizarProducts = async (productos) => {
+        const response = await axios.post(`${dbUrl}get-cotizar-products`, productos);
+        return response;
+      }
+      
+      const readPedidos = async (id) => {
+        const response = await axios.get(`${dbUrl}get-pedidos/${id}`);
+        return response;
+      }
+      const getPedidos = async (pedidos) => {
+        const response = await axios.post(`${dbUrl}get-pedidos`,pedidos);
+        return response;
+      }
+      const readPedidosEmprendedor = async (id) => {
+        const response = await axios.get(`${dbUrl}get-pedidos-emprendedor/${id}`);
+        return response;
+      }
+      
+      const updateCarritoCotizar = async (pedido) => {
+        await axios.put(`${dbUrl}update-carrito-cotizar`, pedido);
+        
+      }
+      const setStars = async (id, calificacion) => {
+        await axios.put(`${dbUrl}stores/set-stars/${id}`, calificacion)
+        
+    };
+    const setUserProblem = async (id, msg) => {
+        await axios.put(`${dbUrl}pricing/set-user-problem/${id}`, msg)
+        
+    };
+    const setStoreProblem = async (id, msg) => {
+        await axios.put(`${dbUrl}pricing/set-store-problem/${id}`, msg)
+        
+    };
+      
+      
+      
+      
     useEffect(() => {
-        const getUserData = async (user) => {
+        const getUserData = async () => {
             await axios.get(`${dbUrl}users/get-user/${user.uid}`)
             .then((response) => {
                 if (response.data.data.length > 0) {
@@ -172,6 +299,8 @@ export function AuthProvider({ children }) {
                     }
                     localStorage.setItem("token", config);
                     setToken(config);
+                    setLoading(false);
+                    return
                 } else {
                     const userData = {
                         Uid: user.uid,
@@ -182,22 +311,31 @@ export function AuthProvider({ children }) {
                         Ciudad: "",
                         Direccion: "",
                     }
-                    createUser(userData);
-                    getUserData(user);
+                    createUser(userData)
+                    .then(res => {
+                        getUserData();
+                    })    
                 }
+                setLoading(false);
                 return
             })
             .catch((error) => {
+                console.log(error);
+                setLoading(false);
                 return
             });
-            setLoading(false);
+            
         }
+        if (user && !userData){
+            getUserData();    
+        }
+        
+    }, [user, userData]);
+    useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
-            if (currentUser) {
-                getUserData(currentUser);
-            }
-            
+            console.log(currentUser)
+            setLoading(false);
         });
         return () => unsubscribe();
     }, [user]);
@@ -212,6 +350,7 @@ export function AuthProvider({ children }) {
                 logout,
                 loading,
                 emailAuth,
+                createCart,
                 passwordUpdate,
                 reAuthenticate,
                 loginWithGoogle,
@@ -232,6 +371,25 @@ export function AuthProvider({ children }) {
                 createStore,
                 findPath,
                 updateUserStore,
+                readCart,
+                readProducts,
+                readStores,
+                updateCart,
+                deleteCart,
+                deleteCarts,
+                createPricing,
+                readPricing,
+                readStorePricing,
+                readUserInfo,
+                updatePricing,
+                createOrder,
+                readOrders,
+                readStoreOrders,
+                deletePricng,
+                createEnvio,
+                setStars,
+                setUserProblem,
+                setStoreProblem,
             }}
         >
             {children}

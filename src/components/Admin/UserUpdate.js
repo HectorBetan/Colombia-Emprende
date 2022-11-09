@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from "../../context/AuthContext";
 import Compressor from 'compressorjs';
 import Button from "react-bootstrap/Button";
+import Alert from "../../utilities/alert.utilities";
 import {PhotoView} from '../../utilities/photoView.utilities';
 import {cityList} from '../../utilities/citys.utilities';
 function UserUpdate() {
@@ -78,16 +79,16 @@ function UserUpdate() {
             }
             if (imgResult !== null) {
                 try {
-                    await uploadPhoto(user.email, imgResult, "perfil/profilePhoto");
+                    await uploadPhoto(imgResult, "perfil/profilePhoto");
                 } catch (error) {
                     setError(error.message);
                     setCargando(false);
                 }
                 try {
-                    await getPhotoURL(user.email, "perfil/profilePhoto")
+                    await getPhotoURL("perfil/profilePhoto")
                     .then((url) => { 
                         updatePhotoURL(url);
-                        setError({error: "SiEmail", msg : 'Hemos actualizado tus datos'});
+                        setError({success: true, msg : 'Hemos actualizado tus datos'});
                         setCargando(false);
                     })
                 } catch (error) {
@@ -95,6 +96,7 @@ function UserUpdate() {
                     setCargando(false);
                 }
             }
+            setError({success: true, msg : 'Hemos actualizado tus datos'});
             setCargando(false);
         }
     };
@@ -112,6 +114,7 @@ function UserUpdate() {
         );
     return (
         <div>
+            {error && <Alert message={error} />}
             <form onSubmit={handleSubmit}>
                 <div className="d-flex flex-row justify-content-evenly">
                     <div className="form-group w-50">
@@ -141,7 +144,7 @@ function UserUpdate() {
                     </div>
                     <div className="d-flex flex-column">
                         <label className="m-1 text-center text-lg-start text-xl-start text-xxl-start">Ciudad</label>
-                        <select onChange={handleChange} name="Ciudad" className="form-select" value={usuario.Ciudad} required>
+                        <select onChange={handleChange} name="Ciudad" className="form-select" value={usuario.Ciudad}>
                         <option value="" disabled>Ninguna</option>
                             {cityList}
                         </select>

@@ -18,7 +18,7 @@ function Register () {
         emailVerification, getPhotoURL, createUser, loading } = useAuth();
     const [img, setImg] = useState(null);
     const [imgResult, setImgResult] = useState(null);
-    const [msg, setMsg] = useState("");
+    const [msg, setMsg] = useState();
     const [user, setUser] = useState({
         email: "",
         password: "",
@@ -65,7 +65,7 @@ function Register () {
                 uid = res.user.uid;
             })
         } catch (error) {
-            return ({msg: {type: "error", message: error.message}});
+            return setMsg(error.message);
         }
         try {
             dName = camelize(dName);
@@ -85,18 +85,18 @@ function Register () {
         }
         if (img !== null) {
             try {
-                await uploadPhoto(user.email, imgResult, "/perfil/profilePhoto"); 
+                await uploadPhoto(imgResult, "/perfil/profilePhoto"); 
             } catch (error) {
-                return ({msg: {type: "error", message: error.message}});
+                
             }
             try {
                 const url = "/perfil/profilePhoto"
-                await getPhotoURL(user.email, url)
+                await getPhotoURL(url)
                 .then((url) => { 
                 updatePhotoURL(url)
                 })
             } catch (error) {
-                return ({msg: {type: "error", message: error.message}});
+                
             }
             try {
                     localStorage.setItem("location", location.pathname);
@@ -105,7 +105,7 @@ function Register () {
                     navigate(`/verificacion`, { replace: true })
                     )
             } catch (error) {
-                return ({msg: {type: "error", message: error.message}});
+                
             }
         }
         else {
@@ -113,7 +113,7 @@ function Register () {
             try {
                 await emailVerification().then(navigate(`../verificacion`, { replace: true }));
             } catch (error) {
-                return ({msg: {type: "error", message: error.message}});
+                
             }
         };
     }

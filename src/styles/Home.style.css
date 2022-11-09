@@ -1,0 +1,421 @@
+.stores-home{
+    width: 400px;
+    margin: 10px;
+}
+.stores-home img{
+    max-height: 105px;
+    min-height: 105px;
+    max-width: 100px;
+    min-width: 100px;
+    margin: 5px;
+    object-fit: cover;
+}
+.stores-home h5{
+    font-size: 30px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.stores-home-text p{
+    font-size: 21px;
+    margin-right: 6px;
+    margin-bottom: 0px;
+    font-weight: 400;
+    vertical-align: middle;
+}
+.stores-home-text h5{
+    font-size: 25px;
+    font-weight: 650;
+    text-align: center;
+    margin-bottom: 5px;
+}
+.stores-home-categoria p{
+    font-size: 17px;
+    margin-right: 6px;
+    margin-bottom: 0px;
+    font-weight: 500;
+    vertical-align: middle;
+}
+.stores-home-categoria h6{
+    font-size: 20px;
+    margin-right: 6px;
+    margin-bottom: 0px;
+    font-weight: 650;
+    vertical-align: middle;
+}
+@media only screen and (max-width: 1280px) and (min-width: 1150px){
+    .stores-home{
+        width: 350px;
+        margin: 10px;
+    }
+    .stores-home img{
+        max-height: 95px;
+        min-height: 95px;
+        max-width: 90px;
+        min-width: 90px;
+        margin: 5px;
+        object-fit: cover;
+    }
+    .stores-home h5{
+        font-size: 26px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .stores-home-text p{
+        font-size: 18px;
+        margin-right: 6px;
+        margin-bottom: 0px;
+        font-weight: 400;
+        vertical-align: middle;
+    }
+    .stores-home-text h5{
+        font-size: 22px;
+        font-weight: 650;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+    .stores-home-categoria p{
+        font-size: 16px;
+        margin-right: 6px;
+        margin-bottom: 0px;
+        font-weight: 500;
+        vertical-align: middle;
+    }
+    .stores-home-categoria h6{
+        font-size: 19px;
+        margin-right: 6px;
+        margin-bottom: 0px;
+        font-weight: 650;
+        vertical-align: middle;
+    }
+}
+@media only screen and (max-width: 1150px) and (min-width: 960px){
+    .stores-home{
+        width: 300px;
+        margin: 8px;
+    }
+    .stores-home img{
+        max-height: 85px;
+        min-height: 85px;
+        max-width: 80px;
+        min-width: 80px;
+        margin: 5px;
+        object-fit: cover;
+    }
+    .stores-home h5{
+        font-size: 23px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .stores-home-text p{
+        font-size: 16px;
+        margin-right: 6px;
+        margin-bottom: 0px;
+        font-weight: 400;
+        vertical-align: middle;
+    }
+    .stores-home-text h5{
+        font-size: 20px;
+        font-weight: 650;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+    .stores-home-categoria p{
+        font-size: 14px;
+        margin-right: 6px;
+        margin-bottom: 0px;
+        font-weight: 500;
+        vertical-align: middle;
+    }
+    .stores-home-categoria h6{
+        font-size: 17px;
+        margin-right: 6px;
+        margin-bottom: 0px;
+        font-weight: 650;
+        vertical-align: middle;
+    }
+}
+@media only screen and (max-width: 960px) and (min-width: 900px){
+    .stores-home{
+        width: 280px;
+        margin: 8px;
+    }
+    .stores-home img{
+        max-height: 80px;
+        min-height: 80px;
+        max-width: 75px;
+        min-width: 75px;
+        margin: 5px;
+        object-fit: cover;
+    }
+    .stores-home h5{
+        font-size: 21px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .stores-home-text p{
+        font-size: 15px;
+        margin-right: 6px;
+        margin-bottom: 0px;
+        font-weight: 400;
+        vertical-align: middle;
+    }
+    .stores-home-text h5{
+        font-size: 19px;
+        font-weight: 650;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+    .stores-home-categoria p{
+        font-size: 13px;
+        margin-right: 6px;
+        margin-bottom: 0px;
+        font-weight: 500;
+        vertical-align: middle;
+    }
+    .stores-home-categoria h6{
+        font-size: 16px;
+        margin-right: 6px;
+        margin-bottom: 0px;
+        font-weight: 650;
+        vertical-align: middle;
+    }
+}
+@media only screen and (max-width: 850px) and (min-width: 750px){
+    .stores-home{
+        width: 350px;
+        margin: 10px;
+    }
+    .stores-home img{
+        max-height: 95px;
+        min-height: 95px;
+        max-width: 90px;
+        min-width: 90px;
+        margin: 5px;
+        object-fit: cover;
+    }
+    .stores-home h5{
+        font-size: 26px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .stores-home-text p{
+        font-size: 18px;
+        margin-right: 6px;
+        margin-bottom: 0px;
+        font-weight: 400;
+        vertical-align: middle;
+    }
+    .stores-home-text h5{
+        font-size: 22px;
+        font-weight: 650;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+    .stores-home-categoria p{
+        font-size: 16px;
+        margin-right: 6px;
+        margin-bottom: 0px;
+        font-weight: 500;
+        vertical-align: middle;
+    }
+    .stores-home-categoria h6{
+        font-size: 19px;
+        margin-right: 6px;
+        margin-bottom: 0px;
+        font-weight: 650;
+        vertical-align: middle;
+    }
+}
+@media only screen and (max-width: 750px) and (min-width: 650px){
+    .stores-home{
+        width: 300px;
+        margin: 8px;
+    }
+    .stores-home img{
+        max-height: 85px;
+        min-height: 85px;
+        max-width: 80px;
+        min-width: 80px;
+        margin: 5px;
+        object-fit: cover;
+    }
+    .stores-home h5{
+        font-size: 23px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .stores-home-text p{
+        font-size: 16px;
+        margin-right: 6px;
+        margin-bottom: 0px;
+        font-weight: 400;
+        vertical-align: middle;
+    }
+    .stores-home-text h5{
+        font-size: 20px;
+        font-weight: 650;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+    .stores-home-categoria p{
+        font-size: 14px;
+        margin-right: 6px;
+        margin-bottom: 0px;
+        font-weight: 500;
+        vertical-align: middle;
+    }
+    .stores-home-categoria h6{
+        font-size: 17px;
+        margin-right: 6px;
+        margin-bottom: 0px;
+        font-weight: 650;
+        vertical-align: middle;
+    }
+}
+@media only screen and (max-width: 650px) and (min-width: 610px){
+    .stores-home{
+        width: 280px;
+        margin: 8px;
+    }
+    .stores-home img{
+        max-height: 80px;
+        min-height: 80px;
+        max-width: 75px;
+        min-width: 75px;
+        margin: 5px;
+        object-fit: cover;
+    }
+    .stores-home h5{
+        font-size: 21px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+    .stores-home-text p{
+        font-size: 15px;
+        margin-right: 6px;
+        margin-bottom: 0px;
+        font-weight: 400;
+        vertical-align: middle;
+    }
+    .stores-home-text h5{
+        font-size: 19px;
+        font-weight: 650;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+    .stores-home-categoria p{
+        font-size: 13px;
+        margin-right: 6px;
+        margin-bottom: 0px;
+        font-weight: 500;
+        vertical-align: middle;
+    }
+    .stores-home-categoria h6{
+        font-size: 16px;
+        margin-right: 6px;
+        margin-bottom: 0px;
+        font-weight: 650;
+        vertical-align: middle;
+    }
+}
+@media only screen and (max-width: 610px) and (min-width: 500px){
+    .stores-home{
+        width: 230px;
+        margin: 8px;
+    }
+    .stores-home img{
+        max-height: 65px;
+        min-height: 65px;
+        max-width: 60px;
+        min-width: 60px;
+        margin-left: 10px;
+        object-fit: cover;
+    }
+    .stores-home h5{
+        font-size: 17px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 8px;
+    }
+    .stores-home-text p{
+        font-size: 13px;
+        margin-right: 2px;
+        margin-bottom: 0px;
+        font-weight: 400;
+        vertical-align: middle;
+    }
+    .stores-home-text h5{
+        font-size: 16px;
+        font-weight: 650;
+        text-align: center;
+        margin-bottom: 2px;
+    }
+    .stores-home-categoria p{
+        font-size: 11px;
+        margin-right: 2px;
+        margin-bottom: 0px;
+        font-weight: 500;
+        vertical-align: middle;
+    }
+    .stores-home-categoria h6{
+        font-size: 13px;
+        margin-right: 2px;
+        margin-bottom: 0px;
+        font-weight: 650;
+        vertical-align: middle;
+    }
+}
+@media only screen and (max-width: 480px){
+    .stores-home{
+        width: 180px;
+        margin: 6px;
+    }
+    .stores-home img{
+        max-height: 50px;
+        min-height: 50px;
+        max-width: 45px;
+        min-width: 45px;
+        margin-left: 8px;
+        object-fit: cover;
+    }
+    .stores-home h5{
+        font-size: 15px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 8px;
+    }
+    .stores-home-text p{
+        font-size: 11px;
+        margin-right: 2px;
+        margin-bottom: 0px;
+        font-weight: 400;
+        vertical-align: middle;
+    }
+    .stores-home-text h5{
+        font-size: 13px;
+        font-weight: 650;
+        text-align: center;
+        margin-bottom: 2px;
+    }
+    .stores-home-categoria p{
+        font-size: 10px;
+        margin-right: 2px;
+        margin-bottom: 0px;
+        font-weight: 500;
+        vertical-align: middle;
+    }
+    .stores-home-categoria h6{
+        font-size: 11px;
+        margin-right: 2px;
+        margin-bottom: 0px;
+        font-weight: 650;
+        vertical-align: middle;
+    }
+}

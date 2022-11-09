@@ -1,12 +1,10 @@
 
 //import EditProduct from "./EditProduct";
-import { useAuth } from "../../../context/AuthContext";
 import { useMyStore } from "../../../context/MyStoreContext";
 import ProductUpdate from "./ProductUpdate";
+import {PhotoProductView, ProductLogo} from '../../../utilities/photoView.utilities';
 function MyProducts(userProducts) {
-
-  const { deleteProduct  } = useAuth();
-    const { loadingStore } = useMyStore();
+  const { loadingStore, deleteProduct  } = useMyStore();
   const handleDelete = async (e) => {
     e.preventDefault();
     const id = e.target.value
@@ -17,17 +15,40 @@ function MyProducts(userProducts) {
       console.log(error);
     }
   }
+  const ProductPhotoView = (product) => {
+    if (product.imgs) {
+      let img = product.imgs.split(",");
+      img = img[0]
+      return (
+          <PhotoProductView img={img} s='80px' />
+      );
+  }
+  else {
+      return (
+          <ProductLogo w="50" h="50" />
+      );
+  }
+  }
   const ExistsProducts = () => {
     if (userProducts.products){
       return(
-        <div>
+        <div className="d-flex">
           {userProducts.products.map((product) => {
             return(
-              <div key={product._id} className="d-flex flex-row">
-                <h3>{product.Nombre}</h3>
-                    <ProductUpdate product={product}/>
-                <button onClick={handleDelete} value={product._id}>Eliminar</button>
-              </div>
+              <div key={product._id} className="d-flex flex-column justify-content-start m-2">
+                <div className="d-flex flex-row">
+                  <ProductPhotoView imgs={product.Imagen} />
+                  <div className="d-flex flex-column">
+                    <h5>{product.Nombre}</h5>
+                    <h6>{product.Precio}</h6>
+                    <p>{product.Descripcion}</p>
+                  </div>
+                </div>
+                <div className="d-flex flex-row">
+                  <ProductUpdate product={product}/>
+                  <button className="btn btn-primary text-white p-1 m-1" onClick={handleDelete} value={product._id}>Eliminar</button>
+                </div>
+                </div>    
             )
           })
         }

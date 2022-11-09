@@ -48,7 +48,7 @@ function Verification() {
             centered
             >
                 <Modal.Header>
-                    <Modal.Title className="ms-3">Verificaión de Email</Modal.Title>
+                    <Modal.Title className="ms-3">Verificación de Email</Modal.Title>
                     <div className="d-flex flex-wrap">
                         {error && <Alert message={error} />}
                     </div>

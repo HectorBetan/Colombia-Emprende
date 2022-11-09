@@ -79,7 +79,7 @@ function ReVerification() {
                     </div>
                 </Modal.Body>
                 <Modal.Footer className="mt-4">
-                    <Button className="me-4" variant="primary" type="submit" onClick={handleModal}>Entendido</Button>
+                    <Button className="me-4" variant="primary" type="submit" onClick={(e)=>{e.preventDefault();navigate("/admin", { replace: true })}}>Entendido</Button>
                 </Modal.Footer>
             </Modal>
         </div>

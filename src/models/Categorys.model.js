@@ -5,10 +5,11 @@ export const categorys = [
     "Tecnología", 
     "Comida", 
     "Belleza", 
-    "Salud y Bienestar", 
-    "Niños y Bebes", 
+    "Salud", 
+    "Niños", 
     "Deportes", 
     "Hogar", 
-    "Servicios", 
+    "Servicios",
+    "Mascotas",
     "Otros" 
 ];

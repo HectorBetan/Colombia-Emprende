@@ -2,7 +2,7 @@ import Button from "react-bootstrap/Button";
 import Eye from "../utilities/password.utilities";
 import Alert from "../utilities/alert.utilities";
 import { useAuth } from "../context/AuthContext";
-import { handleResetPassword, handleLogin } from "../services/user.service";
+import { handleResetPassword } from "../services/user.service";
 import {useState} from 'react';
 function Login (){
     const { resetPassword, login } = useAuth();
@@ -10,17 +10,24 @@ function Login (){
         email: '',
         password: ''
     });
-    const [msg, setMsg] = useState("");
+    const [msg, setMsg] = useState();
     const handleChange = ({ target: { value, name } }) => setUser({ ...user, [name]: value });
     if (msg){
         setTimeout(() => {
             setMsg("");
         }, 5000);
     }
+    const handleLogin = async () => {
+        try {
+            await login(user.email, user.password);
+        } catch (error) {
+            return setMsg(error.message);
+        }
+    };
     return(
         <div>
             <div className="d-flex flex-wrap justify-content-center mt-1 mb-2">
-                {msg && <Alert text={msg} />}
+                {msg && <Alert message={msg} />}
             </div>
             <form onSubmit={(e)=> {e.preventDefult(); handleLogin(login, user)}}>
                 <div className="form-group mb-3 me-5 ms-5 pe-3 ps-3">

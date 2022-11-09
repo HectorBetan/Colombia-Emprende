@@ -3,7 +3,10 @@ import { Routes, Route } from "react-router-dom";
 import AdminNav from "../components/Admin/AdminNav";
 import AdminView from "../components/Admin/AdminView";
 import StoreRegister from "../components/Admin/StoreRegister";
-import MyStore from "../components/MyStore/MyStore";
+import MyStore from "../components/MyStore/MyStoreProducts";
+import MyCart from "../components/Admin/MyCart";
+import MyPricings from "../components/Admin/MyPricings";
+import MyOrders from "../components/Admin/MyOrders"
 import { ProtectedRegisterStore, ProtectedStore } from "../protectedRoutes/protectedStore";
 function Admin() {
     const { loading } = useAuth();
@@ -23,6 +26,9 @@ function Admin() {
                         <Route path="/" element={<AdminView />} />
                         <Route path="/registrar-emprendimiento/*" element={<ProtectedRegisterStore><StoreRegister /></ProtectedRegisterStore>} />
                         <Route path="/mi-emprendimiento/*" element={<ProtectedStore><MyStore /></ProtectedStore>} />
+                        <Route path="/mi-carrito/*" element={<MyCart />} />
+                        <Route path="/mis-cotizaciones/*" element={<MyPricings />} />
+                        <Route path="/mis-pedidos/*" element={<MyOrders />} />
                     </Routes>
                 </div>
             </div>

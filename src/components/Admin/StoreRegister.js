@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useAuth } from "../../context/AuthContext";
+import { useMyStore } from "../../context/MyStoreContext";
 import Compressor from 'compressorjs';
 import {PhotoStoreView, StoreLogo} from '../../utilities/photoView.utilities';
 import {cityList} from '../../utilities/citys.utilities';
 import {categoryList} from '../../utilities/categorys.utilities';
-import {useNavigate} from 'react-router-dom';
+import Alert from "../../utilities/alert.utilities";
 function StoreRegister() {
-    const navigate = useNavigate();
+    const {getMyStore} = useMyStore();
     const [cargando, setCargando] = useState(false);
     const { user, uploadPhoto, getPhotoURL, createStore, findPath  } = useAuth();
     const [emprendimiento, setEmprendimiento] = useState({
@@ -152,13 +153,13 @@ function StoreRegister() {
                     if (i < 5){
                         imgURL = `emprendimiento/perfil/`+i;
                         try {
-                            await uploadPhoto(user.email, imgs[i], imgURL);
+                            await uploadPhoto(imgs[i], imgURL);
                         } catch (error) {
                             setError(error.message);
                             setCargando(false);
                         }
                         try {
-                            await getPhotoURL(user.email, imgURL)
+                            await getPhotoURL(imgURL)
                                 .then(url => {
                                     photosURL.push(url);
                                     }) 
@@ -190,8 +191,10 @@ function StoreRegister() {
     };
     const create = async (storeName, photos, path) => {
         try {
-            await createStore(emprendimiento, storeName, photos, path);
-            navigate("/admin/mi-emprendimiento");
+            await createStore(emprendimiento, storeName, photos, path)
+            .then(() => {
+                getMyStore();
+            })
         } catch (error) {
             setError(error.message);
             setCargando(false);
@@ -223,6 +226,7 @@ function StoreRegister() {
     return (
 
         <div>
+            {error && <Alert message={error} />}
             <div className="col-12 pe-4 ps-4" style={{maxHeight:"375px", overflow:"auto"}}>
                 <h4 className="text-center m-3">Registra tu emprendimiento</h4>
                 <form onSubmit={handleSubmit}>

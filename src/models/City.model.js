@@ -23,12 +23,5 @@ export const citys = [
     'Ríohacha', 
     'Florencia', 
     'Quibdó', 
-    'Arauca', 
     'San Andrés', 
-    'San José del Guaviare', 
-    'Leticia', 
-    'Mitú', 
-    'Mocoa', 
-    'Inírida', 
-    'Puerto Carreño'
 ];
