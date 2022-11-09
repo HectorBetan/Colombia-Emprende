@@ -1,3 +1,77 @@
+/*Publicidad y Sección Noticias Index*/
+.tarjeta-emprendedor-imagen{
+    height: 300px;
+    border-radius: 25px 25px 0 0;
+    object-fit: cover;
+    opacity: 0.2;
+    }
+    .tarjeta-emprendedor{
+    text-align: center;
+    font-size: 60px;
+    font-weight: 750;
+    color: #08264d;
+    margin: 40px 15px;
+    }
+    
+    .tarjeta-registro:hover .tarjeta-emprendedor{
+    display: none;
+    }
+    
+    .tarjeta-emprendedor-oculta{
+    font-size: 50px;
+    font-weight: 750;
+    text-align: center;
+    display: none;
+    color: #0a5081;
+    margin-top: 10px;
+    transition: 1s ease;
+    }
+    .tarjeta-emprendedor-oculta p{
+    color: #0f2738;
+    font-size: 30px;
+    font-weight: 650;
+    }
+    .tarjeta-emprendedor-oculta h3{
+    color: #082536;
+    font-size: 35px;
+    }
+    .tarjeta-registro:hover .tarjeta-emprendedor-oculta{
+    display: flex;
+    flex-direction: column;
+    padding: 20px 40px 20px 40px;
+    transition: 1s ease;
+    }
+    .tarjeta-registro{
+    background-color: #e1ff38;
+    padding: 0px;
+    border-radius: 25px 25px 0 0 !important;
+    border: none !important;
+    }
+    .tarjeta-registro-footer{
+    margin: 0px;
+    padding: 5px;
+    text-align: center;
+    border-radius: 0 0 25px 25px !important;
+    background-color: #acd0ff !important;
+    }
+    .tarjeta-registro-footer a{
+    font-size: 30px;
+    font-weight: 650;
+    text-decoration: none !important;
+    color: #c50202 !important;
+    }
+    .tarjeta-registro-footer a:hover{
+    color: #2a3eb1 !important;
+    font-weight: 750 !important;
+    }
+    .imagen-seccion-noticias{
+    height: 125px;
+    object-fit: cover;
+    border-radius: 10px;
+    }
+    .seccion-noticias{
+    border-radius: 25px;
+    }
 .stores-home{
     width: 400px;
     margin: 10px;
@@ -137,7 +211,7 @@
         vertical-align: middle;
     }
 }
-@media only screen and (max-width: 960px) and (min-width: 900px){
+@media only screen and (max-width: 960px) and (min-width: 901px){
     .stores-home{
         width: 280px;
         margin: 8px;

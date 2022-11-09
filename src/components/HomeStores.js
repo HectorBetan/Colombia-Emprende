@@ -1,7 +1,7 @@
 import '../styles/Carousel.style.css';
 import { usePublic } from "../context/PublicContext";
 import { useState, useEffect } from 'react';
-
+import imgStore from "../assets/img-store.jpg"
 function HomeStores() {
     const { sixStores } = usePublic();
       const [cargando, setCargando] = useState(true);
@@ -73,6 +73,13 @@ function HomeStores() {
                     return(
                         <div key={s} className="d-flex justify-content-evenly">{
                         group.map((store,i)=>{
+                            let img;
+                            if (!store.Imagen){
+                                img = imgStore;
+                            }
+                            else {
+                                img = store.Imagen
+                            }
                             console.log(store.Nombre.length)
                             let p = "...";
                             let nombre = "";
@@ -94,7 +101,7 @@ function HomeStores() {
                                             </h5>} 
                                     <div className='d-flex  justify-content-evenly'>
                                     <div className="">
-                                      <img src={store.Imagen} className="card-img-top rounded" alt="..." />
+                                      <img src={img} className="card-img-top rounded" alt="..." />
                                     </div>
                                         <div className='m-lg-2 m-xl-2 m-xxl-2 m-md-2 m-1'>
                                             <span className='stores-home-text d-flex'>

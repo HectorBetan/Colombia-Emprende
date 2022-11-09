@@ -1,41 +1,33 @@
-import '../styles/Carousel.style.css';
-import Carousel from 'react-bootstrap/Carousel';
-import Banner1 from "../assets/bannerHome/banner1.jpg";
-import Banner2 from "../assets/bannerHome/banner3.jpg";
-import Banner3 from "../assets/bannerHome/banner4.jpg";
 import ley from "../assets/publicidad/ley.png";
 import publicidad from "../assets/publicidad/publicidad.jpeg";
-import HomeAds from './HomeAds';
-
-import HomeStores from './HomeStores';
-
-function HomeView() {
-
-    
+import { useAuth } from "../context/AuthContext";
+function HomeAds() {
+    const {userData, user, loading} = useAuth();
+    if (loading){
+        return(
+            <div>Cargando...</div>
+        )
+    }
+    if (!user){
+        return(
+            <div>
+                Registrate
+            </div>
+        )
+    }
+    if (user && userData && !userData.Emprendimiento_id){
+        return(
+            <div>Publicidad1</div>
+        )
+    }
+    if (user && userData && userData.Emprendimiento_id){
+        return(
+            <div>Ya registrado</div>
+        )
+    }
     return (
       <div>
-        <Carousel fade controls={false}>
-            <Carousel.Item interval={4000}>
-              <img className="d-block w-100 img-carousel-center" src={Banner1} alt="..." />
-            </Carousel.Item>
-            <Carousel.Item interval={4000}>
-              <img className="d-block w-100 img-carousel-left" src={Banner2} alt="..." />
-            </Carousel.Item>
-            <Carousel.Item interval={4000}>
-              <img className="d-block w-100 img-carousel-center" src={Banner3} alt="..." />
-            </Carousel.Item>
-        </Carousel>
-        <div>
-          <br />
-          <h1 className="text-center">Nuevos emprendimientos</h1>
-          <HomeStores />
-        </div>
-        <div className='text-center m-5'>
-          <h2>En Colombia Emprende</h2>
-          <h3>Apoyamos a los Emprendedores</h3>
-          <h1>Colombianos</h1>
-        </div>
-        <HomeAds />
+        
         <div class="row justify-content-center p-2 modulo-emprendedores-responsive">
             <div class="col-7">
                 <div class="tarjeta-registro card col-12 ">
@@ -64,19 +56,8 @@ function HomeView() {
                 </div>
             </div>
         </div>
-        
-        <div>
-          <div className="text-center">Paginas Relacionadas</div>
-          <div className="d-flex flex-row justify-content-evenly">
-            <div>Pag 1</div>
-            <div>Pag 2</div>
-            <div>Pag 3</div>
-            <div>Pag 4</div>
-            <div>Pag 5</div>
-          </div>
-        </div>
       </div>
     );
   }
 
-  export default HomeView;
+  export default HomeAds;
