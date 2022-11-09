@@ -510,20 +510,20 @@
         object-fit: cover;
     }
     .stores-home h5{
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 700;
         text-align: center;
         margin-bottom: 8px;
     }
     .stores-home-text p{
-        font-size: 11px;
+        font-size: 10px;
         margin-right: 2px;
         margin-bottom: 0px;
         font-weight: 400;
         vertical-align: middle;
     }
     .stores-home-text h5{
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 650;
         text-align: center;
         margin-bottom: 2px;
@@ -536,7 +536,7 @@
         vertical-align: middle;
     }
     .stores-home-categoria h6{
-        font-size: 11px;
+        font-size: 12px;
         margin-right: 2px;
         margin-bottom: 0px;
         font-weight: 650;
