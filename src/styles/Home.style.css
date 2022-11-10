@@ -1121,23 +1121,24 @@ publicidad 2
         }
         .tarjeta-emprendedor-1{
         text-align: center;
-        font-size: 35px;
+        font-size: 38px;
         font-weight: 700;
         color: #08264d;
-        margin: 30px 10px;
+        margin: 40px 15px;
         }
         .tarjeta-registro-1{
             width: 400px;
     
             }
         .tarjeta-emprendedor-oculta-1{
-        font-size: 28px;
+        font-size: 30px;
         font-weight: 750;
         text-align: center;
         display: none;
         color: #0a5081;
-        margin-top: 10px;
+
         transition: 1s ease;
+        margin: 25px 25px;
         }
         .tarjeta-emprendedor-oculta-1 p{
         color: #0f2738;
@@ -1164,17 +1165,17 @@ publicidad 2
 
             }
         .tarjeta-emprendedor-oculta-1{
-        font-size: 28px;
+        font-size: 26px;
         font-weight: 750;
         text-align: center;
         display: none;
         color: #0a5081;
-        margin-top: 5px;
+        margin: 0px 5px;
         transition: 1s ease;
         }
         .tarjeta-emprendedor-oculta-1 p{
         color: #0f2738;
-        font-size: 17px;
+        font-size: 18px;
         font-weight: 650;
         }
         .tarjeta-registro-footer-1 a{
