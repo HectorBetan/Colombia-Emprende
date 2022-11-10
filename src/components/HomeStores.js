@@ -2,12 +2,14 @@ import '../styles/Carousel.style.css';
 import { usePublic } from "../context/PublicContext";
 import { useState, useEffect } from 'react';
 import imgStore from "../assets/img-store.jpg"
+import { Link } from 'react-router-dom';
 function HomeStores() {
     const { sixStores } = usePublic();
       const [cargando, setCargando] = useState(true);
       const [start, setStart] = useState(true);
-      const [stores, setStores] = useState(null)
+      const [storesHome, setStoresHome] = useState(null)
       const [w, setW] = useState(window.innerWidth)
+
       const handleResize = () => {
         setW(window.innerWidth);
         setStart(true)
@@ -49,7 +51,7 @@ function HomeStores() {
                     lista = [];
                 }
             }
-            setStores(tiendas)
+            setStoresHome(tiendas)
             setStart(false)
             setCargando(false)
             console.log(sixStores)
@@ -64,12 +66,11 @@ function HomeStores() {
           </div>
         )
       }
-      if (sixStores && !cargando && stores){
-        console.log(stores)
+      if (sixStores && !cargando && storesHome){
         return (
           <div className="d-flex justify-content-evenly">
             <div>
-                {stores.map((group, s)=>{
+                {storesHome.map((group, s)=>{
                     return(
                         <div key={s} className="d-flex justify-content-evenly">{
                         group.map((store,i)=>{
@@ -135,7 +136,10 @@ function HomeStores() {
                                     
                                   </div>
                                   <div className="card-footer text-center">
-                                    <button className='btn btn-primary'>Ir a la tienda</button>
+                                    
+                                    <Link  to={`/emprendimientos/${store.Path}`}  data={store} className="btn btn-primary">
+                                    Ir a la tienda
+                      </Link>
                                   </div>
                                 </div>
                               </div>

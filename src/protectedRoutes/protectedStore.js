@@ -3,7 +3,6 @@ import { useAuth } from "../context/AuthContext";
 import { useMyStore } from "../context/MyStoreContext";
 export function ProtectedStore({ children }) {
     const { loading } = useAuth();
-    const { userStore } = useMyStore();
     if (loading) return(
         <div className="spinner-border text-primary text-center align-middle" role="status">
         <span className="visually-hidden">Loading...</span>

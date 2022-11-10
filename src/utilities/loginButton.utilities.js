@@ -10,7 +10,6 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { useAuth } from "../context/AuthContext";
 import { handleLogout, handleGoogleSignin } from "../services/user.service";
 import { UserLogo, PhotoView } from './photoView.utilities';
-import { useMyStore } from "../context/MyStoreContext";
 
 export const LoginButton = () => {
     const [show, setShow] = useState(false);
@@ -20,7 +19,7 @@ export const LoginButton = () => {
     const handleShow = () => setShow(true);
     const {loginWithGoogle} = useAuth();
     
-    const ModalLogin = (data) => {
+    const ModalLogin = () => {
         return(
             <Modal show={show} onHide={handleClose} backdrop="static">
                 <Modal.Header closeButton />
@@ -33,7 +32,6 @@ export const LoginButton = () => {
                         <Tab eventKey="login" title="Iniciar Sesión" className="ms-4 me-4 mt-2 mb-2">
                             <Login />
                         </Tab>
-                        <UserLogo w="25" h="25" />
                         <Tab eventKey="singup" title="Registrarse" className="ms-4 me-4 mt-2 mb-2">
                             <Register />
                         </Tab>
@@ -143,14 +141,64 @@ export const LoginButtonNav = () => {
             role="button"
             onClick={(e)=>{e.preventDefault();setKey("singup");handleShow();}}>
             <h6 className="align-items-center m-2">Registrarse</h6>
-            <i className="fa fa-sign-in fa-2x" aria-hidden="true" fill="currentColor" ></i>
+            <i className="fa fa-address-card fa-2x" fill="currentColor" ></i>
             </Nav.Link>
             <ModalLogin />
         </div>
     );
 }
+export const ModalAd = () => {
+    const [show, setShow] = useState(false);
+    const [key, setKey] = useState('singup');
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const {loginWithGoogleRedirect} = useAuth();
+    const ModalLogin = () => {
+        return(
+            <Modal show={show} onHide={handleClose} backdrop="static">
+                <Modal.Header closeButton />
+                    <Tabs
+                    justify
+                    id="login-tab"
+                    activeKey={key}
+                    onSelect={(k) => setKey(k)}
+                    className="mb-1 d-flex flex-row justify-content-center">
+                        <Tab eventKey="login" title="Iniciar Sesión" className="ms-4 me-4 mt-2 mb-2">
+                            <Login />
+                        </Tab>
+                        <Tab eventKey="singup" title="Registrarse" className="ms-4 me-4 mt-2 mb-2">
+                            <Register />
+                        </Tab>
+                    </Tabs> 
+                    <hr />
+                    <p className="text-center">O ingresa con:</p>
+                    <div className="d-flex flex-row justify-content-evenly pb-3">
+                        <form onSubmit={(e) => {e.preventDefault(); handleGoogleSignin(loginWithGoogleRedirect)}}>
+                        <button 
+                            className="d-flex flex-row m-3 p-2 justify-content-center" 
+                            style={{width:'150px', border:"1.5px solid rgb(0 , 175 ,  255)", borderRadius:"10px"}} 
+                            type="submit">
+                            
+                            <div className="mt-1 me-2">Google</div>
+                        </button>
+                        </form>
+                    </div>
+            </Modal>
+        )
+    }
+    return (
+        <div className=' text-center'>
+            <div class="tarjeta-registro-footer text-center">
+            <a href='*' className="publi-registro text-center" 
+            onClick={(e)=>{e.preventDefault();setKey("singup");handleShow();}}>
+            Registrate Aqui
+            </a>
+            <ModalLogin />
+            </div>
+        </div>
+    );
+}
 export const UserButton = () => {
-    const {userStore } = useMyStore();
     const { user, userData, logout } = useAuth();
     let nombre = "";
     if (user && user.displayName){
@@ -192,7 +240,6 @@ export const UserButton = () => {
 }
 
 export const UserButtonNav = () => {
-    const {userStore } = useMyStore();
     const { user, logout, userData } = useAuth();
     let nombre = "";
     if (user){

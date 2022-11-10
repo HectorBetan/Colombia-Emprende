@@ -26,7 +26,7 @@
     text-align: center;
     display: none;
     color: #0a5081;
-    margin-top: 10px;
+    margin-top: 25px;
     transition: 1s ease;
     }
     .tarjeta-emprendedor-oculta p{
@@ -63,10 +63,190 @@
     text-decoration: none !important;
     color: #c50202 !important;
     }
+    .publi-registro a{
+        font-size: 30px;
+        font-weight: 650;
+        text-decoration: none !important;
+        color: #c50202 !important;
+        }
     .tarjeta-registro-footer a:hover{
     color: #2a3eb1 !important;
     font-weight: 750 !important;
     }
+    .publi-registro a:hover{
+        color: #2a3eb1 !important;
+    font-weight: 750 !important;
+        }
+/*
+publicidad1
+
+*/
+
+.tarjeta-emprendedor-imagen-1{
+    height: 300px;
+    border-radius: 25px 25px 0 0;
+    object-fit: cover;
+    opacity: 0.2;
+    }
+    .tarjeta-emprendedor-1{
+    text-align: center;
+    font-size: 60px;
+    font-weight: 750;
+    color: #08264d;
+    margin: 45px 15px;
+    }
+    .tarjeta-registro-1{
+        width: 750px;
+
+        }
+    .tarjeta-registro-1:hover .tarjeta-emprendedor-1{
+    display: none;
+    }
+    
+    .tarjeta-emprendedor-oculta-1{
+    font-size: 50px;
+    font-weight: 750;
+    text-align: center;
+    display: none;
+    color: #0a5081;
+    margin-top: 25px;
+    transition: 1s ease;
+    }
+    .tarjeta-emprendedor-oculta-1 p{
+    color: #0f2738;
+    font-size: 30px;
+    font-weight: 650;
+    }
+    .tarjeta-emprendedor-oculta-1 h3{
+    color: #082536;
+    font-size: 35px;
+    }
+    .tarjeta-registro-1:hover .tarjeta-emprendedor-oculta-1{
+    display: flex;
+    flex-direction: column;
+    padding: 20px 40px 20px 40px;
+    transition: 1s ease;
+    }
+    .tarjeta-registro-1{
+    background-color: #e1ff38;
+    padding: 0px;
+    border-radius: 25px 25px 0 0 !important;
+    border: none !important;
+    }
+    .tarjeta-registro-footer-1{
+    margin: 0px;
+    padding: 5px;
+    text-align: center;
+    border-radius: 0 0 25px 25px !important;
+    background-color: #acd0ff !important;
+    }
+    .tarjeta-registro-footer-1 a{
+    font-size: 30px;
+    font-weight: 650;
+    text-decoration: none !important;
+    color: #c50202 !important;
+    }
+    .publi-registro-1 a{
+        font-size: 30px;
+        font-weight: 650;
+        text-decoration: none !important;
+        color: #c50202 !important;
+        }
+    .tarjeta-registro-footer-1 a:hover{
+    color: #2a3eb1 !important;
+    font-weight: 750 !important;
+    }
+    .publi-registro-1 a:hover{
+        color: #2a3eb1 !important;
+    font-weight: 750 !important;
+        }
+/* */
+
+/*
+publicidad 2
+
+*/
+
+.tarjeta-emprendedor-imagen-2{
+    height: 300px;
+    border-radius: 25px 25px 0 0;
+    object-fit: cover;
+    opacity: 0.2;
+    }
+    .tarjeta-emprendedor-2{
+    text-align: center;
+    font-size: 60px;
+    font-weight: 750;
+    color: #08264d;
+    margin: 45px 15px;
+    }
+    .tarjeta-registro-2{
+        width: 750px;
+
+        }
+    .tarjeta-registro-2:hover .tarjeta-emprendedor-2{
+    display: none;
+    }
+    
+    .tarjeta-emprendedor-oculta-2{
+    font-size: 50px;
+    font-weight: 750;
+    text-align: center;
+    display: none;
+    color: #0a5081;
+    margin-top: 25px;
+    transition: 1s ease;
+    }
+    .tarjeta-emprendedor-oculta-2 p{
+    color: #0f2738;
+    font-size: 30px;
+    font-weight: 650;
+    }
+    .tarjeta-emprendedor-oculta-2 h3{
+    color: #082536;
+    font-size: 35px;
+    }
+    .tarjeta-registro-2:hover .tarjeta-emprendedor-oculta-2{
+    display: flex;
+    flex-direction: column;
+    padding: 20px 40px 20px 40px;
+    transition: 1s ease;
+    }
+    .tarjeta-registro-2{
+    background-color: #e1ff38;
+    padding: 0px;
+    border-radius: 25px 25px 0 0 !important;
+    border: none !important;
+    }
+    .tarjeta-registro-footer-2{
+    margin: 0px;
+    padding: 5px;
+    text-align: center;
+    border-radius: 0 0 25px 25px !important;
+    background-color: #acd0ff !important;
+    }
+    .tarjeta-registro-footer-2 a{
+    font-size: 30px;
+    font-weight: 650;
+    text-decoration: none !important;
+    color: #c50202 !important;
+    }
+    .publi-registro-2 a{
+        font-size: 30px;
+        font-weight: 650;
+        text-decoration: none !important;
+        color: #c50202 !important;
+        }
+    .tarjeta-registro-footer-2 a:hover{
+    color: #2a3eb1 !important;
+    font-weight: 750 !important;
+    }
+    .publi-registro-2 a:hover{
+        color: #2a3eb1 !important;
+    font-weight: 750 !important;
+        }
+/* */
+
     .imagen-seccion-noticias{
     height: 125px;
     object-fit: cover;
@@ -576,7 +756,7 @@
         font-size: 50px;
         font-weight: 700;
         color: #08264d;
-        margin: 60px 15px;
+        margin: 20px 15px;
         }
         .tarjeta-registro{
             width: 600px;
@@ -588,12 +768,12 @@
         text-align: center;
         display: none;
         color: #0a5081;
-        margin-top: 10px;
+        margin-top: 20px;
         transition: 1s ease;
         }
         .tarjeta-emprendedor-oculta p{
         color: #0f2738;
-        font-size: 25px;
+        font-size: 30px;
         font-weight: 650;
         }
         .tarjeta-emprendedor-oculta h3{
@@ -613,7 +793,7 @@
         font-size: 50px;
         font-weight: 700;
         color: #08264d;
-        margin: 50px 15px;
+        margin: 10px 15px;
         }
         .tarjeta-registro{
             width: 600px;
@@ -625,12 +805,12 @@
         text-align: center;
         display: none;
         color: #0a5081;
-        margin-top: 15px;
+        margin-top: 20px;
         transition: 1s ease;
         }
         .tarjeta-emprendedor-oculta p{
         color: #0f2738;
-        font-size: 25px;
+        font-size: 29px;
         font-weight: 650;
         }
         .tarjeta-emprendedor-oculta h3{
@@ -687,7 +867,7 @@
         font-size: 36px;
         font-weight: 700;
         color: #08264d;
-        margin: 55px 15px;
+        margin: 25px 15px;
         }
         .tarjeta-registro{
             width: 450px;
@@ -724,14 +904,14 @@
         font-size: 35px;
         font-weight: 700;
         color: #08264d;
-        margin: 40px 15px;
+        margin: 40px 10px;
         }
         .tarjeta-registro{
             width: 400px;
     
             }
         .tarjeta-emprendedor-oculta{
-        font-size: 30px;
+        font-size: 28px;
         font-weight: 750;
         text-align: center;
         display: none;
@@ -741,7 +921,7 @@
         }
         .tarjeta-emprendedor-oculta p{
         color: #0f2738;
-        font-size: 20px;
+        font-size: 23px;
         font-weight: 650;
         }
         .tarjeta-emprendedor-oculta h3{
@@ -761,28 +941,473 @@
         font-size: 35px;
         font-weight: 700;
         color: #08264d;
-        margin: 40px 12px;
+        margin: 5px 10px;
         }
         .tarjeta-registro{
             width: 320px;
 
             }
         .tarjeta-emprendedor-oculta{
-        font-size: 26px;
+        font-size: 28px;
         font-weight: 750;
         text-align: center;
         display: none;
         color: #0a5081;
-        margin-top: 15px;
+        margin-top: 5px;
         transition: 1s ease;
         }
         .tarjeta-emprendedor-oculta p{
         color: #0f2738;
+        font-size: 17px;
+        font-weight: 650;
+        }
+        .tarjeta-registro-footer a{
+        font-size: 21px!important;
+        }
+   }
+   @media only screen and (max-width: 1035px){
+
+    .tarjeta-registro-1{
+        width: 650px;
+
+        }
+        .tarjeta-emprendedor-1{
+            text-align: center;
+            font-size: 50px;
+            font-weight: 700;
+            color: #08264d;
+            margin: 60px 10px;
+            }
+   }
+   @media only screen and (max-width: 800px){
+    .tarjeta-emprendedor-imagen-1{
+        height: 300px;
+        border-radius: 25px 25px 0 0;
+        object-fit: cover;
+        opacity: 0.2;
+        }
+        .tarjeta-emprendedor-1{
+        text-align: center;
+        font-size: 50px;
+        font-weight: 700;
+        color: #08264d;
+        margin: 45px 15px;
+        }
+        .tarjeta-registro-1{
+            width: 600px;
+    
+            }
+        .tarjeta-emprendedor-oculta-1{
+        font-size: 45px;
+        font-weight: 750;
+        text-align: center;
+        display: none;
+        color: #0a5081;
+        margin-top: 20px;
+        transition: 1s ease;
+        }
+        .tarjeta-emprendedor-oculta-1 p{
+        color: #0f2738;
+        font-size: 30px;
+        font-weight: 650;
+        }
+   }
+   @media only screen and (max-width: 740px){
+    .tarjeta-emprendedor-imagen-1{
+        height: 280px;
+        border-radius: 25px 25px 0 0;
+        object-fit: cover;
+        opacity: 0.2;
+        }
+        .tarjeta-emprendedor-1{
+        text-align: center;
+        font-size: 50px;
+        font-weight: 700;
+        color: #08264d;
+        margin: 45px 15px;
+        }
+        .tarjeta-registro-1{
+            width: 600px;
+    
+            }
+        .tarjeta-emprendedor-oculta-1{
+        font-size: 40px;
+        font-weight: 750;
+        text-align: center;
+        display: none;
+        color: #0a5081;
+        margin-top: 20px;
+        transition: 1s ease;
+        }
+        .tarjeta-emprendedor-oculta-1 p{
+        color: #0f2738;
+        font-size: 29px;
+        font-weight: 650;
+        }
+
+   }
+   @media only screen and (max-width: 650px){
+    .tarjeta-emprendedor-imagen-1{
+        height: 250px;
+        border-radius: 25px 25px 0 0;
+        object-fit: cover;
+        opacity: 0.2;
+        }
+        .tarjeta-emprendedor-1{
+        text-align: center;
+        font-size: 40px;
+        font-weight: 700;
+        color: #08264d;
+        margin: 50px 15px;
+        }
+        .tarjeta-registro-1{
+            width: 520px;
+    
+            }
+        .tarjeta-emprendedor-oculta-1{
+        font-size: 33px;
+        font-weight: 750;
+        text-align: center;
+        display: none;
+        color: #0a5081;
+        margin-top: 25px;
+        transition: 1s ease;
+        }
+        .tarjeta-emprendedor-oculta-1 p{
+        color: #0f2738;
+        font-size: 23px;
+        font-weight: 650;
+        }
+   }
+   @media only screen and (max-width: 550px){
+    .tarjeta-emprendedor-imagen-1{
+        height: 250px;
+        border-radius: 25px 25px 0 0;
+        object-fit: cover;
+        opacity: 0.2;
+        }
+        .tarjeta-emprendedor-1{
+        text-align: center;
+        font-size: 36px;
+        font-weight: 700;
+        color: #08264d;
+        margin: 45px 15px;
+        }
+        .tarjeta-registro-1{
+            width: 450px;
+    
+            }
+        .tarjeta-emprendedor-oculta-1{
+        font-size: 30px;
+        font-weight: 750;
+        text-align: center;
+        display: none;
+        color: #0a5081;
+        margin-top: 10px;
+        transition: 1s ease;
+        }
+        .tarjeta-emprendedor-oculta-1 p{
+        color: #0f2738;
+        font-size: 25px;
+        font-weight: 650;
+        }
+   }
+   @media only screen and (max-width: 500px){
+    .tarjeta-emprendedor-imagen-1{
+        height: 250px;
+        border-radius: 25px 25px 0 0;
+        object-fit: cover;
+        opacity: 0.2;
+        }
+        .tarjeta-emprendedor-1{
+        text-align: center;
+        font-size: 35px;
+        font-weight: 700;
+        color: #08264d;
+        margin: 30px 10px;
+        }
+        .tarjeta-registro-1{
+            width: 400px;
+    
+            }
+        .tarjeta-emprendedor-oculta-1{
+        font-size: 28px;
+        font-weight: 750;
+        text-align: center;
+        display: none;
+        color: #0a5081;
+        margin-top: 10px;
+        transition: 1s ease;
+        }
+        .tarjeta-emprendedor-oculta-1 p{
+        color: #0f2738;
+        font-size: 23px;
+        font-weight: 650;
+        }
+   }
+   @media only screen and (max-width: 420px){
+    .tarjeta-emprendedor-imagen-1{
+        height: 250px;
+        border-radius: 25px 25px 0 0;
+        object-fit: cover;
+        opacity: 0.2;
+        }
+        .tarjeta-emprendedor-1{
+        text-align: center;
+        font-size: 35px;
+        font-weight: 700;
+        color: #08264d;
+        margin: 5px 10px;
+        }
+        .tarjeta-registro-1{
+            width: 320px;
+
+            }
+        .tarjeta-emprendedor-oculta-1{
+        font-size: 28px;
+        font-weight: 750;
+        text-align: center;
+        display: none;
+        color: #0a5081;
+        margin-top: 5px;
+        transition: 1s ease;
+        }
+        .tarjeta-emprendedor-oculta-1 p{
+        color: #0f2738;
+        font-size: 17px;
+        font-weight: 650;
+        }
+        .tarjeta-registro-footer-1 a{
+        font-size: 21px!important;
+        }
+   }
+   @media only screen and (max-width: 1035px){
+
+    .tarjeta-registro-2{
+        width: 650px;
+
+        }
+        .tarjeta-emprendedor-2{
+            text-align: center;
+            font-size: 50px;
+            font-weight: 700;
+            color: #08264d;
+            margin: 60px 10px;
+            }
+            .tarjeta-emprendedor-oculta-2{
+                font-size: 38px;
+                font-weight: 750;
+                text-align: center;
+                display: none;
+                color: #0a5081;
+                margin-top: 24px;
+                transition: 1s ease;
+                }
+                .tarjeta-emprendedor-oculta-2 p{
+                color: #0f2738;
+                font-size: 30px;
+                font-weight: 650;
+                }
+   }
+   @media only screen and (max-width: 800px){
+    .tarjeta-emprendedor-imagen-2{
+        height: 300px;
+        border-radius: 25px 25px 0 0;
+        object-fit: cover;
+        opacity: 0.2;
+        }
+        .tarjeta-emprendedor-2{
+        text-align: center;
+        font-size: 50px;
+        font-weight: 700;
+        color: #08264d;
+        margin: 45px 15px;
+        }
+        .tarjeta-registro-2{
+            width: 600px;
+    
+            }
+        .tarjeta-emprendedor-oculta-2{
+        font-size: 38px;
+        font-weight: 750;
+        text-align: center;
+        display: none;
+        color: #0a5081;
+        margin-top: 24px;
+        transition: 1s ease;
+        }
+        .tarjeta-emprendedor-oculta-2 p{
+        color: #0f2738;
+        font-size: 28px;
+        font-weight: 650;
+        }
+   }
+   @media only screen and (max-width: 740px){
+    .tarjeta-emprendedor-imagen-2{
+        height: 280px;
+        border-radius: 25px 25px 0 0;
+        object-fit: cover;
+        opacity: 0.2;
+        }
+        .tarjeta-emprendedor-2{
+        text-align: center;
+        font-size: 50px;
+        font-weight: 700;
+        color: #08264d;
+        margin: 45px 15px;
+        }
+        .tarjeta-registro-1{
+            width: 600px;
+    
+            }
+        .tarjeta-emprendedor-oculta-2{
+        font-size: 35px;
+        font-weight: 750;
+        text-align: center;
+        display: none;
+        color: #0a5081;
+        margin-top: 30px;
+        transition: 1s ease;
+        }
+        .tarjeta-emprendedor-oculta-2 p{
+        color: #0f2738;
+        font-size: 27px;
+        font-weight: 650;
+        }
+
+   }
+   @media only screen and (max-width: 650px){
+    .tarjeta-emprendedor-imagen-2{
+        height: 250px;
+        border-radius: 25px 25px 0 0;
+        object-fit: cover;
+        opacity: 0.2;
+        }
+        .tarjeta-emprendedor-2{
+        text-align: center;
+        font-size: 40px;
+        font-weight: 700;
+        color: #08264d;
+        margin: 50px 15px;
+        }
+        .tarjeta-registro-2{
+            width: 520px;
+    
+            }
+        .tarjeta-emprendedor-oculta-2{
+        font-size: 33px;
+        font-weight: 750;
+        text-align: center;
+        display: none;
+        color: #0a5081;
+        margin-top: 25px;
+        transition: 1s ease;
+        }
+        .tarjeta-emprendedor-oculta-2 p{
+        color: #0f2738;
+        font-size: 23px;
+        font-weight: 650;
+        }
+   }
+   @media only screen and (max-width: 550px){
+    .tarjeta-emprendedor-imagen-2{
+        height: 250px;
+        border-radius: 25px 25px 0 0;
+        object-fit: cover;
+        opacity: 0.2;
+        }
+        .tarjeta-emprendedor-2{
+        text-align: center;
+        font-size: 36px;
+        font-weight: 700;
+        color: #08264d;
+        margin: 45px 15px;
+        }
+        .tarjeta-registro-2{
+            width: 450px;
+    
+            }
+        .tarjeta-emprendedor-oculta-2{
+        font-size: 25px;
+        font-weight: 750;
+        text-align: center;
+        display: none;
+        color: #0a5081;
+        margin-top: 17px;
+        transition: 1s ease;
+        }
+        .tarjeta-emprendedor-oculta-2 p{
+        color: #0f2738;
+        font-size: 22px;
+        font-weight: 650;
+        }
+   }
+   @media only screen and (max-width: 500px){
+    .tarjeta-emprendedor-imagen-2{
+        height: 250px;
+        border-radius: 25px 25px 0 0;
+        object-fit: cover;
+        opacity: 0.2;
+        }
+        .tarjeta-emprendedor-2{
+        text-align: center;
+        font-size: 35px;
+        font-weight: 700;
+        color: #08264d;
+        margin: 50px 10px;
+        }
+        .tarjeta-registro-2{
+            width: 400px;
+    
+            }
+        .tarjeta-emprendedor-oculta-2{
+        font-size: 28px;
+        font-weight: 750;
+        text-align: center;
+        display: none;
+        color: #0a5081;
+        margin-top: 0px;
+        transition: 1s ease;
+        }
+        .tarjeta-emprendedor-oculta-2 p{
+        color: #0f2738;
         font-size: 20px;
         font-weight: 650;
         }
-        .tarjeta-emprendedor-oculta h3{
-        color: #082536;
+   }
+   @media only screen and (max-width: 420px){
+    .tarjeta-emprendedor-imagen-2{
+        height: 250px;
+        border-radius: 25px 25px 0 0;
+        object-fit: cover;
+        opacity: 0.2;
+        }
+        .tarjeta-emprendedor-2{
+        text-align: center;
+        font-size: 35px;
+        font-weight: 700;
+        color: #08264d;
+        margin: 50px 10px;
+        }
+        .tarjeta-registro-1{
+            width: 320px;
+
+            }
+        .tarjeta-emprendedor-oculta-2{
+        font-size: 28px;
+        font-weight: 750;
+        text-align: center;
+        display: none;
+        color: #0a5081;
+        margin-top: 2px;
+        transition: 1s ease;
+        }
+        .tarjeta-emprendedor-oculta-2 p{
+        color: #0f2738;
         font-size: 20px;
+        font-weight: 650;
+        }
+        .tarjeta-registro-footer-2 a{
+        font-size: 21px!important;
         }
    }
