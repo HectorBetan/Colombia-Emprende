@@ -7,7 +7,8 @@ import artesanias from "../assets/related/artesanias-de-colombia.png";
 import compra from "../assets/related/compra-lo-nuestro.jpg";
 import productiva from "../assets/related/colombia-productiva.png";
 import fondoemprender from "../assets/related/fondo-emprender.png";
-import impulsa from "../assets/related/impulsa.jpg"
+import impulsa from "../assets/related/impulsa.jpg";
+
 import HomeAds from './HomeAds';
 import HomeStores from './HomeStores';
 import { Link } from 'react-router-dom';

@@ -1,6 +1,7 @@
 import logoColombia from "../assets/footer/logo-colombia-emprende.png";
 import utp from "../assets/footer/logo-utp.png";
-import mintic from "../assets/footer/logo-mintic.png"
+import mintic from "../assets/footer/logo-mintic.png";
+import hector from "../assets/footer/logo-hector.png";
 function Footer() {
     return (
         <div>
@@ -10,7 +11,7 @@ function Footer() {
                         <h5>Acerca de:</h5>
                         <span className="d-lg-flex d-xl-flex d-xxl-flex d-md-flex ">
                             <a href="/acerca-de" target="_blank"><img className="logo-footer-acerca" src={logoColombia} alt="" /></a>
-                            <a target="_blank" href="https://halmateam.000webhostapp.com"  rel="noreferrer"><img className="logo-footer-acerca" src={logoColombia} alt="" /></a>
+                            <a target="_blank" href="https://hectorbetan.github.io"  rel="noreferrer"><img className="logo-footer-acerca" src={hector} alt="" /></a>
                         </span> 
                     </div>
                     <div className="m-2 p-md-3 p-xl-3 p-xxl-3 p-lg-3 mb-4">
@@ -51,7 +52,7 @@ function Footer() {
                 </div>
             </footer>
             <div className="baseDerechos mb-3">
-        <div>Copyright © 2021 | Todos los derechos reservados a <a href="https://halmateam.000webhostapp.com"  rel="noreferrer"  target="_blank" className="text-decoration-none">Hector Betancourt </a><span className="modulo-emprendedores-responsive"><span className="d-none d-lg-inline d-md-inline d-xl-inline d-xxl-inline">&nbsp;|&nbsp;</span>
+        <div>Copyright © 2021 | Todos los derechos reservados a <a href="https://hectorbetan.github.io"  rel="noreferrer"  target="_blank" className="text-decoration-none">Hector Betancourt </a><span className="modulo-emprendedores-responsive"><span className="d-none d-lg-inline d-md-inline d-xl-inline d-xxl-inline">&nbsp;|&nbsp;</span>
         <a type="button" rel="noreferrer" href="*" data-bs-toggle="modal" data-bs-target="#modal-politicas"  id="politica" className="text-decoration-none">&nbsp;Políticas de Privacidad y Tratamiento de Datos</a></span>
         </div>
       </div>
