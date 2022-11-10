@@ -32,11 +32,15 @@ function HomeView() {
           <h1 className="text-center">Nuevos emprendimientos</h1>
           <HomeStores />
         </div>
-        <div className='text-center m-5'>
-          <h2>En Colombia Emprende</h2>
+        <br />
+        <div className='text-center fondo-publi-home'>
+          <br /><br />
+          <h2>¡En Colombia Emprende</h2>
           <h3>Apoyamos a los Emprendedores</h3>
-          <h1>Colombianos</h1>
+          <h1>Colombianos!</h1>
+          <br /><br />
         </div>
+        <br />
         <HomeAds />
         <br />
         <div className="related-pages-fondo p-3">

@@ -1,4 +1,24 @@
 /*Publicidad y Sección Noticias Index*/
+.fondo-publi-home{
+    width: 100%;
+    margin: 0;
+    background-color: #d7e5f0;
+}
+.fondo-publi-home h1{
+    font-weight: 700;
+    font-size: 60px;
+    color: #04293f;
+}
+.fondo-publi-home h2{
+    font-weight: 650;
+    font-size: 40px;
+    color: #042131;
+}
+.fondo-publi-home h3{
+    font-weight: 500;
+    font-size: 32px;
+    color: #000a0f;
+}
 .tarjeta-emprendedor-imagen{
     height: 300px;
     border-radius: 25px 25px 0 0;
