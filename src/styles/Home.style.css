@@ -949,6 +949,21 @@ publicidad 2
         }
    }
    @media only screen and (max-width: 550px){
+    .fondo-publi-home h1{
+        font-weight: 700;
+        font-size: 50px;
+        color: #043c5c;
+    }
+    .fondo-publi-home h2{
+        font-weight: 650;
+        font-size: 30px;
+        color: #042131;
+    }
+    .fondo-publi-home h3{
+        font-weight: 500;
+        font-size: 22px;
+        color: #000a0f;
+    }
     .related-title{
         color: #ffffff;
         font-size: 13px;
@@ -1049,6 +1064,21 @@ publicidad 2
         }
    }
    @media only screen and (max-width: 420px){
+    .fondo-publi-home h1{
+        font-weight: 700;
+        font-size: 45px;
+        color: #043c5c;
+    }
+    .fondo-publi-home h2{
+        font-weight: 650;
+        font-size: 25px;
+        color: #042131;
+    }
+    .fondo-publi-home h3{
+        font-weight: 500;
+        font-size: 18px;
+        color: #000a0f;
+    }
     .related-title{
         color: #ffffff;
         font-size: 9px;
