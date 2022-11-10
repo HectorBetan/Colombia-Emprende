@@ -5,14 +5,13 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate  } from "react-router-dom";
 function HomeAds() {
     const navigate = useNavigate();
-    const fa = false
     const {userData, user, loading} = useAuth();
     if (loading){
         return(
             <div>Cargando...</div>
         )
     }
-    if (!user && false){
+    if (!user){
         return(
             <div>
                 <div class="d-flex flex-row justify-content-center p-2 modulo-emprendedores-responsive">
@@ -46,7 +45,7 @@ function HomeAds() {
             </div>
         )
     }
-    if (!user){
+    if (user && userData && !userData.Emprendimiento_id){
         return(
             <div>
                 <div class="d-flex flex-row justify-content-center p-2 modulo-emprendedores-responsive">
