@@ -51,8 +51,8 @@ function Footer() {
                 </div>
             </footer>
             <div className="baseDerechos mb-3">
-        <div>Copyright © 2021 | Todos los derechos reservados a <a href="https://halmateam.000webhostapp.com"  rel="noreferrer"  target="_blank" className="text-decoration-none">Hector Betancourt</a><span className="modulo-emprendedores-responsive">&nbsp;&nbsp;| |&nbsp;&nbsp;
-          <a type="button" rel="noreferrer" href="*" data-bs-toggle="modal" data-bs-target="#modal-politicas"  id="politica" className="text-decoration-none">Políticas de Privacidad y Tratamiento de Datos</a></span>
+        <div>Copyright © 2021 | Todos los derechos reservados a <a href="https://halmateam.000webhostapp.com"  rel="noreferrer"  target="_blank" className="text-decoration-none">Hector Betancourt </a><span className="modulo-emprendedores-responsive"><span className="d-none d-lg-inline d-md-inline d-xl-inline d-xxl-inline">&nbsp;|&nbsp;</span>
+        <a type="button" rel="noreferrer" href="*" data-bs-toggle="modal" data-bs-target="#modal-politicas"  id="politica" className="text-decoration-none">&nbsp;Políticas de Privacidad y Tratamiento de Datos</a></span>
         </div>
       </div>
             
