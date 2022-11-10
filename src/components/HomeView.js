@@ -31,13 +31,12 @@ function HomeView() {
           <br />
           <h1 className="text-center">Nuevos emprendimientos</h1>
           <HomeStores />
-          <div className='text-center mt-2'>
+          <div className='text-center mt-2 mb-4'>
             <Link to={"/Emprendimientos"} className="btn btn-lg btn-primary">Ver Todos Los Emprendimientos</Link>
 
 
           </div>
         </div>
-        <br />
         <div className='text-center fondo-publi-home pt-3 pb-3'>
           
           <h2>¡En Colombia Emprende</h2>

@@ -97,6 +97,50 @@
         color: #2a3eb1 !important;
     font-weight: 750 !important;
         }
+
+        footer{
+            background-color: #ecf1f8 !important;
+            margin-top: -10px;
+            }
+            .baseDerechos {
+            text-align: center;
+            color: white;
+            font-size: 15px;
+            vertical-align: middle;
+            background: #273b47;
+            padding: 10px 0 10px 0;
+            }
+            .baseDerechos a{
+                color: rgb(110, 209, 255);
+                }
+                .baseDerechos a:hover{
+                    color: rgb(29, 184, 255);
+                    font-weight: 500;
+                    }
+            .cajas-footer{
+            justify-content: center;
+            display: flex;
+            flex-direction: row ;
+            
+            }
+            .logos-footer{
+            text-decoration: none;
+            padding-top: 10px;
+            margin: 0px 10px;
+            }
+            .logo-footer-acerca{
+            height: 70px;
+            margin: 0px 5px;
+            text-decoration: none;
+            }
+            .iconos-footer{
+            margin: 0px 8px;
+            padding-top: 7px;
+            width: 55px;
+            height: 55px;
+            fill: #091a2e;
+            text-decoration: none;
+            }
 /*
 publicidad1
 

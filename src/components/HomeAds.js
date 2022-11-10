@@ -64,7 +64,7 @@ function HomeAds() {
                         </div> 
                     </div>    
                     <div className="seccion-noticias card col-3 p-3 d-none d-lg-block d-xl-block d-xxl-block">
-                        <img src={ley} class="imagen-seccion-noticias card-img-top" alt="..." />
+                        <img src={ley} className="imagen-seccion-noticias card-img-top" alt="..." />
                         <div className="card-body">
                             <h5 className="card-title">Noticias</h5>
                             <p className="card-text">Conoce la nueva <b>Ley de Emprendimiento 2020</b> creada para ayudar a los emprendedores colombianos.</p>
@@ -85,7 +85,7 @@ function HomeAds() {
                 <div className="d-flex flex-row justify-content-center p-2 modulo-emprendedores-responsive">
                     <div className="me-xl-5 me-lg-3 me-md-3 me-0 me-xxl-5">
                         <div className="tarjeta-registro card">
-                            <img src={publicidad} class="tarjeta-emprendedor-imagen card-img" alt="..." />
+                            <img src={publicidad} className="tarjeta-emprendedor-imagen card-img" alt="..." />
                             <div className="tarjeta-emprendedor card-img-overlay">
                                 Gracias por Hacer Parte de Colombia Emprende
                             </div>
@@ -103,7 +103,7 @@ function HomeAds() {
                             <h5 className="card-title">Noticias</h5>
                             <p className="card-text">Conoce la nueva <b>Ley de Emprendimiento 2020</b> creada para ayudar a los emprendedores colombianos.</p>
                         </div>
-                        <div class="card-footer text-center">
+                        <div className="card-footer text-center">
                             <a href="https://dapre.presidencia.gov.co/normativa/normativa/LEY%202069%20DEL%2031%20DE%20DICIEMBRE%20DE%202020.pdf"  target="_blank" rel='noreferrer'>
                             Ver Documento
                             </a>
