@@ -10,7 +10,7 @@ import fondoemprender from "../assets/related/fondo-emprender.png";
 import impulsa from "../assets/related/impulsa.jpg"
 import HomeAds from './HomeAds';
 import HomeStores from './HomeStores';
-
+import { Link } from 'react-router-dom';
 function HomeView() {
 
     
@@ -31,14 +31,19 @@ function HomeView() {
           <br />
           <h1 className="text-center">Nuevos emprendimientos</h1>
           <HomeStores />
+          <div className='text-center mt-2'>
+            <Link to={"/Emprendimientos"} className="btn btn-lg btn-primary">Ver Todos Los Emprendimientos</Link>
+
+
+          </div>
         </div>
         <br />
-        <div className='text-center fondo-publi-home'>
-          <br /><br />
+        <div className='text-center fondo-publi-home pt-3 pb-3'>
+          
           <h2>¡En Colombia Emprende</h2>
           <h3>Apoyamos a los Emprendedores</h3>
           <h1>Colombianos!</h1>
-          <br /><br />
+          
         </div>
         <br />
         <HomeAds />
