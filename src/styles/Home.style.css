@@ -182,6 +182,7 @@
             .cel-menu-user{
                 padding-top: 5px!important;
                 padding-bottom: 5px!important;
+                display: flex;
             }
             .cajas-footer{
             justify-content: center;
