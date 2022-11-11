@@ -206,7 +206,7 @@ function Register () {
                         </div>
                     </div>
                 </div>
-                <div className="justify-content-center mb-1 me-3 ms-3 mt-3">
+                <div className="justify-content-center m-lg-3 m-xl-3 m-xxl-3 m-md-3">
                     <label className="d-block m-1 mt-2 me-2 text-center">Foto de Perfil(opcional):</label>
                     <div className="d-column d-lg-flex d-xl-flex d-xxl-flex flex-row text-center">
                         <ProfilePhoto />
@@ -215,7 +215,7 @@ function Register () {
                 </div>
                 <span className="d-flex flex-row justify-content-center mb-1 mt-3 policy">
                     <input type="checkbox" className="form-check-input me-1 ms-1" required/>
-                    <span>Acepto las&nbsp;<PolicyModal /></span>
+                    <span className='politicas-registro'>Acepto las&nbsp;<PolicyModal /></span>
                     
                 </span>
                 <div className="d-grid mt-3 mb-3 me-3 ms-5 ps-1 pe-3">

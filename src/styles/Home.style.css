@@ -208,6 +208,7 @@
             fill: #091a2e;
             text-decoration: none;
             }
+            
 /*
 publicidad1
 
@@ -1125,6 +1126,10 @@ publicidad 2
         }
    }
    @media only screen and (max-width: 500px){
+    .politicas-registro{
+        font-size: 14px;
+        margin-top: 0px;
+    }
     .related-title{
         color: #ffffff;
         font-size: 12px;
@@ -1175,6 +1180,10 @@ publicidad 2
         }
    }
    @media only screen and (max-width: 420px){
+    .politicas-registro{
+        font-size: 11px;
+        margin-top: 3px;
+    }
     .fondo-publi-home h1{
         font-weight: 700;
         font-size: 45px;
