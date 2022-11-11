@@ -7,6 +7,7 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import Logo from "../assets/logos/logo-colombia-blanco.png";
 import { handleLogout } from "../services/user.service";
 import { PhotoView } from '../utilities/photoView.utilities';
+import LogoNav from "../assets/logos/logo-colombia.png";
 function NavigationBar() {
     const location = useLocation();
     const navigate = useNavigate();
@@ -200,7 +201,7 @@ function NavigationBar() {
                     <Offcanvas style={{position:"fixed"}} placement='end' show={show} onHide={handleClose}
                     className="navegacion d-md-none d-lg-none d-xl-none d-xxl-none pr-0">
                         <Offcanvas.Header closeButton>
-                        <Offcanvas.Title>Colombia Emprende</Offcanvas.Title>
+                        <Offcanvas.Title><img src={LogoNav} alt="" width="130"/></Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body>
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
