@@ -30,7 +30,7 @@ function Login (){
                 {msg && <Alert message={msg} />}
             </div>
             <form onSubmit={(e)=> {e.preventDefult(); handleLogin(login, user)}}>
-                <div className="form-group mb-3 me-5 ms-5 pe-3 ps-3">
+                <div className="form-group mb-3 me-1 ms-1 me-md-4 ms-md-4 pe-md-3 ps-md-3 me-lg-5 ms-lg-5 pe-lg-3 ps-lg-3 me-xl-5 ms-xl-5 pe-xl-3 ps-xl-3 me-xxl-5 ms-xxl-5 pe-xxl-3 ps-xxl-3">
                     <label className="m-1">Email</label>
                     <input 
                     className="form-control" 
@@ -42,7 +42,7 @@ function Login (){
                     required
                     />
                 </div>
-                <div className="form-group mb-3 me-5 ms-5 pe-3 ps-3">
+                <div className="form-group me-1 ms-1 mb-3 me-md-4 ms-md-4 pe-md-3 ps-md-3 me-lg-5 ms-lg-5 pe-lg-3 ps-lg-3 me-xl-5 ms-xl-5 pe-xl-3 ps-xl-3 me-xxl-5 ms-xxl-5 pe-xxl-3 ps-xxl-3">
                     <label className="m-1">Contraseña</label>
                     <div className="input-group">
                         <input 

@@ -152,7 +152,7 @@ function Register () {
             </div>
             <form onSubmit={handleRegister}>
                 <div className="form-group d-column d-lg-flex flex-lg-row d-xl-flex 
-                flex-xl-row d-xxl-flex flex-xxl-row justify-content-between mb-1 me-3 ms-3">
+                flex-xl-row d-xxl-flex flex-xxl-row justify-content-between mb-1 me-1 ms-1 me-md-3 ms-md-3 me-lg-3 ms-lg-3 me-xl-3 ms-xl-3 me-xxl-3 ms-xxl-3">
                     <div className="d-flex flex-column me-2">
                         <label className="m-1 text-center text-lg-start text-xl-start text-xxl-start">Nombre</label>
                         <input name="firstName" 
@@ -169,7 +169,7 @@ function Register () {
                     </div>
                 </div>
                 <div className="form-group d-column d-lg-flex flex-lg-row d-xl-flex 
-                flex-xl-row d-xxl-flex flex-xxl-row  justify-content-between mb-1 me-3 ms-3">
+                flex-xl-row d-xxl-flex flex-xxl-row  justify-content-between mb-1  me-1 ms-1 me-md-3 ms-md-3 me-lg-3 ms-lg-3 me-xl-3 ms-xl-3 me-xxl-3 ms-xxl-3">
                     <div className="d-flex flex-column  me-lg-2 me-xl-2 me-xxl-2">
                         <label className="m-1 text-center text-lg-start text-xl-start text-xxl-start">Celular(opcional)</label>
                         <input name="phoneNumber" className="form-control" 
@@ -186,7 +186,7 @@ function Register () {
                     </div>
                 </div>
                 <div className="form-group d-column d-lg-flex flex-lg-row d-xl-flex 
-                flex-xl-row d-xxl-flex flex-xxl-row justify-content-between  me-3 ms-3">
+                flex-xl-row d-xxl-flex flex-xxl-row justify-content-between me-1 ms-1 me-md-3 ms-md-3 me-lg-3 ms-lg-3 me-xl-3 ms-xl-3 me-xxl-3 ms-xxl-3">
                     <div className="d-flex flex-column me-lg-2 me-xl-2 me-xxl-2 col-lg-6 col-xl-6 col-xxl-6">
                         <label className="m-1 text-center text-lg-start text-xl-start text-xxl-start">Email</label>
                         <input name="email" className="form-control" type="email" 
@@ -210,7 +210,7 @@ function Register () {
                     <label className="d-block m-1 mt-2 me-2 text-center">Foto de Perfil(opcional):</label>
                     <div className="d-column d-lg-flex d-xl-flex d-xxl-flex flex-row text-center">
                         <ProfilePhoto />
-                        <input type="file" className="ms-lg-3 ms-xl-3 ms-xxl-3 mt-3 subirFoto" onChange={changeImg} accept="image/*"></input>
+                        <input type="file" className="w-100 ms-lg-3 ms-xl-3 ms-xxl-3 mt-3 subirFoto" onChange={changeImg} accept="image/*"></input>
                     </div>
                 </div>
                 <span className="d-flex flex-row justify-content-center mb-1 mt-3 policy">
