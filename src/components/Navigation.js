@@ -20,7 +20,7 @@ function NavigationBar() {
         }
     }
     const [show, setShow] = useState(false);
-    const {user, loading} = useAuth();
+    const {user, userData, loading} = useAuth();
     const handleClose = () => {
         document.body.style.position = 'static';
         setShow(false);
@@ -55,15 +55,33 @@ function NavigationBar() {
     }
     return (
         <div>
-            <nav className='navbar navbar-dark bg-dark'>
+            <nav className='navbar navbar-dark bg-dark justify-content-evenly'>
                 <div className="d-none d-md-block d-lg-block d-xl-block d-xxl-block">
                     <ul className="navbar-nav me-auto d-flex flex-row">
                         <li className="nav-item ms-4">
-                            <Link to={"/"} className="nav-link me-4 ms-2">Inicio</Link>
+                            <Link to={"/"} className="nav-link me-4 ms-4 navi-big">Inicio</Link>
                         </li>
+                        <div className="separador"></div>
                         <li className="nav-item">
-                            <Link to={"/Emprendimientos"} className="nav-link ms-2 me-4">Emprendimientos</Link>
+                            <Link to={"/Emprendimientos"} className="nav-link ms-4 me-4 navi-big">Emprendimientos</Link>
                         </li>
+                        {user && 
+                            <div className="separador"></div>
+                             
+                        }
+                        {user && 
+                             <li className="nav-item">
+                                <Link to={"/Emprendimientos"} className="nav-link ms-4 me-4 navi-big">Mi Perfil</Link>
+                            </li>
+                        }
+                        {user && userData && userData.Emprendimiento_id && 
+                            <div className="separador"></div>
+                             }
+                        {user && userData && userData.Emprendimiento_id && 
+                             <li className="nav-item">
+                                <Link to={"/Emprendimientos"} className="nav-link ms-4 me-4 navi-big">Mi Emprendimiento</Link>
+                            </li>
+                        }
                     </ul>
                 </div>
                 <div className="container d-md-none d-lg-none d-xl-none d-xxl-none">
@@ -80,13 +98,14 @@ function NavigationBar() {
                         </Offcanvas.Header>
                         <Offcanvas.Body>
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                            <SetButton />
-                                <li className="nav-item">
-                                    <Link to={"/"} className="nav-link me-4 ms-2">Inicio</Link>
+                            
+                                <li className="nav-item pt-2 pb-2">
+                                    <Link to={"/"} className="nav-link me-4 ms-2 nav-cel">Inicio</Link>
                                 </li>
-                                <li className="nav-item">
-                                    <Link to={"/Emprendimientos"} className="nav-link ms-2 me-4">Emprendimientos</Link>
+                                <li className="nav-item pt-2 pb-2">
+                                    <Link to={"/Emprendimientos"} className="nav-link ms-2 me-4 nav-cel">Emprendimientos</Link>
                                 </li>
+                                <SetButton />
                         </ul>
                         </Offcanvas.Body>
                     </Offcanvas>

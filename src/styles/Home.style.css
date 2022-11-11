@@ -111,12 +111,78 @@
             padding: 10px 0 10px 0;
             }
             .baseDerechos a{
+            color: rgb(110, 209, 255);
+            }
+            .baseDerechos a:hover{
+            color: rgb(29, 184, 255);
+            font-weight: 500;
+            }
+            .baseDerechos #politica{
                 color: rgb(110, 209, 255);
-                }
-                .baseDerechos a:hover{
-                    color: rgb(29, 184, 255);
-                    font-weight: 500;
-                    }
+            }
+            .baseDerechos #politica:hover{
+            color: rgb(29, 184, 255);
+            font-weight: 500;
+            }
+            .nombre-button{
+                color: #002446;
+                font-weight: 700;
+                font-size: 40px;
+                margin: 0px 15px;
+            }
+            .navi-link{
+                color: #c6e5fd;
+                font-size: 20px;
+                font-weight: 450;
+                text-decoration: none!important;
+            }
+            .navi-link:hover{
+                color: #f4f7fa;
+            }
+            .log-button:hover{
+                background-color: #99d3fc!important;
+            }
+            .drop-menu-item{
+                padding-top: 6px;
+                padding-bottom: 6px;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                padding-right: 25px;
+                padding-left: 25px;
+            }
+            .nav-cel{
+                font-size: 20px;
+                font-weight: 600;
+                color: #003668!important;
+            }
+            .nav-cel-user{
+                font-size: 22px;
+                font-weight: 700;
+                color: #003668!important;
+            }
+            .navi-big{
+                font-size: 20px;
+                font-weight: 550;
+                color: #d4e9ff!important;
+                letter-spacing: 1px;
+            }
+            .separador{
+                background-color: #d1deec;
+                width: 2px;
+                height: 35px;
+                align-self: center;
+            }
+            .nav-cel-links{
+                font-size: 16px;
+                font-weight: 500;
+                color: #092036;
+                text-decoration: none!important;
+                
+            }
+            .cel-menu-user{
+                padding-top: 5px!important;
+                padding-bottom: 5px!important;
+            }
             .cajas-footer{
             justify-content: center;
             display: flex;

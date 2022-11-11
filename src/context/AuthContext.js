@@ -103,7 +103,7 @@ export function AuthProvider({ children }) {
         });
         
     }
-    const logout = () => signOut(auth);
+    const logout = () => {setUserData(null);signOut(auth)};
     const resetPassword = async (email) => sendPasswordResetEmail(auth, email);
     const emailVerification = () => sendEmailVerification(auth.currentUser);
     const emailReVerification = (email) => sendEmailVerification(email);
