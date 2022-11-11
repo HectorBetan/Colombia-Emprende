@@ -1263,14 +1263,10 @@ publicidad 2
     }
     
 }
-@media only screen and (max-width: 300px){
-    .logo-navcel{
-        width: 160px;
-    }
-}
+
 @media only screen and (max-width: 320px){
     .logo-navcel{
-        width: 200px;
+        width: 170px;
     }
     .logo-footer-acerca{
         height: 50px;
@@ -1286,12 +1282,17 @@ publicidad 2
         text-decoration: none;
         }
         .logo-nav-home{
-            width: 150px;
+            width: 180px;
             
         }
         .retorno{
             margin-right: 2px ;
         }
+}
+@media only screen and (max-width: 300px){
+    .logo-navcel{
+        width: 150px;
+    }
 }
    @media only screen and (max-width: 1035px){
 
