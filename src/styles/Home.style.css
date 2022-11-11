@@ -1017,6 +1017,9 @@ publicidad 2
         }
    }
    @media only screen and (max-width: 650px){
+    .logo-navcel{
+        width: 220px;
+    }
     .aliados{
         height: 90px;
         width: 90px;
@@ -1180,7 +1183,9 @@ publicidad 2
         }
    }
    @media only screen and (max-width: 420px){
-    
+    .logo-navcel{
+        width: 225px;
+    }
     .politicas-registro{
         font-size: 11px;
         margin-top: 3px;
@@ -1249,12 +1254,23 @@ publicidad 2
         }
    }
    @media only screen and (max-width: 380px){
+    .logo-navcel{
+        width: 200px;
+    }
     .politicas-registro{
         font-size: 10px;
         margin-top: 3px;
     }
+    
 }
-@media only screen and (max-width: 340px){
+@media only screen and (max-width: 300px){
+    .logo-navcel{
+        width: 160px;
+    }
+@media only screen and (max-width: 320px){
+    .logo-navcel{
+        width: 180px;
+    }
     .logo-footer-acerca{
         height: 50px;
         margin: 0px 5px;
@@ -1267,6 +1283,13 @@ publicidad 2
         height: 50px;
         fill: #091a2e;
         text-decoration: none;
+        }
+        .logo-nav-home{
+            width: 150px;
+            
+        }
+        .retorno{
+            margin-right: 2px ;
         }
 }
    @media only screen and (max-width: 1035px){

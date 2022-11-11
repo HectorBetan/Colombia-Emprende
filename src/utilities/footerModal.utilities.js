@@ -11,7 +11,7 @@ function FooterModal() {
     return (
         <span>
             
-            <div className="baseDerechos mb-3">
+            <div className="baseDerechos">
         <div>Copyright © 2021 | Todos los derechos reservados a <a href="https://hectorbetan.github.io"  rel="noreferrer"  target="_blank" className="text-decoration-none">Hector Betancourt </a><span className="modulo-emprendedores-responsive"><span className="d-none d-lg-inline d-xl-inline d-xxl-inline">&nbsp;|&nbsp;</span>
         <span onClick={handleShow}  id="politica" role="button" className="d-block d-lg-inline d-xl-inline d-xxl-inline justify-content-center">&nbsp;Políticas de Privacidad y Tratamiento de Datos</span></span>
         </div>

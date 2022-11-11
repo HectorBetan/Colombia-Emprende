@@ -14,7 +14,7 @@ function NavigationBar() {
     const Return = () => {
         if (location.pathname !== "/") {
             return (
-                <div className="text-white d-lg-none d-xl-none d-xxl-none" onClick={(e)=>{e.preventDefault(); navigate(-1)}}>
+                <div className="text-white d-lg-none d-xl-none d-xxl-none retorno" onClick={(e)=>{e.preventDefault(); navigate(-1)}}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
                         <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
                     </svg>
@@ -194,14 +194,14 @@ function NavigationBar() {
                 <div className="container d-md-none d-lg-none d-xl-none d-xxl-none">
                     <Return />
                     <span className="navbar-brand mb-0 d-md-none d-lg-none d-xl-none d-xxl-none"><img src={Logo} alt="Logo" 
-                    style={{maxWidth:'220px'}} /></span>
+                    style={{maxWidth:'220px'}} className="logo-nav-home"/></span>
                     <button className="navbar-toggler" type="button" onClick={handleShow}>
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <Offcanvas style={{position:"fixed"}} placement='end' show={show} onHide={handleClose}
                     className="navegacion d-md-none d-lg-none d-xl-none d-xxl-none pr-0">
                         <Offcanvas.Header closeButton>
-                        <Offcanvas.Title><img src={LogoNav} alt="" width="130"/></Offcanvas.Title>
+                        <Offcanvas.Title><img src={LogoNav} alt="" className="logo-navcel"/></Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body>
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
