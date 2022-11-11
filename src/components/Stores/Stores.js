@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
+import {categorys} from '../../models/Categorys.model'
+import {citys} from '../../models/City.model';
 function Stores(data) {
     const lista = data.data;
     const [newList, setNewList] = useState(null);
@@ -8,11 +9,11 @@ function Stores(data) {
       if (lista){
         console.log(lista)
         return (
-          <div className="d-flex flex-row">
+          <div className="">
             {lista.map((data) => {
               return (
-                  <div className="card col-3" key={data.key}>
-                    <img src={data.value.store.Imagen} className="card-img-top rounded" alt="..." />
+                  <div className="card d-flex flex-row ms-5 me-5 mt-4 mb-4" key={data.key}>
+                    <img src={data.value.store.Imagen} className="card-img-top rounded img-tiendas" alt="..." />
                     <div className="card-body">
                       <h5 className="card-title">{data.value.store.Nombre}</h5>
                       <p className="card-text">{data.value.store.Descripcion}</p>
@@ -33,12 +34,12 @@ function Stores(data) {
     const DataViewCategoria = () => {
       if (newList){
         return (
-          <div className="d-flex flex-row">
+          <div className="">
             {newList.map((data) => {
               return (
                 
-                  <div className="card col-3" key={data.key}>
-                    <img src={data.value.store.Imagen} className="card-img-top rounded" alt="..." />
+                  <div className="card d-flex flex-row ms-5 me-5 mt-4 mb-4" key={data.key}>
+                    <img src={data.value.store.Imagen} className="card-img-top rounded img-tiendas" alt="..." />
                     <div className="card-body">
                       <h5 className="card-title">{data.value.store.Nombre}</h5>
                       <p className="card-text">{data.value.store.Descripcion}</p>
@@ -56,15 +57,15 @@ function Stores(data) {
       }
     };
     
-    const ciudades = ['Bogotá', 'Medellín - Antioquia', 'Cali - Valle del Cauca', 'Barranquilla - Atlántico', 'Cartagena - Bolívar', 'Cúcuta - Norte de Santander', 'Pereira - Risaralda', 'Bucaramanga - Santander', 'Valledupar - Cesar', 'Ibagué - Tolima', 'Villavicencio - Meta', 'Santa Marta - Magdalena', 'Montería - Córdoba', 'Manizales - Caldas', 'Pasto - Nariño', 'Neiva - Huila', 'Armenia - Quindío', 'Popayán - Cauca', 'Sincelejo - Sucre', 'Tunja - Boyacá', 'Yopal - Casanare', 'Ríohacha - La Guajira', 'Florencia - Caquetá', 'Quibdó - Chocó', 'Arauca - Arauca', 'San Andrés - San Andrés y Providencia', 'San José del Guaviare - Guaviare', 'Leticia - Amazonas', 'Mitú - Vaupés', 'Mocoa - Putumayo', 'Inírida - Guainía', 'Puerto Carreño - Vichada'];
-      const cityList = ciudades.map((city) => {
+    const ciudades = citys;
+      const cityLista = ciudades.map((city) => {
           return (
               <option key={city} value={city} className="text-dark">
                   {city}
               </option>
           );
       });
-    const categorias = [ "Moda", "Artesanias", "Turismo", "Tecnología", "Comida", "Belleza", "Salud y Bienestar", "Niños y Bebes", "Deportes", "Hogar", "Servicios", "Otros" ];
+    const categorias = categorys;
       const categoriaList = categorias.map((categoria) => {
         return (
           <option key={categoria} value={categoria} className="text-dark">
@@ -120,20 +121,20 @@ function Stores(data) {
     };
     if (newList){
       return (
-        <div className="d-flex flex-row">
-          <div className="col-3 bg-dark">
+        <div className="">
+          <div className="bg-info d-flex flex-row justify-content-center">
             <div>
-              <form>
-                <select onChange={handleSearch} id="categoriaSelect" defaultValue="">
+              <form className="d-flex flex-row  justify-content-center">
+                <select onChange={handleSearch} id="categoriaSelect" defaultValue="" className="selection-forma seleccion ps-2 pe-2 m-2 form-select form-select-lg">
                   <option value="">Ninguna</option>
                   {categoriaList}
                 </select>
-                <span><button onClick={clearCategoria}>Borrar</button></span>
-                <select onChange={handleSearch} id="citySelect" defaultValue="">
+                <span><button onClick={clearCategoria} className="btn btn-lg btn-secondary m-2 boton-borrar">Borrar</button></span>
+                <select onChange={handleSearch} id="citySelect" defaultValue="" className="selection-forma seleccion ps-2 pe-2 m-2 form-select form-select-lg">
                 <option value="">Ninguna</option>
-                  {cityList}
+                  {cityLista}
                 </select>
-                <span><button onClick={clearCity}>Borrar</button></span>
+                <span><button onClick={clearCity} className="btn btn-lg btn-secondary m-2 boton-borrar">Borrar</button></span>
               </form>
             </div>
           </div>
@@ -143,20 +144,20 @@ function Stores(data) {
     }
     if (lista){
       return (
-        <div className="d-flex flex-row">
-          <div className="col-3 bg-dark">
+        <div className="">
+          <div className="bg-info d-flex flex-row justify-content-center">
             <div>
-              <form>
-                <select onChange={handleSearch} id="categoriaSelect" defaultValue="">
+              <form className="d-flex flex-row  justify-content-center">
+                <select className="form-select form-select-lg selection-forma m-2 ps-2 pe-2 seleccion" onChange={handleSearch} id="categoriaSelect" defaultValue="">
                 <option value="">Ninguna</option>
                   {categoriaList}
                 </select>
-                <span><button onClick={clearCategoria}>Borrar</button></span>
-                <select onChange={handleSearch} id="citySelect" defaultValue="">
+                <span><button onClick={clearCategoria} className="btn btn-lg btn-secondary m-2 boton-borrar">Borrar</button></span>
+                <select onChange={handleSearch} id="citySelect" defaultValue="" className="selection-forma seleccion ps-2 pe-2 m-2 form-select form-select-lg">
                 <option value="">Ninguna</option>
-                  {cityList}
+                  {cityLista}
                 </select>
-                <span><button onClick={clearCity}>Borrar</button></span>
+                <span><button onClick={clearCity} className="btn btn-lg btn-secondary m-2 boton-borrar">Borrar</button></span>
               </form>
             </div>
           </div>
