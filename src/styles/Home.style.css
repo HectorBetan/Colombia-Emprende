@@ -1267,9 +1267,10 @@ publicidad 2
     .logo-navcel{
         width: 160px;
     }
+}
 @media only screen and (max-width: 320px){
     .logo-navcel{
-        width: 180px;
+        width: 200px;
     }
     .logo-footer-acerca{
         height: 50px;
