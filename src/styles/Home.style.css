@@ -1180,6 +1180,7 @@ publicidad 2
         }
    }
    @media only screen and (max-width: 420px){
+    
     .politicas-registro{
         font-size: 11px;
         margin-top: 3px;
@@ -1248,6 +1249,19 @@ publicidad 2
         }
    }
    @media only screen and (max-width: 380px){
+    .logo-footer-acerca{
+        height: 50px;
+        margin: 0px 5px;
+        text-decoration: none;
+        }
+        .iconos-footer{
+        margin: 0px 4px;
+        padding-top: 7px;
+        width: 50px;
+        height: 50px;
+        fill: #091a2e;
+        text-decoration: none;
+        }
     .politicas-registro{
         font-size: 10px;
         margin-top: 3px;

@@ -8,7 +8,7 @@ function Footer() {
         <div>
             <footer className="justify-content-evenly p-3 text-center">
                 <div className="d-lg-flex d-xl-flex d-xxl-flex d-md-flex flex-row text-center justify-content-evenly">
-                <div className="m-2 p-md-3 p-xl-3 p-xxl-3 p-lg-3">
+                <div className="m-2 p-md-3 p-xl-3 p-xxl-3 p-lg-3 d-none d-md-block d-lg-block d-xl-block d-xxl-block">
                         <h5>Acerca de:</h5>
                         <span className="d-lg-flex d-xl-flex d-xxl-flex d-md-flex ">
                             <a href="/acerca-de" target="_blank"><img className="logo-footer-acerca" src={logoColombia} alt="" /></a>
@@ -49,7 +49,13 @@ function Footer() {
                             
                         </span> 
                     </div>
-                       
+                    <div className="m-2 d-lg-none d-xl-none d-xxl-none d-md-none">
+                        <h5>Acerca de:</h5>
+                        <span className="">
+                            <a href="/acerca-de" target="_blank"><img className="logo-footer-acerca" src={logoColombia} alt="" /></a>
+                            <a target="_blank" href="https://hectorbetan.github.io"  rel="noreferrer"><img className="logo-footer-acerca" src={hector} alt="" /></a>
+                        </span> 
+                    </div>
                 </div>
             </footer>
             <FooterModal />
