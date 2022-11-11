@@ -12,7 +12,7 @@ function Stores(data) {
           <div className="">
             {lista.map((data) => {
               return (
-                  <div className="card d-flex flex-row ms-5 me-5 mt-4 mb-4" key={data.key}>
+                  <div className="card d-flex flex-row ms-3 me-3 ms-md-5 me-md-5 ms-lg-5 me-lg-5 ms-xl-5 me-xl-5 ms-xxl-5 me-xxl-5 mt-4 mb-4" key={data.key}>
                     <img src={data.value.store.Imagen} className="card-img-top rounded img-tiendas" alt="..." />
                     <div className="card-body">
                       <h5 className="card-title">{data.value.store.Nombre}</h5>

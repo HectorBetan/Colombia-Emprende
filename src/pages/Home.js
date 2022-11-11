@@ -6,15 +6,22 @@ import Navbar from "react-bootstrap/Navbar";
 import Logo from "../assets/logos/logo-colombia.png";
 import Admin from "./Admin";
 import MyStoreAdmin from "./MyStoreAdmin";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useEffect } from "react";
 import { LoginButton, UserButton } from "../utilities/loginButton.utilities";
 import { ProtectedUser } from "../protectedRoutes/protectedUser";
 import { MyStoreProvider } from "../context/MyStoreContext";
-import { ProtectedStore } from "../protectedRoutes/protectedStore";
 import { UserVerified } from '../protectedRoutes/userVerified';
 import '../styles/Home.style.css'
 function Home() {
+    const routePath = useLocation();
+    const onTop = () => {
+        window.scrollTo(0, 0);
+      }
+      useEffect(() => {
+        onTop()
+      }, [routePath]);
     const { user, loading, userData } = useAuth();
     return (
         <MyStoreProvider>
