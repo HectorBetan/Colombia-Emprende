@@ -191,7 +191,7 @@ export const ModalAd = () => {
     }
     return (
         <div className=' text-center'>
-            <div class="tarjeta-registro-footer text-center">
+            <div className="tarjeta-registro-footer text-center">
             <a href='*' className="publi-registro text-center" 
             onClick={(e)=>{e.preventDefault();setKey("singup");handleShow();}}>
             Registrate Aqui

@@ -27,13 +27,13 @@ function Home() {
         <MyStoreProvider>
             <div>
                 <Navbar className="d-none d-md-flex d-lg-flex d-xl-flex d-xxl-flex flex-md-row flex-lg-row flex-xl-row flex-xxl-row justify-content-between mt-2 me-2 ms-2 p-2">
-                    <Navbar.Brand href="/" className="ms-3"><img style={{ maxHeight: '75px' }} src={Logo} alt="Logo Colombia Emprende" /></Navbar.Brand>
+                    <Navbar.Brand href="/" className="ms-3"><img style={{ maxHeight: '75px' }} src={Logo} alt="Logo Colombia Emprende" className="logo" /></Navbar.Brand>
                     {loading && !user && <div style={{width:"239.61px", minHeight:"80px"}} className="text-end me-5">
                 <div className="spinner-border text-primary" role="status">
                     <span className="visually-hidden">Loading...</span>
                 </div>
             </div>}
-            {user && !loading && userData && <div className="d-none d-lg-block d-xl-block d-xxl-block">
+            {user && !loading && userData && <div className="d-none d-md-block d-lg-block d-xl-block d-xxl-block">
                     <UserButton />
                 </div>}
                 {!user && !loading && <div className="d-none d-md-block d-lg-block d-xl-block d-xxl-block">

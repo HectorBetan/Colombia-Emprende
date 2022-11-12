@@ -1,7 +1,8 @@
 /*Publicidad y Sección Noticias Index*/
-.img-tiendas{
-    width: 200px;
-    height: 200px;
+.boton-tienda{
+    font-size: 25px!important;
+    font-weight: 600!important;
+    padding: 15px 30px;
 }
 .seleccion{
     width: 200px;
@@ -987,40 +988,59 @@ publicidad 2
                 width: 650px;
         
                 }
-                .tarjeta-emprendedor-2{
-                    text-align: center;
-                    font-size: 50px;
-                    font-weight: 700;
-                    color: #08264d;
-                    margin: 60px 10px;
-                    }
-                    .tarjeta-emprendedor-oculta-2{
-                        font-size: 38px;
-                        font-weight: 750;
-                        text-align: center;
-                        display: none;
-                        color: #0a5081;
-                        margin-top: 24px;
-                        transition: 1s ease;
-                        }
-                        .tarjeta-emprendedor-oculta-2 p{
-                        color: #0f2738;
-                        font-size: 30px;
-                        font-weight: 650;
-                        }
-                        .tarjeta-registro-1{
-                            width: 650px;
-                    
-                            }
-                            .tarjeta-emprendedor-1{
-                                text-align: center;
-                                font-size: 50px;
-                                font-weight: 700;
-                                color: #08264d;
-                                margin: 60px 10px;
-                                }
+        .tarjeta-emprendedor-2{
+            text-align: center;
+            font-size: 50px;
+            font-weight: 700;
+            color: #08264d;
+            margin: 60px 10px;
+            }
+        .tarjeta-emprendedor-oculta-2{
+        font-size: 38px;
+        font-weight: 750;
+        text-align: center;
+        display: none;
+        color: #0a5081;
+        margin-top: 24px;
+        transition: 1s ease;
+        }
+        .tarjeta-emprendedor-oculta-2 p{
+        color: #0f2738;
+        font-size: 30px;
+        font-weight: 650;
+        }
+        .tarjeta-registro-1{
+    width: 650px;
+    
+    }
+    .tarjeta-emprendedor-1{
+        text-align: center;
+        font-size: 50px;
+        font-weight: 700;
+        color: #08264d;
+        margin: 60px 10px;
+    
+    }
+    .boton-tienda{
+        font-size: 22px!important;
+        font-weight: 600!important;
+        padding: 15px 25px;
+    }
    }
+   @media only screen and (max-width: 900px){
+    .boton-tienda{
+        font-size: 22px!important;
+        font-weight: 600!important;
+        padding: 10px 20px;
+    }
+    .logo{
+        height: 65px;
+    }
+}
    @media only screen and (max-width: 800px){
+    .logo{
+        height: 60px;
+    }
     .aliados{
         height: 120px;
         width: 120px;
@@ -1127,6 +1147,11 @@ publicidad 2
                 }
    }
    @media only screen and (max-width: 740px){
+    .boton-tienda{
+        font-size: 20px!important;
+        font-weight: 600!important;
+        padding: 10px 15px;
+    }
     .aliados{
         height: 100px;
         width: 100px;
@@ -1230,19 +1255,13 @@ publicidad 2
                 font-size: 29px;
                 font-weight: 650;
                 }
-                .img-tiendas{
-                    width: 150px;
-                    height: 150px;
-                }
+                
                 .seleccion{
                     width: 140px;
                 }
    }
    @media only screen and (max-width: 650px){
-    .img-tiendas{
-        width: 130px;
-        height: 130px;
-    }
+    
     .seleccion{
         width: 120px;
     }
@@ -1355,9 +1374,10 @@ publicidad 2
                 }
    }
    @media only screen and (max-width: 550px){
-    .img-tiendas{
-        width: 100px;
-        height: 100px;
+    .boton-tienda{
+        font-size: 16px!important;
+        font-weight: 600!important;
+        padding: 8px 12px;
     }
     .seleccion{
         width: 140px;
@@ -1505,10 +1525,7 @@ publicidad 2
                 }
    }
    @media only screen and (max-width: 500px){
-    .img-tiendas{
-        width: 100px;
-        height: 100px;
-    }
+    
     .seleccion{
         width: 110px;
     }
@@ -1645,10 +1662,7 @@ publicidad 2
                 }
    }
    @media only screen and (max-width: 420px){
-    .img-tiendas{
-        width: 100px;
-        height: 100px;
-    }
+    
     .seleccion{
         width: 100px;
     }
@@ -1807,9 +1821,10 @@ publicidad 2
                 }
    }
    @media only screen and (max-width: 380px){
-    .img-tiendas{
-        width: 100px;
-        height: 100px;
+    .boton-tienda{
+        font-size: 15px!important;
+        font-weight: 600!important;
+        padding: 5px 10px;
     }
     .seleccion{
         width: 80px;
@@ -1841,10 +1856,7 @@ publicidad 2
 }
 
 @media only screen and (max-width: 330px){
-    .img-tiendas{
-        width: 100px;
-        height: 100px;
-    }
+    
     .seleccion{
         width: 70px;
     }

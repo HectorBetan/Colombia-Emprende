@@ -157,15 +157,15 @@ function Register () {
                         <label className="m-1 text-center text-lg-start text-xl-start text-xxl-start">Nombre</label>
                         <input name="firstName" 
                         className="form-control" type="name" 
-                        onChange={handleChange} pattern="[A-Za-z. ]{1,}" 
-                        title="Ingrese un Nombre valido" required/>
+                        onChange={handleChange} pattern="[A-Za-z. áéíóú]{1,}" 
+                        title="Ingrese un Nombre válido" required/>
                     </div>
                         <div className="d-flex flex-column">
                         <label className="m-1 text-center text-lg-start text-xl-start text-xxl-start">Apellido</label>
                         <input name="lastName" 
                         className="form-control" type="name" 
-                        onChange={handleChange} pattern="[A-Za-z. ]{1,}" 
-                        title="Ingrese un Apellido valido" required/>
+                        onChange={handleChange} pattern="[A-Za-z. áéíóú]{1,}" 
+                        title="Ingrese un Apellido válido" required/>
                     </div>
                 </div>
                 <div className="form-group d-column d-lg-flex flex-lg-row d-xl-flex 

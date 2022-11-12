@@ -40,7 +40,7 @@ function Footer() {
                             </a>
                         </div> 
                     </div>
-                    <div className=" m-2 p-md-3 p-xl-3 p-xxl-3 p-lg-3 d-none d-md-block d-lg-block d-xl-block d-xxl-block">
+                    <div className=" m-2 p-md-3 p-xl-3 p-xxl-3 p-lg-3 d-none d-lg-block d-xl-block d-xxl-block">
                         <h5 className="titulos-del-footer">Agradecimientos a:</h5>
                         <span className="d-lg-flex d-xl-flex d-xxl-flex d-md-flex">
                         <a href="https://www.utp.edu.co/" target="_blank" rel="noreferrer"><img className="logos-footer" src={utp} alt="" /></a>

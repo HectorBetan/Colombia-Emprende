@@ -186,7 +186,7 @@ function NavigationBar() {
                         }
                         {user && 
                              <li className="nav-item">
-                                <Link to={"/Emprendimientos"} className="nav-link ms-4 me-4 navi-big">Mi Perfil</Link>
+                                <Link to={"/admin"} className="nav-link ms-4 me-4 navi-big">Mi Perfil</Link>
                             </li>
                         }
                         {user && userData && userData.Emprendimiento_id && 
@@ -194,7 +194,7 @@ function NavigationBar() {
                              }
                         {user && userData && userData.Emprendimiento_id && 
                              <li className="nav-item">
-                                <Link to={"/Emprendimientos"} className="nav-link ms-4 me-4 navi-big">Mi Emprendimiento</Link>
+                                <Link to={"/admin/mi-emprendimiento"} className="nav-link ms-4 me-4 navi-big">Mi Emprendimiento</Link>
                             </li>
                         }
                     </ul>

@@ -1,28 +1,69 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {categorys} from '../../models/Categorys.model'
 import {citys} from '../../models/City.model';
+import imgStore from "../../assets/img-store.jpg"
 function Stores(data) {
+  const [w, setW] = useState(window.innerWidth);
+  const handleResize = () => {
+    setW(window.innerWidth);
+  };
+  useEffect(() => {
+    
+    window.addEventListener("resize", handleResize);
+    console.log("tamaño")
+    return () => {
+      
+      window.removeEventListener("resize", handleResize);
+      
+    };
+  }, []);
     const lista = data.data;
     const [newList, setNewList] = useState(null);
+  
     const DataView = () => {
       if (lista){
         console.log(lista)
         return (
           <div className="">
             {lista.map((data) => {
+              let img;
+              if (!data.value.store.Imagen){
+                  img = imgStore;
+              }
+              else {
+                console.log(data.value.store.Imagen)
+                  img = data.value.store.Imagen;
+              }
               return (
-                  <div className="card d-flex flex-row ms-3 me-3 ms-md-5 me-md-5 ms-lg-5 me-lg-5 ms-xl-5 me-xl-5 ms-xxl-5 me-xxl-5 mt-4 mb-4" key={data.key}>
-                    <img src={data.value.store.Imagen} className="card-img-top rounded img-tiendas" alt="..." />
-                    <div className="card-body">
-                      <h5 className="card-title">{data.value.store.Nombre}</h5>
-                      <p className="card-text">{data.value.store.Descripcion}</p>
-                      <Link  to={`/emprendimientos/${data.value.store.Path}`}  data={data} className="btn btn-primary">
-                        Ver más
-                      </Link>
+                <div  key={data.key} className="card   store-box">
+                  <div className="d-flex flex-row">
+                    <img src={img} className="card-img-top rounded img-tiendas" alt="..." />
+                    <div className="card-body card-caja">
+                    <h5  className="card-title store-title">{data.value.store.Nombre}</h5>
+                      
+                      <h4 className="card-text store-categoria">{w >= 325 && <span>Categoria: </span>}<span className="stores-cel">{data.value.store.Categoria}</span></h4>
+                      <h3 className="card-text store-ciudad">{w >= 325 && <span>Ciudad: </span>}<span className="stores-cel">{data.value.store.Ciudad}</span></h3>
+                      <h3 className="card-text store-celular">{w >= 325 && <span>Celular: </span>}<span className="stores-cel">{data.value.store.Celular}</span></h3>
+                      {w > 670 && <h4 className="card-text store-email">
+                        {w >670 && <span>E-mail: </span>}
+                        
+                        
+                        <span className="stores-cel">{data.value.store.Email}</span></h4>}
+                      {w <= 670 && w > 575 && data.value.store.Nombre.length <= 24 && <h4 className="card-text store-email">
+                      {w >575 && data.value.store.Email.length <20 && <span>E-mail: </span>}
+                        <span className="stores-cel">{data.value.store.Email}</span></h4>}
+                      {w <= 575 && w > 500 && data.value.store.Nombre.length <= 24 && <h4 className="card-text store-email">
+                      {w >500 && data.value.store.Email.length <20 && <span>E-mail: </span>}
+                        <span className="stores-cel">{data.value.store.Email}</span></h4>}
                     </div>  
                   </div>
-                
+                  <div  className="text-center pb-2 card-footer">
+                    <Link  to={`/emprendimientos/${data.value.store.Path}`} className="btn btn-primary text-center boton-tienda">
+                      Ir a la Tienda
+                    </Link>
+                  </div>
+                </div>
                 
               );
             }
@@ -36,19 +77,43 @@ function Stores(data) {
         return (
           <div className="">
             {newList.map((data) => {
+              let img;
+              if (!data.value.store.Imagen){
+                  img = imgStore;
+              }
+              else {
+                console.log(data.value.store.Imagen)
+                  img = data.value.store.Imagen;
+              }
               return (
-                
-                  <div className="card d-flex flex-row ms-5 me-5 mt-4 mb-4" key={data.key}>
-                    <img src={data.value.store.Imagen} className="card-img-top rounded img-tiendas" alt="..." />
-                    <div className="card-body">
-                      <h5 className="card-title">{data.value.store.Nombre}</h5>
-                      <p className="card-text">{data.value.store.Descripcion}</p>
-                      <Link  to={`/emprendimientos/${data.value.store.Path}`} className="btn btn-primary">
-                        Ver más
-                      </Link>
+                <div  key={data.key}  className="card   store-box">
+                  <div className="card d-flex flex-row">
+                    <img src={img} className="card-img-top rounded img-tiendas" alt="..." />
+                    <div className="card-body card-caja">
+                    <h5  className="card-title store-title">{data.value.store.Nombre}</h5>
+                      
+                    <h4 className="card-text store-categoria">{w >= 325 && <span>Categoria: </span>}<span className="stores-cel">{data.value.store.Categoria}</span></h4>
+                      <h3 className="card-text store-ciudad">{w >= 325 && <span>Ciudad: </span>}<span className="stores-cel">{data.value.store.Ciudad}</span></h3>
+                      <h3 className="card-text store-celular">{w >= 325 && <span>Celular: </span>}<span className="stores-cel">{data.value.store.Celular}</span></h3>
+                      {w > 670 && <h4 className="card-text store-email">
+                        {w >670 && <span>E-mail: </span>}
+                        
+                        
+                        <span className="stores-cel">{data.value.store.Email}</span></h4>}
+                      {w <= 670 && w > 575 && data.value.store.Nombre.length <= 24 && <h4 className="card-text store-email">
+                      {w >575 && data.value.store.Email.length <20 && <span>E-mail: </span>}
+                        <span className="stores-cel">{data.value.store.Email}</span></h4>}
+                      {w <= 575 && w > 500 && data.value.store.Nombre.length <= 24 && <h4 className="card-text store-email">
+                      {w >500 && data.value.store.Email.length <20 && <span>E-mail: </span>}
+                        <span className="stores-cel">{data.value.store.Email}</span></h4>}
                     </div>  
                   </div>
-                
+                  <div  className="text-center pb-2 card-footer d-grid gap-2 d-md-block">
+                  <Link  to={`/emprendimientos/${data.value.store.Path}`} className="btn btn-primary text-center boton-tienda">
+                    Ir a la Tienda
+                  </Link>
+                  </div>
+                </div>
               );
             }
             )}

@@ -247,28 +247,7 @@ export function AuthProvider({ children }) {
         const response = await axios.get(`${dbUrl}pricing/get-store-orders/${id}`);
         return response;
       }
-      const readCotizarProducts = async (productos) => {
-        const response = await axios.post(`${dbUrl}get-cotizar-products`, productos);
-        return response;
-      }
       
-      const readPedidos = async (id) => {
-        const response = await axios.get(`${dbUrl}get-pedidos/${id}`);
-        return response;
-      }
-      const getPedidos = async (pedidos) => {
-        const response = await axios.post(`${dbUrl}get-pedidos`,pedidos);
-        return response;
-      }
-      const readPedidosEmprendedor = async (id) => {
-        const response = await axios.get(`${dbUrl}get-pedidos-emprendedor/${id}`);
-        return response;
-      }
-      
-      const updateCarritoCotizar = async (pedido) => {
-        await axios.put(`${dbUrl}update-carrito-cotizar`, pedido);
-        
-      }
       const setStars = async (id, calificacion) => {
         await axios.put(`${dbUrl}stores/set-stars/${id}`, calificacion)
         

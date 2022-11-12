@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import { usePublic } from "../context/PublicContext";
 import Stores from "../components/Stores/Stores";
 import Store from "../components/Stores/Store";
-
+import '../styles/Stores.style.css'
 function StoresHome() {
   const { loading  } = useAuth();
   const { stores } = usePublic();
