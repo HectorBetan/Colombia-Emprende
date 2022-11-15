@@ -488,7 +488,7 @@ function Stores(data) {
           </div>
           <div className="d-flex flex-row justify-content-center m-2">
           <label className="m-1">Resultados por Página</label>
-          <input className="form-input busqueda" type="number" min="1" max="10" defaultValue="5"onChange={(e)=>{e.preventDefault();setActive(1);if(isNaN(e.target.value)){setResultados(4)};if(!e.target.value || e.target.value <=1){setResultados(4)} if(e.target.value >10){setResultados(9)};if (e.target.value >1 && e.target.value <10){setResultados(parseInt(e.target.value)-1)}; console.log(resultados)}}></input>
+          <input className="form-input busqueda" type="number" min="1" max="10" defaultValue="5"onChange={(e)=>{e.preventDefault();setActive(1);if(isNaN(e.target.value)){setResultados(4)};if(!e.target.value || e.target.value <1){setResultados(4)} if(e.target.value >10){setResultados(9)};if (e.target.value >1 && e.target.value <10){setResultados(parseInt(e.target.value)-1)}; console.log(resultados)}}></input>
           <span  className="m-1">(min:1 - max:10)</span>
           </div>
           <div  className="text-center m-1">
