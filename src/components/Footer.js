@@ -7,7 +7,7 @@ function Footer() {
     return (
         <div>
             <footer className="justify-content-evenly p-3 text-center">
-                <div className="d-lg-flex d-xl-flex d-xxl-flex d-md-flex flex-row text-center justify-content-evenly">
+                <div className="d-lg-flex d-xl-flex d-xxl-flex d-md-flex d-sm-flex d-block flex-row text-center justify-content-evenly">
                 <div className="m-2 p-md-3 p-xl-3 p-xxl-3 p-lg-3 d-none d-md-block d-lg-block d-xl-block d-xxl-block">
                         <h5>Acerca de:</h5>
                         <span className="d-lg-flex d-xl-flex d-xxl-flex d-md-flex ">
@@ -42,7 +42,7 @@ function Footer() {
                     </div>
                     <div className=" m-2 p-md-3 p-xl-3 p-xxl-3 p-lg-3 d-none d-lg-block d-xl-block d-xxl-block">
                         <h5 className="titulos-del-footer">Agradecimientos a:</h5>
-                        <span className="d-lg-flex d-xl-flex d-xxl-flex d-md-flex">
+                        <span className="d-md-flex d-lg-flex d-xl-flex d-xxl-flex d-md-flex">
                         <a href="https://www.utp.edu.co/" target="_blank" rel="noreferrer"><img className="logos-footer" src={utp} alt="" /></a>
                             <a href="https://mintic.gov.co/portal/inicio/" rel="noreferrer" target="_blank"><img className="logos-footer" src={mintic} alt="" /></a>
                             

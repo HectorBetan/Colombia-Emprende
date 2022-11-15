@@ -1,4 +1,18 @@
 /*Publicidad y Sección Noticias Index*/
+.txt-1{
+    font-size: 16px;
+    font-weight: 500;
+}
+.txt-cat{
+    font-size: 18px;
+    font-weight: 700;
+}
+.busqueda{
+    width: 50px !important;
+    font-size: 18px !important;
+    font-weight: 600;
+    padding-left: 5px;
+}
 .logo-navcel{
         width: 220px;
     }
@@ -1150,6 +1164,19 @@ publicidad 2
                 }
    }
    @media only screen and (max-width: 740px){
+    .logo-footer-acerca{
+        height: 50px;
+        margin: 0px 5px;
+        text-decoration: none;
+        }
+        .iconos-footer{
+            margin: 0px 4px;
+            padding-top: 7px;
+            width: 50px;
+            height: 50px;
+            fill: #091a2e;
+            text-decoration: none;
+            }
     .boton-tienda{
         font-size: 20px!important;
         font-weight: 600!important;
@@ -1376,7 +1403,36 @@ publicidad 2
                 font-weight: 650;
                 }
    }
+   @media only screen and (max-width: 575px){
+    .logo-footer-acerca{
+        height: 70px;
+        margin: 0px 10px;
+        text-decoration: none;
+        }
+        .iconos-footer{
+            margin: 0px 10px;
+            padding-top: 7px;
+            width: 60px;
+            height: 60px;
+            fill: #091a2e;
+            text-decoration: none;
+            }
+        }
+
    @media only screen and (max-width: 550px){
+    .logo-footer-acerca{
+        height: 70px;
+        margin: 0px 10px;
+        text-decoration: none;
+        }
+        .iconos-footer{
+            margin: 0px 10px;
+            padding-top: 7px;
+            width: 60px;
+            height: 60px;
+            fill: #091a2e;
+            text-decoration: none;
+            }
     .boton-tienda{
         font-size: 16px!important;
         font-weight: 600!important;
@@ -1665,7 +1721,19 @@ publicidad 2
                 }
    }
    @media only screen and (max-width: 420px){
-    
+    .logo-footer-acerca{
+        height: 60px;
+        margin: 0px 10px;
+        text-decoration: none;
+        }
+        .iconos-footer{
+            margin: 0px 5px;
+            padding-top: 7px;
+            width: 60px;
+            height: 60px;
+            fill: #091a2e;
+            text-decoration: none;
+            }
     .seleccion{
         width: 100px;
     }
@@ -1904,6 +1972,20 @@ publicidad 2
         }
 }
 @media only screen and (max-width: 300px){
+
+        .logo-footer-acerca{
+            height: 45px;
+            margin: 0px 10px;
+            text-decoration: none;
+            }
+            .iconos-footer{
+                margin: 0px 5px;
+                padding-top: 7px;
+                width: 40px;
+                height: 40px;
+                fill: #091a2e;
+                text-decoration: none;
+                }
     .logo-navcel{
         width: 150px;
     }
