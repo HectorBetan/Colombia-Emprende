@@ -282,7 +282,7 @@ function Store(data) {
                 {w < 550 && <div className="d-flex flex-row mb-2">
                   <PhotosViewCel />
                   <div className="d-flex flex-column">
-                    <h5 className="card-title store-title">{emprendimiento.value.store.Nombre}</h5>
+                    <h5 className="card-title store-title store-title-1">{emprendimiento.value.store.Nombre}</h5>
                     
                 <h4 className="card-text store-categoria">{w>350 &&<span>Categoria: </span>}{emprendimiento.value.store.Categoria}</h4>
                   </div>
@@ -292,7 +292,7 @@ function Store(data) {
                 </div>}
                   <h3 className="card-text store-ciudad"><span>Ciudad: </span><span className="stores-cel">{emprendimiento.value.store.Ciudad}</span></h3>
 
-                <h3 className="card-text store-celular">{w >= 600 && <span>Celular: </span>}{w < 600 && <span>Cel: </span>}<span className="stores-cel">{emprendimiento.value.store.Celular}</span></h3>
+                <h3 className="card-text store-celular">{w >= 600 && <span>Celular: </span>}{w < 600 && <span>Celular: </span>}<span className="stores-cel">{emprendimiento.value.store.Celular}</span></h3>
                 
                 {emprendimiento.value.store.Telefono &&
                   w >= 550 &&<h4 className="card-text store-categoria">
@@ -338,7 +338,7 @@ function Store(data) {
                 </button>
               </h2>
               <div id="accordionStore-collapseOne" className="accordion-collapse collapse show" aria-labelledby="accordionStore-headingOne">
-                <div className="accordion-body text-start">
+                <div className="accordion-body text-start pe-4 ps-4">
                   <DataViewEmprendimiento />
                 </div>
               </div>

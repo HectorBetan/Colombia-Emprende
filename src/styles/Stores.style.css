@@ -322,8 +322,13 @@
         margin: 20px 10px!important;
         padding: 5px!important;
     }
+    
 }
 @media only screen and (max-width: 550px){
+    .store-title-1{
+        font-size: 19px!important;
+        font-weight: 650!important;
+    }
     .sstars{
         margin-bottom: 5px;
     }
@@ -361,8 +366,13 @@
         font-size: 20px;
         font-weight: 650!important;
     }
+
 }
 @media only screen and (max-width: 500px){
+    .store-title-1{
+        font-size: 18px!important;
+        font-weight: 650!important;
+    }
     .imagen-btn-cel{
         width: 45px;
         height: 45px;
@@ -425,6 +435,10 @@
     }
 }
 @media only screen and (max-width: 450px){
+    .store-title-1{
+        font-size: 16px!important;
+        font-weight: 650!important;
+    }
     .img-principal-cel{
         width: 50vh;
         max-height: 50vh;
