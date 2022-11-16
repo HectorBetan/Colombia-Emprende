@@ -308,12 +308,13 @@ function Store(data) {
                   <PhotosViewCel />
                   <div className="d-flex flex-column">
                     <h5 className="card-title store-title">{emprendimiento.value.store.Nombre}</h5>
-                    {emprendimiento.value.store.Calificacion && <div>
-                  <CalificacionView />
-                </div>}
+                    
                 <h4 className="card-text store-categoria">{w>350 &&<span>Categoria: </span>}{emprendimiento.value.store.Categoria}</h4>
                   </div>
                   </div>}
+                  {emprendimiento.value.store.Calificacion && w < 550 &&<div>
+                  <CalificacionView />
+                </div>}
                   <h3 className="card-text store-ciudad"><span>Ciudad: </span><span className="stores-cel">{emprendimiento.value.store.Ciudad}</span></h3>
 
                 <h3 className="card-text store-celular">{w >= 600 && <span>Celular: </span>}{w < 600 && <span>Cel: </span>}<span className="stores-cel">{emprendimiento.value.store.Celular}</span></h3>
