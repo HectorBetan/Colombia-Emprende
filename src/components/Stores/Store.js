@@ -330,7 +330,7 @@ function Store(data) {
             Volver a Emprendimientos
           </button>}
           
-          <div className="accordion ms-5 me-5 mb-4" id="accordionStore">
+          <div className="accordion ms-4 me-4 ms-md-4 me-md-4 ms-lg-5 me-lg-5 ms-xl-5 me-xl-5 ms-xxl-5 me-xxl-5 mb-4" id="accordionStore">
             <div className="accordion-item">
               <h2 className="accordion-header" id="accordionStore-headingOne">
                 <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accordionStore-collapseOne" aria-expanded="true" aria-controls="accordionStore-collapseOne">
