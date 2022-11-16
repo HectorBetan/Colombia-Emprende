@@ -178,7 +178,7 @@ function Store(data) {
                 <div className="d-flex flex-column mt-1">
                       {fotos.map((img, i) => {
                           return (
-                                  <button className="m-1 botn-imagen" key={i} onClick={(e) => {e.preventDefault(); setSelected(i)}}>
+                                  <button className="botn-imagen btn btn-white p-0" key={i} onClick={(e) => {e.preventDefault(); setSelected(i)}}>
                                       <img
                                       className="d-block rounded imagen-btn"
                               
@@ -255,8 +255,8 @@ function Store(data) {
             
             return(<div key={n}>
               
-              {n<=total && <i className="fa-solid fa-star star-1" id="star-1" />}
-              {n>total && <i className="fa-regular fa-star star-1" id="star-1" />}
+              {n<=total && <i className="fa-solid fa-star star-1 estrella" id="star-1" />}
+              {n>total && <i className="fa-regular fa-star star-1 estrella-vacia" id="star-1" />}
             </div>)
           })
         }
