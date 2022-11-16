@@ -97,6 +97,57 @@ function Store(data) {
         )
       }
     };
+    const PhotosViewCel= () =>{
+      let fotos;
+      const [selected, setSelected] = useState(0);
+      if(emprendimiento.value.store.Imagen){
+        fotos = emprendimiento.value.store.Imagen.split(",");
+      }
+
+      
+      if (fotos){
+        if (fotos.length > 1){
+          if (seles){
+            setTimeout(() => {
+              if (selected === fotos.length-1){
+                setSelected(0);
+                  setSeles(false);
+              } else{
+                setSelected(selected+1)
+              };
+            }, 5000);
+          }
+          return (
+            <img
+              className="d-block circle imagen-btn-cel"
+              
+              src={fotos[selected]}
+              alt="fotos"
+              />
+          )
+        }else {
+          return (
+            <img
+              className="d-block circle imagen-btn-cel"
+              
+              src={fotos[0]}
+              alt="fotos"
+              />
+          )
+        }
+
+      } else {
+        return (
+          <img
+            className="d-block imagen-btn-cel"
+            
+            src={fotos[0]}
+            alt="fotos"
+            />
+        )
+      }
+
+    }
     const PhotosView = () =>{
       let fotos;
       const [selected, setSelected] = useState(0);
@@ -123,7 +174,7 @@ function Store(data) {
               }
             return(
               <div>
-                <div className="d-flex flex-row">
+                <div className="d-flex flex-row m-2">
                 <div className="d-flex flex-column mt-1">
                       {fotos.map((img, i) => {
                           return (
@@ -162,7 +213,7 @@ function Store(data) {
               }, 5000);
               }
             return(
-              <div className="d-flex flex-column">
+              <div className="d-flex flex-column justify-content-center m-2">
                 <img
                       className="d-block m-2 rounded img-principal-cel"
                       src={fotos[selected]}
@@ -180,11 +231,10 @@ function Store(data) {
           
         } else{
           return(
-            <div>
-              <div className="d-flex flex-row">
+            <div className="d-flex flex-column justify-content-center align-middle m-2">
+              <div className="d-flex flex-column justify-content-center align-middle">
                     <img
-                    className="d-block  rounded"
-                    style={{ maxHeight: "325px", width: "100vh", objectFit: "cover" }}
+                    className="d-block  rounded img-principal-cel"
                     src={fotos[0]}
                     alt="img"
                     />
@@ -208,9 +258,7 @@ function Store(data) {
       }
 
     }
-    const PhotoViewCel = () =>{
 
-    }
     const CalificacionView = () =>{
 
       let total = 0
@@ -246,23 +294,36 @@ function Store(data) {
       if (emprendimiento){
         return (
             <div className="card d-flex flex-row justify-content-start">
-              <div className="m-2">
-              <PhotosView />
-              </div>
+              {w >= 550 && <PhotosView />}
+              
+              
               
               <div className="card-body  d-flex flex-column justify-content-center caja-datos">
-                <h5  className="card-title store-title">{emprendimiento.value.store.Nombre}</h5>
+              {w >= 550 && <h5  className="card-title store-title">{emprendimiento.value.store.Nombre}</h5>}
                 {emprendimiento.value.store.Calificacion && <div>
+                  {w >= 550 && <CalificacionView />}
+                </div>}
+                {w >= 550 && <h4 className="card-text store-categoria">{w >= 550 && <span>Categoria: </span>}<span className="stores-cel">{emprendimiento.value.store.Categoria}</span></h4>}
+                {w < 550 && <div className="d-flex flex-row mb-2">
+                  <PhotosViewCel />
+                  <div className="d-flex flex-column">
+                    <h5 className="card-title store-title">{emprendimiento.value.store.Nombre}</h5>
+                    {emprendimiento.value.store.Calificacion && <div>
                   <CalificacionView />
                 </div>}
-                <h4 className="card-text store-categoria">{w >= 500 && <span>Categoria: </span>}<span className="stores-cel">{emprendimiento.value.store.Categoria}</span></h4>
-                <h3 className="card-text store-ciudad">{w >= 600 && <span>Ciudad: </span>}<span className="stores-cel">{emprendimiento.value.store.Ciudad}</span></h3>
-                <h3 className="card-text store-celular">{w >= 600 && <span>Celular: </span>}{w < 600 && w > 370 && <span>Cel: </span>}<span className="stores-cel">{emprendimiento.value.store.Celular}</span></h3>
+                <h4 className="card-text store-categoria">{w>350 &&<span>Categoria: </span>}{emprendimiento.value.store.Categoria}</h4>
+                  </div>
+                  </div>}
+                  <h3 className="card-text store-ciudad"><span>Ciudad: </span><span className="stores-cel">{emprendimiento.value.store.Ciudad}</span></h3>
+
+                <h3 className="card-text store-celular">{w >= 600 && <span>Celular: </span>}{w < 600 && <span>Cel: </span>}<span className="stores-cel">{emprendimiento.value.store.Celular}</span></h3>
+                
                 {emprendimiento.value.store.Telefono &&
-                  <h4 className="card-text store-categoria">
+                  w >= 550 &&<h4 className="card-text store-categoria">
                     {w >= 600 && <span>Telefono: </span>}<span className="stores-cel">
                     {emprendimiento.value.store.Telefono}</span>
                   </h4>
+                  
                 }       
                 {w> 670 && <span>
                   {w > 950 && <h4 className="card-text store-email">

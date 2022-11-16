@@ -3,6 +3,11 @@
     height: 50px;
     object-fit: cover;
 }
+.img-principal-cel{
+    width: 100vh;
+    max-height: 80vh;
+    object-fit: cover;
+}
 .img-principal{
     width: 100vh;
     object-fit: cover;
@@ -208,8 +213,9 @@
         padding: 5px!important;
     }
     .img-principal-cel{
-        width: 100px;
-        height: 100px;
+        width: 80vh;
+        max-height: 70vh;
+        object-fit: cover;
     }
 }
 @media only screen and (max-width: 750px){
@@ -224,8 +230,9 @@
     }}
 @media only screen and (max-width: 700px){
     .img-principal-cel{
-        width: 90px;
-        height: 90px;
+        width: 65vh;
+        max-height: 55vh;
+        object-fit: cover;
     }
     .imagen-btn{
         width: 25px;
@@ -270,8 +277,9 @@
 }
 @media only screen and (max-width: 600px){
     .img-principal-cel{
-        width: 80px;
-        height: 80px;
+        width: 55vh;
+        max-height: 50vh;
+        object-fit: cover;
     }
     .img-principal{
         width: 150px;
@@ -298,6 +306,12 @@
     }
 }
 @media only screen and (max-width: 550px){
+    .imagen-btn-cel{
+        width: 50px;
+        height: 50px;
+        border-radius: 25px;
+        margin: 0px 10px!important;
+    }
     .img-principal{
         width: 130px;
         max-height: 150px;
@@ -328,9 +342,16 @@
     }
 }
 @media only screen and (max-width: 500px){
+    .imagen-btn-cel{
+        width: 45px;
+        height: 45px;
+        border-radius: 20px;
+        margin: 0px 5px!important;
+    }
     .img-principal-cel{
-        width: 70px;
-        height: 70px;
+        width: 40vh;
+        max-height: 40vh;
+        object-fit: cover;
     }
     .img-principal{
         width: 120px;
@@ -383,6 +404,11 @@
     }
 }
 @media only screen and (max-width: 450px){
+    .img-principal-cel{
+        width: 50vh;
+        max-height: 50vh;
+        object-fit: cover;
+    }
     .caja-datos{
         margin: 10px 5px !important;
         padding: 5px!important;
@@ -399,6 +425,17 @@
         font-size: 12px;
     }}
 @media only screen and (max-width: 400px){
+    .imagen-btn-cel{
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        margin: 0px 5px!important;
+    }
+    .img-principal-cel{
+        width: 30vh;
+        max-height: 30vh;
+        object-fit: cover;
+    }
     .img-principal{
         width: 100px;
         max-height: 120px;
