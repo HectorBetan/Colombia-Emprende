@@ -161,7 +161,7 @@ function Store(data) {
           console.log(fotos.length)
           console.log(selected)
           
-          if (w>767){
+          
             if (seles){
               setTimeout(() => {
                 if (selected === fotos.length-1){
@@ -200,33 +200,8 @@ function Store(data) {
                   </div>
               </div>
             )
-          }
-          else {
-            if (seles){
-              setTimeout(() => {
-                if (selected === fotos.length-2){
-                  setSelected(0);
-                    setSeles(false);
-                } else{
-                  setSelected(selected+1)
-                };
-              }, 5000);
-              }
-            return(
-              <div className="d-flex flex-column justify-content-center m-2">
-                <img
-                      className="d-block m-2 rounded img-principal-cel"
-                      src={fotos[selected]}
-                      alt={selected}
-                      />
-                <img
-                      className="d-block m-2 rounded img-principal-cel"
-                      src={fotos[selected+1]}
-                      alt={selected}
-                      />
-              </div>
-            )
-          }
+          
+          
           
           
         } else{
@@ -273,7 +248,7 @@ function Store(data) {
 
       }
       let nums = [1,2,3,4,5]
-      return(<div className="d-flex flex-row">
+      return(<div className="d-flex flex-row sstars">
         {
           nums.map((n)=>{
             console.log(n)
@@ -312,8 +287,8 @@ function Store(data) {
                 <h4 className="card-text store-categoria">{w>350 &&<span>Categoria: </span>}{emprendimiento.value.store.Categoria}</h4>
                   </div>
                   </div>}
-                  {emprendimiento.value.store.Calificacion && w < 550 &&<div className="text-center justify-content-center">
-                  <CalificacionView />
+                  {emprendimiento.value.store.Calificacion && w < 550 &&<div className="text-center d-flex flex-row">
+                  <span className="me-1">Calificación:</span><CalificacionView />
                 </div>}
                   <h3 className="card-text store-ciudad"><span>Ciudad: </span><span className="stores-cel">{emprendimiento.value.store.Ciudad}</span></h3>
 
