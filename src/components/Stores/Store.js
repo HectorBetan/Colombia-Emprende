@@ -1,7 +1,9 @@
 import React from "react";
+
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 function Store(data) {
+
     const navigate = useNavigate();
     const { user, createCart } = useAuth();
     const {nombre} = useParams();

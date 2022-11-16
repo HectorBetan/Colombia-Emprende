@@ -3,6 +3,14 @@
     height: 250px;
     margin: 25px 20px!important;
 }
+.txt-1{
+    font-size: 16px;
+    font-weight: 500;
+}
+.txt-cat{
+    font-size: 18px;
+    font-weight: 700;
+}
 .store-title{
     font-size: 40px;
     font-weight: 700!important;
@@ -156,6 +164,9 @@
     }
 }
 @media only screen and (max-width: 700px){
+    .text-busq-cat{
+        font-size: 18px;
+    }
     .store-categoria{
         font-size: 16px;
     }
@@ -183,6 +194,12 @@
     }
 }
 @media only screen and (max-width: 600px){
+    .text-busq-cat{
+        font-size: 17px;
+    }
+    .texto-busqueda{
+        font-size: 16px;
+    }
     .img-tiendas{
         width: 170px;
         height: 170px;
@@ -198,6 +215,9 @@
     }
 }
 @media only screen and (max-width: 550px){
+    .texto-busqueda{
+        font-size: 15px;
+    }
     .img-tiendas{
         width: 160px;
         height: 160px;
@@ -221,6 +241,23 @@
     }
 }
 @media only screen and (max-width: 500px){
+    .text-busq-cat{
+        font-size: 16px;
+    }
+    .txt-1{
+        font-size: 14px;
+        font-weight: 500;
+    }
+    .txt-cat{
+        font-size: 16px;
+        font-weight: 600;
+    }
+    .texto-filtro{
+        font-size: 14px;
+    }
+    .texto-busqueda{
+        font-size: 13px;
+    }
     .store-categoria{
         font-size: 14px;
     }
@@ -250,7 +287,31 @@
         padding: 5px!important;
     }
 }
+@media only screen and (max-width: 450px){
+    .buscar-txt{
+        font-size: 14px;
+    }
+    .texto-busqueda{
+        font-size: 12px;
+    }}
 @media only screen and (max-width: 400px){
+    .text-busq-cat{
+        font-size: 15px;
+    }
+    .txt-1{
+        font-size: 13px;
+        font-weight: 500;
+    }
+    .txt-cat{
+        font-size: 15px;
+        font-weight: 600;
+    }
+    .texto-filtro{
+        font-size: 12px;
+    }
+    .texto-busqueda{
+        font-size: 11px;
+    }
     .store-categoria{
         font-size: 13px;
     }
@@ -278,6 +339,15 @@
     }
 }
 @media only screen and (max-width: 370px){
+    .text-busq-cat{
+        font-size: 14px;
+    }
+    .buscar-txt{
+        font-size: 12px;
+    }
+    .texto-busqueda{
+        font-size: 10px;
+    }
     .img-tiendas{
         width: 110px;
         height: 110px;

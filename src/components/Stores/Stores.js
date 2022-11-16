@@ -1,13 +1,40 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import {categorys} from '../../models/Categorys.model'
 import {citys} from '../../models/City.model';
 import imgStore from "../../assets/img-store.jpg";
 import Pagination from 'react-bootstrap/Pagination';
+import { useNavigate } from "react-router-dom";
 function Stores(data) {
+  const navigate = useNavigate();
   const [resultados, setResultados] = useState(4)
   const [w, setW] = useState(window.innerWidth);
-  const [active, setActive] = useState(1)
+  const [active, setActive] = useState(1);
+  const [categ, setCateg] = useState("");
+  const [ciud, setCiud] = useState("");
+  const [cargando, setCargando] = useState(true);
+  useEffect(()=>{
+    const setDataView = () => {
+      let storesViewDat ;
+      if(cargando){
+        try {
+          storesViewDat = JSON.parse(sessionStorage.getItem("storesViewData"))
+        } catch (error) {
+          
+        }
+        if (storesViewDat){
+          console.log(storesViewDat)
+          setActive(storesViewDat.active);
+          setResultados(storesViewDat.resultados)
+          setCateg(storesViewDat.categoria)
+          setCiud(storesViewDat.ciudad);
+        }
+        setCargando(false)
+        sessionStorage.removeItem("storesViewData")
+      }
+      
+    }
+    setDataView();
+  },[cargando])
   const handleResize = () => {
     setW(window.innerWidth);
   };
@@ -313,9 +340,20 @@ function Stores(data) {
                     </div>  
                   </div>
                   <div  className="text-center pb-2 card-footer">
-                    <Link  to={`/emprendimientos/${data.value.store.Path}`} className="btn btn-primary text-center boton-tienda">
+                    <button  onClick={(e)=>{e.preventDefault(); 
+                      navigate(`/emprendimientos/${data.value.store.Path}`);
+                      const storesViewData = {
+                        active: active,
+                        resultados: resultados,
+                        categoria: categ,
+                        ciudad: ciud,
+                      }
+                      console.log(storesViewData)
+                      sessionStorage.setItem("storesViewData", JSON.stringify(storesViewData));
+                    }} 
+                    className="btn btn-primary text-center boton-tienda">
                       Ir a la Tienda
-                    </Link>
+                    </button>
                   </div>
                 </div>
                 
@@ -371,9 +409,19 @@ function Stores(data) {
                       </div>  
                     </div>
                     <div  className="text-center pb-2 card-footer d-grid gap-2 d-md-block">
-                    <Link  to={`/emprendimientos/${data.value.store.Path}`} className="btn btn-primary text-center boton-tienda">
+                    <button  onClick={(e)=>{e.preventDefault(); 
+                      navigate(`/emprendimientos/${data.value.store.Path}`);
+                      const storesViewData = {
+                        active: active,
+                        resultados: resultados,
+                        categoria: categ,
+                        ciudad: ciud,
+                      }
+                      sessionStorage.setItem("storesViewData",  JSON.stringify(storesViewData));
+                    }} 
+                    className="btn btn-primary text-center boton-tienda">
                       Ir a la Tienda
-                    </Link>
+                    </button>
                     </div>
                   </div>}
                 </div>
@@ -435,7 +483,7 @@ function Stores(data) {
       let citySelect = document.getElementById("citySelect").value;
       if (categoriaSelect || citySelect){
         return (
-          <div className="text-center m-1 mb-3">
+          <div className="text-center m-1 mb-3 texto-filtro">
             Filtrando por {categoriaSelect && <span className="txt-1"> Categoria: <span className="txt-cat"> {categoriaSelect}</span> </span>}
             {categoriaSelect && citySelect && <span>y </span>}
             {citySelect && <span className="txt-1"> Ciudad: <span className="txt-cat">{citySelect}</span></span>}
@@ -444,7 +492,6 @@ function Stores(data) {
       }
     }
     const handleSearch = (e) => {
-      e.preventDefault();
       setActive(1);
       let categoriaSelect = document.getElementById("categoriaSelect").value;
       let citySelect = document.getElementById("citySelect").value;
@@ -453,6 +500,7 @@ function Stores(data) {
     const clearCategoria = (e) => {
       setActive(1);
       e.preventDefault();
+      setCateg("");
       document.getElementById("categoriaSelect").value = "";
       let categoriaSelect = false;
       let citySelect = document.getElementById("citySelect").value;
@@ -461,37 +509,56 @@ function Stores(data) {
     const clearCity = (e) => {
       setActive(1);
       e.preventDefault();
+      setCiud("")
       document.getElementById("citySelect").value = "";
       let categoriaSelect = document.getElementById("categoriaSelect").value;
       let citySelect = false;
       search(categoriaSelect, citySelect);
     };
-    if (newList){
+    if (newList && !cargando){
       return (
         <div className="">
-          <div className="bg-info d-flex flex-row justify-content-center">
+          <div className="bg-info d-flex flex-row justify-content-center pt-2">
             <div>
               <form className="d-flex flex-row  justify-content-center">
-                <select onChange={handleSearch} id="categoriaSelect" defaultValue="" className="selection-forma seleccion ps-2 pe-2 m-2 form-select form-select-lg">
-                  <option value="">Ninguna</option>
-                  {categoriaList}
-                </select>
-                <span><button onClick={clearCategoria} className="btn btn-lg btn-secondary m-2 boton-borrar">Borrar</button></span>
-                <select onChange={handleSearch} id="citySelect" defaultValue="" className="selection-forma seleccion ps-2 pe-2 m-2 form-select form-select-lg">
-                <option value="">Ninguna</option>
-                  {cityLista}
-                </select>
-                <span><button onClick={clearCity} className="btn btn-lg btn-secondary m-2 boton-borrar">Borrar</button></span>
+                <div className="text-center">
+                  <h5 className="text-busq-cat">Buscar por Categoria</h5>
+                  <div className="d-flex flex-row  justify-content-center">
+                    <select onChange={(e)=>{e.preventDefault();setCateg(e.target.value);handleSearch()}} id="categoriaSelect" value={categ} className="selection-forma seleccion ps-2 pe-2 m-2 form-select form-select-lg">
+                      <option value="">Ninguna</option>
+                      {categoriaList}
+                    </select>
+                    <span>
+                      <button onClick={clearCategoria} className="btn btn-lg btn-secondary m-2 boton-borrar">
+                        Borrar
+                      </button>
+                    </span>
+                  </div>
+                </div>
+                <div className="text-center">
+                  <h5 className="text-busq-cat">Buscar por Ciudad</h5>
+                  <div className="d-flex flex-row  justify-content-center">
+                    <select onChange={(e)=>{e.preventDefault();setCiud(e.target.value);handleSearch()}} id="citySelect" value={ciud} className="selection-forma seleccion ps-2 pe-2 m-2 form-select form-select-lg">
+                      <option value="">Ninguna</option>
+                      {cityLista}
+                    </select>
+                    <span>
+                      <button onClick={clearCity} className="btn btn-lg btn-secondary m-2 boton-borrar">
+                        Borrar
+                      </button>
+                    </span>
+                  </div>
+                </div>
               </form>
               <HandleBusq />
             </div>
           </div>
-          <div className="d-flex flex-row justify-content-center m-2">
+          <div className="d-flex flex-row justify-content-center m-2 buscar-txt">
           <label className="m-1">Resultados por Página</label>
-          <input className="form-input busqueda" type="number" min="1" max="10" defaultValue="5"onChange={(e)=>{e.preventDefault();setActive(1);if(isNaN(e.target.value)){setResultados(4)};if(!e.target.value || e.target.value <1){setResultados(4)} if(e.target.value >10){setResultados(9)};if (e.target.value >=1 && e.target.value <10){setResultados(parseInt(e.target.value)-1)}; console.log(resultados)}}></input>
+          <input className="form-input busqueda" type="number" min="1" max="10" defaultValue={resultados+1} onChange={(e)=>{e.preventDefault();setActive(1);if(isNaN(e.target.value)){setResultados(4)};if(!e.target.value || e.target.value <1){setResultados(4)} if(e.target.value >10){setResultados(9)};if (e.target.value >=1 && e.target.value <10){setResultados(parseInt(e.target.value)-1)}; console.log(resultados)}}></input>
           <span  className="m-1">(min:1 - max:10)</span>
           </div>
-          <div  className="text-center m-1">
+          <div  className="text-center m-1 texto-busqueda">
             Mostrando Tiendas <b>{((active-1)*(resultados+1))+1}</b> a <b>{(active*(resultados+1)) < newList.length && <span>{active*(resultados+1)}</span>}{(active*(resultados+1)) >= newList.length && <span>{newList.length}</span>}</b> de un total de <b>{newList.length}</b> Tiendas - Página <b>{active}</b> de <b>{Math.ceil(newList.length/(resultados+1))}</b>
           </div>
           
@@ -500,29 +567,46 @@ function Stores(data) {
         </div>
       );
     }
-    if (lista){
+    if (lista  && !cargando){
       return (
         <div className="">
-          <div className="bg-info d-flex flex-row justify-content-center">
+          <div className="bg-info d-flex flex-row justify-content-center pt-2">
             <div>
               <form className="d-flex flex-row  justify-content-center">
-                <select className="form-select form-select-lg selection-forma m-2 ps-2 pe-2 seleccion" onChange={handleSearch} id="categoriaSelect" defaultValue="">
-                <option value="">Ninguna</option>
-                  {categoriaList}
-                </select>
-                <span><button onClick={clearCategoria} className="btn btn-lg btn-secondary m-2 boton-borrar">Borrar</button></span>
-                <select onChange={handleSearch} id="citySelect" defaultValue="" className="selection-forma seleccion ps-2 pe-2 m-2 form-select form-select-lg">
-                <option value="">Ninguna</option>
-                  {cityLista}
-                </select>
-                <span><button onClick={clearCity} className="btn btn-lg btn-secondary m-2 boton-borrar">Borrar</button></span>
+                <div className="text-center">
+                  <h5 className="text-busq-cat">Buscar por Categoria</h5>
+                  <div className="d-flex flex-row  justify-content-center">
+                  <select onChange={(e)=>{e.preventDefault();setCateg(e.target.value);handleSearch(e)}} id="categoriaSelect" value={categ} className="selection-forma seleccion ps-2 pe-2 m-2 form-select form-select-lg">
+                      <option value="">Ninguna</option>
+                      {categoriaList}
+                    </select>
+                    <span>
+                      <button onClick={clearCategoria} className="btn btn-lg btn-secondary m-2 boton-borrar">
+                        Borrar
+                      </button>
+                    </span>
+                  </div>
+                </div>
+                <div className="text-center">
+                  <h5 className="text-busq-cat">Buscar por Ciudad</h5>
+                  <div className="d-flex flex-row  justify-content-center">
+                  <select onChange={(e)=>{e.preventDefault();setCiud(e.target.value);handleSearch(e)}} id="citySelect" value={ciud} className="selection-forma seleccion ps-2 pe-2 m-2 form-select form-select-lg">
+                      <option value="">Ninguna</option>
+                      {cityLista}
+                    </select>
+                    <span>
+                      <button onClick={clearCity} className="btn btn-lg btn-secondary m-2 boton-borrar">
+                        Borrar
+                      </button>
+                    </span>
+                  </div>
+                </div>
               </form>
-              
             </div>
           </div>
-          <div className="d-flex flex-row justify-content-center m-2">
+          <div className="d-flex flex-row justify-content-center m-2  buscar-txt">
           <label className="m-1">Resultados por Página</label>
-          <input className="form-input busqueda" type="number" min="1" max="10" defaultValue="5"onChange={(e)=>{e.preventDefault();setActive(1);if(isNaN(e.target.value)){setResultados(4)};if(!e.target.value || e.target.value <1){setResultados(4)} if(e.target.value >10){setResultados(9)};if (e.target.value >=1 && e.target.value <10){setResultados(parseInt(e.target.value)-1)}; console.log(resultados)}}></input>
+          <input className="form-input busqueda" type="number" min="1" max="10" defaultValue={resultados+1} onChange={(e)=>{e.preventDefault();setActive(1);if(isNaN(e.target.value)){setResultados(4)};if(!e.target.value || e.target.value <1){setResultados(4)} if(e.target.value >10){setResultados(9)};if (e.target.value >=1 && e.target.value <10){setResultados(parseInt(e.target.value)-1)}; console.log(resultados)}}></input>
           <span className="m-1">(min:1 - max:10)</span>
           </div>
           <div className="text-center m-1">
