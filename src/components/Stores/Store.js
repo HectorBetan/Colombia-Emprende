@@ -312,7 +312,7 @@ function Store(data) {
                 <h4 className="card-text store-categoria">{w>350 &&<span>Categoria: </span>}{emprendimiento.value.store.Categoria}</h4>
                   </div>
                   </div>}
-                  {emprendimiento.value.store.Calificacion && w < 550 &&<div>
+                  {emprendimiento.value.store.Calificacion && w < 550 &&<div className="text-center justify-content-center">
                   <CalificacionView />
                 </div>}
                   <h3 className="card-text store-ciudad"><span>Ciudad: </span><span className="stores-cel">{emprendimiento.value.store.Ciudad}</span></h3>
