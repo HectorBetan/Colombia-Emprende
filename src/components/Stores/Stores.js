@@ -27,14 +27,17 @@ function Stores(data) {
           setResultados(storesViewDat.resultados)
           setCateg(storesViewDat.categoria)
           setCiud(storesViewDat.ciudad);
+          search(storesViewDat.categoria, storesViewDat.ciudad)
         }
         setCargando(false)
+        
         sessionStorage.removeItem("storesViewData")
+        
       }
       
     }
     setDataView();
-  },[cargando])
+  })
   const handleResize = () => {
     setW(window.innerWidth);
   };
@@ -479,8 +482,29 @@ function Stores(data) {
           
     }
     const HandleBusq = () => {
-      let categoriaSelect = document.getElementById("categoriaSelect").value;
-      let citySelect = document.getElementById("citySelect").value;
+      let categoriaSelect
+      let citySelect
+      if (!categ && !cargando){
+        try {
+          categoriaSelect = document.getElementById("categoriaSelect").value;
+        } catch (error) {
+          
+        }
+        
+      } else {
+        categoriaSelect = categ
+      }
+      if (!ciud && !cargando){
+        try {
+          citySelect = document.getElementById("citySelect").value;
+        } catch (error) {
+          
+        }
+        
+      } else {
+        citySelect = ciud
+      }
+      
       if (categoriaSelect || citySelect){
         return (
           <div className="text-center m-1 mb-3 texto-filtro">

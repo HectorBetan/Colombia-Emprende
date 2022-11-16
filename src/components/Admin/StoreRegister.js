@@ -13,8 +13,8 @@ function StoreRegister() {
     const [emprendimiento, setEmprendimiento] = useState({
         Nombre: "",
         Email: "",
-        Celular: 0,
-        Telefono: 0,
+        Celular: "",
+        Telefono: "",
         Ciudad: "",
         Direccion: "",
         Categoria: "",

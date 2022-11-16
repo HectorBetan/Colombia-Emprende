@@ -1,3 +1,13 @@
+.imagen-btn{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+.img-principal{
+    width: 100vh;
+    object-fit: cover;
+    max-height: 330px;
+}
 .img-tiendas{
     width: 250px;
     height: 250px;
@@ -26,6 +36,10 @@
     font-weight: 700!important;
 }
 @media only screen and (max-width: 1175px){
+    .imagen-btn{
+        width: 45px;
+        height: 45px;
+    }
     .img-tiendas{
         width: 225px;
         height: 225px;
@@ -36,6 +50,10 @@
     }
 }
 @media only screen and (max-width: 1100px){
+    .imagen-btn{
+        width: 40px;
+        height: 40px;
+    }
     .img-tiendas{
         width: 210px;
         height: 210px;
@@ -63,6 +81,15 @@
     }
 }
 @media only screen and (max-width: 1000px){
+    .imagen-btn{
+        width: 36px;
+        height: 36px;
+    }
+    .img-principal{
+        width: 90vh;
+        object-fit: cover;
+        max-height: 300px;
+    }
     .store-title{
         font-size: 27px;
         font-weight: 650!important;
@@ -112,6 +139,15 @@
     }
 }
 @media only screen and (max-width: 850px){
+    .imagen-btn{
+        width: 34px;
+        height: 34px;
+    }
+    .img-principal{
+        width: 80vh;
+        object-fit: cover;
+        max-height: 300px;
+    }
     .store-categoria{
         font-size: 18px;
     }
@@ -137,6 +173,15 @@
     }
 }
 @media only screen and (max-width: 800px){
+    .imagen-btn{
+        width: 32px;
+        height: 32px;
+    }
+    .img-principal{
+        width: 75vh;
+        object-fit: cover;
+        max-height: 300px;
+    }
     .store-categoria{
         font-size: 17px;
     }
@@ -162,8 +207,38 @@
         margin: 25px 10px!important;
         padding: 5px!important;
     }
+    .img-principal-cel{
+        width: 100px;
+        height: 100px;
+    }
 }
+@media only screen and (max-width: 750px){
+    .imagen-btn{
+        width: 28px;
+        height: 28px;
+    }
+    .img-principal{
+        width: 70vh;
+        object-fit: cover;
+        max-height: 280px;
+    }}
 @media only screen and (max-width: 700px){
+    .img-principal-cel{
+        width: 90px;
+        height: 90px;
+    }
+    .imagen-btn{
+        width: 25px;
+        height: 25px;
+    }
+    .botn-imagen{
+        margin: 2px!important;
+    }
+    .img-principal{
+        width: 60vh;
+        object-fit: cover;
+        max-height: 250px;
+    }
     .text-busq-cat{
         font-size: 18px;
     }
@@ -194,6 +269,14 @@
     }
 }
 @media only screen and (max-width: 600px){
+    .img-principal-cel{
+        width: 80px;
+        height: 80px;
+    }
+    .img-principal{
+        width: 150px;
+        max-height: 180px;
+    }
     .text-busq-cat{
         font-size: 17px;
     }
@@ -215,6 +298,10 @@
     }
 }
 @media only screen and (max-width: 550px){
+    .img-principal{
+        width: 130px;
+        max-height: 150px;
+    }
     .texto-busqueda{
         font-size: 15px;
     }
@@ -241,6 +328,14 @@
     }
 }
 @media only screen and (max-width: 500px){
+    .img-principal-cel{
+        width: 70px;
+        height: 70px;
+    }
+    .img-principal{
+        width: 120px;
+        max-height: 130px;
+    }
     .text-busq-cat{
         font-size: 16px;
     }
@@ -288,6 +383,15 @@
     }
 }
 @media only screen and (max-width: 450px){
+    .caja-datos{
+        margin: 10px 5px !important;
+        padding: 5px!important;
+    }
+    .img-principal-cel{
+        width: 60px;
+        height: 60px;
+        margin: 10px 0px!important
+    }
     .buscar-txt{
         font-size: 14px;
     }
@@ -295,6 +399,10 @@
         font-size: 12px;
     }}
 @media only screen and (max-width: 400px){
+    .img-principal{
+        width: 100px;
+        max-height: 120px;
+    }
     .text-busq-cat{
         font-size: 15px;
     }

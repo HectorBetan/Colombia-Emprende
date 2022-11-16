@@ -2,12 +2,48 @@ import React from "react";
 
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { useState, useEffect } from "react";
+import imgStore from "../../assets/img-store.jpg";
 function Store(data) {
-
+  const [cargando, setCargando] = useState(true);
+  const [ant, setAnt] = useState(false);
+  const [w, setW] = useState(window.innerWidth);
+  useEffect(()=>{
+    const setDataView = () => {
+      let storesViewDat ;
+      if(cargando){
+        try {
+          storesViewDat = JSON.parse(sessionStorage.getItem("storesViewData"))
+        } catch (error) {
+          
+        }
+        if (storesViewDat){
+          setAnt(true)
+        }
+        setCargando(false)
+      }
+      
+    }
+    setDataView();
+  })
+  const handleResize = () => {
+    setW(window.innerWidth);
+  };
+  useEffect(() => {
+    
+    window.addEventListener("resize", handleResize);
+    console.log("tamaño")
+    return () => {
+      
+      window.removeEventListener("resize", handleResize);
+      
+    };
+  }, []);
     const navigate = useNavigate();
     const { user, createCart } = useAuth();
     const {nombre} = useParams();
     const lista = data.data;
+    const [seles, setSeles] = useState(true)
     const emprendimiento = lista.find(emprendimiento => emprendimiento.value.store.Path === nombre);  
     const agregar = async (producto) => {
       const cantidad = document.getElementById(producto._id).value;
@@ -61,15 +97,187 @@ function Store(data) {
         )
       }
     };
+    const PhotosView = () =>{
+      let fotos;
+      const [selected, setSelected] = useState(0);
+      if(emprendimiento.value.store.Imagen){
+        fotos = emprendimiento.value.store.Imagen.split(",");
+      }
+
+      
+      if (fotos){
+        if (fotos.length > 1){
+          console.log(fotos.length)
+          console.log(selected)
+          
+          if (w>767){
+            if (seles){
+              setTimeout(() => {
+                if (selected === fotos.length-1){
+                  setSelected(0);
+                    setSeles(false);
+                } else{
+                  setSelected(selected+1)
+                };
+              }, 5000);
+              }
+            return(
+              <div>
+                <div className="d-flex flex-row">
+                <div className="d-flex flex-column mt-1">
+                      {fotos.map((img, i) => {
+                          return (
+                                  <button className="m-1 botn-imagen" key={i} onClick={(e) => {e.preventDefault(); setSelected(i)}}>
+                                      <img
+                                      className="d-block rounded imagen-btn"
+                              
+                                      src={img}
+                                      alt={i}
+                                      />
+                                  </button>
+                              
+                          )
+                      })}
+                      </div>
+                      <img
+                      className="d-block m-2 rounded img-principal"
+                      src={fotos[selected]}
+                      alt={selected}
+                      />
+                      
+                      
+                  </div>
+              </div>
+            )
+          }
+          else {
+            if (seles){
+              setTimeout(() => {
+                if (selected === fotos.length-2){
+                  setSelected(0);
+                    setSeles(false);
+                } else{
+                  setSelected(selected+1)
+                };
+              }, 5000);
+              }
+            return(
+              <div className="d-flex flex-column">
+                <img
+                      className="d-block m-2 rounded img-principal-cel"
+                      src={fotos[selected]}
+                      alt={selected}
+                      />
+                <img
+                      className="d-block m-2 rounded img-principal-cel"
+                      src={fotos[selected+1]}
+                      alt={selected}
+                      />
+              </div>
+            )
+          }
+          
+          
+        } else{
+          return(
+            <div>
+              <div className="d-flex flex-row">
+                    <img
+                    className="d-block  rounded"
+                    style={{ maxHeight: "325px", width: "100vh", objectFit: "cover" }}
+                    src={fotos[0]}
+                    alt="img"
+                    />
+                </div>
+            </div>
+          )
+        }
+      } else {
+        return(
+          <div>
+            <div className="d-flex flex-row">
+                  <img
+                  className="d-block  rounded"
+                  style={{ maxHeight: "325px", width: "100vh", objectFit: "cover" }}
+                  src={imgStore}
+                  alt="img-store"
+                  />
+              </div>
+          </div>
+        )
+      }
+
+    }
+    const PhotoViewCel = () =>{
+
+    }
+    const CalificacionView = () =>{
+
+      let total = 0
+      if (emprendimiento.value.store.Calificacion){
+        let calificacion = emprendimiento.value.store.Calificacion;
+        let totalCalificacion = 0;
+
+        for (let i = 0; i < calificacion.length; i++){
+          totalCalificacion = totalCalificacion + calificacion[i].Estrellas
+        }
+        total = totalCalificacion/calificacion.length;
+
+      }
+      let nums = [1,2,3,4,5]
+      return(<div className="d-flex flex-row">
+        {
+          nums.map((n)=>{
+            console.log(n)
+            
+            return(<div key={n}>
+              
+              {n<=total && <i className="fa-solid fa-star star-1" id="star-1" />}
+              {n>total && <i className="fa-regular fa-star star-1" id="star-1" />}
+            </div>)
+          })
+        }
+      </div>)
      
+
+      
+    }
     const DataViewEmprendimiento = () => {
       if (emprendimiento){
         return (
-            <div className="card d-flex flex-row">
-              <img src={emprendimiento.value.store.Imagen} className="card-img-left rounded col-3" style={{maxHeight: '300px'}} alt="..." />
-              <div className="card-body col-9">
-                <h5 className="card-title">{emprendimiento.value.store.Nombre}</h5>
-                <p className="card-text">{emprendimiento.value.store.Descripcion}</p>
+            <div className="card d-flex flex-row justify-content-start">
+              <div className="m-2">
+              <PhotosView />
+              </div>
+              
+              <div className="card-body  d-flex flex-column justify-content-center caja-datos">
+                <h5  className="card-title store-title">{emprendimiento.value.store.Nombre}</h5>
+                {emprendimiento.value.store.Calificacion && <div>
+                  <CalificacionView />
+                </div>}
+                <h4 className="card-text store-categoria">{w >= 500 && <span>Categoria: </span>}<span className="stores-cel">{emprendimiento.value.store.Categoria}</span></h4>
+                <h3 className="card-text store-ciudad">{w >= 600 && <span>Ciudad: </span>}<span className="stores-cel">{emprendimiento.value.store.Ciudad}</span></h3>
+                <h3 className="card-text store-celular">{w >= 600 && <span>Celular: </span>}{w < 600 && w > 370 && <span>Cel: </span>}<span className="stores-cel">{emprendimiento.value.store.Celular}</span></h3>
+                {emprendimiento.value.store.Telefono &&
+                  <h4 className="card-text store-categoria">
+                    {w >= 600 && <span>Telefono: </span>}<span className="stores-cel">
+                    {emprendimiento.value.store.Telefono}</span>
+                  </h4>
+                }       
+                {w> 670 && <span>
+                  {w > 950 && <h4 className="card-text store-email">
+                        {w >950 && <span>E-mail: </span>}
+                        
+                        
+                        <span className="stores-cel">{emprendimiento.value.store.Email}</span></h4>}
+                      
+                  </span>}
+                
+                {emprendimiento.value.store.Direccion && <h4 className="card-text store-categoria">
+                  {w >= 800 && <span>Dirección: </span>}<span className="stores-cel">
+                  {emprendimiento.value.store.Direccion}</span></h4>}
+
+                
               </div>  
             </div>
           
@@ -80,10 +288,39 @@ function Store(data) {
     
     
       return (
-        <div>
-          <button onClick={(e)=> {e.preventDefault(); navigate(-1)}}>Volver</button>
-            <DataViewEmprendimiento />
-            <ExistsProducts />
+        <div className="text-center">
+          {ant && <button className="btn btn-primary m-2" onClick={(e)=> {e.preventDefault(); navigate(-1)}}>
+            Volver a Emprendimientos
+          </button>}
+          
+          <div className="accordion ms-5 me-5 mb-4" id="accordionStore">
+            <div className="accordion-item">
+              <h2 className="accordion-header" id="accordionStore-headingOne">
+                <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accordionStore-collapseOne" aria-expanded="true" aria-controls="accordionStore-collapseOne">
+                  Información de {emprendimiento.value.store.Nombre}
+                </button>
+              </h2>
+              <div id="accordionStore-collapseOne" className="accordion-collapse collapse show" aria-labelledby="accordionStore-headingOne">
+                <div className="accordion-body text-start">
+                  <DataViewEmprendimiento />
+                </div>
+              </div>
+            </div>
+            {emprendimiento.value.products && <div className="accordion-item">
+              <h2 className="accordion-header" id="accordionStore-headingTwo">
+                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordionStore-collapseTwo" aria-expanded="false" aria-controls="accordionStore-collapseTwo">
+                  Productos de {emprendimiento.value.store.Nombre}
+                </button>
+              </h2>
+              <div id="accordionStore-collapseTwo" className="accordion-collapse collapse show" aria-labelledby="accordionStore-headingTwo">
+                <div className="accordion-body  text-start">
+                  <ExistsProducts />
+                </div>
+              </div>
+            </div>}
+            
+          </div>
+          
         </div>
       )
     
