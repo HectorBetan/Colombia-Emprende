@@ -710,6 +710,12 @@
         margin: 20px 10px!important;
         padding: 5px!important;
     }
+    .producto-data h5{
+        font-size: 15px;
+    }
+    .producto-data h3{
+        font-size: 16px;
+    }
 }
 @media only screen and (max-width: 450px){
     .store-email{
@@ -791,6 +797,12 @@
         font-size: 12px;
     }}
 @media only screen and (max-width: 400px){
+    .producto-data h5{
+        font-size: 14px;
+    }
+    .producto-data h3{
+        font-size: 15px;
+    }
     .store-email{
         font-size: 11px!important;
     }
