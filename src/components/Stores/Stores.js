@@ -70,10 +70,15 @@ function Stores(data) {
         </Pagination.Item>
       );
     }
+
     if  (pages > 7){
+      let s = "";
+      if(w<400){
+        s = "sm"
+      }
       return (
         <div className="d-flex justify-content-center">
-          <Pagination>
+          <Pagination size={s}>
           <Pagination.First onClick={(e)=>{e.preventDefault(); setActive(1); 
             if (w < 768){
               window.scrollTo(0, 50);

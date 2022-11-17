@@ -1,5 +1,5 @@
 import React from "react";
-
+import Modal from 'react-bootstrap/Modal';
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useState, useEffect } from "react";
@@ -97,6 +97,72 @@ function Store(data) {
         )
       }
     };
+    const [showModal, setShowModal] = useState("");
+    const handleCloseModal = () => setShowModal(false);
+    const handleShowModal = () => setShowModal(true);
+    const ModalPhotos = () => {
+      const [selected, setSelected] = useState(0);
+      let fotos;
+      if(emprendimiento.value.store.Imagen){
+        fotos = emprendimiento.value.store.Imagen.split(",");
+      }
+      if (fotos.length > 1){
+        return(
+          <Modal show={showModal} onHide={handleCloseModal} backdrop="static">
+            <Modal.Header closeButton>
+              <h3>Fotos de {emprendimiento.value.store.Nombre}</h3>
+            </Modal.Header>
+            <Modal.Body>
+              <div>
+                <div className="m-2 d-flex  justify-content-center">
+                  
+                    <img
+                    className="d-block m-2 rounded foto-modal"
+                    src={fotos[selected]}
+                    alt={selected}
+                  />
+                </div>
+                <div className="d-flex flex-row justify-content-evenly mt-1">
+                    {fotos.map((img, i) => {
+                      return (
+                        <button className="btn btn-ligth p-0" key={i} onClick={(e) => {e.preventDefault(); setSelected(i)}}>
+                          <img
+                          className="d-block rounded img-btn-modal"
+                        
+                          src={img}
+                          alt={i}
+                          />
+                        </button>
+                      )
+                      })}
+                  </div>
+              </div>
+            </Modal.Body>
+          </Modal>
+        )
+      } else{
+        return(
+          <Modal show={showModal} onHide={handleCloseModal} backdrop="static">
+            <Modal.Header closeButton>
+              <h3>Foto de {emprendimiento.value.store.Nombre}</h3>
+            </Modal.Header>
+            <Modal.Body>
+              <div>
+                <div className="m-2 d-flex  justify-content-center">
+                  
+                    <img
+                    className="d-block m-2 rounded foto-modal"
+                    src={fotos[0]}
+                    alt={"Perfil"}
+                  />
+                </div>
+              </div>
+            </Modal.Body>
+          </Modal>
+        )
+      }
+      
+    }
     const PhotosViewCel= () =>{
       let fotos;
       const [selected, setSelected] = useState(0);
@@ -118,18 +184,33 @@ function Store(data) {
             }, 5000);
           }
           return (
-            <img
-              className="d-block circle imagen-btn-cel"
+            <div>
+            <img onClick={(e)=>{
+              e.preventDefault();
+              handleShowModal();
+
+            }}
+              className="d-block imagen-btn-cel"
               
               src={fotos[selected]}
               alt="fotos"
-              />
+              >
+              
+              </img>
+            
+            </div>
+            
+              
           )
         }else {
           return (
             <img
-              className="d-block circle imagen-btn-cel"
-              
+              className="d-block imagen-btn-cel"
+              onClick={(e)=>{
+                e.preventDefault();
+                handleShowModal();
+  
+              }}
               src={fotos[0]}
               alt="fotos"
               />
@@ -141,7 +222,7 @@ function Store(data) {
           <img
             className="d-block imagen-btn-cel"
             
-            src={fotos[0]}
+            src={imgStore}
             alt="fotos"
             />
         )
@@ -175,11 +256,11 @@ function Store(data) {
             return(
               <div>
                 <div className="d-flex flex-row m-2">
-                <div className="d-flex flex-column mt-1">
+                <div className="d-flex flex-column justify-content-center mt-1">
                       {fotos.map((img, i) => {
                           return (
-                                  <button className="botn-imagen btn btn-white p-0" key={i} onClick={(e) => {e.preventDefault(); setSelected(i)}}>
-                                      <img
+                                  <button className="botn-imagen btn btn-ligth p-0" key={i} onClick={(e) => {e.preventDefault(); setSelected(i)}}>
+                                      <img 
                                       className="d-block rounded imagen-btn"
                               
                                       src={img}
@@ -190,7 +271,11 @@ function Store(data) {
                           )
                       })}
                       </div>
-                      <img
+                      <img onClick={(e)=>{
+                        e.preventDefault();
+                        handleShowModal();
+          
+                      }}
                       className="d-block m-2 rounded img-principal"
                       src={fotos[selected]}
                       alt={selected}
@@ -208,7 +293,11 @@ function Store(data) {
           return(
             <div className="d-flex flex-column justify-content-center align-middle m-2">
               <div className="d-flex flex-column justify-content-center align-middle">
-                    <img
+                    <img onClick={(e)=>{
+                      e.preventDefault();
+                      handleShowModal();
+        
+                    }}
                     className="d-block  rounded img-principal-cel"
                     src={fotos[0]}
                     alt="img"
@@ -326,6 +415,7 @@ function Store(data) {
     
       return (
         <div className="text-center">
+        <ModalPhotos></ModalPhotos>
           {ant && <button className="btn btn-primary m-2" onClick={(e)=> {e.preventDefault(); navigate(-1)}}>
             Volver a Emprendimientos
           </button>}

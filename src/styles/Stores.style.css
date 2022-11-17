@@ -1,3 +1,4 @@
+
 .imagen-btn{
     width: 59px;
     height: 59px;
@@ -19,7 +20,7 @@
     object-fit: cover;
 }
 .img-principal{
-    width: 100vh;
+    max-width: 275px;
     object-fit: cover;
     max-height: 330px;
 }
@@ -49,6 +50,15 @@
 }
 .stores-cel{
     font-weight: 700!important;
+}
+.foto-modal{
+    max-width: 90vh;
+    max-height: 100vh;
+    object-fit: contain;
+}
+.img-btn-modal{
+    width: 80px;
+    height: 80px;
 }
 @media only screen and (max-width: 1175px){
     .imagen-btn{
@@ -104,9 +114,9 @@
         margin: 2px 0px!important;
     }
     .img-principal{
-        width: 90vh;
+        max-width: 260px;
         object-fit: cover;
-        max-height: 300px;
+        max-height: 270px;
     }
     .store-title{
         font-size: 27px;
@@ -163,9 +173,9 @@
         margin: 2px 0px!important;
     }
     .img-principal{
-        width: 80vh;
+        max-width: 225px;
         object-fit: cover;
-        max-height: 300px;
+        max-height: 225px;
     }
     .store-categoria{
         font-size: 18px;
@@ -199,9 +209,9 @@
         
     }
     .img-principal{
-        width: 75vh;
+        max-width: 200px;
         object-fit: cover;
-        max-height: 300px;
+        max-height: 200px;
     }
     .store-categoria{
         font-size: 17px;
@@ -241,9 +251,9 @@
         margin: 2px 0px!important;
     }
     .img-principal{
-        width: 70vh;
+        max-width: 190px;
         object-fit: cover;
-        max-height: 280px;
+        max-height: 190px;
     }}
 @media only screen and (max-width: 700px){
     .img-principal-cel{
@@ -260,9 +270,9 @@
         margin: 2px!important;
     }
     .img-principal{
-        width: 60vh;
+        max-width: 175px;
         object-fit: cover;
-        max-height: 250px;
+        max-height: 175px;
     }
     .text-busq-cat{
         font-size: 18px;
@@ -300,7 +310,7 @@
         object-fit: cover;
     }
     .img-principal{
-        width: 150px;
+        max-width: 120px;
         max-height: 180px;
     }
     .text-busq-cat{
@@ -339,7 +349,7 @@
         margin: 0px 10px!important;
     }
     .img-principal{
-        width: 130px;
+        max-width: 130px;
         max-height: 150px;
     }
     .texto-busqueda{
@@ -385,7 +395,7 @@
         object-fit: cover;
     }
     .img-principal{
-        width: 120px;
+        max-width: 120px;
         max-height: 130px;
     }
     .text-busq-cat{
@@ -435,6 +445,15 @@
     }
 }
 @media only screen and (max-width: 450px){
+    .foto-modal{
+        max-width: 75vh;
+        max-height: 100vh;
+        object-fit: contain;
+    }
+    .img-btn-modal{
+        width: 67px;
+        height: 67px;
+    }
     .store-title-1{
         font-size: 16px!important;
         font-weight: 650!important;
@@ -460,6 +479,15 @@
         font-size: 12px;
     }}
 @media only screen and (max-width: 400px){
+    .foto-modal{
+        max-width: 65vh;
+        max-height: 100vh;
+        object-fit: contain;
+    }
+    .img-btn-modal{
+        width: 57px;
+        height: 57px;
+    }
     .imagen-btn-cel{
         width: 40px;
         height: 40px;
@@ -472,7 +500,7 @@
         object-fit: cover;
     }
     .img-principal{
-        width: 100px;
+        max-width: 100px;
         max-height: 120px;
     }
     .text-busq-cat{
@@ -519,6 +547,15 @@
     }
 }
 @media only screen and (max-width: 370px){
+    .foto-modal{
+        max-width: 60vh;
+        max-height: 100vh;
+        object-fit: contain;
+    }
+    .img-btn-modal{
+        width: 50px;
+        height: 50px;
+    }
     .text-busq-cat{
         font-size: 14px;
     }
