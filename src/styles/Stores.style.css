@@ -53,7 +53,7 @@
 }
 .foto-modal{
     max-width: 90vh;
-    max-height: 100vh;
+    max-height: 80vh;
     object-fit: contain;
 }
 .img-btn-modal{
@@ -447,7 +447,7 @@
 @media only screen and (max-width: 450px){
     .foto-modal{
         max-width: 75vh;
-        max-height: 100vh;
+        max-height: 90vh;
         object-fit: contain;
     }
     .img-btn-modal{
@@ -548,7 +548,7 @@
 }
 @media only screen and (max-width: 370px){
     .foto-modal{
-        max-width: 60vh;
+        max-width: 280px;
         max-height: 100vh;
         object-fit: contain;
     }
