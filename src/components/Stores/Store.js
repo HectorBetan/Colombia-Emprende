@@ -607,7 +607,7 @@ function Store(data) {
                 </div>
               </div>
             </div>
-            {emprendimiento.value.products && <div className="accordion-item">
+            {emprendimiento.value.products.length > 0 && <div className="accordion-item">
               <h2 className="accordion-header" id="accordionStore-headingTwo">
                 <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordionStore-collapseTwo" aria-expanded="false" aria-controls="accordionStore-collapseTwo">
                   Productos de {emprendimiento.value.store.Nombre}
