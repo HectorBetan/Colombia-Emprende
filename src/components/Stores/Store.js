@@ -213,7 +213,7 @@ function Store(data) {
                 c="Cant:"
               }
               
-              return(<div className="card m-3 p-3">
+              return(<div className="card p-2 p-sm-3 p-md-3 p-lg-3 p-xl-3 p-xxl-3 mb-3">
                 <div key={producto._id} className="d-flex flex-row justify-content-between">
                   
                     <div className="d-flex flex-row  justify-content-between">
@@ -432,7 +432,7 @@ function Store(data) {
               }, 5000);
               }
             return(
-              <div>
+              <div className="d-flex flex-column justify-content-center">
                 <div className="d-flex flex-row m-2">
                 <div className="d-flex flex-column justify-content-center mt-1">
                       {fotos.map((img, i) => {
@@ -537,9 +537,6 @@ function Store(data) {
         return (
             <div className="card d-flex flex-row justify-content-start">
               {w >= 600 && <PhotosView />}
-              
-              
-              
               <div className="card-body  d-flex flex-column justify-content-center caja-datos">
               {w >= 600 && <h5  className="card-title store-title">{emprendimiento.value.store.Nombre}</h5>}
                 {emprendimiento.value.store.Calificacion && <div>
@@ -568,19 +565,18 @@ function Store(data) {
                   </h4>
                   
                 }       
-                {w> 670 && <span>
-                  {w > 950 && <h4 className="card-text store-email">
-                        {w >950 && <span>E-mail: </span>}
-                        
-                        
-                        <span className="stores-cel">{emprendimiento.value.store.Email}</span></h4>}
-                      
-                  </span>}
                 
                 {emprendimiento.value.store.Direccion && <h4 className="card-text store-categoria">
                   {w >= 800 && <span>Dirección: </span>}<span className="stores-cel">
                   {emprendimiento.value.store.Direccion}</span></h4>}
-
+                  {w> 300 && <span>
+                    {w > 300 && <h4 className="card-text store-email">
+                          {w >950 && <span>E-mail: </span>}
+                          
+                          
+                          <span className="stores-cel">{emprendimiento.value.store.Email}</span></h4>}
+                        
+                    </span>}
                 
               </div>  
             </div>
@@ -618,7 +614,7 @@ function Store(data) {
                 </button>
               </h2>
               <div id="accordionStore-collapseTwo" className="accordion-collapse collapse show" aria-labelledby="accordionStore-headingTwo">
-                <div className="accordion-body  text-start">
+                <div className="accordion-body  text-start pe-4 ps-4">
                   <ExistsProducts />
                 </div>
               </div>

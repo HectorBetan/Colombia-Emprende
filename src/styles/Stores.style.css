@@ -445,6 +445,9 @@
     }
 }
 @media only screen and (max-width: 700px){
+    .store-email{
+        font-size: 14px!important;
+    }
     .popover{
         --bs-popover-max-width: 450px;
     }
@@ -478,9 +481,6 @@
     .store-ciudad{
         font-size: 18px;
     }
-    .store-email{
-        font-size: 16px;
-    }
     .img-tiendas{
         width: 180px;
         height: 180px;
@@ -500,6 +500,9 @@
     }
 }
 @media only screen and (max-width: 600px){
+    .store-email{
+        font-size: 16px!important;
+    }
     .popover{
         --bs-popover-max-width: 450px;
     }
@@ -549,7 +552,9 @@
         margin: 20px 10px!important;
         padding: 5px!important;
     }
-    
+    .store-email{
+        font-size: 12px;
+    }
 }
 @media only screen and (max-width: 550px){
     .popover{
@@ -707,6 +712,9 @@
     }
 }
 @media only screen and (max-width: 450px){
+    .store-email{
+        font-size: 14px!important;
+    }
     .popover{
         --bs-popover-max-width: 300px;
     }
@@ -783,6 +791,9 @@
         font-size: 12px;
     }}
 @media only screen and (max-width: 400px){
+    .store-email{
+        font-size: 11px!important;
+    }
     .popover{
         --bs-popover-max-width: 250px;
     }
@@ -795,17 +806,17 @@
     .agregar-carrito-input-cel input{
         font-size: 10px;
         font-weight: 400;
-        height: 22px;
+        height: 25px;
         width: 30px;
     }
     .agregar-carrito-input-cel{
         margin-top: 3px;
     }
     .agregar-carrito-input-cel label{
-        font-size: 10px;
+        font-size: 12px;
         font-weight: 500;
         vertical-align: middle;
-        margin:2px 10px;
+        margin:2px 5px;
     }
     .img-producto{
         max-height: 50px;
@@ -941,17 +952,17 @@
     .agregar-carrito-input-cel input{
         font-size: 9px;
         font-weight: 400;
-        height: 21px;
+        height: 23px;
         width: 30px;
     }
     .agregar-carrito-input-cel{
         margin-top: 3px;
     }
     .agregar-carrito-input-cel label{
-        font-size: 10px;
+        font-size: 11px;
         font-weight: 500;
         vertical-align: middle;
-        margin:2px 10px;
+        margin:2px 5px;
     }
     .img-producto{
         max-height: 45px;
