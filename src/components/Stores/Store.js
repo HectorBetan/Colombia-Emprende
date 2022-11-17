@@ -236,7 +236,7 @@ function Store(data) {
                     <div  className="d-flex flex-column justify-content-center">
                       <div className="d-flex flex-row  justify-content-evenly agregar-carrito-input">
                         <label>Cantidad:</label>
-                        <input type="number" min="1" max="99" id={producto._id} defaultValue="0"/>
+                        <input type="number" min="1" max="99" id={producto._id} defaultValue=""/>
 
                       </div>
                       <button className="btn btn-primary boton-agregar-carrito" onClick={(e) => {e.preventDefault(); agregar(producto) }}>
@@ -258,7 +258,7 @@ function Store(data) {
                   <div  className="d-flex flex-row justify-content-center mt-3 stores-btn-a">
                     <div className="d-flex flex-row  justify-content-evenly agregar-carrito-input-cel">
                       <label>{c}</label>
-                      <input type="number" min="1" max="99" id={producto._id} defaultValue="0"/>
+                      <input type="number" min="1" max="99" id={producto._id} defaultValue=""/>
 
                     </div>
                     <button className="btn btn-primary boton-agregar-carrito-cel" onClick={(e) => {e.preventDefault(); agregar(producto) }}>
