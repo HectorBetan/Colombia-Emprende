@@ -1,3 +1,7 @@
+.popover{
+    --bs-popover-max-width: 800px;
+}
+
 
 .imagen-btn{
     width: 59px;
@@ -7,6 +11,31 @@
 .estrella{
     color:#d1d123!important;
 
+}
+.img-producto{
+    max-width: 150px;
+    max-height: 150px;
+    object-fit: cover;
+}
+.agregar-carrito-input input{
+    font-size: 18px;
+    font-weight: 400;
+    vertical-align: middle;
+}
+.agregar-carrito-input label{
+    font-size: 20px;
+    font-weight: 500;
+    vertical-align: middle;
+}
+.boton-agregar-carrito{
+    width: 180px;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 10px 0px;
+}
+.ver-mas-descripcion{
+    color: rgb(14, 87, 223);
+    font-weight: 500;
 }
 .estrella-vacia{
     color:#d1d123!important;
@@ -61,6 +90,9 @@
     height: 80px;
 }
 @media only screen and (max-width: 1175px){
+    .popover{
+        --bs-popover-max-width: 700px;
+    }
     .imagen-btn{
         width: 55px;
         height: 55px;
@@ -76,6 +108,9 @@
     }
 }
 @media only screen and (max-width: 1100px){
+    .popover{
+        --bs-popover-max-width: 700px;
+    }
     .imagen-btn{
         width: 50px;
         height: 50px;
@@ -108,6 +143,9 @@
     }
 }
 @media only screen and (max-width: 1000px){
+    .popover{
+        --bs-popover-max-width: 650px;
+    }
     .imagen-btn{
         width: 46px;
         height: 46px;
@@ -140,6 +178,39 @@
     }
 }
 @media only screen and (max-width: 900px){
+    .producto-data h5{
+        font-size: 18px;
+    }
+    .producto-data h3{
+        font-size: 23px;
+    }
+    .producto-data .desc{
+        font-size: 15px;
+    }
+    .img-producto{
+        max-width: 140px;
+        max-height: 140px;
+        object-fit: cover;
+    }
+    .agregar-carrito-input input{
+        font-size: 16px;
+        font-weight: 400;
+        vertical-align: middle;
+    }
+    .agregar-carrito-input label{
+        font-size: 17px;
+        font-weight: 500;
+        vertical-align: middle;
+    }
+    .boton-agregar-carrito{
+        width: 150px;
+        font-size: 15px;
+        font-weight: 500;
+        margin: 10px 0px;
+    }
+    .popover{
+        --bs-popover-max-width: 550px;
+    }
     .store-categoria{
         font-size: 20px;
     }
@@ -167,6 +238,36 @@
     }
 }
 @media only screen and (max-width: 850px){
+    .producto-data h5{
+        font-size: 17px;
+    }
+    .producto-data h3{
+        font-size: 22px;
+    }
+    .producto-data .desc{
+        font-size: 14px;
+    }
+    .img-producto{
+        max-height: 130px;
+        max-width: 130px;
+        object-fit: cover;
+    }
+    .agregar-carrito-input input{
+        font-size: 15px;
+        font-weight: 400;
+        vertical-align: middle;
+    }
+    .agregar-carrito-input label{
+        font-size: 16px;
+        font-weight: 500;
+        vertical-align: middle;
+    }
+    .boton-agregar-carrito{
+        width: 150px;
+        font-size: 15px;
+        font-weight: 500;
+        margin: 10px 0px;
+    }
     .imagen-btn{
         width: 40px;
         height: 40px;
@@ -202,6 +303,39 @@
     }
 }
 @media only screen and (max-width: 800px){
+    .popover{
+        --bs-popover-max-width: 500px;
+    }
+    .producto-data h5{
+        font-size: 16px;
+    }
+    .producto-data h3{
+        font-size: 21px;
+    }
+    .producto-data .desc{
+        font-size: 13px;
+    }
+    .img-producto{
+        max-height: 120px;
+        max-width: 120px;
+        object-fit: cover;
+    }
+    .agregar-carrito-input input{
+        font-size: 14px;
+        font-weight: 400;
+        vertical-align: middle;
+    }
+    .agregar-carrito-input label{
+        font-size: 15px;
+        font-weight: 500;
+        vertical-align: middle;
+    }
+    .boton-agregar-carrito{
+        width: 140px;
+        font-size: 14px;
+        font-weight: 500;
+        margin: 10px 0px;
+    }
     .imagen-btn{
         width: 36px;
         height: 36px;
@@ -245,6 +379,57 @@
     }
 }
 @media only screen and (max-width: 750px){
+    .producto-data h5{
+        font-size: 18px;
+    }
+    .producto-data h3{
+        font-size: 22px;
+    }
+    .producto-data .desc{
+        font-size: 13px;
+    }
+    .img-producto{
+        max-height: 125px;
+        max-width: 125px;
+        object-fit: cover;
+    }
+    .agregar-carrito-input input{
+        font-size: 13px;
+        font-weight: 400;
+        vertical-align: middle;
+    }
+    .agregar-carrito-input label{
+        font-size: 14px;
+        font-weight: 500;
+        vertical-align: middle;
+    }
+    .agregar-carrito-input-cel input{
+        font-size: 13px;
+        font-weight: 400;
+        height: 30px;
+        width: 40px;
+    }
+    .agregar-carrito-input-cel{
+        margin-top: 2px;
+    }
+    .agregar-carrito-input-cel label{
+        font-size: 15px;
+        font-weight: 500;
+        vertical-align: middle;
+        margin:3px 10px;
+    }
+    .boton-agregar-carrito{
+        width: 130px;
+        font-size: 13px;
+        font-weight: 500;
+        margin: 10px 0px;
+    }
+    .boton-agregar-carrito-cel{
+        width: 140px;
+        font-size: 14px;
+        font-weight: 500;
+        margin: 0px 10px;
+    }
     .imagen-btn{
         width: 33px;
         height: 33px;
@@ -254,8 +439,15 @@
         max-width: 190px;
         object-fit: cover;
         max-height: 190px;
-    }}
+    }
+    .popover{
+        --bs-popover-max-width: 500px;
+    }
+}
 @media only screen and (max-width: 700px){
+    .popover{
+        --bs-popover-max-width: 450px;
+    }
     .img-principal-cel{
         width: 65vh;
         max-height: 55vh;
@@ -302,15 +494,40 @@
         margin: 25px 15px!important;
         padding: 5px!important;
     }
+}@media only screen and (max-width: 650px){
+    .producto-data .desc{
+        font-size: 12px;
+    }
 }
 @media only screen and (max-width: 600px){
+    .popover{
+        --bs-popover-max-width: 450px;
+    }
+    .desc{
+        padding: 5px;
+        font-size: 15px;
+        margin-top: 10px;
+    }
+    .imagen-btn-cel{
+        width: 60px;
+        height: 60px;
+        border-radius: 20px;
+        margin: 0px 10px!important;
+    }
+    .img-producto{
+        max-height: 80px;
+        max-width: 80px;
+        margin: 0px 0px;
+        object-fit: cover;
+        border-radius: 25px!important;
+    }
     .img-principal-cel{
         width: 55vh;
         max-height: 50vh;
         object-fit: cover;
     }
     .img-principal{
-        max-width: 120px;
+        max-width: 170px;
         max-height: 180px;
     }
     .text-busq-cat{
@@ -335,6 +552,9 @@
     
 }
 @media only screen and (max-width: 550px){
+    .popover{
+        --bs-popover-max-width: 400px;
+    }
     .store-title-1{
         font-size: 19px!important;
         font-weight: 650!important;
@@ -345,12 +565,12 @@
     .imagen-btn-cel{
         width: 50px;
         height: 50px;
-        border-radius: 25px;
+        border-radius: 17px;
         margin: 0px 10px!important;
     }
     .img-principal{
-        max-width: 130px;
-        max-height: 150px;
+        max-width: 160px;
+        max-height: 180px;
     }
     .texto-busqueda{
         font-size: 15px;
@@ -379,6 +599,48 @@
 
 }
 @media only screen and (max-width: 500px){
+    .popover{
+        --bs-popover-max-width: 350px;
+    }
+    .boton-agregar-carrito-cel{
+        width: 130px;
+        font-size: 13px;
+        font-weight: 500;
+        margin: 0px 10px;
+    }
+    .agregar-carrito-input-cel input{
+        font-size: 12px;
+        font-weight: 400;
+        height: 27px;
+        width: 38px;
+    }
+    .agregar-carrito-input-cel{
+        margin-top: 3px;
+    }
+    .agregar-carrito-input-cel label{
+        font-size: 14px;
+        font-weight: 500;
+        vertical-align: middle;
+        margin:3px 10px;
+    }
+    .img-producto{
+        max-height: 70px;
+        max-width: 70px;
+        margin: 0px 0px;
+        object-fit: cover;
+        border-radius: 25px!important;
+    }
+    .producto-data h5{
+        font-size: 17px;
+    }
+    .producto-data h3{
+        font-size: 21px;
+    }
+    .desc{
+        padding: 5px;
+        font-size: 14px;
+        margin-top: 8px;
+    }
     .store-title-1{
         font-size: 18px!important;
         font-weight: 650!important;
@@ -386,7 +648,7 @@
     .imagen-btn-cel{
         width: 45px;
         height: 45px;
-        border-radius: 20px;
+        border-radius: 15px;
         margin: 0px 5px!important;
     }
     .img-principal-cel{
@@ -395,7 +657,7 @@
         object-fit: cover;
     }
     .img-principal{
-        max-width: 120px;
+        max-width: 130px;
         max-height: 130px;
     }
     .text-busq-cat{
@@ -445,6 +707,48 @@
     }
 }
 @media only screen and (max-width: 450px){
+    .popover{
+        --bs-popover-max-width: 300px;
+    }
+    .boton-agregar-carrito-cel{
+        width: 140px;
+        font-size: 11px;
+        font-weight: 500;
+        margin: 0px 10px;
+    }
+    .agregar-carrito-input-cel input{
+        font-size: 11px;
+        font-weight: 400;
+        height: 26px;
+        width: 35px;
+    }
+    .agregar-carrito-input-cel{
+        margin-top: 3px;
+    }
+    .agregar-carrito-input-cel label{
+        font-size: 13px;
+        font-weight: 500;
+        vertical-align: middle;
+        margin:3px 10px;
+    }
+    .img-producto{
+        max-height: 65px;
+        max-width: 65px;
+        margin: 0px 0px;
+        object-fit: cover;
+        border-radius: 25px!important;
+    }
+    .producto-data h5{
+        font-size: 14px;
+    }
+    .producto-data h3{
+        font-size: 16px;
+    }
+    .desc{
+        padding: 5px;
+        font-size: 12px;
+        margin-top: 8px;
+    }
     .foto-modal{
         max-width: 75vh;
         max-height: 90vh;
@@ -479,10 +783,55 @@
         font-size: 12px;
     }}
 @media only screen and (max-width: 400px){
+    .popover{
+        --bs-popover-max-width: 250px;
+    }
+    .boton-agregar-carrito-cel{
+        width: 140px;
+        font-size: 10px;
+        font-weight: 500;
+        margin: 0px 5px;
+    }
+    .agregar-carrito-input-cel input{
+        font-size: 10px;
+        font-weight: 400;
+        height: 22px;
+        width: 30px;
+    }
+    .agregar-carrito-input-cel{
+        margin-top: 3px;
+    }
+    .agregar-carrito-input-cel label{
+        font-size: 10px;
+        font-weight: 500;
+        vertical-align: middle;
+        margin:2px 10px;
+    }
+    .img-producto{
+        max-height: 50px;
+        max-width: 50px;
+        margin: 0px 0px;
+        object-fit: cover;
+        border-radius: 20px!important;
+    }
+    .producto-data h5{
+        font-size: 12px;
+    }
+    .producto-data h3{
+        font-size: 14px;
+    }
+    .desc{
+        padding: 5px;
+        font-size: 10px;
+        margin-top: 8px;
+    }
     .foto-modal{
         max-width: 65vh;
         max-height: 100vh;
         object-fit: contain;
+    }
+    .stores-btn-a{
+        margin-top: 5px!important;
     }
     .img-btn-modal{
         width: 57px;
@@ -577,5 +926,52 @@
     .card-caja{
         margin: 10px 5px!important;
         padding: 5px!important;
+    }
+}
+@media only screen and (max-width: 350px){
+    .popover{
+        --bs-popover-max-width: 230px;
+    }
+    .boton-agregar-carrito-cel{
+        width: 130px;
+        font-size: 9px;
+        font-weight: 500;
+        margin: 0px 5px;
+    }
+    .agregar-carrito-input-cel input{
+        font-size: 9px;
+        font-weight: 400;
+        height: 21px;
+        width: 30px;
+    }
+    .agregar-carrito-input-cel{
+        margin-top: 3px;
+    }
+    .agregar-carrito-input-cel label{
+        font-size: 10px;
+        font-weight: 500;
+        vertical-align: middle;
+        margin:2px 10px;
+    }
+    .img-producto{
+        max-height: 45px;
+        max-width: 45px;
+        margin: 0px 0px;
+        object-fit: cover;
+        border-radius: 20px!important;
+    }
+    .producto-data h5{
+        font-size: 11px;
+    }
+    .producto-data h3{
+        font-size: 13px;
+    }
+    .producto-data{
+        margin: 0px 3px!important;
+    }
+    .desc{
+        padding: 5px;
+        font-size: 10px;
+        margin-top: 8px;
     }
 }
