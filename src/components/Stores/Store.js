@@ -608,17 +608,7 @@ function Store(data) {
       let desc = "";
       let descripcion = ""
       let verMas = false
-      let face
-        let insta
-        let web
-        let ht ="https:"
-        if (emprendimiento.value.store.Facebook){
-          if(emprendimiento.value.store.Facebook.includes("http")){
-            face = emprendimiento.value.store.Facebook
-          } else{
-            face = ht.concat(emprendimiento.value.store.Facebook)
-          }
-        }
+      
       if (emprendimiento.value.store.Descripcion){
         desc = emprendimiento.value.store.Descripcion
         
@@ -687,19 +677,34 @@ function Store(data) {
         
       
       if (emprendimiento){
-        
+        let face
+        let insta
+        let web
+        let ht ="https:"
+        if (emprendimiento){
+          
+        }
+        if (emprendimiento.value.store.Facebook){
+          if(emprendimiento.value.store.Facebook.includes("http")){
+            console.log("a")
+            face = emprendimiento.value.store.Facebook
+          } else{
+            console.log("b")
+            face = ht+emprendimiento.value.store.Facebook
+          }
+        }
         if (emprendimiento.value.store.Instagram){
           if(emprendimiento.value.store.Instagram.includes("http")){
             insta = emprendimiento.value.store.Instagram
           }else{
-            insta = ht.concat(emprendimiento.value.store.Instagram)
+            insta = ht+emprendimiento.value.store.Instagram
           }
         }
         if (emprendimiento.value.store.Web){
           if(emprendimiento.value.store.Instagram.includes("http")){
             web = emprendimiento.value.store.Web
           }else{
-            web= ht.concat(emprendimiento.value.store.Web)
+            web= ht+emprendimiento.value.store.Web
           }
         }
         return (<div className="card pb-3">
