@@ -436,7 +436,7 @@ function Stores(data) {
               );
             }
             )}
-            <Pagi data={newList}/>
+            {newList.length > 0 && <Pagi data={newList}/>}
           </div>
         );
       }
@@ -580,16 +580,23 @@ function Stores(data) {
                 </div>
               </form>
               <HandleBusq />
+              
             </div>
           </div>
-          <div className="d-flex flex-row justify-content-center m-2 buscar-txt">
+          {newList.length > 0 && <div><div className="d-flex flex-row justify-content-center m-2 buscar-txt">
           <label className="m-1">Resultados por Página</label>
           <input className="form-input busqueda" type="number" min="1" max="10" defaultValue={resultados+1} onChange={(e)=>{e.preventDefault();setActive(1);if(isNaN(e.target.value)){setResultados(4)};if(!e.target.value || e.target.value <1){setResultados(4)} if(e.target.value >10){setResultados(9)};if (e.target.value >=1 && e.target.value <10){setResultados(parseInt(e.target.value)-1)}; console.log(resultados)}}></input>
           <span  className="m-1">(min:1 - max:10)</span>
           </div>
           <div  className="text-center m-1 texto-busqueda">
             Mostrando Tiendas <b>{((active-1)*(resultados+1))+1}</b> a <b>{(active*(resultados+1)) < newList.length && <span>{active*(resultados+1)}</span>}{(active*(resultados+1)) >= newList.length && <span>{newList.length}</span>}</b> de un total de <b>{newList.length}</b> Tiendas - Página <b>{active}</b> de <b>{Math.ceil(newList.length/(resultados+1))}</b>
-          </div>
+          </div></div>
+          }
+          {newList.length === 0 && <div>
+            <div  className="text-center m-1 texto-busqueda mb-3">
+              <h5 className="m-3 pb3">No se encontraron resultados de tu busqueda</h5>
+            </div>
+          </div>}
           
           
             <DataViewCategoria />
@@ -633,14 +640,15 @@ function Stores(data) {
               </form>
             </div>
           </div>
-          <div className="d-flex flex-row justify-content-center m-2  buscar-txt">
-          <label className="m-1">Resultados por Página</label>
-          <input className="form-input busqueda" type="number" min="1" max="10" defaultValue={resultados+1} onChange={(e)=>{e.preventDefault();setActive(1);if(isNaN(e.target.value)){setResultados(4)};if(!e.target.value || e.target.value <1){setResultados(4)} if(e.target.value >10){setResultados(9)};if (e.target.value >=1 && e.target.value <10){setResultados(parseInt(e.target.value)-1)}; console.log(resultados)}}></input>
-          <span className="m-1">(min:1 - max:10)</span>
-          </div>
-          <div className="text-center m-1">
-            Mostrando Tiendas <b>{((active-1)*(resultados+1))+1}</b> a <b>{(active*(resultados+1)) < lista.length && <span>{active*(resultados+1)}</span>}{(active*(resultados+1)) >= lista.length && <span>{lista.length}</span>}</b> de un total de <b>{lista.length}</b> Tiendas - Página <b>{active}</b> de <b>{Math.ceil(lista.length/(resultados+1))}</b>
+          <div><div className="d-flex flex-row justify-content-center m-2  buscar-txt">
+            <label className="m-1">Resultados por Página</label>
+            <input className="form-input busqueda" type="number" min="1" max="10" defaultValue={resultados+1} onChange={(e)=>{e.preventDefault();setActive(1);if(isNaN(e.target.value)){setResultados(4)};if(!e.target.value || e.target.value <1){setResultados(4)} if(e.target.value >10){setResultados(9)};if (e.target.value >=1 && e.target.value <10){setResultados(parseInt(e.target.value)-1)}; console.log(resultados)}}></input>
+            <span className="m-1">(min:1 - max:10)</span>
             </div>
+            <div className="text-center m-1">
+              Mostrando Tiendas <b>{((active-1)*(resultados+1))+1}</b> a <b>{(active*(resultados+1)) < lista.length && <span>{active*(resultados+1)}</span>}{(active*(resultados+1)) >= lista.length && <span>{lista.length}</span>}</b> de un total de <b>{lista.length}</b> Tiendas - Página <b>{active}</b> de <b>{Math.ceil(lista.length/(resultados+1))}</b>
+              </div>
+              </div>
           
             <DataView />
         </div>

@@ -1,7 +1,10 @@
 .popover{
     --bs-popover-max-width: 800px;
 }
-
+.acordeon-tienda{
+    background-color: rgb(240, 242, 248)!important;
+    color: rgb(7, 14, 39)!important;
+}
 
 .imagen-btn{
     width: 59px;

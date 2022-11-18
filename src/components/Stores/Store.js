@@ -10,6 +10,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 function Store(data) {
   const [cargando, setCargando] = useState(true);
   const [ant, setAnt] = useState(false);
+  const [show, setShow] = useState(null)
   const [w, setW] = useState(window.innerWidth);
   useEffect(()=>{
     const setDataView = () => {
@@ -76,6 +77,7 @@ function Store(data) {
         </div>
       )
     }
+    
     const suc = (id) => {
       setTimeout(() => {
         document.getElementById(id+"success").classList.add("d-none");
@@ -84,54 +86,57 @@ function Store(data) {
     const PhotoProducts = (data) =>{
       let fotos = data.data.fotos
       let i = data.data.i
+      
       let producto = data.data.producto
       let imgProd = data.data.imgProd
       const [select, setSelect] = useState(0)
-      console.log(data)
+      
+      const [showModalPro, setShowModalProd] = useState(null)
+      const handleClose=()=>{
+        setShowModalProd(null)
+        setShow(null)
+      }
+      const handleShow=(x)=>{
+        setShowModalProd(x)
+      }
+      useEffect(() => {
+          if(show === i){
+            setShowModalProd(i);
+          }
+      },[i]);
       if (fotos){
         return(<span>
           <img role="button"
           className="d-block rounded img-producto"
           onClick={(e)=>{
             e.preventDefault()
-            document.getElementById(`productModal-${i}`).classList.add("show")
-            document.getElementById(`productModal-${i}`).classList.add("d-block")
-            console.log("ya")
+            setShow(i)
+            handleShow(i)
           }}
           src={fotos[0]}
           alt="img"
           />
-          <div className="modal fade" id={`productModal-${i}`} tabIndex="-2" role="dialog" aria-hidden="true">
-            <div className="modal-dialog" role="document">
-              <div className="modal-content">
-                <div className="modal-header">
-                  Fotos de Producto: {producto}
-                  <button type="button" className="btn-close text-end" aria-label="Close" 
-                    onClick={(e)=>{
-                      e.preventDefault();
-                      document.getElementById(`productModal-${i}`).classList.remove("show")
-                      document.getElementById(`productModal-${i}`).classList.remove("d-block")
-                    }
-                  }/>
-
-                </div>
-                <div className="modal-body">
-                  <div>
-                    <div className="m-2 d-flex  justify-content-center">
+          <Modal show={showModalPro === i} onHide={handleClose} id={`productModal-${i}`}  backdrop="static">
+            <Modal.Header closeButton>
+              <Modal.Title>Fotos de Producto: {producto}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+            <div>
+                    <div className="d-flex  justify-content-center">
                       
                         <img
-                        className="d-block m-2 rounded foto-modal"
+                        className="d-block rounded foto-modal"
                         src={fotos[select]}
                         alt={select}
                       />
                     </div>
                     {fotos.length > 1 && 
-                    <div className="d-flex flex-row justify-content-evenly mt-1">
+                    <div className="d-flex flex-row justify-content-evenly mt-2 pt-2">
                         {fotos.map((img, i) => {
                           return (
                             <button className="btn btn-ligth p-0" key={i} onClick={(e) => {e.preventDefault(); setSelect(i)}}>
                               <img
-                              className="d-block rounded img-btn-modal"
+                              className="rounded img-btn-modal"
                             
                               src={img}
                               alt={i}
@@ -141,10 +146,15 @@ function Store(data) {
                           })}
                     </div>}
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            </Modal.Body>
+            <Modal.Footer>
+              <button className="btn btn-secondary" onClick={handleClose}>
+                Close
+              </button>
+            </Modal.Footer>
+          </Modal>
+          
+          
           </span>
         )
         
@@ -659,7 +669,7 @@ function Store(data) {
           <div className="accordion ms-4 me-4 ms-md-4 me-md-4 ms-lg-5 me-lg-5 ms-xl-5 me-xl-5 ms-xxl-5 me-xxl-5 mb-4" id="accordionStore">
             <div className="accordion-item">
               <h2 className="accordion-header" id="accordionStore-headingOne">
-                <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accordionStore-collapseOne" aria-expanded="true" aria-controls="accordionStore-collapseOne">
+                <button className="accordion-button  acordeon-tienda" type="button" data-bs-toggle="collapse" data-bs-target="#accordionStore-collapseOne" aria-expanded="true" aria-controls="accordionStore-collapseOne">
                   Información de {emprendimiento.value.store.Nombre}
                 </button>
               </h2>
@@ -671,7 +681,7 @@ function Store(data) {
             </div>
             {emprendimiento.value.products.length > 0 && <div className="accordion-item">
               <h2 className="accordion-header" id="accordionStore-headingTwo">
-                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordionStore-collapseTwo" aria-expanded="false" aria-controls="accordionStore-collapseTwo">
+                <button className="accordion-button collapsed acordeon-tienda" type="button" data-bs-toggle="collapse" data-bs-target="#accordionStore-collapseTwo" aria-expanded="false" aria-controls="accordionStore-collapseTwo">
                   Productos de {emprendimiento.value.store.Nombre}
                 </button>
               </h2>
