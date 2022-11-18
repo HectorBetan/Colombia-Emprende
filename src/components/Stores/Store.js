@@ -81,21 +81,82 @@ function Store(data) {
         document.getElementById(id+"success").classList.add("d-none");
       }, 4000);
     }
-    const PhotoProducts = (foto) =>{
-      let fotos = foto.foto
+    const PhotoProducts = (data) =>{
+      let fotos = data.data.fotos
+      let i = data.data.i
+      let producto = data.data.producto
+      let imgProd = data.data.imgProd
+      const [select, setSelect] = useState(0)
+      console.log(data)
       if (fotos){
-        return(
-          <img onClick={(e)=>{
-            e.preventDefault();
-            handleShowModal();
-          }}
+        return(<span>
+          <img role="button"
           className="d-block rounded img-producto"
+          onClick={(e)=>{
+            e.preventDefault()
+            document.getElementById(`productModal-${i}`).classList.add("show")
+            document.getElementById(`productModal-${i}`).classList.add("d-block")
+            console.log("ya")
+          }}
           src={fotos[0]}
           alt="img"
           />
-        )
-      } else{
+          <div className="modal fade" id={`productModal-${i}`} tabIndex="-2" role="dialog" aria-hidden="true">
+            <div className="modal-dialog" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  Fotos de Producto: {producto}
+                  <button type="button" className="btn-close text-end" aria-label="Close" 
+                    onClick={(e)=>{
+                      e.preventDefault();
+                      document.getElementById(`productModal-${i}`).classList.remove("show")
+                      document.getElementById(`productModal-${i}`).classList.remove("d-block")
+                    }
+                  }/>
 
+                </div>
+                <div className="modal-body">
+                  <div>
+                    <div className="m-2 d-flex  justify-content-center">
+                      
+                        <img
+                        className="d-block m-2 rounded foto-modal"
+                        src={fotos[select]}
+                        alt={select}
+                      />
+                    </div>
+                    {fotos.length > 1 && 
+                    <div className="d-flex flex-row justify-content-evenly mt-1">
+                        {fotos.map((img, i) => {
+                          return (
+                            <button className="btn btn-ligth p-0" key={i} onClick={(e) => {e.preventDefault(); setSelect(i)}}>
+                              <img
+                              className="d-block rounded img-btn-modal"
+                            
+                              src={img}
+                              alt={i}
+                              />
+                            </button>
+                          )
+                          })}
+                    </div>}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </span>
+        )
+        
+      } else{
+        return(<span>
+          <img
+          className="d-block rounded img-producto"
+          src={imgProd}
+          alt="img"
+          />
+          </span>
+        )
       }
     }
     const formatterPeso = new Intl.NumberFormat('es-CO', {
@@ -199,12 +260,13 @@ function Store(data) {
                 }
                 
               }
+              let imgProd
               console.log(producto.Nombre)
               console.log(producto.Descripcion.length)
               if (producto.Imagen){
                 fotos = producto.Imagen.split(",")
               } else {
-                fotos = [imgStore]
+                imgProd = [imgStore]
               }
               let c 
               if (w> 370){
@@ -218,7 +280,7 @@ function Store(data) {
                   
                     <div className="d-flex flex-row  justify-content-between">
                       <div className="d-flex flex-column justify-content-center">
-                        <PhotoProducts foto={fotos} />
+                        <PhotoProducts data={{fotos:fotos, i:i, producto:producto.Nombre, imgProd:imgProd}} />
                       </div>
                       <div className="d-flex flex-column ms-2 me-3 ms-md-3 me-md-2 ps-md-2 pe-md-2 ms-lg-3 me-lg-3 ps-lg-3 pe-lg-3 ms-xl-3 me-xl-3 ps-xl-3 pe-xl-3 ms-xxl-3 me-xxl-3 ps-xxl-3 pe-xxl-3  justify-content-center producto-data">
                         <h3 className="ps-2 pe-2">{producto.Nombre}</h3>
