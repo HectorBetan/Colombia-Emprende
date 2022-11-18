@@ -608,6 +608,17 @@ function Store(data) {
       let desc = "";
       let descripcion = ""
       let verMas = false
+      let face
+        let insta
+        let web
+        let ht ="https:"
+        if (emprendimiento.value.store.Facebook){
+          if(emprendimiento.value.store.Facebook.includes("http")){
+            face = emprendimiento.value.store.Facebook
+          } else{
+            face = ht.concat(emprendimiento.value.store.Facebook)
+          }
+        }
       if (emprendimiento.value.store.Descripcion){
         desc = emprendimiento.value.store.Descripcion
         
@@ -676,17 +687,7 @@ function Store(data) {
         
       
       if (emprendimiento){
-        let face
-        let insta
-        let web
-        let ht ="https:"
-        if (emprendimiento.value.store.Facebook){
-          if(emprendimiento.value.store.Facebook.includes("http")){
-            face = emprendimiento.value.store.Facebook
-          } else{
-            face = ht.concat(emprendimiento.value.store.Facebook)
-          }
-        }
+        
         if (emprendimiento.value.store.Instagram){
           if(emprendimiento.value.store.Instagram.includes("http")){
             insta = emprendimiento.value.store.Instagram
