@@ -680,7 +680,7 @@ function Store(data) {
         let face
         let insta
         let web
-        let ht ="https:"
+        let ht ="https://"
         if (emprendimiento){
           
         }
