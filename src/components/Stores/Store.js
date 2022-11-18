@@ -177,12 +177,12 @@ function Store(data) {
     const PopOver = (data) =>{
       let desc = data.data.desc
       let i =  data.data.i
+      let key = `key-${i}`
       const [show, setShow] = useState(false)
       console.log(desc)
       let popover
-              
                 popover = (
-                  <Popover id={i} key={i}>
+                  <Popover id={i} key={key}>
                     <Popover.Header as="h3" className="d-flex flex-row justify-content-between">
                     Descripción
                     <button type="button" className="btn-close text-end" aria-label="Close" onClick={(e)=>{
@@ -605,9 +605,104 @@ function Store(data) {
       
     }
     const DataViewEmprendimiento = () => {
+      let desc = "";
+      let descripcion = ""
+      let verMas = false
+      if (emprendimiento.value.store.Descripcion){
+        desc = emprendimiento.value.store.Descripcion
+        
+        
+        if(w> 700){
+          if (desc.length > 290){
+            descripcion = desc.substring(0,288).concat("... ")
+            verMas= true
+          }
+          
+          else{
+            descripcion = desc
+          }
+        }
+        if (w < 700){
+          if (desc.length > 200){
+            descripcion = desc.substring(0,198).concat("... ")
+            verMas= true
+          }
+          
+          else{
+            descripcion = desc
+          }
+        }
+        if(w< 550){
+          if (desc.length > 150){
+            descripcion = desc.substring(0,148).concat("... ")
+            verMas= true
+          }
+          
+          else{
+            descripcion = desc
+          }
+        }
+        if(w< 500){
+          if (desc.length > 120){
+            descripcion = desc.substring(0,118).concat("... ")
+            verMas= true
+          }
+          
+          else{
+            descripcion = desc
+          }
+        }
+        if(w< 450){
+          if (desc.length > 100){
+            descripcion = desc.substring(0,98).concat("... ")
+            verMas= true
+          }
+          
+          else{
+            descripcion = desc
+          }
+        }
+        if(w< 370){
+          if (desc.length > 85){
+            descripcion = desc.substring(0,83).concat("... ")
+            verMas= true
+          }
+          
+          else{
+            descripcion = desc
+          }
+        }
+      }
+        
+      
       if (emprendimiento){
-        return (
-            <div className="card d-flex flex-row justify-content-start">
+        let face
+        let insta
+        let web
+        let ht ="https:"
+        if (emprendimiento.value.store.Facebook){
+          if(emprendimiento.value.store.Facebook.includes("http")){
+            face = emprendimiento.value.store.Facebook
+          } else{
+            face = ht.concat(emprendimiento.value.store.Facebook)
+          }
+        }
+        if (emprendimiento.value.store.Instagram){
+          if(emprendimiento.value.store.Instagram.includes("http")){
+            insta = emprendimiento.value.store.Instagram
+          }else{
+            insta = ht.concat(emprendimiento.value.store.Instagram)
+          }
+        }
+        if (emprendimiento.value.store.Web){
+          if(emprendimiento.value.store.Instagram.includes("http")){
+            web = emprendimiento.value.store.Web
+          }else{
+            web= ht.concat(emprendimiento.value.store.Web)
+          }
+        }
+        return (<div className="card pb-3">
+            <div className="d-flex flex-row justify-content-start">
               {w >= 600 && <PhotosView />}
               <div className="card-body  d-flex flex-column justify-content-center caja-datos">
               {w >= 600 && <h5  className="card-title store-title">{emprendimiento.value.store.Nombre}</h5>}
@@ -650,14 +745,55 @@ function Store(data) {
                         
                     </span>}
                 
-              </div>  
+              </div>
+              
             </div>
-          
+            {emprendimiento.value.store.Descripcion && <hr />}
+            {emprendimiento.value.store.Descripcion && <div className="ps-3 pe-3 store-descripcion">
+              <b>Descripcion: </b>{descripcion} 
+              {verMas && <span className="ver-mas-descripcion">
+                            <PopOver data={{desc:emprendimiento.value.store.Descripcion, i:0}} />
+                          </span>
+                          }
+              </div>}
+              {(emprendimiento.value.store.Facebook || emprendimiento.value.store.Instagram || emprendimiento.value.Web) && <hr />}
+              <div className="d-flex flex-row justify-content-center ">
+                {emprendimiento.value.store.Facebook && <span>
+                  <a role="button" className="btn botonredes ms-4 me-4" href={face} target="_blank" rel="noreferrer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" heigth="40" viewBox="0 0 512 512"><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
+                      
+                      {w>=700 &&<span className="ms-2">Facebook</span>}
+                    </a>
+                  </span>}
+                {emprendimiento.value.store.Instagram && <span>
+                  <a role="button" href={insta} target="_blank" rel="noreferrer" className="btn botonredes ms-4 me-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="logoinsta" width="36" heigth="35" viewBox="0 0 448 512"><path d="M224,202.66A53.34,53.34,0,1,0,277.36,256,53.38,53.38,0,0,0,224,202.66Zm124.71-41a54,54,0,0,0-30.41-30.41c-21-8.29-71-6.43-94.3-6.43s-73.25-1.93-94.31,6.43a54,54,0,0,0-30.41,30.41c-8.28,21-6.43,71.05-6.43,94.33S91,329.26,99.32,350.33a54,54,0,0,0,30.41,30.41c21,8.29,71,6.43,94.31,6.43s73.24,1.93,94.3-6.43a54,54,0,0,0,30.41-30.41c8.35-21,6.43-71.05,6.43-94.33S357.1,182.74,348.75,161.67ZM224,338a82,82,0,1,1,82-82A81.9,81.9,0,0,1,224,338Zm85.38-148.3a19.14,19.14,0,1,1,19.13-19.14A19.1,19.1,0,0,1,309.42,189.74ZM400,32H48A48,48,0,0,0,0,80V432a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V80A48,48,0,0,0,400,32ZM382.88,322c-1.29,25.63-7.14,48.34-25.85,67s-41.4,24.63-67,25.85c-26.41,1.49-105.59,1.49-132,0-25.63-1.29-48.26-7.15-67-25.85s-24.63-41.42-25.85-67c-1.49-26.42-1.49-105.61,0-132,1.29-25.63,7.07-48.34,25.85-67s41.47-24.56,67-25.78c26.41-1.49,105.59-1.49,132,0,25.63,1.29,48.33,7.15,67,25.85s24.63,41.42,25.85,67.05C384.37,216.44,384.37,295.56,382.88,322Z"/></svg>
+                  {w>=700 &&<span className="ms-2">Instagram</span>}
+                    </a>
+                  </span>}
+
+
+                {emprendimiento.value.store.Web && <span>
+                  <a role="button" href={web} target="_blank" rel="noreferrer" className="btn botonredes ms-4 me-4">
+                  <svg className="p-1" xmlns="http://www.w3.org/2000/svg" width="40" heigth="40" viewBox="0 0 512 512"><path d="M352 256c0 22.2-1.2 43.6-3.3 64H163.3c-2.2-20.4-3.3-41.8-3.3-64s1.2-43.6 3.3-64H348.7c2.2 20.4 3.3 41.8 3.3 64zm28.8-64H503.9c5.3 20.5 8.1 41.9 8.1 64s-2.8 43.5-8.1 64H380.8c2.1-20.6 3.2-42 3.2-64s-1.1-43.4-3.2-64zm112.6-32H376.7c-10-63.9-29.8-117.4-55.3-151.6c78.3 20.7 142 77.5 171.9 151.6zm-149.1 0H167.7c6.1-36.4 15.5-68.6 27-94.7c10.5-23.6 22.2-40.7 33.5-51.5C239.4 3.2 248.7 0 256 0s16.6 3.2 27.8 13.8c11.3 10.8 23 27.9 33.5 51.5c11.6 26 21 58.2 27 94.7zm-209 0H18.6C48.6 85.9 112.2 29.1 190.6 8.4C165.1 42.6 145.3 96.1 135.3 160zM8.1 192H131.2c-2.1 20.6-3.2 42-3.2 64s1.1 43.4 3.2 64H8.1C2.8 299.5 0 278.1 0 256s2.8-43.5 8.1-64zM194.7 446.6c-11.6-26-20.9-58.2-27-94.6H344.3c-6.1 36.4-15.5 68.6-27 94.6c-10.5 23.6-22.2 40.7-33.5 51.5C272.6 508.8 263.3 512 256 512s-16.6-3.2-27.8-13.8c-11.3-10.8-23-27.9-33.5-51.5zM135.3 352c10 63.9 29.8 117.4 55.3 151.6C112.2 482.9 48.6 426.1 18.6 352H135.3zm358.1 0c-30 74.1-93.6 130.9-171.9 151.6c25.5-34.2 45.2-87.7 55.3-151.6H493.4z"/></svg>
+                  {w>=700 &&<span className="ms-2">Página Web</span>}
+                    
+                    </a>
+                </span>}
+              </div>
+            </div>
+            
           
         );
       }
     };
-    
+    if (cargando) {return (<div>
+      <div className="d-flex justify-content-center m-5 p-5">
+        <div className="spinner-border" style={{width: "3rem", height: "3rem"}} role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    </div>)} else{
     
       return (
         <div className="text-center">
@@ -696,6 +832,6 @@ function Store(data) {
           
         </div>
       )
-    
+    }
 };
   export default Store;

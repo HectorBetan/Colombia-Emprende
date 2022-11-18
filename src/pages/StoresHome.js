@@ -24,10 +24,12 @@ function StoresHome() {
   }
   if (cargando || loading) {
     return (
-    <div className="d-flex flex-row">
-      <div className="col-3 bg-dark">
+      <div>
+      <div className="d-flex justify-content-center m-5 p-5">
+        <div className="spinner-border" style={{width: "3rem", height: "3rem"}} role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
       </div>
-      <div className="col-9">Cargando...</div>
     </div>);
   }
   if (stores)

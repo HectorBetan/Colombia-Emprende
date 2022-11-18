@@ -5,7 +5,21 @@
     background-color: rgb(240, 242, 248)!important;
     color: rgb(7, 14, 39)!important;
 }
-
+.botonredes{
+    background-color: rgb(231, 234, 253);
+    font-size: 16px;
+    font-weight: 500;
+}
+.botonredes:active{
+    background-color: rgb(219, 221, 231)!important;
+}
+.botonredes:hover{
+    background-color: rgb(207, 215, 252)!important;
+}
+.store-descripcion{
+    font-size: 16px;
+    margin: 0px 20px;
+}
 .imagen-btn{
     width: 59px;
     height: 59px;
@@ -146,6 +160,10 @@
     }
 }
 @media only screen and (max-width: 1000px){
+    .store-descripcion{
+        font-size: 15px;
+        margin: 0px 15px;
+    }
     .popover{
         --bs-popover-max-width: 650px;
     }
@@ -181,6 +199,10 @@
     }
 }
 @media only screen and (max-width: 900px){
+    .store-descripcion{
+        font-size: 14px;
+        margin: 0px 10px;
+    }
     .producto-data h5{
         font-size: 18px;
     }
@@ -241,6 +263,10 @@
     }
 }
 @media only screen and (max-width: 850px){
+    .store-descripcion{
+        font-size: 13px;
+        margin: 0px 10px;
+    }
     .producto-data h5{
         font-size: 17px;
     }
@@ -306,6 +332,10 @@
     }
 }
 @media only screen and (max-width: 800px){
+    .store-descripcion{
+        font-size: 12px;
+        margin: 0px 10px;
+    }
     .popover{
         --bs-popover-max-width: 500px;
     }
@@ -382,6 +412,10 @@
     }
 }
 @media only screen and (max-width: 750px){
+    .store-descripcion{
+        font-size: 12px;
+        margin: 0px 0px;
+    }
     .producto-data h5{
         font-size: 18px;
     }
@@ -448,6 +482,10 @@
     }
 }
 @media only screen and (max-width: 700px){
+    .store-descripcion{
+        font-size: 14px;
+        margin: 0px 10px;
+    }
     .store-email{
         font-size: 14px!important;
     }
@@ -498,11 +536,19 @@
         padding: 5px!important;
     }
 }@media only screen and (max-width: 650px){
+    .store-descripcion{
+        font-size: 13px;
+        margin: 0px 6px;
+    }
     .producto-data .desc{
         font-size: 12px;
     }
 }
 @media only screen and (max-width: 600px){
+    .store-descripcion{
+        font-size: 12px;
+        margin: 0px 3px;
+    }
     .store-email{
         font-size: 16px!important;
     }
@@ -560,6 +606,10 @@
     }
 }
 @media only screen and (max-width: 550px){
+    .store-descripcion{
+        font-size: 12px;
+        margin: 0px 0px;
+    }
     .popover{
         --bs-popover-max-width: 400px;
     }
@@ -607,6 +657,10 @@
 
 }
 @media only screen and (max-width: 500px){
+    .store-descripcion{
+        font-size: 13px;
+        margin: 0px 0px;
+    }
     .popover{
         --bs-popover-max-width: 350px;
     }
@@ -798,8 +852,19 @@
     }
     .texto-busqueda{
         font-size: 12px;
-    }}
+    }
+    .botonredes{
+        margin: 0px 15px!important;
+    }
+}
 @media only screen and (max-width: 400px){
+    .botonredes{
+        margin: 0px 10px!important;
+    }
+    .store-descripcion{
+        font-size: 12px;
+        margin: 0px 0px;
+    }
     .producto-data h5{
         font-size: 14px;
     }
@@ -922,6 +987,11 @@
     }
 }
 @media only screen and (max-width: 370px){
+    .store-descripcion{
+        font-size: 12px;
+        margin: 0px 0px;
+        padding: 0px 10px 10px 10px!important;
+    }
     .foto-modal{
         max-width: 280px;
         max-height: 100vh;
@@ -954,7 +1024,16 @@
         padding: 5px!important;
     }
 }
+
 @media only screen and (max-width: 350px){
+    .botonredes{
+        margin: 0px 5px!important;
+    }
+    .store-descripcion{
+        padding: 0px 10px 10px 10px!important;
+        font-size: 11px;
+        margin: 0px 0px;
+    }
     .popover{
         --bs-popover-max-width: 230px;
     }
