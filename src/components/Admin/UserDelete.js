@@ -169,8 +169,8 @@ if (provider === "password")
               de la plataforma.
             </p>
           
-                  <div className="mt-4 mb-3 me-5 ms-5 ps-4  text-center">
-                  <Button variant="danger" type="submit" className="me-4 mb-1 mt-1" onClick={handleSubmit}>
+                  <div className="mt-4 mb-3   text-center">
+                  <Button variant="danger" size="lg" type="submit" className="me-4 mb-1 mt-1" onClick={handleSubmit}>
                       Eliminar Cuenta
                   </Button>
                   </div>

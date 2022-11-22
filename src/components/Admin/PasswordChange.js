@@ -116,7 +116,7 @@ function PasswordChange() {
         <div>
             {error && <Alert message={error} />}
             <form>
-                <div className="d-flex flex-row justify-content-center">
+                <div className="d-block d-sm-flex d-md-flex flex-row d-lg-flex justify-content-center">
                     <div className="form-group mb-3 me-2 ms-2 pe-1 ps-1">
                         <label className="m-1">{passTitle1}</label>
                         <div className="input-group">

@@ -17,12 +17,14 @@
     min-height: 100%;
 }
 .admin-nav li{
-    padding: 10px 25px;
-    margin: 3px 0px;
+    padding: 13px 25px;
+    margin: 0px 0px;
+}
+.admin-nav li{
+    border-radius: 0 50px 0 0;
 }
 .admin-nav li:hover{
-    background-color: rgb(18, 23, 36);
-    border-radius: 0 50px 0 0;
+    background-color: rgb(5, 15, 41);
 }
 .admin-nav li:hover a{
     color: rgb(204, 226, 253)!important;
@@ -55,17 +57,52 @@
     }
 }
 @media only screen and (max-width: 767px){
+    #adminNav{
+        max-width: 70px!important;
+        min-width: 70px!important;
+    }
+    .admin-nav li{
+        border-radius: 0 30px 0 0;
+    }
     .admin-nav svg{
         width: 35px;
         height: 35px;
     }
     .admin-nav{
-        max-width: 70px;
-        min-width: 70px;
+        max-width: 288px;
+        min-width: 288px;
         min-height: 100%;
     }
     .admin-nav li{
-        padding: 5px 17px;
-        margin: 5px 0px;
+        padding: 12px 17px;
+        margin: 0px 0px;
+    }
+    .admin-nav-cel{
+        max-width: 300px!important;
+        min-width: 300px!important;
+        margin: 0 0!important;
     }
 }
+@media only screen and (max-width: 450px){
+    .admin-nav li{
+        border-radius: 0 25px 0 0;
+    }
+    #adminNav{
+        max-width: 60px!important;
+        min-width: 60px!important;
+    }
+    .admin-nav svg{
+        width: 30px;
+        height: 30px;
+    }
+    .admin-nav{
+        max-width: 288px;
+        min-width: 288px;
+        min-height: 100%;
+    }
+    .admin-nav li{
+        padding: 9px 15px;
+        margin: 2px 0px;
+    }
+}
+
