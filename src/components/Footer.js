@@ -6,7 +6,7 @@ import FooterModal from '../utilities/footerModal.utilities';
 function Footer() {
     return (
         <div className="3">
-            <footer className="justify-content-evenly p-3 text-center">
+            <footer className="justify-content-evenly p-3 text-center foot">
                 <div className="d-lg-flex d-xl-flex d-xxl-flex d-md-flex d-sm-flex d-block flex-row text-center justify-content-evenly">
                 <div className="m-2 p-md-3 p-xl-3 p-xxl-3 p-lg-3 d-none d-md-block d-lg-block d-xl-block d-xxl-block">
                         <h5>Acerca de:</h5>

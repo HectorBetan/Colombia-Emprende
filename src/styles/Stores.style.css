@@ -773,6 +773,12 @@
     .producto-data h3{
         font-size: 16px;
     }
+    .foto-modal{
+        max-width: 75vh;
+        max-height: 80vh;
+        object-fit: contain;
+    }
+    
 }
 @media only screen and (max-width: 450px){
     .store-email{
@@ -821,8 +827,8 @@
         margin-top: 8px;
     }
     .foto-modal{
-        max-width: 75vh;
-        max-height: 90vh;
+        max-width: 80vh;
+        max-height: 80vh;
         object-fit: contain;
     }
     .img-btn-modal{
@@ -917,8 +923,8 @@
         margin-top: 8px;
     }
     .foto-modal{
-        max-width: 65vh;
-        max-height: 100vh;
+        max-width: 70vh;
+        max-height: 75vh;
         object-fit: contain;
     }
     .stores-btn-a{
@@ -993,8 +999,8 @@
         padding: 0px 10px 10px 10px!important;
     }
     .foto-modal{
-        max-width: 280px;
-        max-height: 100vh;
+        max-width: 220px;
+        max-height: 70vh;
         object-fit: contain;
     }
     .img-btn-modal{
@@ -1078,5 +1084,17 @@
         padding: 5px;
         font-size: 10px;
         margin-top: 8px;
+    }
+    .foto-modal{
+        max-width: 200px;
+        max-height: 70vh;
+        object-fit: contain;
+    }
+}
+@media only screen and (max-width: 300px){
+    .foto-modal{
+        max-width: 180px;
+        max-height: 70vh;
+        object-fit: contain;
     }
 }

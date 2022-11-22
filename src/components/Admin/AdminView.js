@@ -61,8 +61,8 @@ function AdminView() {
                         </div>
                     </div>
                 </div>
-                <div className="d-flex flex-row justify-contet-evenly">
-                    <div className="accordion-item w-50">
+                <div className="d-block d-xl-flex d-xxl-flex  flex-row justify-contet-evenly">
+                    <div className="accordion-item w-100">
                         <h2 className="accordion-header" id="changePassword">
                             <button className="accordion-button collapsed" type="button" 
                             data-bs-toggle="collapse" data-bs-target="#flush-collapse2" 
@@ -77,7 +77,7 @@ function AdminView() {
                             </div>
                         </div>
                     </div>
-                    <div className="accordion-item  w-50 ">
+                    <div className="accordion-item w-100">
                         <h2 className="accordion-header" id="deleteAccount">
                             <button className="accordion-button collapsed" type="button" 
                             data-bs-toggle="collapse" data-bs-target="#flush-collapse3" 

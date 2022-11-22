@@ -4,7 +4,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useState, useEffect } from "react";
 import imgStore from "../../assets/img-store.jpg";
-import Tooltip from 'react-bootstrap/Tooltip';
 import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 function Store(data) {
@@ -147,9 +146,9 @@ function Store(data) {
                     </div>}
                   </div>
             </Modal.Body>
-            <Modal.Footer>
-              <button className="btn btn-secondary" onClick={handleClose}>
-                Close
+            <Modal.Footer className="justify-content-center">
+              <button className="btn btn-secondary text-center" onClick={handleClose}>
+                Cerrar
               </button>
             </Modal.Footer>
           </Modal>
@@ -388,6 +387,11 @@ function Store(data) {
                   </div>
               </div>
             </Modal.Body>
+            <Modal.Footer className="justify-content-center">
+            <button className="btn btn-secondary text-center" onClick={handleCloseModal}>
+                Cerrar
+              </button>
+            </Modal.Footer>
           </Modal>
         )
       } else{
@@ -408,6 +412,11 @@ function Store(data) {
                 </div>
               </div>
             </Modal.Body>
+            <Modal.Footer>
+            <button className="btn btn-secondary text-center" onClick={handleCloseModal}>
+                Cerrar
+              </button>
+            </Modal.Footer>
           </Modal>
         )
       }

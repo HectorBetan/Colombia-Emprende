@@ -1,0 +1,71 @@
+.admin-nav a{
+    font-weight: 500;
+    color: #fff;
+}
+.admin-nav svg{
+    width: 40px;
+    height: 40px;
+    fill: #fff;
+}
+.logout-btn{
+    font-weight: 500;
+    color: #fff;
+}
+.admin-nav{
+    max-width: 300px;
+    min-width: 280px;
+    min-height: 100%;
+}
+.admin-nav li{
+    padding: 10px 25px;
+    margin: 3px 0px;
+}
+.admin-nav li:hover{
+    background-color: rgb(18, 23, 36);
+    border-radius: 0 50px 0 0;
+}
+.admin-nav li:hover a{
+    color: rgb(204, 226, 253)!important;
+
+}
+.admin-nav li:hover svg{
+    fill: rgb(204, 226, 253)!important;
+
+}
+.admin-nav li:hover .logout-btn{
+    color: rgb(204, 226, 253)!important;
+
+}
+@media only screen and (max-width: 1000px){
+    .admin-nav{
+        max-width: 270px;
+        min-width: 250px;
+    }
+    .admin-nav a{
+        font-weight: 500;
+        color: #fff;
+        font-size: 14px;
+    }
+    .admin-nav svg{
+        width: 35px;
+        height: 35px;
+    }
+    .logout-btn{
+        font-size: 14px;
+    }
+}
+@media only screen and (max-width: 767px){
+    .admin-nav svg{
+        width: 35px;
+        height: 35px;
+    }
+    .admin-nav{
+        max-width: 70px;
+        min-width: 70px;
+        min-height: 100%;
+    }
+    .admin-nav li{
+        padding: 5px 17px;
+        margin: 5px 0px;
+    }
+}

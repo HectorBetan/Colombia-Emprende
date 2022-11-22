@@ -6,7 +6,8 @@ import StoreRegister from "../components/Admin/StoreRegister";
 import MyStore from "../components/MyStore/MyStoreProducts";
 import MyCart from "../components/Admin/MyCart";
 import MyPricings from "../components/Admin/MyPricings";
-import MyOrders from "../components/Admin/MyOrders"
+import MyOrders from "../components/Admin/MyOrders";
+import '../styles/Admin.style.css'
 import { ProtectedRegisterStore, ProtectedStore } from "../protectedRoutes/protectedStore";
 function Admin() {
     const { loading } = useAuth();

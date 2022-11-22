@@ -1,5 +1,7 @@
 /*Publicidad y Sección Noticias Index*/
-
+.foot{
+    margin-top: 0px;
+}
 .busqueda{
     width: 50px !important;
     font-size: 18px !important;
