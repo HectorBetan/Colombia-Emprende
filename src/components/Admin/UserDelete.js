@@ -170,7 +170,7 @@ if (provider === "password")
             </p>
           
                   <div className="mt-4 mb-3   text-center">
-                  <Button variant="danger" size="lg" type="submit" className="me-4 mb-1 mt-1" onClick={handleSubmit}>
+                  <Button variant="danger" size="lg" type="submit" className="mb-1 mt-1" onClick={handleSubmit}>
                       Eliminar Cuenta
                   </Button>
                   </div>

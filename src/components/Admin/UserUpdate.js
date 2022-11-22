@@ -116,16 +116,17 @@ function UserUpdate() {
         <div>
             {error && <Alert message={error} />}
             <form onSubmit={handleSubmit}>
-                <div className="d-flex flex-row justify-content-evenly">
-                    <div className="form-group w-50">
-                        <label className="m-1">Nombre Completo</label>
+                <div className="form-group d-column d-lg-flex flex-lg-row d-xl-flex 
+                flex-xl-row d-xxl-flex flex-xxl-row justify-content-evenly mb-1 me-1 ms-1 me-sm-3 ms-sm-3 me-md-3 ms-md-3 me-lg-3 ms-lg-3 me-xl-3 ms-xl-3 me-xxl-3 ms-xxl-3">
+                    <div className="d-flex flex-column me-2 w-100">
+                        <label className="m-1 text-center text-lg-start text-xl-start text-xxl-start">Nombre Completo</label>
                         <input name="Nombre" 
                         className="form-control" type="name" 
                         onChange={handleChange} pattern="[A-Za-zñáéíóú. ]{1,}[ ]{1,}[A-Za-zñáéíóú. ]{1,}"
                         title="Ingrese un Nombre valido" value={usuario.Nombre} required/>
                     </div>
-                    <div className="form-group">
-                        <label className="m-1">Celular</label>
+                    <div className="d-flex flex-column me-2 w-100">
+                        <label className="m-1 text-center text-lg-start text-xl-start text-xxl-start">Celular</label>
                         <input  className="form-control" 
                         type="tel"  name="Celular"
                         onChange={handleChange} pattern="[3]{1}[0-9]{9}"
@@ -133,16 +134,17 @@ function UserUpdate() {
                         title="Ingrese un Celular valido para Colombia. Ej: 3185733093"/>
                     </div>
                 </div>
-                <div className="d-flex flex-row justify-content-evenly">
-                    <div className="form-group w-50">
-                        <label className="m-1">Dirección</label>
+                <div className="form-group d-column d-lg-flex flex-lg-row d-xl-flex 
+                flex-xl-row d-xxl-flex flex-xxl-row justify-content-evenly mb-1 me-1 ms-1 me-md-3 ms-md-3 me-lg-3 ms-lg-3 me-xl-3 ms-xl-3 me-xxl-3 ms-xxl-3">
+                    <div className="d-flex flex-column me-2 w-100">
+                        <label className="m-1 text-center text-lg-start text-xl-start text-xxl-start">Dirección</label>
                         <input  className="form-control" 
                         type="tel"   name="Direccion"
                         onChange={handleChange} 
                         value={usuario.Direccion} placeholder=""
                         title="Ingrese un Celular valido para Colombia. Ej: 3185733093"/>
                     </div>
-                    <div className="d-flex flex-column">
+                    <div className="d-flex flex-column me-2 w-100">
                         <label className="m-1 text-center text-lg-start text-xl-start text-xxl-start">Ciudad</label>
                         <select onChange={handleChange} name="Ciudad" className="form-select" value={usuario.Ciudad}>
                         <option value="" disabled>Ninguna</option>
@@ -150,15 +152,15 @@ function UserUpdate() {
                         </select>
                     </div>
                 </div>
-                <div className="d-flex flex-row justify-content-center mt-3">
+                <div className="d-block text-center d-sm-flex flex-row justify-content-center mt-3">
                     <PhotoView img={img} s='80px' />
                     <div className="d-flex flex-row justify-content-start mb-1 me-3 ms-3 mt-3">
-                        <label className="d-block m-1 mt-2 me-2">Foto de Perfil:</label>
-                        <input type="file" className="m-1 subirFoto" onChange={changeImg} accept="image/*"></input>
+                        <label className="d-none d-lg-block m-1 mt-2 me-2">Foto de Perfil:</label>
+                        <input type="file" className="w-100 m-1 subirFoto" onChange={changeImg} accept="image/*"></input>
                     </div>
                 </div>
-                <div className="mt-4 mb-3 me-5 ms-5 ps-4 text-center">
-                    <Button variant="primary" type="submit" className="me-4 mb-1 mt-1" disabled={disable}>
+                <div className="mt-4 mb-3 text-center">
+                    <Button variant="primary" type="submit" className="mb-1 mt-1" disabled={disable}>
                         Guardar Cambios
                     </Button>
                 </div>

@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 import Modal from 'react-bootstrap/Modal';
 import Nav from "react-bootstrap/Nav";
 import Tabs from "react-bootstrap/Tabs";
@@ -12,6 +12,7 @@ import { handleLogout, handleGoogleSignin } from "../services/user.service";
 import { UserLogo, PhotoView } from './photoView.utilities';
 
 export const LoginButton = () => {
+    
     const [show, setShow] = useState(false);
     const [key, setKey] = useState('login');
     
@@ -202,6 +203,23 @@ export const ModalAd = () => {
     );
 }
 export const UserButton = () => {
+    const location = useLocation();
+    const activar = (ruta) =>{
+
+        if (location.pathname === ruta){
+            console.log("paso1")
+            return({
+                color:"rgb(29, 184, 255)",
+                fontWeight:"600",
+                textDecoration:"underline"
+            });
+        } else {
+            console.log("paso2")
+            return({
+                borderRadius:"none",
+            })
+        }
+    } 
     const { user, userData, logout } = useAuth();
     let nombre = "";
     if (user && user.displayName){
@@ -227,7 +245,7 @@ export const UserButton = () => {
                             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                             <path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
                         </svg>
-                    <Link to="/admin" className='navi-link ms-2 align-middle '>
+                    <Link to="/admin" className='navi-link ms-2 align-middle' style={activar("/admin")}>
                     Mi Perfil
                     </Link>    
                 </Dropdown.Item>
@@ -236,7 +254,7 @@ export const UserButton = () => {
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" className="bi bi-shop" viewBox="0 0 16 16">
                                 <path d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z"/>
                             </svg>
-                        <Link to="/admin/mi-emprendimiento"  className='navi-link ms-2 align-middle '>
+                        <Link to="/admin/mi-emprendimiento"  className='navi-link ms-2 align-middle ' style={activar("/admin/mi-emprendimiento")}>
                         Mi Emprendimiento
                         </Link>
                     </Dropdown.Item>}
@@ -244,7 +262,7 @@ export const UserButton = () => {
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" className="bi bi-cart4" viewBox="0 0 16 16">
                             <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
                         </svg>
-                    <Link to="/admin/mi-carrito"  className='navi-link  ms-2 align-middle '>
+                    <Link to="/admin/mi-carrito"  className='navi-link  ms-2 align-middle ' style={activar("/admin/mi-carrito")}>
                     Mi Carrito
                     </Link>    
                 </Dropdown.Item>
@@ -254,7 +272,7 @@ export const UserButton = () => {
                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                             <path d="M8 13.5a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
                     </svg>
-                    <Link to="/admin/mi-carrito"  className='navi-link  ms-2 align-middle '>
+                    <Link to="/admin/mis-cotizaciones"  className='navi-link  ms-2 align-middle '  style={activar("/admin/mis-cotizaciones")}>
                     Mis Cotizaciones
                     </Link>    
                 </Dropdown.Item>
@@ -262,7 +280,7 @@ export const UserButton = () => {
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="white" className="bi bi-truck" viewBox="0 0 16 16">
                             <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
                     </svg>
-                    <Link to="/admin/mi-carrito"  className='navi-link  ms-2 align-middle '>
+                    <Link to="/admin/mis-pedidos"  className='navi-link  ms-2 align-middle '  style={activar("/admin/mis-pedidos")}>
                     Mis Pedidos
                     </Link>    
                 </Dropdown.Item>

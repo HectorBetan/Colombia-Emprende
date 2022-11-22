@@ -154,7 +154,7 @@
                 color: #c6e5fd;
                 font-size: 20px;
                 font-weight: 450;
-                text-decoration: none!important;
+                text-decoration: none;
             }
             .navi-link:hover{
                 color: #f4f7fa;
@@ -172,18 +172,18 @@
             }
             .nav-cel{
                 font-size: 20px;
-                font-weight: 600;
-                color: #003668!important;
+                font-weight: 700;
+                color: #003668;
             }
             .nav-cel-user{
-                font-size: 22px;
+                font-size: 20px;
                 font-weight: 700;
-                color: #003668!important;
+                color: #003668;
             }
             .navi-big{
                 font-size: 20px;
                 font-weight: 550;
-                color: #d4e9ff!important;
+                color: #d4e9ff;
                 letter-spacing: 1px;
             }
             .separador{
@@ -196,7 +196,7 @@
                 font-size: 16px;
                 font-weight: 500;
                 color: #092036;
-                text-decoration: none!important;
+                text-decoration: none;
                 
             }
             .cel-menu-user{
@@ -211,7 +211,7 @@
             
             }
             .logos-footer{
-            text-decoration: none;
+            text-decoration:none;
             padding-top: 10px;
             margin: 0px 10px;
             }
