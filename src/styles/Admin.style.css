@@ -1,6 +1,24 @@
-.admin-nav a{
-    font-weight: 500;
-    color: #fff;
+.caja-13{
+    width: 13%
+}
+.caja-25{
+    width: 25%
+}
+.caja-40{
+    width: 40%
+}
+.imgcarrito{
+    max-width: 70px;
+    max-height: 70px;
+    border-radius: 25px;
+}
+.admin-nav div{
+    font-weight: 500!important;
+    color: #fff!important;
+}
+.admin-nav .nav-link{
+    font-weight: 500!important;
+    color: #fff!important;
 }
 .admin-nav svg{
     width: 40px;
@@ -21,12 +39,12 @@
     margin: 0px 0px;
 }
 .admin-nav li{
-    border-radius: 0 50px 0 0;
+    border-radius: 0 75px 2px 0;
 }
 .admin-nav li:hover{
     background-color: rgb(5, 15, 41);
 }
-.admin-nav li:hover a{
+.admin-nav li:hover div{
     color: rgb(204, 226, 253)!important;
 
 }
@@ -39,11 +57,20 @@
 
 }
 @media only screen and (max-width: 1000px){
+    .product-store h2{
+        font-size: 25px;
+    }
+    .product-store h3{
+        font-size: 22px;
+    }
+    .product-store p{
+        font-size: 15px;
+    }
     .admin-nav{
         max-width: 270px;
         min-width: 250px;
     }
-    .admin-nav a{
+    .admin-nav div{
         font-weight: 500;
         color: #fff;
         font-size: 14px;
@@ -56,13 +83,44 @@
         font-size: 14px;
     }
 }
+@media only screen and (max-width: 900px){
+    .product-store h2{
+        font-size: 24px;
+    }
+    .product-store h3{
+        font-size: 21px;
+    }
+    .product-store p{
+        font-size: 14px;
+    }
+}
+@media only screen and (max-width: 768px){
+    .product-store h2{
+        font-size: 28px;
+    }
+    .product-store h3{
+        font-size: 25px;
+    }
+    .product-store p{
+        font-size: 17px;
+    }
+    .descprod{
+        font-size: 17px;
+    }
+    .admin-product-foto{
+        max-width: 100px!important;
+        max-height: 100px!important;
+        border-radius: 25px!important;
+    }
+}
 @media only screen and (max-width: 767px){
     #adminNav{
         max-width: 70px!important;
         min-width: 70px!important;
+        
     }
     .admin-nav li{
-        border-radius: 0 30px 0 0;
+        border-radius: 0 30px 2px 0;
     }
     .admin-nav svg{
         width: 35px;
@@ -83,9 +141,74 @@
         margin: 0 0!important;
     }
 }
+@media only screen and (max-width: 650px){
+    .product-store h2{
+        font-size: 26px;
+    }
+    .product-store h3{
+        font-size: 23px;
+    }
+    .product-store p{
+        font-size: 15px;
+    }
+    .descprod{
+        font-size: 15px;
+    }
+}
+@media only screen and (max-width: 600px){
+    .product-store h2{
+        font-size: 22px;
+    }
+    .product-store h3{
+        font-size: 20px;
+    }
+    .product-store p{
+        font-size: 15px;
+    }
+    .descprod{
+        font-size: 15px;
+    }
+    .admin-product-foto{
+        max-width: 90px!important;
+        max-height: 90px!important;
+        border-radius: 25px!important;
+    }
+}
+@media only screen and (max-width: 550px){
+    .admin-product-foto{
+        max-width: 85px!important;
+        max-height: 85px!important;
+        border-radius: 25px!important;
+    }
+}
+@media only screen and (max-width: 500px){
+
+    .descprod{
+        font-size: 13px;
+    }
+    .admin-product-foto{
+        max-width: 80px!important;
+        max-height: 80px!important;
+        border-radius: 25px!important;
+    }
+}
 @media only screen and (max-width: 450px){
+    .btn-editar-product{
+        font-size: 16px;
+    }
+    .product-store h2{
+        font-size: 20px;
+    }
+    .product-store h3{
+        font-size: 18px;
+    }
+    .admin-product-foto{
+        max-width: 75px!important;
+        max-height: 75px!important;
+        border-radius: 25px!important;
+    }
     .admin-nav li{
-        border-radius: 0 25px 0 0;
+        border-radius: 0 25px 2px 0;
     }
     #adminNav{
         max-width: 60px!important;
@@ -105,4 +228,24 @@
         margin: 2px 0px;
     }
 }
-
+@media only screen and (max-width: 400px){
+    .btn-editar-product{
+        font-size: 14px;
+    }
+    .product-store h2{
+        font-size: 18px;
+    }
+    .product-store h3{
+        font-size: 16px;
+    }
+    .admin-product-foto{
+        max-width: 70px!important;
+        max-height: 70px!important;
+        border-radius: 25px!important;
+    }
+}
+@media only screen and (max-width:370px){
+    .btn-editar-product{
+        font-size: 12px;
+    }
+}

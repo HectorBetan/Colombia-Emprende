@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useState, useEffect } from "react";
 import imgStore from "../../assets/img-store.jpg";
+import imgProducts from "../../assets/img-product.png";
 import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 function Store(data) {
@@ -70,9 +71,9 @@ function Store(data) {
     }
     const Alert = () => {
       return (
-        <div>
-          <i className="fa-solid fa-circle-check me-1 text-success"></i>
-          <span className="sm:inline block text-success">Producto añadido al carrito</span>
+        <div className=" alert alert-success d-flex flex-row flex-wrap justify-content-center" role="alert" >
+          <i className="fa-solid fa-circle-check fa-2x me-1 text-success"></i>
+          <h5 className=" m-1 sm:inline text-success align-middle ">Producto añadido al carrito</h5>
         </div>
       )
     }
@@ -275,7 +276,7 @@ function Store(data) {
               if (producto.Imagen){
                 fotos = producto.Imagen.split(",")
               } else {
-                imgProd = [imgStore]
+                imgProd = [imgProducts]
               }
               let c 
               if (w> 370){
@@ -313,7 +314,7 @@ function Store(data) {
                       <button className="btn btn-primary boton-agregar-carrito" onClick={(e) => {e.preventDefault(); agregar(producto) }}>
                         Agregar al carrito
                       </button>
-                      <div className="m-1 d-none" id={`${producto._id}success`} ><Alert /></div>
+                      
                     </div>
                     }  
                   
@@ -335,9 +336,10 @@ function Store(data) {
                     <button className="btn btn-primary boton-agregar-carrito-cel" onClick={(e) => {e.preventDefault(); agregar(producto) }}>
                       Agregar al carrito
                     </button>
-                    <div className="m-1 d-none" id={`${producto._id}success`} ><Alert /></div>
+                    
                   </div>
-                  }  
+                  }
+                  <div className="m-2 d-none text-center" id={`${producto._id}success`} ><Alert /></div>  
                 </div>
               )
             })

@@ -160,7 +160,7 @@ function MyCart() {
         console.log(miCarrito)
         if (miCarrito.length > 0 && tiendas){
         return(
-          <div className="col-12">
+          <div className="">
             {miCarrito.map((tienda, tkey) => {
               let valorTotal = 0;
               tienda.Productos.forEach(producto => {
@@ -171,38 +171,52 @@ function MyCart() {
               })
               let store = tiendas.find(item => item._id === tienda.Tienda);
               return(
-                <div key={tienda.Tienda} id={tienda.Tienda}>
-                  <Link  to={`/Emprendimientos/hola-mundo`} className="btn btn-primary">
-                    Ir a Tienda
-                  </Link>
-                  <h1>{store.Nombre}</h1>
-                  <div className="d-flex flex-row col-12">
+                <div key={tienda.Tienda} id={tienda.Tienda} className="card m-2 p-2 ">
+                  <div className="d-flex flex-row">
+                    <img src={store.Imagen} alt="0" className="imgcarrito"></img>
+                    <h1>{store.Nombre}</h1>
+                    <Link  to={`/Emprendimientos/hola-mundo`} className="btn btn-primary">
+                      Ir a Tienda
+                    </Link>
+                  </div>
+                  
+                  <div className="d-flex flex-column">
+                    <div  className="d-flex flex-row m-2">
+                      <h3 className="caja-40">Producto:</h3>
+                      <h4 className="caja-25">Cantidad:</h4>
+                      <h4 className="caja-13">Precio:</h4>
+                      <h4 className="caja-13">Total:</h4>
+                      <div className="caja-13"></div>
+                    </div>
                   {tienda.Productos.map((producto, pkey) => {
                     let  item = productos.find(product => product._id === producto.Producto_id);
                     let total = item.Precio * producto.Cantidad;
                     return(
-                      <div key={producto._id} className="d-flex flex-column m-2">
-                      <h2>Producto: {item.Nombre}</h2>
-                      <div className="">
-                        <div className="d-flex" id={`edit${producto.Producto_id}`}>
-                          <h3>Cantidad: {producto.Cantidad}</h3>
-                          <button onClick={(e)=>{e.preventDefault();showEdit(producto.Producto_id)}}>Editar</button>
+                      <div key={pkey} className="d-flex flex-row m-2">
+                      <h5  className="caja-40">{item.Nombre}</h5>
+                      <div className="caja-25">
+                        <div className="d-flex" id={`edit${pkey}`}>
+                          <h5 >{producto.Cantidad}</h5>
+                          <button onClick={(e)=>{e.preventDefault();showEdit(pkey)}}>Editar</button>
                         </div>
-                        <div className="d-flex d-none" id={`edit-cant${producto.Producto_id}`}>
-                          <h3>Cantidad: </h3><input type="number" min="1" max="1000" id={producto._id} defaultValue={producto.Cantidad} />
-                            <button onClick={(e)=>{e.preventDefault();noShowEdit(producto.Producto_id)}}>Cancelar</button>
+                        <div className="d-flex d-none" id={`edit-cant${pkey}`}>
+                          <input type="number" min="1" max="1000" id={pkey} defaultValue={producto.Cantidad} />
+                            <button onClick={(e)=>{e.preventDefault();noShowEdit(pkey)}}>Cancelar</button>
                             <button onClick={(e)=>{e.preventDefault();
-                              updateOne(producto._id, {Cantidad: document.getElementById(producto._id).value})
+                              updateOne(producto._id, {Cantidad: document.getElementById(pkey).value})
                               .then(()=>{resolveCarrito();})
                               }}>Guardar</button>
                         </div>
                       </div>
-                      <h3>Precio: {item.Precio}</h3>
-                      <h5>Total: {total}</h5>
-                      
+                      <h6  className="caja-13">{item.Precio}</h6>
+                      <h6  className="caja-13">{total}</h6>
+                      <div className="caja-13">
+
                       <button onClick={(e)=>{e.preventDefault(); 
                         handleDelete(tkey, pkey, producto._id)}
                       }>Eliminar</button>
+                      </div>
+                      
                       </div>
                     )
                 }

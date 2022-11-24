@@ -48,7 +48,7 @@ function ProductUpdate(userProduct) {
         return (
             <div>
                 
-                <Nav.Link className="btn btn-primary text-white p-1 m-1"
+                <Nav.Link className="btn btn-primary text-white p-2 m-1 btn-editar-product"
                 role="button"
                 onClick={handleUpdateShow}>
                     Editar Producto

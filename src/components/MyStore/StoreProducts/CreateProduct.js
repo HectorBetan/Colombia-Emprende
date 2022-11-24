@@ -162,11 +162,11 @@ function CreateProduct() {
     </div>
   );
   return (
-    <div>
+    <div className='text-center mb-3'>
       {error.success && <Alert message={error} />}
       <button className="btn btn-primary" 
       onClick={handleShow}>
-      <h4 className="align-items-center text-white m-2">Agregar Producto</h4>
+      <h5 className="align-items-center text-white m-1">Agregar Producto</h5>
       </button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton />
