@@ -11,6 +11,16 @@ function MyCart() {
     const [productos, setProductos] = useState(null);
     const [tiendas, setTiendas] = useState(null);
     const [startDelete, setStartDelete] = useState(false);
+    const [w, setW] = useState(window.innerWidth);
+  const handleResize = () => {
+    setW(window.innerWidth);
+  };
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
     const groupBy = keys => array =>
     array.reduce((objectsByKeyValue, obj) => {
       const value = keys.map(key => obj[key]).join('-');
@@ -171,76 +181,114 @@ function MyCart() {
               })
               let store = tiendas.find(item => item._id === tienda.Tienda);
               return(
-                <div key={tienda.Tienda} id={tienda.Tienda} className="card m-2 p-2 ">
+                <div key={tienda.Tienda} id={tienda.Tienda} className="card m-3 p-3 ">
                   <div className="d-flex flex-row">
                     <img src={store.Imagen} alt="0" className="imgcarrito"></img>
-                    <h1>{store.Nombre}</h1>
-                    <Link  to={`/Emprendimientos/hola-mundo`} className="btn btn-primary">
-                      Ir a Tienda
+                    <h1 className="m-1 ms-3">{store.Nombre}</h1>
+                    <Link  to={`/Emprendimientos/hola-mundo`} className="btn btn-dark boton-tienda-carrito">
+                      Ir a la Tienda
                     </Link>
                   </div>
-                  
+                  <div className="accordion mt-3" id={`accordion${tkey}`}>
+                    <div className="accordion-item">
+                      <h2 className="accordion-header" id={`heading${tkey}`}>
+                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${tkey}`} aria-expanded="true" aria-controls={`#collapse${tkey}`}>
+                          <h2>Productos</h2>
+                        </button>
+                      </h2>
+                      <div id={`collapse${tkey}`} className="accordion-collapse collapse show" aria-labelledby={`heading${tkey}`} data-bs-parent={`#accordion${tkey}`}>
+                        <div className="accordion-body">
+                          
                   <div className="d-flex flex-column">
-                    <div  className="d-flex flex-row m-2">
+                    {w > 991 && <div  className="d-flex flex-row m-2">
+                    <div className="d-flex flex-row caja1-carrito">
                       <h3 className="caja-40">Producto:</h3>
-                      <h4 className="caja-25">Cantidad:</h4>
-                      <h4 className="caja-13">Precio:</h4>
-                      <h4 className="caja-13">Total:</h4>
+                      <h4 className="caja-20">Cantidad:</h4>
+
+                      </div>
+                      <div className="d-flex flex-row caja2-carrito">
+                      <div className="d-flex flex-row caja-213">
+                      <h4 className="caja-50  text-center">Precio:</h4>
+                      <h4 className="caja-50  text-center">Total:</h4>
+                      </div>
                       <div className="caja-13"></div>
-                    </div>
-                  {tienda.Productos.map((producto, pkey) => {
+                      </div>
+                    </div>}
+                    
+                    {tienda.Productos.map((producto, pkey) => {
                     let  item = productos.find(product => product._id === producto.Producto_id);
                     let total = item.Precio * producto.Cantidad;
                     return(
-                      <div key={pkey} className="d-flex flex-row m-2">
-                      <h5  className="caja-40">{item.Nombre}</h5>
-                      <div className="caja-25">
-                        <div className="d-flex" id={`edit${pkey}`}>
-                          <h5 >{producto.Cantidad}</h5>
-                          <button onClick={(e)=>{e.preventDefault();showEdit(pkey)}}>Editar</button>
+                    <div key={pkey} className="">
+                      <hr className="mb-4" />
+                      <div  className="d-block d-lg-flex flex-row m-2 caja-datos-carrito">
+                        <div className="d-flex caja1-carrito">
+                          <h5  className="caja-40 m-0 prod-cant">{(w <= 991 && w > 680) && <div>Producto: </div>}
+                          {w <= 680 && <span>Producto: </span>}{item.Nombre}</h5>
+                          <div className="caja-20">
+                            {(w <= 991 && w > 680) && <h5>Cantidad: </h5>}
+                            <div className="d-flex edita-caja" id={`edit${pkey}`}>
+                              <h5 className="prod-car">{ w <= 680 && <span>Cantidad: </span>}{producto.Cantidad}</h5>
+                              <button className="btn btn-info btn-edit-cant" onClick={(e)=>{e.preventDefault();showEdit(pkey)}}>Editar</button>
+                            </div>
+                            <div className="d-flex d-none" id={`edit-cant${pkey}`}>
+                              <input type="number" min="1" max="1000" id={pkey} defaultValue={producto.Cantidad} />
+                                <button className="btn btn-info" onClick={(e)=>{e.preventDefault();noShowEdit(pkey)}}><i className="fa-solid fa-xmark"></i></button>
+                                <button className="btn btn-info" onClick={(e)=>{e.preventDefault();
+                                  updateOne(producto._id, {Cantidad: document.getElementById(pkey).value})
+                                  .then(()=>{resolveCarrito();})
+                                  }}><i className="fa-solid fa-floppy-disk"></i></button>
+                            </div>
+                          </div>
                         </div>
-                        <div className="d-flex d-none" id={`edit-cant${pkey}`}>
-                          <input type="number" min="1" max="1000" id={pkey} defaultValue={producto.Cantidad} />
-                            <button onClick={(e)=>{e.preventDefault();noShowEdit(pkey)}}>Cancelar</button>
-                            <button onClick={(e)=>{e.preventDefault();
-                              updateOne(producto._id, {Cantidad: document.getElementById(pkey).value})
-                              .then(()=>{resolveCarrito();})
-                              }}>Guardar</button>
-                        </div>
-                      </div>
-                      <h6  className="caja-13">{item.Precio}</h6>
-                      <h6  className="caja-13">{total}</h6>
-                      <div className="caja-13">
+                        
+                        <div className="d-flex caja2-carrito">
+                          <div className="d-flex flex-row caja-213">
+                          <h6  className="caja-50 prod-cant-end">{w <= 991 && <div>Precio: </div>}{item.Precio}</h6>
+                          <h6  className="caja-50 prod-cant-end">{w <= 991 && <div>Total: </div>}{total}</h6>
+                          </div>
+                          
+                          <div className="caja-13 prod-cant-end">
 
-                      <button onClick={(e)=>{e.preventDefault(); 
-                        handleDelete(tkey, pkey, producto._id)}
-                      }>Eliminar</button>
+                            <button className="btn btn-danger" onClick={(e)=>{e.preventDefault(); 
+                              handleDelete(tkey, pkey, producto._id)}
+                            }>Eliminar</button>
+                          </div>
+                        </div>
                       </div>
                       
-                      </div>
-                    )
+                    </div>
+                  )
                 }
-                )}
-                ValorTotal: {valorTotal}
+              )}
+                
                 
                 </div>
-                <div>
-                  
-                  <div className="d-flex">
-                                <label className="">Ciudad de envio:</label>
-                                <select defaultValue={"default"} id={`ciudad${tienda.Tienda}`} required>
-                                    <option value="default" disabled >Selecciona la ciudad</option>
-                                    {cityList}
-                                </select>
-                            </div>
-                </div>
-                <div className="d-flex">
-                  Comentarios para la tienda:
-                  <input type="textarea"  id={`comentarios${tienda.Tienda}`} placeholder="Comentarios" defaultValue=" " />
+                        </div>
+                      </div>
+                    </div>
+                
                   </div>
-                <button onClick={(e)=> {e.preventDefault(); deleteAll(tienda) }}>Eliminar todos</button>
-                <button onClick={(e)=> {e.preventDefault(); handleCotizar(tienda, tkey) }}>Cotizar Estos Productos</button>
-                </div>
+                <div className="text-start mt-2 mb-3">
+                  <div className="text-start m-3 me-md-4 ms-md-4">ValorTotal: {valorTotal}</div>
+                    <div className="d-flex justify-content-start m-3 me-md-4 ms-md-4">
+                                  
+                                  <label className="">Ciudad de envio:</label>
+                                  <select defaultValue={"default"} id={`ciudad${tienda.Tienda}`} required>
+                                      <option value="default" disabled >Selecciona la ciudad</option>
+                                      {cityList}
+                                  </select>
+                              </div>
+                  
+                  <div className="d-flex justify-content-start m-3 me-md-4 ms-md-4">
+                    Comentarios para la tienda:
+                    <input type="textarea"  id={`comentarios${tienda.Tienda}`} placeholder="Comentarios" defaultValue=" " />
+                  </div>
+                  </div>
+                    <button onClick={(e)=> {e.preventDefault(); handleCotizar(tienda, tkey) }}>Cotizar Estos Productos</button>
+                    <button onClick={(e)=> {e.preventDefault(); deleteAll(tienda) }}>Eliminar todos</button>
+
+                  </div>
               )
             })
           }
