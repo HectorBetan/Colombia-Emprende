@@ -184,8 +184,8 @@ function MyCart() {
                 <div key={tienda.Tienda} id={tienda.Tienda} className="acordeon-carrito-products card p-2 m-1 m-sm-2 m-md-3 p-sm-2 p-md-3 ">
                   <div className="caja-tienda-carrito flex-row">
                     <div className="d-flex">
-                      <img src={store.Imagen} alt="0" className="imgcarrito"></img>
-                      <h1 className="m-1 ms-3">{store.Nombre}</h1>
+                      {w>400&&<img src={store.Imagen} alt="0" className="imgcarrito me-2"></img>}
+                      <h1 className="m-1">{store.Nombre}</h1>
                     </div>
                     
                     <Link  to={`/Emprendimientos/hola-mundo`} className="btn btn-dark boton-tienda-carrito">

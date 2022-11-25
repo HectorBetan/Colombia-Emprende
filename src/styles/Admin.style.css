@@ -46,8 +46,8 @@
     justify-content: space-between;
 }
 .imgcarrito{
-    max-width: 60px;
-    max-height: 60px;
+    max-width: 50px;
+    max-height: 50px;
     border-radius: 25px;
 }
 .admin-nav div{
@@ -399,5 +399,15 @@
     }
     .btn-editar-product{
         font-size: 12px;
+    }
+}
+@media only screen and (max-width:350px){
+    .acordeon-carrito-products{
+        max-width: 70vh;
+    }
+}
+@media only screen and (max-width:335px){
+    .acordeon-carrito-products{
+        max-width: 65vh;
     }
 }
