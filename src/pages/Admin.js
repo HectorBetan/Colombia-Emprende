@@ -21,8 +21,8 @@ function Admin() {
     return (
         <div className="d-flex flex-row">
             <AdminNav />
-            <div className="d-flex flex-row justify-content-center">
-                <div className="">
+            <div className="d-flex flex-row justify-content-center w-100">
+                <div className="w-100">
                     <Routes>
                         <Route path="/" element={<AdminView />} />
                         <Route path="/registrar-emprendimiento/*" element={<ProtectedRegisterStore><StoreRegister /></ProtectedRegisterStore>} />
