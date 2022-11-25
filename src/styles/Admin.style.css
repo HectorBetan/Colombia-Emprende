@@ -296,6 +296,10 @@
         max-height: 90px!important;
         border-radius: 25px!important;
     }
+    .boton-carrito-colla h2{
+        padding-bottom: 1px!important;
+        margin-bottom: 1px!important;
+    }
 }
 @media only screen and (max-width: 550px){
     .caja-datos-carrito{
@@ -400,10 +404,12 @@
     .btn-editar-product{
         font-size: 12px;
     }
+    
 }
 @media only screen and (max-width:350px){
     .acordeon-carrito-products{
         max-width: 75vw;
+        
     }
 }
 @media only screen and (max-width:335px){
