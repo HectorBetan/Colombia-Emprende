@@ -395,7 +395,7 @@
 }
 @media only screen and (max-width:370px){
     .acordeon-carrito-products{
-        max-width: 75vh;
+        max-width: 76vw;
     }
     .btn-editar-product{
         font-size: 12px;
@@ -403,11 +403,11 @@
 }
 @media only screen and (max-width:350px){
     .acordeon-carrito-products{
-        max-width: 70vh;
+        max-width: 75vw;
     }
 }
 @media only screen and (max-width:335px){
     .acordeon-carrito-products{
-        max-width: 65vh;
+        max-width: 75vw;
     }
 }
