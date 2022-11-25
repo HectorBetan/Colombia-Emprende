@@ -181,23 +181,26 @@ function MyCart() {
               })
               let store = tiendas.find(item => item._id === tienda.Tienda);
               return(
-                <div key={tienda.Tienda} id={tienda.Tienda} className="card m-3 p-3 ">
-                  <div className="d-flex flex-row">
-                    <img src={store.Imagen} alt="0" className="imgcarrito"></img>
-                    <h1 className="m-1 ms-3">{store.Nombre}</h1>
+                <div key={tienda.Tienda} id={tienda.Tienda} className="acordeon-carrito-products card p-2 m-1 m-sm-2 m-md-3 p-sm-2 p-md-3 ">
+                  <div className="caja-tienda-carrito flex-row">
+                    <div className="d-flex flex-row">
+                      <img src={store.Imagen} alt="0" className="imgcarrito"></img>
+                      <h1 className="m-1 ms-3">{store.Nombre}</h1>
+                    </div>
+                    
                     <Link  to={`/Emprendimientos/hola-mundo`} className="btn btn-dark boton-tienda-carrito">
                       Ir a la Tienda
                     </Link>
                   </div>
-                  <div className="accordion mt-3" id={`accordion${tkey}`}>
+                  <div className="accordion  mt-2 mt-sm-3" id={`accordion${tkey}`}>
                     <div className="accordion-item">
                       <h2 className="accordion-header" id={`heading${tkey}`}>
-                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${tkey}`} aria-expanded="true" aria-controls={`#collapse${tkey}`}>
+                        <button className="accordion-button boton-carrito-colla collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${tkey}`} aria-expanded="true" aria-controls={`#collapse${tkey}`}>
                           <h2>Productos</h2>
                         </button>
                       </h2>
                       <div id={`collapse${tkey}`} className="accordion-collapse collapse show" aria-labelledby={`heading${tkey}`} data-bs-parent={`#accordion${tkey}`}>
-                        <div className="accordion-body">
+                        <div className="accordion-body cuerpo-carrito">
                           
                   <div className="d-flex flex-column">
                     {w > 991 && <div  className="d-flex flex-row m-2">
@@ -220,8 +223,8 @@ function MyCart() {
                     let total = item.Precio * producto.Cantidad;
                     return(
                     <div key={pkey} className="">
-                      <hr className="mb-4" />
-                      <div  className="d-block d-lg-flex flex-row m-2 caja-datos-carrito">
+                      <hr className="mb-xl-4 mb-0" />
+                      <div  className="d-block d-lg-flex flex-row m-0 m-md-2 caja-datos-carrito">
                         <div className="d-flex caja1-carrito">
                           <h5  className="caja-40 m-0 prod-cant">{(w <= 991 && w > 680) && <div>Producto: </div>}
                           {w <= 680 && <span>Producto: </span>}{item.Nombre}</h5>
