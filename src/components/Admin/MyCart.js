@@ -183,7 +183,7 @@ function MyCart() {
               return(
                 <div key={tienda.Tienda} id={tienda.Tienda} className="acordeon-carrito-products card p-2 m-1 m-sm-2 m-md-3 p-sm-2 p-md-3 ">
                   <div className="caja-tienda-carrito flex-row">
-                    <div className="d-flex flex-row">
+                    <div className="d-flex">
                       <img src={store.Imagen} alt="0" className="imgcarrito"></img>
                       <h1 className="m-1 ms-3">{store.Nombre}</h1>
                     </div>
@@ -221,17 +221,23 @@ function MyCart() {
                     {tienda.Productos.map((producto, pkey) => {
                     let  item = productos.find(product => product._id === producto.Producto_id);
                     let total = item.Precio * producto.Cantidad;
+                    let cant
+                    if (w < 400){
+                      cant = "Cant: "
+                    } else{
+                      cant = "Cantidad: "
+                    }
                     return(
                     <div key={pkey} className="">
                       <hr className="mb-xl-4 mb-0" />
                       <div  className="d-block d-lg-flex flex-row m-0 m-md-2 caja-datos-carrito">
                         <div className="d-flex caja1-carrito">
                           <h5  className="caja-40 m-0 prod-cant">{(w <= 991 && w > 680) && <div>Producto: </div>}
-                          {w <= 680 && <span>Producto: </span>}{item.Nombre}</h5>
+                          {(w <= 680 && w >399) && <span>Producto: </span>}{item.Nombre}</h5>
                           <div className="caja-20">
                             {(w <= 991 && w > 680) && <h5>Cantidad: </h5>}
                             <div className="d-flex edita-caja" id={`edit${pkey}`}>
-                              <h5 className="prod-car">{ w <= 680 && <span>Cantidad: </span>}{producto.Cantidad}</h5>
+                              <h5 className="prod-car">{ w <= 680  && <span>{cant}</span>}{producto.Cantidad}</h5>
                               <button className="btn btn-info btn-edit-cant" onClick={(e)=>{e.preventDefault();showEdit(pkey)}}>Editar</button>
                             </div>
                             <div className="d-flex d-none" id={`edit-cant${pkey}`}>

@@ -368,6 +368,10 @@
     }
 }
 @media only screen and (max-width: 400px){
+    .prod-car{
+        width: 40%;
+        margin: 15px 0px;
+    }
     .acordeon-carrito-products{
         max-width: 82vh;
         justify-content: center;
