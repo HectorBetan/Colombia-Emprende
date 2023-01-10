@@ -10,7 +10,7 @@ export const usePublic = () => {
 };
 export function PublicProvider({ children }) {
     //const { token, loading, userData } = useAuth();
-    const dbUrl= 'https://colombia-emprende.herokuapp.com/';
+    const dbUrl= 'https://qopit3-4000.preview.csb.app/';
     const [stores, setStores] = useState(null);
     const [products, setProducts] = useState(null);
     const [storesData, setStoresData] = useState(null);

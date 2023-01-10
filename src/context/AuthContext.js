@@ -28,7 +28,7 @@ export const useAuth = () => {
     return context;
 };
 export function AuthProvider({ children }) {
-    const dbUrl= 'https://colombia-emprende.herokuapp.com/';
+    const dbUrl= 'https://qopit3-4000.preview.csb.app/';
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(null);

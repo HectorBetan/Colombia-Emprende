@@ -10,7 +10,7 @@ export const useMyStore = () => {
 };
 export function MyStoreProvider({ children }) {
     const { token, updateUserStore, userData } = useAuth();
-    const dbUrl= 'https://colombia-emprende.herokuapp.com/';
+    const dbUrl= 'https://qopit3-4000.preview.csb.app/';
     const [userStore, setUserStore] = useState(null);
     const [userProducts, setUserProducts] = useState(null);
     const [showProducts, setShowProducts] = useState("");
