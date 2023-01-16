@@ -1,6 +1,9 @@
 .btn-edit-cant{
     font-weight: 500;
 }
+.btn-edit-product{
+    margin: 0 0 0 5px;
+}
 .caja1-carrito{
     width: 60%;
     flex-direction: row;
@@ -94,6 +97,23 @@
     color: rgb(204, 226, 253)!important;
 
 }
+.admin-titles-cel{
+    display: none!important;
+}
+.valor-titulo{
+    font-size: 23px;
+
+}
+.valor-value{
+    color: rgb(37, 37, 128);
+    font-weight: 700;
+    margin-left: 10px;
+}
+.city-input{
+    max-width: 60%;
+    margin-left: 20px;
+
+}
 @media only screen and (max-width: 1000px){
     .product-store h2{
         font-size: 25px;
@@ -184,7 +204,13 @@
         margin: 0 0 0 20px!important;
     }
 }
-@media only screen and (max-width: 767px){
+@media only screen and (max-width: 768px){
+    .admin-titles-cel{
+        display: block!important;
+    }
+    .admin-nav .nav-link{
+        display: none!important;
+    }
     .caja-datos-carrito{
         margin: 0 0 0 15px!important;
     }

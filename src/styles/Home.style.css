@@ -827,7 +827,7 @@ publicidad 2
         vertical-align: middle;
     }
 }
-@media only screen and (max-width: 480px){
+@media only screen and (max-width: 500px){
     .stores-home{
         width: 180px;
         margin: 6px;

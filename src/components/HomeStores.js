@@ -90,7 +90,7 @@ function HomeStores() {
                             let nombre = "";
                             let fin;
                             if (store.Nombre.length > 21){
-                                if (w < 400){
+                                if (w < 480){
                                     fin = 16
                                 } else{
                                     fin = 20
