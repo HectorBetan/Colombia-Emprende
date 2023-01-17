@@ -65,16 +65,20 @@ function ProductUpdate(userProduct) {
                             <Tab eventKey="login" title="Editar Producto" className="ms-4 me-4 mt-2 mb-2">
                                 <form onSubmit={handleUpdateSubmit}>
                                     <div className="form-group">
+                                        <label className='m-1'>Nombre del Producto</label>
                                     <input type="text" onChange={handleUpdateChange} name="Nombre"
                                     className="form-control" placeholder="Nombre del Producto" value={existProduct.Nombre} />
                                     </div>
+                                    
                                     <div className="form-group">
-                                    <input type="text" onChange={handleUpdateChange} name="Descripcion"
-                                    className="form-control" placeholder="Descripción del Producto" value={existProduct.Descripcion}/>
-                                    </div>
-                                    <div className="form-group">
+                                    <label className='m-1'>Precio del Producto</label>
                                     <input type="text" onChange={handleUpdateChange} name="Precio"
                                     className="form-control" placeholder="Valor del Producto" value={existProduct.Precio}/>
+                                    </div>
+                                    <div className="form-group">
+                                    <label className='m-1'>Descripción del Producto</label>
+                                    <textarea type="text" onChange={handleUpdateChange} name="Descripcion"
+                                    className="form-control" placeholder="Descripción del Producto" value={existProduct.Descripcion}/>
                                     </div>
                                     <div className="form-group text-center m-3">
                                         <button className="btn btn-primary" type="submit">Actualizar Producto</button>

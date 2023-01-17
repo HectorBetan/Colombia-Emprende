@@ -207,10 +207,10 @@ function StoreInfoUpdate() {
     return (
         <div>
             {error && <Alert message={error} />}
-            <div className="col-12 pe-4 ps-4" style={{maxHeight:"320px", overflow:"auto"}}>
+            <div className="col-12 pe-0 ps-0 pe-md-4 ps-md-4" style={{maxHeight:"320px", overflow:"auto"}}>
                 <form onSubmit={handleSubmit}>
                     <div className="">
-                        <div className="d-flex flex-row justify-content-evenly mb-3">
+                        <div className="d-flex flex-row justify-content-evenly mb-3 update-store-box">
                             <div className="form-group col-5">
                                 <label className="m-1">Nombre</label>
                                 <input onChange={handleChange} type="text" name="Nombre" className="form-control h-50" 
@@ -223,7 +223,7 @@ function StoreInfoUpdate() {
                             </div>
                             
                         </div>
-                        <div className="d-flex flex-row justify-content-evenly">
+                        <div className="d-flex flex-row justify-content-evenly  update-store-box">
                             <div className="form-group col-5 m-1">
                                 <div className="d-flex flex-row">
                                     <h6 className="bg-secondary rounded p-2 text-white mt-1 me-2">Celular:</h6>
@@ -246,14 +246,14 @@ function StoreInfoUpdate() {
                             </div>
                         </div>
                         <div className="d-flex flex-row justify-content-evenly">
-                            <div className="col-11 ps-3 pe-3">
+                            <div className="col-11 ps-2 pe-2">
                                 <label className="m-1">Dirección</label>
                                 <input onChange={handleChange} type="text" name="Direccion" 
                                 className="form-control"  placeholder="Dirección Emprendimiento" 
                                 value={emprendimiento.Direccion} />
                             </div>
                         </div>
-                        <div className="d-flex flex-row justify-content-evenly mt-2">
+                        <div className="d-flex flex-row justify-content-evenly mt-2  update-store-box">
                             <div className="form-group col-5">
                                 <label className="m-1">Ciudad</label>
                                 <select onChange={handleChange} name="Ciudad" className="form-select" 
@@ -268,31 +268,33 @@ function StoreInfoUpdate() {
                                 </select>
                             </div>
                         </div>
-                        <div>
-                            <div className="d-flex flex-row justify-content-center mt-3">
-                                <button className={"btn btn-primary me-2 ms-2 mt-1 mb-3 "+facebookBtnClass} id="btn-facebook" onClick={handleFacebook}>Agregar Facebook</button>
-                                <button className={"btn btn-primary me-2 ms-2 mt-1 mb-3 "+instagramBtnClass}id="btn-instagram" onClick={handleInstagram}>Agregar Instagram</button>
-                                <button className={"btn btn-primary me-2 ms-2 mt-1 mb-3 "+webBtnClass} id="btn-web"onClick={handleWeb}>Agregar Página Web</button>
+                        
+                            <div className="d-flex flex-row justify-content-center me-2 ms-2 mt-2">
+                                <div className='form-group mb-1 col-11'>
+                                    <label className="m-1">Facebook</label>
+                                    <input onChange={handleChange} type="text" name="Facebook" id="facebook"
+                                    className="form-control "  placeholder="Ingresa el link de Facebook" 
+                                    value={emprendimiento.Facebook} />
+                                </div>
+                                
                             </div>
-                        </div>
-                        <div className="d-flex flex-row justify-content-evenly mt-2">
-                            <div className="form-group col-3">
-                                <input onChange={handleChange} type="text" name="Facebook" id="facebook"
-                                className={"form-control "+facebookClass}  placeholder="Ingresa el link de Facebook" 
-                                value={emprendimiento.Facebook} />
+                            <div className="d-flex flex-row justify-content-center me-2 ms-2 mt-2">
+                                <div className="form-group mb-1 col-11">
+                                    <label  className="m-1">Instagram</label>
+                                    <input onChange={handleChange} type="text" name="Instagram" id="instagram"
+                                    className="form-control " placeholder="Ingresa el link de Instagram" 
+                                    value={emprendimiento.Instagram} />
+                                </div>
                             </div>
-                            <div className="form-group col-3">
-                                <input onChange={handleChange} type="text" name="Instagram" id="instagram"
-                                className={"form-control "+instagramClass} placeholder="Ingresa el link de Instagram" 
-                                value={emprendimiento.Instagram} />
+                            <div className="d-flex flex-row justify-content-center me-2 ms-2 mt-2">
+                                <div className="form-group mb-1 col-11">
+                                    <label className="m-1">Página Web</label>
+                                    <input onChange={handleChange} type="text" name="Web" id="web"
+                                    className="form-control" placeholder="Ingresa el link de la página web" 
+                                    value={emprendimiento.Web} />
+                                </div>
                             </div>
-                            <div className="form-group col-3">
-                                <input onChange={handleChange} type="text" name="Web" id="web"
-                                className={"form-control "+webClass} placeholder="Ingresa el link de la página web" 
-                                value={emprendimiento.Web} />
-                            </div>
-                        </div>
-                        <div className="d-flex flex-row justify-content-center me-3 ms-3 mt-2">
+                        <div className="d-flex flex-row justify-content-center me-2 ms-2 mt-2">
                             <div className="form-group col-11">
                                 <label className="m-1">Descripción</label>
                                 <textarea onChange={handleChange} type="text-area" name="Descripcion" 

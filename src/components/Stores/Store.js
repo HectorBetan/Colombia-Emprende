@@ -364,7 +364,7 @@ function Store(data) {
               <h3>Fotos de {emprendimiento.value.store.Nombre}</h3>
             </Modal.Header>
             <Modal.Body>
-              <div>
+              <div> 
                 <div className="m-2 d-flex  justify-content-center">
                   
                     <img

@@ -186,20 +186,20 @@ function ProductImgUpdate(userProduct) {
             photos = product.Imagen.split(",");
             return (
                 <div>
-                <div className="">
+                <div className="d-flex flex-row justify-content-center">
                     <img
                     className="d-block  rounded"
-                    style={{ maxHeight: "325px", width: "100vh", objectFit: "cover" }}
+                    style={{ maxHeight: "315px", width: "100%", objectFit: "cover" }}
                     src={photos[selected]}
                     alt={selected}
                     />
                     
-                    <div className="d-flex flex-row mt-1">
+                    <div className="d-flex flex-column mt-1">
                     {photos.map((img, i) => {
                         return (
-                                <button key={i} onClick={(e) => {e.preventDefault(); setSelected(i)}}>
+                                <button className='btn btn-ligth p-0' key={i} onClick={(e) => {e.preventDefault(); setSelected(i)}}>
                                     <img
-                                    className="d-block rounded m-1"
+                                    className="d-block rounded m-1 "
                                     style={{ maxHeight: "50px", maxWidth: "50px", objectFit: "cover" }}
                                     src={img}
                                     alt={i}
@@ -210,8 +210,8 @@ function ProductImgUpdate(userProduct) {
                     })}
                     </div>
                 </div>
-                <div className="d-flex flex-row">
-                <button onClick={(e) => {e.preventDefault(); 
+                <div className="d-flex flex-row justify-content-center">
+                <button className='btn btn-danger m-2' onClick={(e) => {e.preventDefault(); 
                 let borrarPosition = photos[selected].search(`alt=media`)-2;
                 let borrar = photos[selected].slice(borrarPosition, borrarPosition+1);
                 borrarImg.push(borrar);
@@ -220,9 +220,34 @@ function ProductImgUpdate(userProduct) {
                 setDisableImg(false); borrar=""}}>
                     Borrar esta foto
                 </button>
-                <button key={selected} value={selected} onClick={handleProfilePhoto}>Seleccionar como foto principal</button>
+                <button key={selected} value={selected} className='btn btn-primary m-2' onClick={handleProfilePhoto}>Seleccionar como foto principal</button>
                 
                 </div> 
+                <div className="accordion m-2 rounded " id="accordionSubirImgs">
+                    <div className="accordion-item">
+                        <h2 className="accordion-header" id="headingSubirImgs">
+                            <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSubirImgs" aria-expanded="true" aria-controls="collapseSubirImgs">
+                            Subir más Imágenes
+                            </button>
+                        </h2>
+                        <div id="collapseSubirImgs" class="accordion-collapse collapse" aria-labelledby="headingSubirImgs" data-bs-parent="#accordionSubirImgs">
+                            <div className="accordion-body">
+                                <div className='text-center'>
+                                    {photos.length < 5 && <div className="d-flex flex-row nuevas-imgs justify-content-center">
+                                        <ProductPhoto />
+                                        <input type="file" className="m-1 ms-2 subir-foto" accept="image/*" multiple
+                                        onChange={changeImg} id="image-input"></input>
+                                    </div>}
+                                    {photos.length >= 5 && <div className='texto-001'>
+                                        Actualmente tienes el máximo de imágenes permitidas (5); por favor elimina alguna imágen para subir nuevas
+                                    </div>}
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
                 </div> 
             )
         } else return (
@@ -248,14 +273,7 @@ function ProductImgUpdate(userProduct) {
                     <div className="d-flex flex-row">
                         <ImagesView />
                     </div>
-                    <div>
-                        <label className="d-block m-1 mt-2 me-2">Foto de Perfil de emprendimiento:</label>
-                        <div className="d-flex flex-row">
-                            <ProductPhoto />
-                            <input type="file" className="m-1 subirFoto" accept="image/*" multiple
-                            onChange={changeImg} id="image-input"></input>
-                        </div>
-                    </div>
+                    
                     <div className="text-center m-3">
                         <button className="btn btn-primary" type="submit" disabled={disableImg}>Guardar Cambios</button>
                     </div>

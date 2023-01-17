@@ -1,6 +1,7 @@
 .btn-edit-cant{
     font-weight: 500;
 }
+
 .btn-edit-product{
     margin: 0 0 0 5px;
 }
@@ -15,10 +16,20 @@
     width: 40%;
     flex-direction: row;
 }
+.subir-foto{
+    align-self: center;
+}
+.caja-button{
+    align-self: center;
+}
 .boton-tienda-carrito{
     max-height: 40px;
     align-self: center;
     margin: 0px 15px;
+    font-size: 18px;
+    font-weight: 600;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 .prod-cant{
     align-self: center;
@@ -52,6 +63,7 @@
     max-width: 50px;
     max-height: 50px;
     border-radius: 25px;
+    align-self: center;
 }
 .admin-nav div{
     font-weight: 500!important;
@@ -108,13 +120,61 @@
     color: rgb(37, 37, 128);
     font-weight: 700;
     margin-left: 10px;
+    font-size: 28px;
 }
 .city-input{
     max-width: 60%;
     margin-left: 20px;
 
 }
+.city-select-box{
+    flex-direction: row;
+}
+.img-editar{
+    max-height: 300px;
+    width: "75vh";
+    object-fit: "cover";
+}
+.btn-img-editar{
+    max-height: 50px;
+    max-width: 50px;
+    object-fit: cover;
+}
+.subir-foto{
+    font-size: 12px!important;
+}
+.acc-edit-imgs{
+    width: 82%;
+}
+.w-edit-images{
+    width: 90%;
+}
+.col-edit-imgs{
+    width: 40%!important;
+}
+.texto-001{
+    font-size: 15px;
+}
+@media only screen and (max-width: 1100px){
+    .texto-001{
+        font-size: 14px;
+    }
+    .caja-editar-imgs{
+        flex-direction: column!important;
+    }
+    .caja-imgs{
+        justify-content: center!important;
+    }
+    .col-edit-imgs{
+        width: 60%!important;
+        margin-top: 10px;
+    }
+}
 @media only screen and (max-width: 1000px){
+    
+    .texto-001{
+        font-size: 13px;
+    }
     .product-store h2{
         font-size: 25px;
     }
@@ -140,8 +200,16 @@
     .logout-btn{
         font-size: 14px;
     }
+    .col-edit-imgs{
+        width: 75%!important;
+        margin-top: 10px;
+    }
 }
 @media only screen and (max-width: 991px){
+    
+    .texto-001{
+        font-size: 13px;
+    }
     .cuerpo-carrito{
         padding-top: 0px;
     }
@@ -170,8 +238,25 @@
     .boton-tienda-carrito{
         margin: 10px 0px;
     }
+    .col-edit-imgs{
+        width: 65%!important;
+        margin-top: 10px;
+    }
 }
 @media only screen and (max-width: 900px){
+    
+    
+    .valor-value{
+        font-size: 26px;
+    }
+    .city-select-box{
+        flex-direction: column;
+    }
+    .city-input{
+        max-width: 100%;
+        margin-left: 0px;
+    
+    }
     .product-store h2{
         font-size: 24px;
     }
@@ -181,8 +266,27 @@
     .product-store p{
         font-size: 14px;
     }
+    .col-edit-imgs{
+        width: 74%!important;
+        margin-top: 10px;
+    }
 }
+@media only screen and (max-width: 800px){
+    .col-edit-imgs{
+        width: 76%!important;
+        margin-top: 10px;
+    }
+}
+
 @media only screen and (max-width: 768px){
+    .city-select-box{
+        flex-direction: row;
+    }
+    .city-input{
+        max-width: 60%;
+        margin-left: 10px;
+    
+    }
     .product-store h2{
         font-size: 28px;
     }
@@ -207,6 +311,17 @@
 @media only screen and (max-width: 768px){
     .admin-titles-cel{
         display: block!important;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        font-weight: 700;
+        font-size: 30px;
+        color: rgb(16, 16, 117);
+    }
+    .store-name-admin{
+        font-size: 26px!important;
+    }
+    .products-title-admin{
+        font-size: 22px!important;
     }
     .admin-nav .nav-link{
         display: none!important;
@@ -243,6 +358,7 @@
     }
 }
 @media only screen and (max-width: 680px){
+    
     .caja1-carrito{
         flex-direction: column;
         margin-bottom: 5px!important;
@@ -279,8 +395,25 @@
     .caja-40{
         width: 100%!important;
     }
+    .col-edit-imgs{
+        width: 78%!important;
+        margin-top: 10px;
+    }
 }
 @media only screen and (max-width: 650px){
+    .update-store-box{
+        flex-direction: column!important;
+
+        justify-content: center;
+        margin-left: 26px;
+    }
+    .update-store-box .col-5{
+        width: 94%!important;
+    }
+    .valor-titulo{
+        font-size: 20px;
+    
+    }
     .prod-car{
         width: 35%;
         margin: 15px 0px;
@@ -299,6 +432,16 @@
     }
 }
 @media only screen and (max-width: 600px){
+    .city-select-box{
+        flex-direction: column;
+    }
+    .city-input{
+        max-width: 100%;
+        margin-left: 0px;
+    }
+    .valor-value{
+        font-size: 24px;
+    }
     .caja-datos-carrito{
         margin: 0 0 0 12px!important;
     }
@@ -327,6 +470,10 @@
         padding-bottom: 1px!important;
         margin-bottom: 1px!important;
     }
+    .col-edit-imgs{
+        width: 90%!important;
+        margin-top: 10px;
+    }
 }
 @media only screen and (max-width: 550px){
     .caja-datos-carrito{
@@ -341,8 +488,36 @@
         max-height: 85px!important;
         border-radius: 25px!important;
     }
+    .nuevas-imgs{
+        flex-direction: column!important;
+    }
+    .subir-foto{
+        margin-top: 15px!important;
+    }
+    .col-edit-imgs{
+        width: 96%!important;
+        margin-top: 10px;
+    }
+    .pricing-data{
+        flex-direction: column!important;
+    }
 }
 @media only screen and (max-width: 500px){
+    .img-editar{
+        max-height: 250px;
+
+        object-fit: cover;
+    }
+    .btn-img-editar{
+        max-height: 39px;
+        max-width: 39px;
+    }
+    .store-name-admin{
+        font-size: 24px!important;
+    }
+    .products-title-admin{
+        font-size: 20px!important;
+    }
     .prod-car{
         width: 50%;
         margin: 15px 0px;
@@ -355,8 +530,50 @@
         max-height: 80px!important;
         border-radius: 25px!important;
     }
+    .col-edit-imgs{
+        width: 95%!important;
+        margin-top: 10px;
+    }
+    .valor-titulo{
+        display: flex!important;
+        flex-direction: column!important;
+    }
+    .botones-pricing{
+        flex-direction: column!important;
+    }
 }
 @media only screen and (max-width: 450px){
+    .texto-delete-store p{
+        font-size: 12px;
+    }
+    .texto-delete-store h1{
+        font-size: 15px;
+    }
+    .subir-foto{
+        font-size: 13px!important;
+    }
+    .img-editar{
+        max-height: 230px;
+
+        object-fit: cover;
+    }
+    .btn-img-editar{
+        max-height: 39px;
+        max-width: 39px;
+        margin: 2px!important;
+    }
+    .store-name-admin{
+        font-size: 22px!important;
+    }
+    .products-title-admin{
+        font-size: 18px!important;
+    }
+    .valor-titulo{
+        font-size: 20px;
+    }
+    .valor-value{
+        font-size: 22px;
+    }
     .caja-40{
         width: 100%!important;
     }
@@ -399,6 +616,44 @@
     }
 }
 @media only screen and (max-width: 400px){
+    .img-update-home{
+       padding-left: 10px!important;
+    }
+    .subir-foto{
+        font-size: 12px!important;
+    }
+    .img-editar{
+        max-height: 210px;
+
+        object-fit: cover;
+    }
+    .btn-img-editar{
+        max-height: 38px;
+        max-width: 38px;
+        margin: 2px!important;
+    }
+    .store-name-admin{
+        font-size: 20px!important;
+    }
+    .products-title-admin{
+        font-size: 16px!important;
+    }
+    .prod-cel-box{
+        flex-direction: column!important;
+        
+    }
+    .prod-cel-res{
+        display: flex!important;
+        flex-direction: row!important;
+        width: 100%!important;
+        padding-bottom: 5px;
+    }
+    .valor-titulo{
+        font-size: 18px;
+    }
+    .valor-value{
+        font-size: 20px;
+    }
     .prod-car{
         width: 40%;
         margin: 15px 0px;
@@ -423,8 +678,27 @@
         max-height: 70px!important;
         border-radius: 25px!important;
     }
+    .ac-delete{
+        padding: 10px;
+    }
 }
 @media only screen and (max-width:370px){
+    .img-update-home{
+        padding-left: 8px!important;
+     }
+     .subir-foto{
+         font-size: 11px!important;
+     }
+     .img-editar{
+         max-height: 200px;
+ 
+         object-fit: cover;
+     }
+     .btn-img-editar{
+         max-height: 37px;
+         max-width: 37px;
+         margin: 2px!important;
+     }
     .acordeon-carrito-products{
         max-width: 78vw;
     }
@@ -434,9 +708,28 @@
     
 }
 @media only screen and (max-width:350px){
+    .img-update-home{
+        padding-left: 7px!important;
+     }
+     .subir-foto{
+         font-size: 10px!important;
+     }
+     .img-editar{
+         max-height: 180px;
+ 
+         object-fit: cover;
+     }
+     .btn-img-editar{
+         max-height: 32px;
+         max-width: 32px;
+         margin: 1px!important;
+     }
     .acordeon-carrito-products{
         max-width: 75vw;
         
+    }
+    .boton-imagen-ppal{
+        font-size: 13px;
     }
 }
 @media only screen and (max-width:335px){

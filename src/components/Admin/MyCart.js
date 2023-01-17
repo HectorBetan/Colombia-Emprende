@@ -124,7 +124,7 @@ function MyCart() {
       let lista = [];
       let listaDelete = [];
       tienda.Productos.forEach(producto => {
-        let cantidad = document.getElementById(producto._id).value;
+        let cantidad = document.getElementById(`producto${producto._id}`).value;
         let product = {Producto: producto.Producto_id , Cantidad: 0};
         if (cantidad){
           product.Cantidad = cantidad;
@@ -194,7 +194,7 @@ function MyCart() {
                       <div className="d-flex">
                         {w>400&&<img src={store.Imagen} alt="0" className="imgcarrito me-2"></img>}
                         
-                        <h1 className="m-1">{store.Nombre}</h1>
+                        <h1 className="m-1 store-name-admin">{store.Nombre}</h1>
                       </div>
                       
                       
@@ -202,14 +202,17 @@ function MyCart() {
                   </div>
                   <div id={`collapse1${tkey}`} className="accordion-collapse collapse show" aria-labelledby={`heading1${tkey}`} data-bs-parent={`#accordion1${tkey}`}>
                   <div className="accordion-body">
-                  <Link  to={`/Emprendimientos/${store.Path}`} className="btn btn-dark boton-tienda-carrito">
+                    <div className="d-flex justify-content-end">
+                    <Link  to={`/Emprendimientos/${store.Path}`} className="btn btn-dark boton-tienda-carrito">
                         Ir a la Tienda
                       </Link>
+                    </div>
+                  
                   <div className="accordion  mt-2 mt-sm-3" id={`accordion${tkey}`}>
                     <div className="accordion-item">
                       <h2 className="accordion-header" id={`heading${tkey}`}>
                         <button className="accordion-button boton-carrito-colla" type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${tkey}`} aria-expanded="true" aria-controls={`#collapse${tkey}`}>
-                          <h2>Productos</h2>
+                          <h2 className="products-title-admin">Productos</h2>
                         </button>
                       </h2>
                       <div id={`collapse${tkey}`} className="accordion-collapse collapse show" aria-labelledby={`heading${tkey}`} data-bs-parent={`#accordion${tkey}`}>
@@ -254,8 +257,8 @@ function MyCart() {
                               <button className="btn btn-info btn-edit-cant" onClick={(e)=>{e.preventDefault();showEdit(pkey)}}>Editar</button>
                             </div>
                             <div className="d-flex d-none" id={`edit-cant${pkey}`}>
-                              <input type="number" min="1" max="1000" id={pkey} defaultValue={producto.Cantidad} />
-                                <button className="btn btn-info btn-edit-product" onClick={(e)=>{e.preventDefault();noShowEdit(pkey)}}><i className="fa-solid fa-xmark"></i></button>
+                              <input type="number" min="1" max="1000" id={`producto${producto._id}`} defaultValue={producto.Cantidad} />
+                                <button className="btn btn-secondary btn-edit-product" onClick={(e)=>{e.preventDefault();noShowEdit(pkey)}}><i className="fa-solid fa-xmark"></i></button>
                                 <button className="btn btn-info btn-edit-product" onClick={(e)=>{e.preventDefault();
                                   updateOne(producto._id, {Cantidad: document.getElementById(pkey).value})
                                   .then(()=>{resolveCarrito();})
@@ -265,9 +268,9 @@ function MyCart() {
                         </div>
                         
                         <div className="d-flex caja2-carrito">
-                          <div className="d-flex flex-row caja-213">
-                          <h6  className="caja-50 prod-cant-end">{w <= 991 && <div>Precio: </div>}{formatterPeso.format(item.Precio)}</h6>
-                          <h6  className="caja-50 prod-cant-end">{w <= 991 && <div>Total: </div>}{formatterPeso.format(total)}</h6>
+                          <div className="d-flex flex-row caja-213 prod-cel-box">
+                          <h6  className="caja-50 prod-cant-end prod-cel-res">{w <= 991 && <div>Precio: </div>}{formatterPeso.format(item.Precio)}</h6>
+                          <h6  className="caja-50 prod-cant-end prod-cel-res">{w <= 991 && <div>Total: </div>}{formatterPeso.format(total)}</h6>
                           </div>
                           
                           <div className="caja-13 prod-cant-end">
@@ -292,13 +295,13 @@ function MyCart() {
                     </div>
                 
                   </div>
-                <div className="text-start mt-2 mb-3">
-                  <div className="m-3 me-md-4 ms-md-4 d-flex flex-column">
-                    <h2>
-                    <span className="valor-titulo">Valor Total: </span><span  className="valor-value">{formatterPeso.format(valorTotal)}</span>
-                    </h2>
+                <div className="text-start mt-3 mb-3">
+                  <div className="m-1 me-md-4 ms-md-4 d-flex flex-column">
+                    
+                    <h2 className="valor-titulo">Valor Total: <span  className="valor-value">{formatterPeso.format(valorTotal)}</span></h2>
+                    
                     </div>
-                    <div className="d-flex m-3 me-md-4 ms-md-4 flex-md-row flex-column">
+                    <div className="d-flex m-1 me-md-4 ms-md-4 city-select-box">
                                   
                                   <label><h2 className="valor-titulo mt-1">Ciudad de envio: </h2></label>
                                   <select className="form-select city-input" defaultValue={"default"} id={`ciudad${tienda.Tienda}`} required>
@@ -307,14 +310,14 @@ function MyCart() {
                                   </select>
                               </div>
                   
-                  <div className="m-3 me-md-4 ms-md-4">
-                    <h4 className="valor-titulo">Comentarios para la tienda:</h4>
+                  <div className="m-1 me-md-4 ms-md-4">
+                    <h4 className="valor-titulo">Comentarios:</h4>
                     <textarea className="w-100 m-1 form-control mt-2" type="textarea"  id={`comentarios${tienda.Tienda}`} placeholder="Comentarios" defaultValue=" " />
                   </div>
                   </div>
-                  <div className="d-flex justify-content-center">
-                  <button className="btn btn-lg btn-primary ms-1 me-1" onClick={(e)=> {e.preventDefault(); handleCotizar(tienda, tkey) }}>Cotizar Estos Productos</button>
-                    <button className="btn btn-lg btn-danger ms-1 me-1" onClick={(e)=> {e.preventDefault(); deleteAll(tienda) }}>Eliminar todos</button>
+                  <div className="d-flex justify-content-center flex-column flex-sm-row">
+                  <button className="btn btn-primary ms-1 me-1 mt-2 mt-sm-0 " onClick={(e)=> {e.preventDefault(); handleCotizar(tienda, tkey) }}>Cotizar Estos Productos</button>
+                    <button className="btn btn-danger ms-1 me-1 mt-2 mt-sm-0 " onClick={(e)=> {e.preventDefault(); deleteAll(tienda) }}>Eliminar todos</button>
                   </div>
                     
                     </div>

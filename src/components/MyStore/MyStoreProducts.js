@@ -43,8 +43,9 @@ function MyStoreProducts() {
                     <div className="w-100">
                         <div id="" className={`${showProducts}`}>
                             <div className="accordion-body">
+                            <CreateProduct />
                                 <MyProducts products={userProducts}/>
-                                <CreateProduct />
+                                
                             </div>
                         </div>
                     </div>

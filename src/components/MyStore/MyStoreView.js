@@ -6,20 +6,28 @@ import StoreInfoUpdate from "./StoreInfoUpdate";
 import { useMyStore } from "../../context/MyStoreContext";
 import CreateProduct from "./StoreProducts/CreateProduct";
 import { useState, useEffect } from "react";
+import { usePublic } from "../../context/PublicContext";
 function MyStoreView() {
+    const { stores } = usePublic();
     const { userStore, getMyStore  } = useMyStore();
     const navigate = useNavigate();
     const { user, loading, userData } = useAuth();
-    const [start, setStart] = useState(true)
+    const [start, setStart] = useState(true);
+    const [myShop, setMyShop] = useState(null);
     useEffect(()=>{
         const getStore = () => {
-            if (!userStore && start){
-                getMyStore();
+            if (!userStore && start && userData){
+                getMyStore(userData._id);
                 setStart(false);
             }
         }
         getStore()
-    },[userStore, getMyStore, start])
+    },[userStore, getMyStore, start, userData])
+    if (stores && userData && !myShop){
+        let s = stores.find(store => store.store.User_id === userData._id)
+        console.log(s)
+        setMyShop(s)
+    }
     if (loading && !userStore) return (
         <div style={{width:"239.61px"}} className="text-end me-5">
         <div className="spinner-border text-primary text-start" role="status">
@@ -27,7 +35,11 @@ function MyStoreView() {
         </div>
         </div> 
     );
+    if (userStore){
+        console.log(userStore)
+    }
     return (
+        
         <div className="d-block">
             <div className="accordion accordion-flush" id="#acordionProfile">
                 <div className="accordion-item">
@@ -41,9 +53,9 @@ function MyStoreView() {
                     <div id="flush-collapse0" className="accordion-collapse collapse show" 
                     aria-labelledby="myProfile" data-bs-parent="#acordionProfile">
                         <div className="accordion-body">
-                            <div className="flex-column text-center w-100">
-                                <div>Hola {user.displayName}</div>
-                                <div>Bienvenido a Colombia Emprende</div>
+                            <div className="flex-column text-center">
+                                <h5>Hola {user.displayName}</h5>
+                                {userStore && <h5>Bienvenido al panel admin de {userStore.Nombre}</h5>}
                             </div>
                         </div>
                     </div>
@@ -65,7 +77,7 @@ function MyStoreView() {
                         </div>
                     </div>
                 </div>
-                <div className="d-xl-flex flex-row justify-contet-evenly">
+                <div className="">
                     <div className="accordion-item w-100">
                         <h2 className="accordion-header" id="changePassword">
                             <button className="accordion-button collapsed" type="button" 
@@ -76,7 +88,7 @@ function MyStoreView() {
                         </h2>
                         <div id="flush-collapse2" className="accordion-collapse collapse" 
                         aria-labelledby="changePassword" data-bs-parent="#acordionProfile">
-                            <div className="accordion-body">
+                            <div className="accordion-body img-update-home">
                                 <StoreImgUpdate />
                             </div>
                         </div>
@@ -91,7 +103,7 @@ function MyStoreView() {
                         </h2>
                         <div id="flush-collapse3" className="accordion-collapse collapse" 
                         aria-labelledby="deleteAccount" data-bs-parent="#acordionProfile">
-                            <div className="accordion-body">
+                            <div className="accordion-body ac-delete">
                                 <StoreDelete />
                             </div>
                         </div>

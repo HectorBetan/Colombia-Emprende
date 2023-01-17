@@ -15,9 +15,9 @@ export function MyStoreProvider({ children }) {
     const [userProducts, setUserProducts] = useState(null);
     const [showProducts, setShowProducts] = useState("");
     const [loadingStore, setLoadingStore] = useState(true);
-    const getMyStore = async () => {
-        const id = {id:"userStore"}
-        await axios.post(`${dbUrl}stores/get-store`, id, token)
+    const getMyStore = async (data) => {
+        const id = {user_id:data}
+        await axios.post(`${dbUrl}stores/get-store`, id)
         .then(res => {setUserStore(res.data[0]); setLoadingStore(false)})
         .catch(err => {console.log(err)})
         return;

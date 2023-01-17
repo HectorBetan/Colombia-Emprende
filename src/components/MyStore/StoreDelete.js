@@ -44,7 +44,7 @@ function StoreDelete() {
         return (
         <div>
             {error && <Alert message={error} />}
-            <div className="text-center">
+            <div className="text-center texto-delete-store">
                 <h1>Eliminar Emprendimiento</h1>
                 <p>Estas a punto de eliminar tu emprendimiento, eliminaras todos los datos asociados a tu emprendimiento.
                 </p>

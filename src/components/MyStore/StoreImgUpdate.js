@@ -151,12 +151,12 @@ function StoreImgUpdate() {
         if (img) {
             const imgUrl = URL.createObjectURL(img);
             return (
-                <PhotoStoreView img={imgUrl} s='70px' />
+                <PhotoStoreView img={imgUrl} s='60px' />
             );
         }
         else {
             return (
-                <StoreLogo w="70" h="70" />
+                <StoreLogo w="60" h="60" />
             );
         }
     };
@@ -180,24 +180,27 @@ function StoreImgUpdate() {
         let fa = ""
         const [selected, setSelected] = useState(0);
         if (emprendimientoImagen.Imagen) {
+            console.log("emprendimiento imagen")
+            console.log(emprendimientoImagen.Imagen)
             photos = emprendimientoImagen.Imagen.split(",");
+            console.log(photos)
+            console.log(photos.length)
             return (
-                <div>
-                <div className="d-flex flex-row">
+                <div className='d-flex flex-row justify-content-center caja-editar-imgs'>
+                <div className="d-flex flex-row ms-2 me-2 caja-imgs">
                     <img
-                    className="d-block  rounded"
-                    style={{ maxHeight: "325px", width: "100vh", objectFit: "cover" }}
+                    className="d-block rounded img-editar"
                     src={photos[selected]}
                     alt={selected}
-                    />
+                    /> 
                     
-                    <div className="d-flex flex-column mt-1">
+                    <div className="d-flex flex-column mt-1 ms-2 me-2">
                     {photos.map((img, i) => {
                         return (
-                                <button key={i} onClick={(e) => {e.preventDefault(); setSelected(i)}}>
+                                <button className="btn btn-ligth p-0" key={i} onClick={(e) => {e.preventDefault(); setSelected(i)}}>
                                     <img
-                                    className="d-block rounded m-1"
-                                    style={{ maxHeight: "50px", maxWidth: "50px", objectFit: "cover" }}
+                                    className="d-block rounded  m-1 btn-img-editar"
+                                    
                                     src={img}
                                     alt={i}
                                     />
@@ -207,8 +210,9 @@ function StoreImgUpdate() {
                     })}
                     </div>
                 </div>
-                <div className="d-flex flex-row">
-                <button onClick={(e) => {e.preventDefault(); 
+                <div className='caja-button col-edit-imgs'>
+                <div className="d-flex flex-column ms-2 me-2">
+                <button className='m-1 btn btn-danger boton-imagen-ppal' onClick={(e) => {e.preventDefault(); 
                 let borrarPosition = photos[selected].search(`%2Fperfil%2F`)+12;
                 let borrar = photos[selected].slice(borrarPosition, borrarPosition+1);
                 borrarImg.push(borrar);
@@ -217,14 +221,52 @@ function StoreImgUpdate() {
                 setDisableImg(false); borrar=""}}>
                     Borrar esta foto
                 </button>
-                <button key={selected} value={selected} onClick={handleProfilePhoto}>Seleccionar como foto principal</button>
+                <button className='m-1 btn btn-primary boton-imagen-ppal' key={selected} value={selected} onClick={handleProfilePhoto}>Seleccionar como foto principal</button>
                 
-                </div> 
+                </div>
+                <div className="accordion m-2 rounded " id="accordionSubirImgs">
+                    <div className="accordion-item">
+                        <h2 className="accordion-header" id="headingSubirImgs">
+                            <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSubirImgs" aria-expanded="true" aria-controls="collapseSubirImgs">
+                            Subir más Imágenes
+                            </button>
+                        </h2>
+                        <div id="collapseSubirImgs" class="accordion-collapse collapse" aria-labelledby="headingSubirImgs" data-bs-parent="#accordionSubirImgs">
+                            <div className="accordion-body">
+                                <div className='text-center'>
+                                    {photos.length < 5 && <div className="d-flex flex-row nuevas-imgs justify-content-center">
+                                        <StorePhoto />
+                                        <input type="file" className="m-1 ms-2 subir-foto" accept="image/*" multiple
+                                        onChange={changeImg} id="image-input"></input>
+                                    </div>}
+                                    {photos.length >= 5 && <div className='texto-001'>
+                                        Actualmente tienes el máximo de imágenes permitidas (5); por favor elimina alguna imágen para subir nuevas
+                                    </div>}
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div className="text-center mt-1 mt-lg-3">
+                            <button className="btn btn-primary" type="submit" disabled={disableImg}>Guardar Cambios</button>
+                        </div>
+                </div>
+                    
                 </div> 
             )
         } else return (
             <div>
-                No has subido ninguna foto
+                <h2>No has subido ninguna foto</h2>
+                <div className='mt-3'>
+                <h6 className=''>Subir Imágenes</h6>
+                <div className="d-flex flex-row text-center ">
+                            <StorePhoto />
+                            <input type="file" className="m-1 subir-foto" accept="image/*" multiple
+                            onChange={changeImg} id="image-input"></input>
+                        </div>
+                </div>
+                
             </div>
         )
     }
@@ -243,20 +285,11 @@ function StoreImgUpdate() {
             {error && <Alert message={error} />}
             <div>
                 <form onSubmit={handleSubmitImg}>
-                    <div className="d-flex flex-row">
+                    <div className="">
                         <ImagesView />
                     </div>
-                    <div>
-                        <label className="d-block m-1 mt-2 me-2">Foto de Perfil de emprendimiento:</label>
-                        <div className="d-flex flex-row">
-                            <StorePhoto />
-                            <input type="file" className="m-1 subirFoto" accept="image/*" multiple
-                            onChange={changeImg} id="image-input"></input>
-                        </div>
-                    </div>
-                    <div className="text-center m-3">
-                        <button className="btn btn-primary" type="submit" disabled={disableImg}>Guardar Cambios</button>
-                    </div>
+                    
+                    
                 </form>  
             </div>
         </div>    

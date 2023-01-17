@@ -191,7 +191,7 @@ function MyProducts(userProducts) {
                 
                 <div className="d-flex flex-row justify-content-center m-2">
                   <ProductUpdate product={product}/>
-                  <button className="btn btn-primary text-white p-2 m-1 btn-editar-product" onClick={handleDelete} value={product._id}>Eliminar</button>
+                  <button className="btn btn-danger text-white p-2 m-1 btn-editar-product" onClick={handleDelete} value={product._id}>Eliminar Producto</button>
                 </div>
                 </div>    
             )

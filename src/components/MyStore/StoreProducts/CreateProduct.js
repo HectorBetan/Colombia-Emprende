@@ -142,12 +142,12 @@ function CreateProduct() {
     if (img) {
       const imgUrl = URL.createObjectURL(img);
       return (
-        <PhotoProductView img={imgUrl} s='60px' />
+        <PhotoProductView img={imgUrl} s='55px' />
       );
     }
     else {
       return (
-        <ProductLogo w="60" h="60" />
+        <ProductLogo w="55" h="55" />
       );
     }
   };
@@ -162,34 +162,40 @@ function CreateProduct() {
     </div>
   );
   return (
-    <div className='text-center mb-3'>
+    <div className='text-center mb-3 d-flex justify-content-center'>
       {error.success && <Alert message={error} />}
-      <button className="btn btn-primary" 
+      <button className="btn btn-primary d-flex flex-row justify-content-center" 
       onClick={handleShow}>
-      <h5 className="align-items-center text-white m-1">Agregar Producto</h5>
+        <i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i>
+
+      <h5 className="align-items-center text-white m-1 ms-2">Nuevo Producto</h5>
       </button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton />
         <Modal.Body>
-          <h4>Agregar Producto</h4>
-          <div>
+          <h4 className='text-center'><i class="fa fa-plus-circle me-2" aria-hidden="true"></i>Agregar Producto</h4>
+          <div  className='p-2 m-2'>
             {error && <Alert message={error} />}
             <form onSubmit={handleSubmit}>
-              <div className="form-group">
+              <div className="form-group mb-2">
+              <label className='m-1'>Nombre del Producto</label>
                 <input type="text" onChange={handleChange} name="Nombre" value={product.Nombre}
-                className="form-control" placeholder="Nombre del Producto" />
+                className="form-control" placeholder="Ingrese el Nombre del Producto" />
               </div>
-              <div className="form-group">
+              <div className="form-group mb-2">
+              <label className='m-1'>Descripción del Producto</label>
                 <input type="text" onChange={handleChange} name="Descripcion" value={product.Descripcion}
-                className="form-control" placeholder="Descripción del Producto" />
+                className="form-control" placeholder="Ingrese Descripción del Producto" />
               </div>
-              <div className="form-group">
-                <input type="text" onChange={handleChange} name="Precio" value={product.Precio}
-                className="form-control" placeholder="Valor del Producto" />
+              <div className="form-group mb-2">
+              <label className='m-1'>Precio del Producto</label>
+                <input type="text" onChange={handleChange} name="Precio" 
+                className="form-control" placeholder="Ingrese Valor del Producto" />
               </div>
-              <div className="form-group d-flex flex-row">
+              <label className='m-1'>Agregar Imágenes <span>(máximo 5 imágenes)</span></label>
+              <div className="form-group d-flex flex-row m-2">
                 <ProductPhoto />
-                <input type="file" className="m-1 subirFoto" id='imgs' accept="image/*" onChange={changeImg} multiple></input>
+                <input type="file" className="m-2 subirFoto" id='imgs' accept="image/*" onChange={changeImg} multiple></input>
               </div>
               <div className="form-group text-center m-3">
                   <button className="btn btn-primary" type="submit">Crear Producto</button>
