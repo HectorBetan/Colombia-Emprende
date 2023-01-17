@@ -187,12 +187,12 @@ function MyCart() {
               })
               let store = tiendas.find(item => item._id === tienda.Tienda);
               return(
-                <div key={tienda.Tienda} id={tienda.Tienda} className="accordion-item acordeon-carrito-products card p-2 m-1 m-sm-2 m-md-3 p-sm-2 p-md-3 ">
+                <div key={tienda.Tienda} id={tienda.Tienda} className="accordion-item acordeon-carrito-products card p-2 m-0">
                   <div className="">
                   <div className="caja-tienda-carrito flex-row accordion-header ">
                     <div className="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target={`#collapse1${tkey}`} aria-expanded="true" aria-controls={`#collapse1${tkey}`}>
                       <div className="d-flex">
-                        {w>400&&<img src={store.Imagen} alt="0" className="imgcarrito me-2"></img>}
+                        {w>400 && store.Imagen &&<img src={store.Imagen} alt="0" className="imgcarrito me-2"></img>}
                         
                         <h1 className="m-1 store-name-admin">{store.Nombre}</h1>
                       </div>
@@ -201,21 +201,21 @@ function MyCart() {
                     </div>
                   </div>
                   <div id={`collapse1${tkey}`} className="accordion-collapse collapse show" aria-labelledby={`heading1${tkey}`} data-bs-parent={`#accordion1${tkey}`}>
-                  <div className="accordion-body">
-                    <div className="d-flex justify-content-end">
+                  <div className="accordion-body pt-0">
+                    <div className="d-flex justify-content-end mt-2 mb-2">
                     <Link  to={`/Emprendimientos/${store.Path}`} className="btn btn-dark boton-tienda-carrito">
                         Ir a la Tienda
                       </Link>
                     </div>
                   
-                  <div className="accordion  mt-2 mt-sm-3" id={`accordion${tkey}`}>
+                  <div className="accordion" id={`accordion${tkey}`}>
                     <div className="accordion-item">
                       <h2 className="accordion-header" id={`heading${tkey}`}>
-                        <button className="accordion-button boton-carrito-colla" type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${tkey}`} aria-expanded="true" aria-controls={`#collapse${tkey}`}>
+                        <button className="accordion-button collapsed boton-carrito-colla" type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${tkey}`} aria-expanded="true" aria-controls={`#collapse${tkey}`}>
                           <h2 className="products-title-admin">Productos</h2>
                         </button>
                       </h2>
-                      <div id={`collapse${tkey}`} className="accordion-collapse collapse show" aria-labelledby={`heading${tkey}`} data-bs-parent={`#accordion${tkey}`}>
+                      <div id={`collapse${tkey}`} className="accordion-collapse collapse" aria-labelledby={`heading${tkey}`} data-bs-parent={`#accordion${tkey}`}>
                         <div className="accordion-body cuerpo-carrito">
                           
                   <div className="d-flex flex-column">

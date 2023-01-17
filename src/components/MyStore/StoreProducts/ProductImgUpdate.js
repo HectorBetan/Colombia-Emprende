@@ -185,8 +185,8 @@ function ProductImgUpdate(userProduct) {
         if (product.Imagen) {
             photos = product.Imagen.split(",");
             return (
-                <div>
-                <div className="d-flex flex-row justify-content-center">
+                <div className=''>
+                <div className="d-flex flex-row justify-content-center mb-2">
                     <img
                     className="d-block  rounded"
                     style={{ maxHeight: "315px", width: "100%", objectFit: "cover" }}
@@ -210,8 +210,8 @@ function ProductImgUpdate(userProduct) {
                     })}
                     </div>
                 </div>
-                <div className="d-flex flex-row justify-content-center">
-                <button className='btn btn-danger m-2' onClick={(e) => {e.preventDefault(); 
+                <div className="d-flex flex-row justify-content-center botones-edit-img-prod">
+                <button className='btn btn-danger m-1' onClick={(e) => {e.preventDefault(); 
                 let borrarPosition = photos[selected].search(`alt=media`)-2;
                 let borrar = photos[selected].slice(borrarPosition, borrarPosition+1);
                 borrarImg.push(borrar);
@@ -220,7 +220,7 @@ function ProductImgUpdate(userProduct) {
                 setDisableImg(false); borrar=""}}>
                     Borrar esta foto
                 </button>
-                <button key={selected} value={selected} className='btn btn-primary m-2' onClick={handleProfilePhoto}>Seleccionar como foto principal</button>
+                <button key={selected} value={selected} className='btn btn-primary m-1' onClick={handleProfilePhoto}>Seleccionar como foto principal</button>
                 
                 </div> 
                 <div className="accordion m-2 rounded " id="accordionSubirImgs">
@@ -270,7 +270,7 @@ function ProductImgUpdate(userProduct) {
         <div>
             <div>
                 <form onSubmit={handleSubmitImg}>
-                    <div className="d-flex flex-row">
+                    <div className="d-flex flex-row justify-content-center">
                         <ImagesView />
                     </div>
                     

@@ -42,6 +42,7 @@ function MyStoreProducts() {
                 return (
                     <div className="w-100">
                         <div id="" className={`${showProducts}`}>
+                        <h1 className="text-center admin-titles-cel">Mis Productos</h1>  
                             <div className="accordion-body">
                             <CreateProduct />
                                 <MyProducts products={userProducts}/>

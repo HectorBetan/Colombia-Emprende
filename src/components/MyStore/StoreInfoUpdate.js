@@ -253,8 +253,8 @@ function StoreInfoUpdate() {
                                 value={emprendimiento.Direccion} />
                             </div>
                         </div>
-                        <div className="d-flex flex-row justify-content-evenly mt-2  update-store-box">
-                            <div className="form-group col-5">
+                        <div className="d-flex flex-row justify-content-evenly mt-2  update-store-box1">
+                            <div className="form-group col-5 mb-1 mb-sm-0">
                                 <label className="m-1">Ciudad</label>
                                 <select onChange={handleChange} name="Ciudad" className="form-select" 
                                 value={emprendimiento.Ciudad}>

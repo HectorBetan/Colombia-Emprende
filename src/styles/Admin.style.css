@@ -401,6 +401,9 @@
     }
 }
 @media only screen and (max-width: 650px){
+    .botones-edit-img-prod{
+        flex-direction: column!important;
+    }
     .update-store-box{
         flex-direction: column!important;
 
@@ -408,6 +411,15 @@
         margin-left: 26px;
     }
     .update-store-box .col-5{
+        width: 94%!important;
+    }
+    .update-store-box1{
+        flex-direction: column!important;
+
+        justify-content: center;
+        margin-left: 20px;
+    }
+    .update-store-box1 .col-5{
         width: 94%!important;
     }
     .valor-titulo{
@@ -476,6 +488,9 @@
     }
 }
 @media only screen and (max-width: 550px){
+    .buttons-product-update{
+        flex-direction: column!important;
+    }
     .caja-datos-carrito{
         margin: 0 0 0 10px!important;
     }

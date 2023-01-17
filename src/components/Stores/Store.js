@@ -285,8 +285,8 @@ function Store(data) {
                 c="Cant:"
               }
               
-              return(<div className="card p-2 p-sm-3 p-md-3 p-lg-3 p-xl-3 p-xxl-3 mb-3">
-                <div key={producto._id} className="d-flex flex-row justify-content-between">
+              return(<div key={producto._id}className="card p-2 p-sm-3 p-md-3 p-lg-3 p-xl-3 p-xxl-3 mb-3">
+                <div  className="d-flex flex-row justify-content-between">
                   
                     <div className="d-flex flex-row  justify-content-between">
                       <div className="d-flex flex-column justify-content-center">
