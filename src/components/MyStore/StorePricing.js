@@ -422,11 +422,11 @@ function StorePricing() {
                                       </div>
                                     )}
                                     {estado.Estado === "creada" && (
-                                      <div className="d-flex flex-row mt-2 mb-2 pricing-data">
+                                      <div className="mt-2 mb-2 pricing-data">
                                         <h2 className="valor-titulo me-2">
                                           Tus Comentarios:{" "}
                                         </h2>
-                                        <input
+                                        <textarea className="w-100"
                                           type="text"
                                           id={`comentarios-${tes}`}
                                         />

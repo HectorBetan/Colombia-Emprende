@@ -212,11 +212,11 @@ function MyPricings() {
                                 aria-labelledby={`headinguser${cotiza._id}`}
                                 data-bs-parent={`#accordionuser${cotiza._id}`}
                               >
-                                <div className="accordion-body pt-0 pb-0">
+                                <div className="accordion-body pt-0 pb-0 ">
                                   <div className="d-flex justify-content-end">
                                     <Link
                                       to={`/Emprendimientos/${store.Path}`}
-                                      className="btn btn-dark boton-tienda-carrito"
+                                      className="btn btn-dark boton-tienda-carrito mt-2 mb-2"
                                     >
                                       Ir a la Tienda
                                     </Link>
@@ -409,7 +409,7 @@ function MyPricings() {
                                               )}
                                             </div>
                                           )}
-                                          <div className="d-flex flex-row mt-2 mb-2 pricing-data">
+                                          {valorTotal > 0 && <div className="d-flex flex-row mt-2 mb-2 pricing-data">
                                             <h2 className="valor-titulo me-2">
                                               Valor Total:{" "}
                                               <span className="valor-value">
@@ -418,7 +418,7 @@ function MyPricings() {
                                                 )}
                                               </span>
                                             </h2>
-                                          </div>
+                                          </div>}
                                         </div>
                                       )}
                                     </div>
