@@ -135,11 +135,11 @@ function MyPricings() {
             console.log(estado);
             console.log(productosCotizar);
             return (
-              <div key={tes} className="accordion" id={`accordion${tes}`}>
+              <div key={tes} className="accordion m-1 mb-2 mt-2" id={`accordion${tes}`}>
                 <div className="accordion-item">
-                  <h1 className="accordion-header" id={`heading${tes}`}>
+                  <h1 className="accordion-header us-header" id={`heading${tes}`}>
                     <button
-                      className="accordion-button"
+                      className="accordion-button acc-titulos-admin"
                       type="button"
                       data-bs-toggle="collapse"
                       data-bs-target={`#collapse${tes}`}
@@ -196,7 +196,7 @@ function MyPricings() {
                                 id={`headinguser${cotiza._id}`}
                               >
                                 <button
-                                  className="accordion-button "
+                                  className="accordion-button acc-us-admin"
                                   type="button"
                                   data-bs-toggle="collapse"
                                   data-bs-target={`#collapseuser${cotiza._id}`}
@@ -227,11 +227,11 @@ function MyPricings() {
                                   >
                                     <div className="accordion-item">
                                       <h3
-                                        className="accordion-header"
+                                        className="accordion-header productos-header"
                                         id={`headingproducts${cotiza._id}`}
                                       >
                                         <button
-                                          className="accordion-button collapsed"
+                                          className="accordion-button collapsed  acc-title-products-admin"
                                           type="button"
                                           data-bs-toggle="collapse"
                                           data-bs-target={`#collapseproducts${cotiza._id}`}
@@ -427,6 +427,7 @@ function MyPricings() {
                                 <div className="d-flex flex-row justify-content-center botones-pricing mb-3">
                                   {estado.Estado === "cotizacion" && (
                                     <div className="d-flex flex-row justify-content-center botones-pricing">
+                                      <div className="btns-pricing">
                                       <button
                                         className="btn btn-primary m-1 ms-3 me-3 ms-sm-1 me-sm-1"
                                         onClick={(e) => {
@@ -439,7 +440,7 @@ function MyPricings() {
                                         }}
                                       >
                                         Pagar
-                                      </button>
+                                      </button></div><div className="btns-pricing">
                                       <button
                                         className="btn btn-danger m-1 ms-3 me-3"
                                         onClick={(e) => {
@@ -449,7 +450,7 @@ function MyPricings() {
                                       >
                                         Rechazar y eliminar
                                       </button>
-                                    </div>
+                                    </div></div>
                                   )}
 
                                   {estado.Estado === "tienda-rechazado" && (

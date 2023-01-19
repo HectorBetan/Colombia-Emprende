@@ -15,6 +15,11 @@ function Pay() {
     {   
         setPago({ ...pago, [name]: value });
     }
+    const formatterPeso = new Intl.NumberFormat("es-CO", {
+        style: "currency",
+        currency: "COP",
+        minimumFractionDigits: 0,
+      });
     const navigate = useNavigate();
     const show = useState(true);
     const handleModal = (e) => {
@@ -47,20 +52,21 @@ function Pay() {
         }
         if (pago.Tipo_Pago === "tarjeta"){
             return (
-                <div>
-                    <div>Numero Cedula: <input /></div>
-                    <div>Numero Tarjeta: <input /></div>
-                    <div>Nombre: <input /></div>
-                    <div>csv: <input /></div>
+                <div className='ms-5 me-5'>
+                    <div className='text-center d-flex flex-column justify-content-center'>Numero Cedula: <input className='input-pay m-2' /></div>
+                    <div className='text-center d-flex flex-column justify-content-center'>Numero Tarjeta: <input className='input-pay m-2' /></div>
+                    <div className='text-center d-flex flex-column justify-content-center'>Nombre Completo: <input className='input-pay m-2' /></div>
+                    <div className='text-center d-flex flex-column justify-content-center'>CSV: <input className='input-pay m-2' /></div>
                 </div>
             )
         }
         if (pago.Tipo_Pago === "pse"){
             return(
                 <div>
-                    <div>Numero Cedula: <input /></div>
-                    <div>Banco: <input /></div>
-                    <div>Email registrado: <input /></div>
+                    <div className='text-center d-flex flex-column justify-content-center'>Numero Cedula: <input className='input-pay m-2' /></div>
+                    <div className='text-center d-flex flex-column justify-content-center'>Nombre Completo: <input className='input-pay m-2' /></div>
+                    <div className='text-center d-flex flex-column justify-content-center'>Banco: <input className='input-pay m-2' /></div>
+                    <div className='text-center d-flex flex-column justify-content-center'>Email Registrado en Banco: <input  className='input-pay m-2' /></div>
                 </div>
             )
         }
@@ -77,25 +83,29 @@ function Pay() {
             centered
             >
                 <Modal.Header closeButton>
-                    <Modal.Title className="ms-3">Pago</Modal.Title>
+                    <Modal.Title className="ms-3">Pago en Colombia Emprende</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="text-center pe-5 ps-5">
-                    <h3 className="mt-3 mb-3">Aqui puedes pagar - Pasarela de Pago</h3>
-                    <div>Compra en {pedido.tienda}</div>
-                    <div>Valor Total: {pedido.total}</div>
-                    <div>Metodo de pago: 
-                    <select defaultValue={"default"} onChange={handleChange} name="Tipo_Pago" required>
+                    
+                    <h3>Compra en <span className='pago-info'>{pedido.tienda}</span></h3>
+                    <h4>Valor Total: <span className='pago-info'>{formatterPeso.format(
+                                                            pedido.total
+                                                          )}</span></h4>
+                    <h5>Metodo de pago: 
+                    <span className='pago-select'>
+                    <select className='m-2 p-1' defaultValue={"default"} onChange={handleChange} name="Tipo_Pago" required>
                         <option value="default" disabled>Ninguno</option>
                         <option value="tarjeta">Tarjeta de Crédito</option>
                         <option value="pse">Pago con PSE</option>
                     </select>
-                    </div>
+                    </span>
+                    </h5>
                     <hr />
                     <TipoPago />
                 </Modal.Body>
-                <Modal.Footer className="mt-4">
-                    <Button className="me-4" variant="info" onClick={handleModal}>Volver</Button>
-                    <Button className="me-4" variant="primary" type="submit" onClick={handlePagar}>Pagar</Button>
+                <Modal.Footer className="d-flex flex-row">
+                    <Button className="m-2" variant="secondary" onClick={handleModal}>Volver</Button>
+                    <Button className="m-2" variant="primary" type="submit" onClick={handlePagar}>Pagar</Button>
                 </Modal.Footer> 
             </Modal>
         </div>

@@ -184,11 +184,11 @@ function StoreOrders() {
             console.log(estado);
 
             return (
-              <div key={tes} className="accordion" id={`accordion${tes}`}>
+              <div key={tes} className="accordion m-1 mb-2 mt-2" id={`accordion${tes}`}>
                 <div className="accordion-item">
-                  <h1 className="accordion-header" id={`heading${tes}`}>
+                  <h1 className="accordion-header us-header" id={`heading${tes}`}>
                     <button
-                      className="accordion-button"
+                      className="accordion-button acc-titulos-admin"
                       type="button"
                       data-bs-toggle="collapse"
                       data-bs-target={`#collapse${tes}`}
@@ -248,7 +248,7 @@ function StoreOrders() {
                                 id={`headinguser${cotiza._id}`}
                               >
                                 <button
-                                  className="accordion-button "
+                                  className="accordion-button acc-us-admin"
                                   type="button"
                                   data-bs-toggle="collapse"
                                   data-bs-target={`#collapseuser${cotiza._id}`}
@@ -271,11 +271,11 @@ function StoreOrders() {
                                   >
                                     <div className="accordion-item">
                                       <h3
-                                        className="accordion-header"
+                                        className="accordion-header productos-header"
                                         id={`headingproducts${cotiza._id}`}
                                       >
                                         <button
-                                          className="accordion-button collapsed"
+                                          className="accordion-button collapsed  acc-title-products-admin"
                                           type="button"
                                           data-bs-toggle="collapse"
                                           data-bs-target={`#collapseproducts${cotiza._id}`}
@@ -556,11 +556,11 @@ function StoreOrders() {
                                           >
                                             <div className="accordion-item">
                                               <h3
-                                                className="accordion-header"
+                                                className="accordion-header info-envio-header"
                                                 id={`headingEnvio${cotiza._id}`}
                                               >
                                                 <button
-                                                  className="accordion-button collapsed"
+                                                  className="accordion-button collapsed  acc-title-products-admin"
                                                   type="button"
                                                   data-bs-toggle="collapse"
                                                   data-bs-target={`#collapseEnvio${cotiza._id}`}
@@ -656,11 +656,11 @@ function StoreOrders() {
                                       >
                                         <div className="accordion-item">
                                           <h3
-                                            className="accordion-header"
+                                            className="accordion-header problem-header"
                                             id={`headingProblem${cotiza._id}`}
                                           >
                                             <button
-                                              className="accordion-button collapsed"
+                                              className="accordion-button acc-title-products-admin"
                                               type="button"
                                               data-bs-toggle="collapse"
                                               data-bs-target={`#collapseProblem${cotiza._id}`}
@@ -672,44 +672,106 @@ function StoreOrders() {
                                           </h3>
 
                                           <div
-                                            className="accordion-collapse collapse"
+                                            className="accordion-collapse collapse show"
                                             id={`collapseProblem${cotiza._id}`}
                                             aria-labelledby={`headingProblem${cotiza._id}`}
                                             data-bs-parent={`#accordionProblem${cotiza._id}`}
                                           >
-                                            <div className="accordion-body d-flex flex-row pb-0">
-                                              <div className="mensajes-problema">
-                                                <h6>Mis Mensajes:</h6>
-                                                {cotiza.User_Problem && (
-                                                  <div>
-                                                    {cotiza.User_Problem.map(
-                                                      (msg, i) => {
-                                                        return (
-                                                          <div>
-                                                            Msg {i + 1}: {msg}
-                                                          </div>
-                                                        );
-                                                      }
-                                                    )}
+                                          <div className="accordion-body d-flex flex-row pb-0 msjs-problem">
+                                              <div
+                                                className="mensajes-problema accordion mb-2"
+                                                id={`accordionProblemMsg${cotiza._id}`}
+                                              >
+                                                <div className="accordion-item">
+                                                  <h6
+                                                    className="accordion-header"
+                                                    id={`headingProblemMsg${cotiza._id}`}
+                                                  >
+                                                    <button
+                                                      className="accordion-button"
+                                                      type="button"
+                                                      data-bs-toggle="collapse"
+                                                      data-bs-target={`#collapseProblemMsg${cotiza._id}`}
+                                                      aria-expanded="true"
+                                                      aria-controls={`#collapseProblemMsg${cotiza._id}`}
+                                                    >
+                                                      Mis Mensajes:
+                                                    </button>
+                                                  </h6>
+                                                  <div
+                                                    className="accordion-collapse collapse show"
+                                                    id={`collapseProblemMsg${cotiza._id}`}
+                                                    aria-labelledby={`headingProblemMsg${cotiza._id}`}
+                                                    data-bs-parent={`#accordionProblemMsg${cotiza._id}`}
+                                                  >
+                                                    <div className="accordion-item  p-2">
+                                                      {cotiza.User_Problem && (
+                                                        <div>
+                                                          {cotiza.User_Problem.map(
+                                                            (msg, i) => {
+                                                              return (
+                                                                <div>
+                                                                  Msg {i + 1}:{" "}
+                                                                  {msg}
+                                                                </div>
+                                                              );
+                                                            }
+                                                          )}
+                                                        </div>
+                                                      )}
+                                                    </div>
                                                   </div>
-                                                )}
+                                                </div>
                                               </div>
-                                              <div className="mensajes-problema">
-                                                <h6>Mensajes de la Tienda:</h6>
-                                                {cotiza.Store_Problem && (
-                                                  <div>
-                                                    {cotiza.Store_Problem.map(
-                                                      (msg, i) => {
-                                                        return (
-                                                          <div>
-                                                            Msg {i + 1}: {msg}
-                                                          </div>
-                                                        );
-                                                      }
-                                                    )}
+                                              <div
+                                                className="mensajes-problema accordion"
+                                                id={`accordionProblemMsgStore${cotiza._id}`}
+                                              >
+                                                <div className="accordion-item">
+                                                  <h6
+                                                    className="accordion-header"
+                                                    id={`headingProblemMsgStore${cotiza._id}`}
+                                                  >
+                                                    <button
+                                                      className="accordion-button"
+                                                      type="button"
+                                                      data-bs-toggle="collapse"
+                                                      data-bs-target={`#collapseProblemMsgStore${cotiza._id}`}
+                                                      aria-expanded="true"
+                                                      aria-controls={`#collapseProblemMsgStore${cotiza._id}`}
+                                                    >
+                                                      Mensajes de la Tienda:
+                                                    </button>
+                                                  </h6>
+                                                  <div
+                                                    className="accordion-collapse collapse show"
+                                                    id={`collapseProblemMsgStore${cotiza._id}`}
+                                                    aria-labelledby={`headingProblemMsgStore${cotiza._id}`}
+                                                    data-bs-parent={`#accordionProblemMsgStore${cotiza._id}`}
+                                                  >
+                                                    <div className="accordion-item p-2">
+                                                      {cotiza.Store_Problem
+                                                        .length > 0 && (
+                                                        <div>
+                                                          {cotiza.Store_Problem.map(
+                                                            (msg, i) => {
+                                                              return (
+                                                                <div>
+                                                                  Msg {i + 1}:{" "}
+                                                                  {msg}
+                                                                </div>
+                                                              );
+                                                            }
+                                                          )}
+                                                          
+                                                        </div>
+                                                      )}
+                                                      {cotiza.Store_Problem
+                                                        .length <= 0 &&<div>Aun no hay respuesta</div>}
+                                                      
+                                                    </div>
                                                   </div>
-                                                )}
-                                                <StoreResp data={cotiza} />
+                                                </div>
                                               </div>
                                             </div>
                                             <div className="d-flex flex-row justify-content-center m-2">
@@ -800,6 +862,7 @@ function StoreOrders() {
   }
   return (
     <div>
+      <h1 className="text-center admin-titles-cel">Pedidos</h1>
       <CotizacionItems />
     </div>
   );
