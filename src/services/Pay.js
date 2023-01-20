@@ -93,7 +93,7 @@ function Pay() {
                                                           )}</span></h4>
                     <h5>Metodo de pago: 
                     <span className='pago-select'>
-                    <select className='m-2 p-1' defaultValue={"default"} onChange={handleChange} name="Tipo_Pago" required>
+                    <select className='m-2 p-1 pago-select-a p-2' defaultValue={"default"} onChange={handleChange} name="Tipo_Pago" required>
                         <option value="default" disabled>Ninguno</option>
                         <option value="tarjeta">Tarjeta de Crédito</option>
                         <option value="pse">Pago con PSE</option>

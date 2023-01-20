@@ -213,10 +213,10 @@ function MyPricings() {
                                 data-bs-parent={`#accordionuser${cotiza._id}`}
                               >
                                 <div className="accordion-body pt-0 pb-0 ">
-                                  <div className="d-flex justify-content-end">
+                                  <div className="d-flex justify-content-end mt-2 mb-2">
                                     <Link
                                       to={`/Emprendimientos/${store.Path}`}
-                                      className="btn btn-dark boton-tienda-carrito mt-2 mb-2"
+                                      className="btn  btn-success  boton-tienda-carrito"
                                     >
                                       Ir a la Tienda
                                     </Link>

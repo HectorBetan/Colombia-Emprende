@@ -282,168 +282,185 @@ function MyOrders() {
           {(calificacion || !data.data.pedido.Calificacion) && (
             <div>
               <Modal.Body>
-                <h5>Calificar tienda</h5>
-                <div>{data.data.tienda}</div>
-                <div className="stars">
-                  <i
-                    className="fa-regular fa-star star-1"
-                    id="star-1"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setClickNum(1);
-                      if (click === true && clickNum === 1) {
-                        setClick(false);
-                      } else {
-                        setClick(true);
-                      }
-                      setStar(1);
-                    }}
-                    onMouseEnter={(e) => {
-                      e.preventDefault();
-                      setStar(1);
-                    }}
-                    onMouseLeave={(e) => {
-                      e.preventDefault();
-                      unsetStar(1);
-                    }}
-                  ></i>
-                  <i
-                    className="fa-regular fa-star star-2"
-                    id="star-2"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setClickNum(2);
-                      if (click === true && clickNum === 2) {
-                        setClick(false);
-                      } else {
-                        setClick(true);
-                      }
-                      setStar(2);
-                    }}
-                    onMouseEnter={(e) => {
-                      e.preventDefault();
-                      setStar(2);
-                    }}
-                    onMouseLeave={(e) => {
-                      e.preventDefault();
-                      unsetStar(2);
-                    }}
-                  ></i>
-                  <i
-                    className="fa-regular fa-star star-3"
-                    id="star-3"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setClickNum(3);
-                      if (click === true && clickNum === 3) {
-                        setClick(false);
-                      } else {
-                        setClick(true);
-                      }
-                      setStar(3);
-                    }}
-                    onMouseEnter={(e) => {
-                      e.preventDefault();
-                      setStar(3);
-                    }}
-                    onMouseLeave={(e) => {
-                      e.preventDefault();
-                      unsetStar(3);
-                    }}
-                  ></i>
-                  <i
-                    className="fa-regular fa-star star-4"
-                    id="star-4"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setClickNum(4);
-                      if (click === true && clickNum === 4) {
-                        setClick(false);
-                      } else {
-                        setClick(true);
-                      }
-                      setStar(4);
-                    }}
-                    onMouseEnter={(e) => {
-                      e.preventDefault();
-                      setStar(4);
-                    }}
-                    onMouseLeave={(e) => {
-                      e.preventDefault();
-                      unsetStar(4);
-                    }}
-                  ></i>
-                  <i
-                    className="fa-regular fa-star star-5"
-                    id="star-5"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setClickNum(5);
-                      if (click === true && clickNum === 5) {
-                        setClick(false);
-                      } else {
-                        setClick(true);
-                      }
-                      setStar(5);
-                    }}
-                    onMouseEnter={(e) => {
-                      e.preventDefault();
-                      setStar(5);
-                    }}
-                    onMouseLeave={(e) => {
-                      e.preventDefault();
-                      unsetStar(5);
-                    }}
-                  ></i>
-                </div>
-                <div>
-                  Comenta tu opinión de la Tienda:{" "}
-                  <div>
-                    <input
-                      type="text-area"
-                      onChange={(e) => {
-                        e.preventDefault();
-                        setComentarios(e.target.value);
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className="d-flex flex-row">
-                  <input
-                    className="m-1"
-                    type="checkbox"
-                    id="emailCheck"
-                    onClick={handleNombre}
-                  />
-                  Deseo que mi calificación sea anónima.
-                </div>
-
-                <Modal.Footer>
-                  <Button variant="secondary" onClick={handleClose}>
-                    Cerrar
-                  </Button>
+                <div className="accordion" id={`accordioncalificacion`}>
+                <div className="accordion-item">
+                  <h3 className="accordion-header" id={`headingcalificacion`}>
                   <button
-                    className="btn btn-primary"
-                    onClick={(e) => {
-                      let calificacion = {
-                        Usuario: name,
-                        Comentarios: comentarios,
-                        Stars: estrella,
-                      };
-                      let ok = {
-                        Calificacion: true,
-                      };
-                      e.preventDefault();
-                      setStars(
-                        data.data.pedido.Emprendimiento_id,
-                        calificacion
-                      );
-                      handleEnvio(data.data.pedido._id, ok);
-                    }}
-                  >
-                    Enviar Calificación
-                  </button>
-                </Modal.Footer>
+                                  className="accordion-button acc-us-admin"
+                                  type="button"
+                                  data-bs-toggle="collapse"
+                                  data-bs-target={`#collapsecalificacion`}
+                                  aria-expanded="true"
+                                  aria-controls={`#collapsecalificacion`}
+                                >
+                                  Calificar tienda
+                                </button>
+                  </h3>
+                  <div className="accordion-collapse collapse show"
+                                id={`collapsecalificacion`}
+                                aria-labelledby={`headingcalificacion`}
+                                data-bs-parent={`#accordioncalificacion`}>
+                  <div className="accordion-body text-center justify-content-center">
+                  <h3>{data.data.tienda}</h3>
+                  <div>
+                    <div className="stars">
+                      <i
+                        className="fa-regular fa-2x fa-star star-1 estrella"
+                        id="star-1"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setClickNum(1);
+                          if (click === true && clickNum === 1) {
+                            setClick(false);
+                          } else {
+                            setClick(true);
+                          }
+                          setStar(1);
+                        }}
+                        onMouseEnter={(e) => {
+                          e.preventDefault();
+                          setStar(1);
+                        }}
+                        onMouseLeave={(e) => {
+                          e.preventDefault();
+                          unsetStar(1);
+                        }}
+                      ></i>
+                      <i
+                        className="fa-regular fa-star fa-2x  star-2 estrella"
+                        id="star-2"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setClickNum(2);
+                          if (click === true && clickNum === 2) {
+                            setClick(false);
+                          } else {
+                            setClick(true);
+                          }
+                          setStar(2);
+                        }}
+                        onMouseEnter={(e) => {
+                          e.preventDefault();
+                          setStar(2);
+                        }}
+                        onMouseLeave={(e) => {
+                          e.preventDefault();
+                          unsetStar(2);
+                        }}
+                      ></i>
+                      <i
+                        className="fa-regular fa-star fa-2x  star-3 estrella"
+                        id="star-3"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setClickNum(3);
+                          if (click === true && clickNum === 3) {
+                            setClick(false);
+                          } else {
+                            setClick(true);
+                          }
+                          setStar(3);
+                        }}
+                        onMouseEnter={(e) => {
+                          e.preventDefault();
+                          setStar(3);
+                        }}
+                        onMouseLeave={(e) => {
+                          e.preventDefault();
+                          unsetStar(3);
+                        }}
+                      ></i>
+                      <i
+                        className="fa-regular fa-2x  fa-star star-4 estrella"
+                        id="star-4"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setClickNum(4);
+                          if (click === true && clickNum === 4) {
+                            setClick(false);
+                          } else {
+                            setClick(true);
+                          }
+                          setStar(4);
+                        }}
+                        onMouseEnter={(e) => {
+                          e.preventDefault();
+                          setStar(4);
+                        }}
+                        onMouseLeave={(e) => {
+                          e.preventDefault();
+                          unsetStar(4);
+                        }}
+                      ></i>
+                      <i
+                        className="fa-regular fa-2x  fa-star star-5 estrella"
+                        id="star-5"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setClickNum(5);
+                          if (click === true && clickNum === 5) {
+                            setClick(false);
+                          } else {
+                            setClick(true);
+                          }
+                          setStar(5);
+                        }}
+                        onMouseEnter={(e) => {
+                          e.preventDefault();
+                          setStar(5);
+                        }}
+                        onMouseLeave={(e) => {
+                          e.preventDefault();
+                          unsetStar(5);
+                        }}
+                      ></i>
+                    </div>
+                    <div className="m-2">
+                      Comenta tu opinión de la Tienda:{" "}
+                      <div className="d-flex justify-content-center">
+                        <textarea className=" m-2 w-100"
+                          onChange={(e) => {
+                            e.preventDefault();
+                            setComentarios(e.target.value);
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <div className="d-flex flex-row justify-content-center mb-3">
+                      <input
+                        className="m-1"
+                        type="checkbox"
+                        id="emailCheck"
+                        onClick={handleNombre}
+                      />
+                      Deseo que mi calificación sea anónima.
+                    </div>
+
+                    <Modal.Footer>
+                      <button
+                        className="btn btn-primary"
+                        onClick={(e) => {
+                          let calificacion = {
+                            Usuario: name,
+                            Comentarios: comentarios,
+                            Stars: estrella,
+                          };
+                          let ok = {
+                            Calificacion: true,
+                          };
+                          e.preventDefault();
+                          setStars(
+                            data.data.pedido.Emprendimiento_id,
+                            calificacion
+                          );
+                          handleEnvio(data.data.pedido._id, ok);
+                        }}
+                      >
+                        Enviar Calificación
+                      </button>
+                    </Modal.Footer>
+                  </div>
+                </div></div></div></div>
               </Modal.Body>
             </div>
           )}
@@ -453,25 +470,26 @@ function MyOrders() {
               <div>
                 {" "}
                 <Modal.Body>
-                  <div className="">
+                  <div className="text-center">
                     ¿Deseas enviar un comentario final a la tienda?
                   </div>
-                  <div>
-                    <input
-                      type="text-area"
-                      className="d-none"
+                  <div className="m-3">
+                    <textarea
+                      className="d-none w-100"
                       id="message"
                       onChange={(e) => {
                         e.preventDefault();
                         setFinalMsg(e.target.value);
                       }}
                     />
-                  </div>
-                  {finalMsg && (
-                    <div>
-                      Su mensaje será enviado al hacer click en finalizar
+                    {finalMsg && (
+                    <div className="text-center">
+                      Su mensaje será enviado al dar como finalizado el pedido.
                     </div>
                   )}
+                  </div>
+                  
+                  <div className="d-flex justify-content-center">
                   <Button
                     className="btn btn-primary"
                     id="message-btn"
@@ -485,7 +503,7 @@ function MyOrders() {
                     }}
                   >
                     {send}
-                  </Button>
+                  </Button></div>
                 </Modal.Body>
                 <Modal.Footer>
                   <div className="">
@@ -516,6 +534,264 @@ function MyOrders() {
       </div>
     );
   };
+  const ModalCalificacion = (data) => {
+    console.log(data);
+    const [comentarios, setComentarios] = useState("");
+    const [show, setShow] = useState(false);
+    const [estrella, setEstrella] = useState(0);
+    const [click, setClick] = useState(false);
+    const [clickNum, setClickNum] = useState(0);
+    const [name, setName] = useState(user.displayName);
+    const [finalMsg, setFinalMsg] = useState("");
+    const [calificacion, setCalificacion] = useState(false);
+    const [send, setSend] = useState("Enviar Mensaje");
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const handleMessage = () => {
+      document.getElementById("message").classList.remove("d-none");
+      document.getElementById("message-btn").classList.remove("btn-primary");
+      document.getElementById("message-btn").classList.add("btn-secondary");
+      setSend("Cancelar");
+    };
+
+    const handleNoMessage = () => {
+      document.getElementById("message").classList.add("d-none");
+      document.getElementById("message-btn").classList.remove("btn-secondary");
+      document.getElementById("message-btn").classList.add("btn-primary");
+      document.getElementById("message").value = "";
+      setSend("Enviar Mensaje");
+      setFinalMsg("");
+    };
+    const setStar = (num) => {
+      setEstrella(num);
+      let x = 1;
+      while (x <= 5) {
+        let star = document.getElementById(`star-${x}`);
+        if (x <= num) {
+          star.classList.remove("fa-regular");
+          star.classList.add("fa-solid");
+          x++;
+        } else {
+          star.classList.remove("fa-solid");
+          star.classList.add("fa-regular");
+          x++;
+        }
+      }
+    };
+    const unsetStar = (num) => {
+      let x = 1;
+      if (!click) {
+        while (x <= 5) {
+          let star = document.getElementById(`star-${x}`);
+          if (x <= num) {
+            star.classList.remove("fa-solid");
+            star.classList.add("fa-regular");
+            x++;
+          } else {
+            x++;
+          }
+        }
+      }
+    };
+    const handleNombre = (e) => {
+      if (e.target.checked) {
+        setName("Anónimo");
+      }
+      if (!e.target.checked) {
+        setName(user.displayName);
+      }
+    };
+
+    return (
+      <div>
+        <Button variant="primary" onClick={handleShow}>
+          {data.data.titulo}
+        </Button>
+
+        <Modal
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Calificar Tienda</Modal.Title>
+          </Modal.Header>
+          {(calificacion || !data.data.pedido.Calificacion) && (
+            <div>
+              <Modal.Body  className="text-center">
+                
+                  <h3>{data.data.tienda}</h3>
+                  <div>
+                    <div className="stars">
+                      <i
+                        className="fa-regular fa-2x fa-star star-1 estrella"
+                        id="star-1"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setClickNum(1);
+                          if (click === true && clickNum === 1) {
+                            setClick(false);
+                          } else {
+                            setClick(true);
+                          }
+                          setStar(1);
+                        }}
+                        onMouseEnter={(e) => {
+                          e.preventDefault();
+                          setStar(1);
+                        }}
+                        onMouseLeave={(e) => {
+                          e.preventDefault();
+                          unsetStar(1);
+                        }}
+                      ></i>
+                      <i
+                        className="fa-regular fa-star fa-2x  star-2 estrella"
+                        id="star-2"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setClickNum(2);
+                          if (click === true && clickNum === 2) {
+                            setClick(false);
+                          } else {
+                            setClick(true);
+                          }
+                          setStar(2);
+                        }}
+                        onMouseEnter={(e) => {
+                          e.preventDefault();
+                          setStar(2);
+                        }}
+                        onMouseLeave={(e) => {
+                          e.preventDefault();
+                          unsetStar(2);
+                        }}
+                      ></i>
+                      <i
+                        className="fa-regular fa-star fa-2x  star-3 estrella"
+                        id="star-3"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setClickNum(3);
+                          if (click === true && clickNum === 3) {
+                            setClick(false);
+                          } else {
+                            setClick(true);
+                          }
+                          setStar(3);
+                        }}
+                        onMouseEnter={(e) => {
+                          e.preventDefault();
+                          setStar(3);
+                        }}
+                        onMouseLeave={(e) => {
+                          e.preventDefault();
+                          unsetStar(3);
+                        }}
+                      ></i>
+                      <i
+                        className="fa-regular fa-2x  fa-star star-4 estrella"
+                        id="star-4"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setClickNum(4);
+                          if (click === true && clickNum === 4) {
+                            setClick(false);
+                          } else {
+                            setClick(true);
+                          }
+                          setStar(4);
+                        }}
+                        onMouseEnter={(e) => {
+                          e.preventDefault();
+                          setStar(4);
+                        }}
+                        onMouseLeave={(e) => {
+                          e.preventDefault();
+                          unsetStar(4);
+                        }}
+                      ></i>
+                      <i
+                        className="fa-regular fa-2x  fa-star star-5 estrella"
+                        id="star-5"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setClickNum(5);
+                          if (click === true && clickNum === 5) {
+                            setClick(false);
+                          } else {
+                            setClick(true);
+                          }
+                          setStar(5);
+                        }}
+                        onMouseEnter={(e) => {
+                          e.preventDefault();
+                          setStar(5);
+                        }}
+                        onMouseLeave={(e) => {
+                          e.preventDefault();
+                          unsetStar(5);
+                        }}
+                      ></i>
+                    </div>
+                    <div className="m-2">
+                      Comenta tu opinión de la Tienda:{" "}
+                      <div className="d-flex justify-content-center">
+                        <textarea className=" m-2 w-100"
+                          onChange={(e) => {
+                            e.preventDefault();
+                            setComentarios(e.target.value);
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <div className="d-flex flex-row justify-content-center mb-3">
+                      <input
+                        className="m-1"
+                        type="checkbox"
+                        id="emailCheck"
+                        onClick={handleNombre}
+                      />
+                      Deseo que mi calificación sea anónima.
+                    </div>
+
+                    <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                    Cerrar
+                  </Button>
+                      <button
+                        className="btn btn-primary"
+                        onClick={(e) => {
+                          let calificacion = {
+                            Usuario: name,
+                            Comentarios: comentarios,
+                            Stars: estrella,
+                          };
+                          let ok = {
+                            Calificacion: true,
+                          };
+                          e.preventDefault();
+                          setStars(
+                            data.data.pedido.Emprendimiento_id,
+                            calificacion
+                          );
+                          handleEnvio(data.data.pedido._id, ok);
+                        }}
+                      >
+                        Enviar Calificación
+                      </button>
+                    </Modal.Footer>
+                  </div>
+                  
+              </Modal.Body>
+            </div>
+          )}
+          
+        </Modal>
+      </div>
+    );
+  };
   const StoreResp = (data) => {
     console.log(data);
     if (!data.data.Store_Problem.length <= 0) {
@@ -540,9 +816,16 @@ function MyOrders() {
             console.log(tes + " hola " + estado);
             console.log(estado);
             return (
-              <div key={tes} className="accordion m-1 mb-2 mt-2" id={`accordion${tes}`}>
+              <div
+                key={tes}
+                className="accordion m-1 mb-2 mt-2"
+                id={`accordion${tes}`}
+              >
                 <div className="accordion-item">
-                  <h1 className="accordion-header us-header" id={`heading${tes}`}>
+                  <h1
+                    className="accordion-header us-header"
+                    id={`heading${tes}`}
+                  >
                     <button
                       className="accordion-button  acc-titulos-admin"
                       type="button"
@@ -615,10 +898,10 @@ function MyOrders() {
                                 data-bs-parent={`#accordionuser${cotiza._id}`}
                               >
                                 <div className="accordion-body pt-0 pb-0 ">
-                                  <div className="d-flex justify-content-end">
+                                  <div className="d-flex justify-content-end mt-2 mb-2">
                                     <Link
                                       to={`/Emprendimientos/${store.Path}`}
-                                      className="btn btn-dark boton-tienda-carrito mt-2 mb-2"
+                                      className="btn  btn-success  boton-tienda-carrito"
                                     >
                                       Ir a la Tienda
                                     </Link>
@@ -1068,12 +1351,14 @@ function MyOrders() {
                                                               );
                                                             }
                                                           )}
-                                                          
                                                         </div>
                                                       )}
                                                       {cotiza.Store_Problem
-                                                        .length <= 0 &&<div>Aun no hay respuesta</div>}
-                                                      
+                                                        .length <= 0 && (
+                                                        <div>
+                                                          Aun no hay respuesta
+                                                        </div>
+                                                      )}
                                                     </div>
                                                   </div>
                                                 </div>
@@ -1141,7 +1426,7 @@ function MyOrders() {
                                     <div className="d-flex flex-row justify-content-center buttons-orders">
                                       {!cotiza.Calificacion && (
                                         <div className="m-2">
-                                          <ModalFin
+                                          <ModalCalificacion
                                             data={{
                                               pedido: cotiza,
                                               tienda: store.Nombre,

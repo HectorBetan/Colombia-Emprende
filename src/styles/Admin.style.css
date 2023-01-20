@@ -241,7 +241,28 @@
 .btns-pricing{
     align-self: center;
 }
+@media only screen and (max-width: 1300px){
+    .redes-register{
+        flex-direction: column!important;
+    }
+    .redes-register .sa{
+        margin: 0px!important;
+        padding: 0px 30px!important;
+    }
+    .redes-register .asd{
+        width: 100%;
+        padding: 0px 14px!important;
+        margin: 0px!important;
+    }
+}
 @media only screen and (max-width: 1100px){
+    .store-register-input-1{
+        flex-direction: column!important;
+    }
+    .store-register-input-1 .col-5{
+        width: 100%;
+        padding: 0px 28px;
+    }
     .texto-001{
         font-size: 14px;
     }
@@ -466,6 +487,14 @@
     }
 }
 @media only screen and (max-width: 680px){
+    .city-cat{
+        flex-direction: column!important;
+    }
+    .city-cat .col-5{
+        width: 100%;
+        padding: 0px 30px !important;
+    }
+
     .msjs-problem{
         flex-direction: column!important;
     }
@@ -604,6 +633,13 @@
     }
 }
 @media only screen and (max-width: 550px){
+    .botones-redes-regstore{
+        flex-direction: column!important;
+        padding: 0px 30px!important;
+    }
+    .botones-redes-regstore button{
+        margin: 3px!important;
+    }
     .buttons-product-update{
         flex-direction: column!important;
     }
@@ -633,7 +669,19 @@
         flex-direction: column!important;
     }
 }
+.est{
+    align-self: center;
+}
 @media only screen and (max-width: 500px){
+    .text-email-regstore{
+        font-size: 13px!important;
+    }
+    .store-register-admin{
+       padding: 0px 10px!important;
+    }
+    .subirFoto{
+        font-size: 13px!important;
+    }
     .acc-titulos-admin{
         font-size: 24px;
         font-weight: 600;
@@ -681,7 +729,8 @@
         flex-direction: column!important;
     }
 }
-input{
+
+input[type=text]{
     display: block;
     padding: 0.375rem 0.75rem;
     font-size: 1rem;
@@ -691,6 +740,34 @@ input{
     background-color: #fff;
     background-clip: padding-box;
     border: 1px solid #ced4da;
+    appearance: none;
+    border-radius: 0.375rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+input[type=number]{
+    display: block;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    appearance: none;
+    border-radius: 0.375rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+input[type=file]{
+    display: block;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: none;
     appearance: none;
     border-radius: 0.375rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
@@ -709,7 +786,40 @@ textarea{
     border-radius: 0.375rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+.pago-select-a{
+
+        display: inline-flex;
+        align-self: center;
+        padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+        -moz-padding-start: calc(0.75rem - 3px);
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        background-color: #fff;
+        background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3e%3cpath fill=%27none%27 stroke=%27%23343a40%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%272%27 d=%27m2 5 6 6 6-6%27/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 16px 12px;
+        border: 1px solid #ced4da;
+        border-radius: 0.375rem;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        appearance: none;
+    
+}
+.estrella{
+    color:#d1d123!important;
+    margin: 0px 2px 5px 2px;
+
+}
+
 @media only screen and (max-width: 450px){
+    .store-register-admin{
+        padding: 0px 8px!important;
+     }
+     .subirFoto{
+         font-size: 12px!important;
+     }
     .buttons-orders{
         flex-direction: column!important;
         justify-content: center;
@@ -786,8 +896,12 @@ textarea{
         padding: 9px 15px;
         margin: 2px 0px;
     }
+    .subirFoto{
+        font-size: 12px!important;
+    }
 }
 @media only screen and (max-width: 400px){
+    
     .acc-titulos-admin{
         font-size: 22px;
         font-weight: 600;
@@ -863,6 +977,7 @@ textarea{
     }
 }
 @media only screen and (max-width:370px){
+    
     .img-update-home{
         padding-left: 8px!important;
      }
@@ -888,6 +1003,9 @@ textarea{
     
 }
 @media only screen and (max-width:350px){
+    .subirFoto{
+        font-size: 11px!important;
+    }
     .img-update-home{
         padding-left: 7px!important;
      }

@@ -227,30 +227,30 @@ function StoreRegister() {
 
         <div>
             {error && <Alert message={error} />}
-            <div className="col-12 pe-4 ps-4" style={{maxHeight:"375px", overflow:"auto"}}>
+            <div className="store-register-admin col-12 pe-4 ps-4" style={{maxHeight:"375px", overflow:"auto"}}>
                 <h4 className="text-center m-3">Registra tu emprendimiento</h4>
                 <form onSubmit={handleSubmit}>
                     <div className="">
-                        <div className="d-flex flex-row justify-content-evenly  mb-2">
+                        <div className="d-flex flex-row justify-content-evenly store-register-input-1  mb-2">
                             <div className="form-group col-5">
-                                <label className="m-1">Nombre</label>
+                                <label className="m-1">Nombre:</label>
                                 <input onChange={handleChange}
-                                type="text" name="Nombre" className="form-control h-50" pattern="[A-Za-z.,0-9áéíóú ]{1,}" 
+                                type="text" name="Nombre" className="form-control" pattern="[A-Za-z.,0-9áéíóú ]{1,}" 
                                 placeholder="Ingrese el Nombre de su Emprendimiento" required/>
                             </div>
                             <div className="form-group col-5">
-                                <label className="m-1">Email</label>
+                                <label className="m-1">Email:</label>
                                 <input onChange={handleChange} type="text" name="Email" className="form-control" 
                                 placeholder="Ingrese el E-mail de su Emprendimiento" id="email"
                                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required={required}/>
                                 <div className="d-flex flex-row">
                                     <input className="m-1" type="checkbox" id="emailCheck" onClick={handleEmailChange}
                                     value={user.email} />
-                                    Usar el mismo email de mi cuenta.</div>
+                                    <span className='text-email-regstore'>Usar el mismo email de mi cuenta.</span></div>
                             </div>
                             
                         </div>
-                        <div className="d-flex flex-row justify-content-evenly">
+                        <div className="d-flex flex-row justify-content-evenly store-register-input-1">
                             <div className="form-group col-5 m-1">
                                 <div className="d-flex flex-row">
                                     <h6 className="bg-secondary rounded p-2 text-white mt-1 me-2">Celular:</h6>
@@ -276,23 +276,23 @@ function StoreRegister() {
                                 </div>
                             </div>
                         </div>
-                        <div className="d-flex flex-row justify-content-center m-3">
-                            <div className="form-group d-flex flex-row col-11">
-                                <label className="m-1">Dirección</label>
+                        <div className="d-flex flex-row justify-content-center m-2">
+                            <div className="form-group col-11">
+                                <label className="m-1">Dirección:</label>
                                 <input onChange={handleChange} type="text" name="Direccion" className="form-control"  placeholder="Dirección Emprendimiento" />
                             </div>
                         </div>
                         
-                        <div className="d-flex flex-row justify-content-evenly">
-                            <div className="form-group col-4 m-1">
-                                <label className="m-1">Categoria</label>
+                        <div className="d-flex flex-row justify-content-evenly city-cat">
+                            <div className="form-group col-5 m-1">
+                                <label className="m-1">Categoria:</label>
                                 <select onChange={handleChange} name="Categoria" className="form-select" defaultValue={"default"} required>
                                     <option value="default" disabled>Selecciona una categoria</option>
                                     {categoryList}
                                 </select>
                             </div>
-                            <div className="form-group col-4 m-1">
-                                <label className="m-1">Ciudad</label>
+                            <div className="form-group col-5 m-1">
+                                <label className="m-1">Ciudad:</label>
                                 <select onChange={handleChange} name="Ciudad" className="form-select" defaultValue={"default"} required>
                                     <option value="default" disabled >Selecciona la ciudad</option>
                                     {cityList}
@@ -300,51 +300,54 @@ function StoreRegister() {
                             </div>
                         </div>
                         <div className='m-2  mt-3'>
-                            <div className="d-flex flex-row justify-content-center">
+                            <div className="d-flex flex-row justify-content-center botones-redes-regstore">
                                 <button className="btn btn-primary me-2 ms-2 mt-1 mb-3" id="facebook-register-btn" onClick={handleFacebook}>Agregar Facebook</button>
                                 <button className="btn btn-primary me-2 ms-2 mt-1 mb-3" id="instagram-register-btn" onClick={handleInstagram}>Agregar Instagram</button>
                                 <button className="btn btn-primary me-2 ms-2 mt-1 mb-3"  id="web-register-btn" onClick={handleWeb}>Agregar Página Web</button>
                             </div>
                         </div>
-                        <div className="d-flex flex-row justify-content-center">
-                            <div className="form-group col-4 ms-5 ps-3">
-                                <div className="form-group d-none me-3" id="facebook-register">
-                                    <label className="m-1">Facebook</label>
+                        <div className="d-flex flex-row justify-content-center redes-register">
+                            <div className="form-group col-4 ms-5 ps-3 asd">
+                                <div className="form-group d-none me-3 sa" id="facebook-register">
+                                    <label className="m-1">Facebook:</label>
                                     <input onChange={handleChange} type="text" name="Facebook" 
                                     className="form-control"  placeholder="Ingresa el link de Facebook" />
                                 </div>
                                 
                             </div>
-                            <div className="form-group col-3">
-                                <div className="form-group d-none me-3" id="instagram-register">
-                                    <label className="m-1">Instagram</label>
+                            <div className="form-group col-3  asd">
+                                <div className="form-group d-none me-3 sa" id="instagram-register">
+                                    <label className="m-1">Instagram:</label>
                                     <input onChange={handleChange} type="text" name="Instagram"
                                     className="form-control" placeholder="Ingresa el link de Instagram" />
                                 </div>
                             </div>
-                            <div className="form-group col-4 me-5 pe-3">
-                                <div className="form-group d-none" id="web-register">
-                                    <label className="m-1">Página web</label>
+                            <div className="form-group col-4 me-5 pe-3  asd">
+                                <div className="form-group d-none sa" id="web-register">
+                                    <label className="m-1">Página web:</label>
                                     <input onChange={handleChange} type="text" name="Web" 
                                     className="form-control" placeholder="Ingresa el link de la página web" />
                                 </div>
                             </div>
                         </div>
                         <div className="d-flex flex-row justify-content-center me-4 ms-4 mt-2">
-                            <div className="form-group col-11">
-                                <label className="m-1">Descripción</label>
+                            <div className="form-group col-12">
+                                <label className="m-1">Descripción:</label>
                                 <textarea onChange={handleChange} type="text-area" name="Descripcion" className="form-control" placeholder="Ingrese aqui la descripción de su emprendimiento" />
                             </div>
                         </div>
                         <div className="d-flex flex-row justify-content-center me-3 ms-3 mt-3">
-                            <div className="form-group d-flex flex-row">
+                            <div className="form-group imagenes-store-regs text-center">
                                     <div className='mt-2 me-3'>
                                         <StorePhoto />
                                     </div>
-                                    <div>
+                                    
                                         <label className="d-block m-1 mt-2 me-2">Sube fotos de tu emprendimiento: (máximo 5 imágenes)</label>
+                                        <div className='d-flex flex-row justify-content-center est'>
                                         <input type="file" className="m-1 subirFoto" accept="image/*" onChange={changeImg} multiple></input>
-                                    </div>
+                                        </div>
+                                        
+                                    
                             </div>
                         </div>
                         <div className="form-group text-center m-4">
