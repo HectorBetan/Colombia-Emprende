@@ -16,6 +16,7 @@ function StorePricing() {
   const [group, setGroup] = useState(null);
   const [productosCotizar, setProductosCotizar] = useState(null);
   const [usuarios, setUsuarios] = useState(null);
+  const [startT, setStartT] = useState(false);
   const handleResize = () => {
     setW(window.innerWidth);
   };
@@ -25,6 +26,58 @@ function StorePricing() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  const [alert, setAlert] = useState(false);
+  const [alertDel, setAlertDel] = useState(false);
+  const sAlert = () => {
+    window.scroll(0, 0);
+
+    setTimeout(() => {
+      setAlert(false);
+    }, 4000);
+  };
+  const sAlertDel = () => {
+    window.scroll(0, 0);
+    setTimeout(() => {
+      setAlertDel(false);
+    }, 4000);
+  };
+  const Alert = () => {
+    return (
+      <div
+        className=" alert alert-success d-flex flex-row flex-wrap justify-content-center"
+        role="alert"
+      >
+        <i className="fa-solid fa-circle-check fa-2x me-1 text-success"></i>
+        <h5 className=" m-1 sm:inline text-success align-middle ">
+          Se ha enviado la Cotización Al Cliente
+        </h5>
+      </div>
+    );
+  };
+  const AlertDelete = () => {
+    return (
+      <div
+        className=" alert alert-danger d-flex flex-row flex-wrap justify-content-center"
+        role="alert"
+      >
+        <i className="fa-solid fa-circle-check fa-2x me-1 text-danger"></i>
+        <h5 className=" m-1 sm:inline text-danger align-middle ">
+          Cotización Eliminada
+        </h5>
+      </div>
+    );
+  };
+  useEffect(() => {
+    const stGroup = () => {
+      setGroup(group);
+    };
+    if (startT) {
+      setStartT(false);
+      return () => {
+        stGroup();
+      };
+    }
+  }, [startT, group]);
   const groupBy = (keys) => (array) =>
     array.reduce((objectsByKeyValue, obj) => {
       const value = keys.map((key) => obj[key]).join("-");
@@ -38,14 +91,11 @@ function StorePricing() {
   });
   const resolveProductsCotizar = async (products) => {
     await readProducts(products).then((res) => {
-      console.log("resData", res.data);
       setProductosCotizar(res.data);
     });
     setCargando(false);
   };
   const resolveUsers = async (tienda) => {
-    console.log(tienda);
-    console.log("tienda");
     await readUserInfo(tienda).then((res) => {
       setUsuarios(res.data);
     });
@@ -53,7 +103,7 @@ function StorePricing() {
   const resolveCotizacion = async () => {
     await readStorePricing(userData.Emprendimiento_id).then((res) => {
       const data = res.data;
-      console.log(data);
+
       let listaUsuarios = [];
       let listaProductos = [];
       data.forEach((element) => {
@@ -71,11 +121,10 @@ function StorePricing() {
       let lista = [];
       let objeto = group(data);
 
-      console.log("object");
-      console.log(objeto);
       let creadas;
       let rechazadas;
       let enviadas;
+      let cancel;
       for (let key in objeto) {
         if (key !== "tienda-rechazado") {
           if (key === "creada") {
@@ -86,6 +135,9 @@ function StorePricing() {
           }
           if (key === "cotizacion") {
             enviadas = { Estado: key, Cotizaciones: objeto[key] };
+          }
+          if (key === "cancelado") {
+            cancel = { Estado: key, Cotizaciones: objeto[key] };
           }
         }
       }
@@ -98,20 +150,91 @@ function StorePricing() {
       if (enviadas) {
         lista.push(enviadas);
       }
+      if (cancel) {
+        lista.push(cancel);
+      }
       setGroup(lista);
-      console.log(listaProductos);
+
       resolveProductsCotizar(listaProductos);
       return;
     });
   };
-  const handleNewCotizacion = async (id, cotizacion) => {
-    await updatePricing(id, cotizacion).then((res) => {
-      console.log("res", res);
+  const handleNewCotizacion = async (id, cotiza) => {
+    await updatePricing(id, cotiza).then((res) => {});
+    setAlert(true);
+    sAlert();
+    let lista1;
+    let grupo = group;
+    let num = null;
+    let co;
+
+    group.map((estado, eindex) => {
+      lista1 = estado.Cotizaciones;
+
+      estado.Cotizaciones.map((cotizacion, index) => {
+        if (cotizacion._id === id) {
+          lista1.splice(index, 1);
+          grupo[eindex].Cotizaciones.splice(index, 1);
+          if (grupo[eindex].Cotizaciones.length === 0) {
+            grupo.splice(eindex, 1);
+          }
+          co = cotizacion;
+        }
+        return false;
+      });
+      return false;
     });
+    grupo.map((estado, ei) => {
+      if (estado.Estado === "cotizacion") {
+        num = ei;
+        return false;
+      }
+      return false;
+    });
+    if (num !== null) {
+      co.Valor_Envio = cotiza.Valor_Envio;
+      co.Otros_Valores = cotiza.Otros_Valores;
+      co.Comentarios = cotiza.Comentarios;
+      co.Estado = "cotizacion";
+      grupo[num].Cotizaciones.push(co);
+    } else {
+      co.Valor_Envio = cotiza.Valor_Envio;
+      co.Otros_Valores = cotiza.Otros_Valores;
+      co.Comentarios = cotiza.Comentarios;
+      co.Estado = "cotizacion";
+      let c = { Estado: "cotizacion", Cotizaciones: [co] };
+      grupo.push(c);
+    }
+    setGroup(grupo);
+    setStartT(true);
   };
   const handleRechazar = async (id) => {
     const pedido = { Estado: "tienda-rechazado" };
     await updatePricing(id, pedido);
+    setAlertDel(true);
+    sAlertDel();
+    let lista1;
+    let grupo = group;
+
+    group.map((estado, eindex) => {
+      lista1 = estado.Cotizaciones;
+
+      estado.Cotizaciones.map((cotizacion, index) => {
+        if (cotizacion._id === id) {
+          lista1.splice(index, 1);
+          grupo[eindex].Cotizaciones.splice(index, 1);
+          if (grupo[eindex].Cotizaciones.length === 0) {
+            grupo.splice(eindex, 1);
+          }
+          setGroup(grupo);
+          return false;
+        } else {
+          return false;
+        }
+      });
+      return false;
+    });
+    setStartT(true);
   };
 
   if (start && userData) {
@@ -120,20 +243,60 @@ function StorePricing() {
   }
   const handleDelete = async (id) => {
     await deletePricing(id);
+    setAlertDel(true);
+    sAlertDel();
+    let lista1;
+    let grupo = group;
+
+    group.map((estado, eindex) => {
+      lista1 = estado.Cotizaciones;
+
+      estado.Cotizaciones.map((cotizacion, index) => {
+        if (cotizacion._id === id) {
+          lista1.splice(index, 1);
+          grupo[eindex].Cotizaciones.splice(index, 1);
+          if (grupo[eindex].Cotizaciones.length === 0) {
+            grupo.splice(eindex, 1);
+          }
+          setGroup(grupo);
+          return false;
+        } else {
+          return false;
+        }
+      });
+      return false;
+    });
   };
 
   const CotizacionItems = () => {
     if (group && usuarios && productosCotizar) {
-      console.log(group);
+      if (group.length === 0) {
+        return (
+          <div>
+            <div>
+              {alertDel && <AlertDelete />}
+              {alert && <Alert />}
+            </div>
+            <h3>No hay cotizaciones</h3>
+          </div>
+        );
+      }
       return (
         <div>
+          {alertDel && <AlertDelete />}
+          {alert && <Alert />}
           {group.map((estado, tes) => {
-            console.log(tes + " hola " + estado);
-            console.log(estado);
             return (
-              <div key={tes} className="accordion m-1 mb-2 mt-2" id={`accordion${tes}`}>
+              <div
+                key={tes}
+                className="accordion m-1 mb-2 mt-2"
+                id={`accordion${tes}`}
+              >
                 <div className="accordion-item">
-                  <h1 className="accordion-header  us-header" id={`heading${tes}`}>
+                  <h1
+                    className="accordion-header  us-header"
+                    id={`heading${tes}`}
+                  >
                     <button
                       className="accordion-button acc-titulos-admin"
                       type="button"
@@ -144,6 +307,9 @@ function StorePricing() {
                     >
                       {estado.Estado === "creada" && <>Pendientes</>}
                       {estado.Estado === "cotizacion" && <>Enviadas</>}
+                      {estado.Estado === "cancelado" && (
+                        <>Canceladas por Usuario</>
+                      )}
                       {estado.Estado === "rechazado" && (
                         <>Rechazadas por Usuario</>
                       )}
@@ -157,16 +323,12 @@ function StorePricing() {
                   >
                     <div className="accordion-body">
                       {estado.Cotizaciones.map((cotiza, index) => {
-                        console.log("cotiza");
-                        console.log(cotiza);
-
                         let valorProductos = 0;
                         let valorTotal = 0;
                         cotiza.Pedidos.forEach((producto) => {
                           let item = productosCotizar.find(
                             (product) => product._id === producto.Producto
                           );
-                          console.log("item", item);
                           let valor = item.Precio * producto.Cantidad;
                           valorProductos += valor;
                         });
@@ -260,7 +422,6 @@ function StorePricing() {
                                           )}
                                           {cotiza.Pedidos.map(
                                             (pedido, tkey) => {
-                                              console.log("pedido", pedido);
                                               let item = productosCotizar.find(
                                                 (item) =>
                                                   item._id === pedido.Producto
@@ -348,25 +509,46 @@ function StorePricing() {
                                         </span>
                                       </h2>
                                     </div>
-                                    {cotiza.User_Comentarios.length > 1 && (
+                                    {cotiza.User_Comentarios &&
+                                      cotiza.User_Comentarios.length > 1 && (
+                                        <div className="fs-5  mt-2 mb-2">
+                                          <h2 className="valor-titulo">
+                                            Comentarios del Cliente:{" "}
+                                          </h2>
+                                          {cotiza.User_Comentarios}
+                                        </div>
+                                      )}
+                                    {cotiza.Ciudad_Envio &&
+                                      cotiza.Ciudad_Envio.length > 1 && (
+                                        <div className="fs-5  mt-2 mb-2">
+                                          <h2 className="valor-titulo">
+                                            Ciudad de Envio:{" "}
+                                          </h2>
+                                          {cotiza.Ciudad_Envio}
+                                        </div>
+                                      )}
+                                    {cotiza.Direccion_Envio && (
                                       <div className="fs-5  mt-2 mb-2">
                                         <h2 className="valor-titulo">
-                                          Comentarios del Cliente:{" "}
+                                          Direccion de Envio:{" "}
                                         </h2>
-                                        {cotiza.User_Comentarios}
+                                        {cotiza.Direccion_Envio}
                                       </div>
                                     )}
                                     <div className="d-flex flex-row mt-2 mb-2 pricing-data">
-                                      <h2 className="valor-titulo me-2">
-                                        Valor Envio:{" "}
-                                        {estado.Estado !== "creada" && (
-                                          <span className="valor-value">
-                                            {formatterPeso.format(
-                                              cotiza.Valor_Envio
+                                      {estado.Estado !== "cancelado" && (
+                                        <h2 className="valor-titulo me-2">
+                                          Valor Envio:{" "}
+                                          {estado.Estado !== "creada" &&
+                                            estado.Estado !== "cancelado" && (
+                                              <span className="valor-value">
+                                                {formatterPeso.format(
+                                                  cotiza.Valor_Envio
+                                                )}
+                                              </span>
                                             )}
-                                          </span>
-                                        )}
-                                      </h2>
+                                        </h2>
+                                      )}
                                       {estado.Estado === "creada" && (
                                         <input
                                           type="number"
@@ -411,22 +593,24 @@ function StorePricing() {
                                       </div>
                                     )}
 
-                                    {estado.Estado !== "creada" && (
-                                      <div className="d-flex flex-row mt-2 mb-2 pricing-data">
-                                        <h2 className="valor-titulo me-2">
-                                          Valor Total:{" "}
-                                          <span className="valor-value">
-                                            {formatterPeso.format(valorTotal)}
-                                          </span>
-                                        </h2>
-                                      </div>
-                                    )}
+                                    {estado.Estado !== "creada" &&
+                                      estado.Estado !== "cancelado" && (
+                                        <div className="d-flex flex-row mt-2 mb-2 pricing-data">
+                                          <h2 className="valor-titulo me-2">
+                                            Valor Total:{" "}
+                                            <span className="valor-value">
+                                              {formatterPeso.format(valorTotal)}
+                                            </span>
+                                          </h2>
+                                        </div>
+                                      )}
                                     {estado.Estado === "creada" && (
                                       <div className="mt-2 mb-2 pricing-data">
                                         <h2 className="valor-titulo me-2">
                                           Tus Comentarios:{" "}
                                         </h2>
-                                        <textarea className="w-100"
+                                        <textarea
+                                          className="w-100"
                                           type="text"
                                           id={`comentarios-${tes}`}
                                         />
@@ -435,46 +619,60 @@ function StorePricing() {
                                   </div>
 
                                   <div className="d-flex flex-row justify-content-evenly botones-pricing">
-                                    {estado.Estado === "creada" && (<div className="btns-pricing">
-                                      <button
-                                        className="btn btn-primary m-1"
-                                        onClick={(e) => {
-                                          let newCotizacion = {
-                                            Valor_Envio:
-                                              document.getElementById(
-                                                `valor-envio-${tes}`
-                                              ).value,
-                                            Otros_Valores:
-                                              document.getElementById(
-                                                `otros-valores-${tes}`
-                                              ).value,
-                                            Comentarios:
-                                              document.getElementById(
-                                                `comentarios-${tes}`
-                                              ).value,
-                                            Estado: "cotizacion",
-                                          };
-                                          console.log(newCotizacion);
-                                          e.preventDefault();
-                                          handleNewCotizacion(
-                                            cotiza._id,
-                                            newCotizacion
-                                          );
-                                        }}
-                                      >
-                                        Enviar Cotización
-                                      </button></div>
+                                    {estado.Estado === "creada" && (
+                                      <div className="btns-pricing">
+                                        <button
+                                          className="btn btn-primary m-1"
+                                          onClick={(e) => {
+                                            let newCotizacion = {
+                                              Valor_Envio:
+                                                document.getElementById(
+                                                  `valor-envio-${tes}`
+                                                ).value,
+                                              Otros_Valores:
+                                                document.getElementById(
+                                                  `otros-valores-${tes}`
+                                                ).value,
+                                              Comentarios:
+                                                document.getElementById(
+                                                  `comentarios-${tes}`
+                                                ).value,
+                                              Estado: "cotizacion",
+                                            };
+                                            e.preventDefault();
+                                            handleNewCotizacion(
+                                              cotiza._id,
+                                              newCotizacion
+                                            );
+                                          }}
+                                        >
+                                          Enviar Cotización
+                                        </button>
+                                      </div>
                                     )}
-                                    {estado.Estado === "creada" && (<div className="btns-pricing">
+                                    {estado.Estado === "creada" && (
+                                      <div className="btns-pricing">
+                                        <button
+                                          className="btn btn-danger m-1"
+                                          onClick={(e) => {
+                                            e.preventDefault();
+                                            handleRechazar(cotiza._id, cotiza);
+                                          }}
+                                        >
+                                          Rechazar y Eliminar
+                                        </button>
+                                      </div>
+                                    )}
+                                    {estado.Estado === "cancelado" && (
                                       <button
                                         className="btn btn-danger m-1"
                                         onClick={(e) => {
                                           e.preventDefault();
-                                          handleRechazar(cotiza._id, cotiza);
+                                          handleDelete(cotiza._id);
                                         }}
                                       >
-                                        Rechazar y Eliminar
-                                      </button></div>
+                                        Eliminar
+                                      </button>
                                     )}
                                     {estado.Estado === "rechazado" && (
                                       <button

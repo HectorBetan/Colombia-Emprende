@@ -58,8 +58,9 @@ function MyStoreView() {
                                 {userStore && <h5>Bienvenido al panel admin de {userStore.Nombre}</h5>}
                             </div>
                         </div>
+                        {userStore && <CreateProduct />}
                     </div>
-                    {userStore && <CreateProduct />}
+                    
                     
                 </div>
                 <div className="accordion-item">

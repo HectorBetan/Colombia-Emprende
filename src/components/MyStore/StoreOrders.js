@@ -9,10 +9,9 @@ function StoreOrders() {
     createEnvio,
     userData,
     updatePricing,
-    deleteCarts,
     readStoreOrders,
+    readStorePays,
     readUserInfo,
-    deletePricing,
     setStoreProblem,
   } = useAuth();
   const [w, setW] = useState(window.innerWidth);
@@ -36,7 +35,59 @@ function StoreOrders() {
   const [group, setGroup] = useState(null);
   const [productosCotizar, setProductosCotizar] = useState(null);
   const [usuarios, setUsuarios] = useState(null);
-  const [cotizacion, setCotizacion] = useState(null);
+
+  const [alertDel, setAlertDel] = useState(false);
+  const sAlertDel = () => {
+    window.scroll(0, 0);
+    setTimeout(() => {
+      setAlertDel(false);
+    }, 4000);
+  };
+  const AlertDelete = () => {
+    return (
+      <div
+        className=" alert alert-danger d-flex flex-row flex-wrap justify-content-center"
+        role="alert"
+      >
+        <i className="fa-solid fa-circle-check fa-2x me-1 text-danger"></i>
+        <h5 className=" m-1 sm:inline text-danger align-middle ">
+          Cotización Eliminada
+        </h5>
+      </div>
+    );
+  };
+  const [startT, setStartT] = useState(false);
+  useEffect(() => {
+    const stGroup = () => {
+      setGroup(group);
+    };
+    if (startT) {
+      setStartT(false);
+      return () => {
+        stGroup();
+      };
+    }
+  }, [startT, group]);
+  const [alert, setAlert] = useState(false);
+  const sAlert = () => {
+    window.scroll(0, 0);
+    setTimeout(() => {
+      setAlert(false);
+    }, 4000);
+  };
+  const Alert = () => {
+    return (
+      <div
+        className=" alert alert-success d-flex flex-row flex-wrap justify-content-center"
+        role="alert"
+      >
+        <i className="fa-solid fa-circle-check fa-2x me-1 text-success"></i>
+        <h5 className=" m-1 sm:inline text-success align-middle ">
+          Se han añadido datos de envio y declarado como enviado
+        </h5>
+      </div>
+    );
+  };
   const groupBy = (keys) => (array) =>
     array.reduce((objectsByKeyValue, obj) => {
       const value = keys.map((key) => obj[key]).join("-");
@@ -46,15 +97,12 @@ function StoreOrders() {
 
   const resolveProductsOrders = async (products) => {
     await readProducts(products).then((res) => {
-      console.log("resData", res.data);
       setProductosCotizar(res.data);
     });
     setCargando(false);
   };
 
   const resolveUsers = async (tienda) => {
-    console.log(tienda);
-    console.log("tienda");
     await readUserInfo(tienda).then((res) => {
       setUsuarios(res.data);
     });
@@ -62,7 +110,6 @@ function StoreOrders() {
   const resolveCotizacion = async () => {
     await readStoreOrders(userData.Emprendimiento_id).then((res) => {
       const data = res.data;
-      console.log(data);
       let listaUsuarios = [];
       let listaProductos = [];
       data.forEach((element) => {
@@ -79,8 +126,6 @@ function StoreOrders() {
       const group = groupBy(["Estado"]);
       let lista = [];
       let objeto = group(data);
-
-      console.log("object", objeto);
       let creadas;
       let rechazadas;
       let final;
@@ -119,35 +164,50 @@ function StoreOrders() {
       }
 
       setGroup(lista);
-      console.log(listaProductos);
       resolveProductsOrders(listaProductos);
-      setCotizacion(data);
       return;
     });
   };
-  const handleNewEnvio = async (id, cotizacion) => {
-    await createEnvio(id, cotizacion).then((res) => {
-      console.log("res", res);
-    });
-  };
+  const handleNewEnvio = async (id, envio) => {
+    await createEnvio(id, envio).then(() => {});
+    setAlert(true);
+    sAlert();
 
-  const handleRechazar = async (id, cotizacion) => {
-    let data = { Estado: "rechazado" };
-    let lista = [];
-    console.log("cotizacion", cotizacion);
-    cotizacion.Pedidos.forEach((element) => {
-      console.log("element", element);
-      lista.push(element._id);
+    let grupo = group;
+    let num = null;
+    let co;
+
+    group.map((estado, eindex) => {
+      estado.Cotizaciones.map((cotizacion, index) => {
+        if (cotizacion._id === id) {
+          grupo[eindex].Cotizaciones.splice(index, 1);
+          if (grupo[eindex].Cotizaciones.length === 0) {
+            grupo.splice(eindex, 1);
+          }
+          co = cotizacion;
+        }
+        return false;
+      });
+      return false;
     });
-    const deleteMany = {
-      id: lista,
-    };
-    await createEnvio(id, data).then((res) => {
-      console.log("res", res);
+    grupo.map((estado, ei) => {
+      if (estado.Estado === "envio") {
+        num = ei;
+      }
+      return false;
     });
-    await deleteCarts(deleteMany).then((res) => {
-      console.log("res", res);
-    });
+    if (num !== null) {
+      co.Estado = "envio";
+      co.Info_Envio = envio;
+      grupo[num].Cotizaciones.push(co);
+    } else {
+      co.Estado = "envio";
+      co.Info_Envio = envio;
+      let c = { Estado: "envio", Cotizaciones: [co] };
+      grupo.push(c);
+    }
+    setGroup(grupo);
+    setStartT(true);
   };
 
   if (start && userData) {
@@ -158,13 +218,32 @@ function StoreOrders() {
   const handleDelete = async (id) => {
     let estado = { Store_Delete: true };
     await updatePricing(id, estado);
+    setAlertDel(true);
+    sAlertDel();
+    let lista1;
+    let grupo = group;
+
+    group.map((estado, eindex) => {
+      lista1 = estado.Cotizaciones;
+
+      estado.Cotizaciones.map((cotizacion, index) => {
+        if (cotizacion._id === id) {
+          lista1.splice(index, 1);
+          grupo[eindex].Cotizaciones.splice(index, 1);
+          if (grupo[eindex].Cotizaciones.length === 0) {
+            grupo.splice(eindex, 1);
+          }
+          setGroup(grupo);
+          return false;
+        } else {
+          return false;
+        }
+      });
+      return false;
+    });
+    setStartT(true);
   };
-  const StoreResp = (data) => {
-    console.log(data);
-    if (data.data.Store_Problem.length <= 0) {
-      return <div>Aun no hay respuesta</div>;
-    }
-  };
+
   const CotizacionItems = () => {
     const [newMsg, setNewMsg] = useState("");
     const handleNewMsg = () => {
@@ -176,17 +255,35 @@ function StoreOrders() {
       document.getElementById("new-msg").classList.add("d-none");
     };
     if (group && usuarios && productosCotizar) {
-      console.log(group);
       return (
         <div>
+          <button onClick={(e)=>{
+            e.preventDefault();
+            readStorePays(userData.Emprendimiento_id).then((res) => {
+              console.log(res)
+              if (res.data.length > 0){
+                console.log("tiene Pendientes")
+              } else{
+                console.log("no tiene pendientes")
+              }
+            })
+          }}>
+            Acer Kliq Haki
+          </button>
+          {alertDel && <AlertDelete />}
+          {alert && <Alert />}
           {group.map((estado, tes) => {
-            console.log(tes + " hola " + estado);
-            console.log(estado);
-
             return (
-              <div key={tes} className="accordion m-1 mb-2 mt-2" id={`accordion${tes}`}>
+              <div
+                key={tes}
+                className="accordion m-1 mb-2 mt-2"
+                id={`accordion${tes}`}
+              >
                 <div className="accordion-item">
-                  <h1 className="accordion-header us-header" id={`heading${tes}`}>
+                  <h1
+                    className="accordion-header us-header"
+                    id={`heading${tes}`}
+                  >
                     <button
                       className="accordion-button acc-titulos-admin"
                       type="button"
@@ -209,15 +306,12 @@ function StoreOrders() {
                   >
                     <div className="accordion-body">
                       {estado.Cotizaciones.map((cotiza, index) => {
-                        console.log("cotiza");
-                        console.log(cotiza);
                         let valorProductos = 0;
                         let valorTotal = 0;
                         cotiza.Pedidos.forEach((producto) => {
                           let item = productosCotizar.find(
                             (product) => product._id === producto.Producto
                           );
-                          console.log("item", item);
                           let valor = item.Precio * producto.Cantidad;
                           valorProductos += valor;
                         });
@@ -317,7 +411,6 @@ function StoreOrders() {
                                           )}
                                           {cotiza.Pedidos.map(
                                             (pedido, tkey) => {
-                                              console.log("pedido", pedido);
                                               let item = productosCotizar.find(
                                                 (item) =>
                                                   item._id === pedido.Producto
@@ -509,41 +602,43 @@ function StoreOrders() {
                                             Comentarios de Envio:{" "}
                                           </h2>
 
-                                          <textarea className="w-100"
+                                          <textarea
+                                            className="w-100"
                                             type="text"
                                             id={`comentarios-envio-${tes}`}
                                           />
                                         </div>
                                         <div className="d-flex flex-row justify-content-center m-3">
-                                        <button
-                                          className="btn btn-primary"
-                                          onClick={(e) => {
-                                            let envio = {
-                                              Fecha_Envio:
-                                                document.getElementById(
-                                                  `fecha-envio-${tes}`
-                                                ).value,
-                                              Empresa_Envio:
-                                                document.getElementById(
-                                                  `empresa-envio-${tes}`
-                                                ).value,
-                                              Numero_Guia:
-                                                document.getElementById(
-                                                  `numero-guia-${tes}`
-                                                ).value,
-                                              Comentarios_Envio:
-                                                document.getElementById(
-                                                  `comentarios-envio-${tes}`
-                                                ).value,
-                                              Estado: "envio",
-                                            };
-                                            console.log(envio);
-                                            e.preventDefault();
-                                            handleNewEnvio(cotiza._id, envio);
-                                          }}
-                                        >
-                                          Envio Realizado
-                                        </button></div>
+                                          <button
+                                            className="btn btn-primary"
+                                            onClick={(e) => {
+                                              let envio = {
+                                                Fecha_Envio:
+                                                  document.getElementById(
+                                                    `fecha-envio-${tes}`
+                                                  ).value,
+                                                Empresa_Envio:
+                                                  document.getElementById(
+                                                    `empresa-envio-${tes}`
+                                                  ).value,
+                                                Numero_Guia:
+                                                  document.getElementById(
+                                                    `numero-guia-${tes}`
+                                                  ).value,
+                                                Comentarios_Envio:
+                                                  document.getElementById(
+                                                    `comentarios-envio-${tes}`
+                                                  ).value,
+                                                Estado: "envio",
+                                              };
+
+                                              e.preventDefault();
+                                              handleNewEnvio(cotiza._id, envio);
+                                            }}
+                                          >
+                                            Envio Realizado
+                                          </button>
+                                        </div>
                                       </div>
                                     )}
                                   {cotiza.Pago === true &&
@@ -677,7 +772,7 @@ function StoreOrders() {
                                             aria-labelledby={`headingProblem${cotiza._id}`}
                                             data-bs-parent={`#accordionProblem${cotiza._id}`}
                                           >
-                                          <div className="accordion-body d-flex flex-row pb-0 msjs-problem">
+                                            <div className="accordion-body d-flex flex-row pb-0 msjs-problem">
                                               <div
                                                 className="mensajes-problema accordion mb-2"
                                                 id={`accordionProblemMsg${cotiza._id}`}
@@ -763,12 +858,14 @@ function StoreOrders() {
                                                               );
                                                             }
                                                           )}
-                                                          
                                                         </div>
                                                       )}
                                                       {cotiza.Store_Problem
-                                                        .length <= 0 &&<div>Aun no hay respuesta</div>}
-                                                      
+                                                        .length <= 0 && (
+                                                        <div>
+                                                          Aun no hay respuesta
+                                                        </div>
+                                                      )}
                                                     </div>
                                                   </div>
                                                 </div>

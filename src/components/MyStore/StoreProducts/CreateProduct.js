@@ -166,14 +166,14 @@ function CreateProduct() {
       {error.success && <Alert message={error} />}
       <button className="btn btn-primary d-flex flex-row justify-content-center" 
       onClick={handleShow}>
-        <i class="fa fa-plus-circle fa-2x" aria-hidden="true"></i>
+        <i className="fa fa-plus-circle fa-2x" aria-hidden="true"></i>
 
       <h5 className="align-items-center text-white m-1 ms-2">Nuevo Producto</h5>
       </button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton />
         <Modal.Body>
-          <h4 className='text-center'><i class="fa fa-plus-circle me-2" aria-hidden="true"></i>Agregar Producto</h4>
+          <h4 className='text-center'><i className="fa fa-plus-circle me-2" aria-hidden="true"></i>Agregar Producto</h4>
           <div  className='p-2 m-2'>
             {error && <Alert message={error} />}
             <form onSubmit={handleSubmit}>

@@ -122,9 +122,12 @@ function StoreImgUpdate() {
                 }
             }
             let photos = existImgList.join(",");
+            setEmprendimientoImagen({ ...emprendimientoImagen, Imagen: photos });
             const emprendimientoImg = {Imagen: photos};
+            
             storeUpdate(emprendimientoImg);
         } else {
+            setEmprendimientoImagen({ ...emprendimientoImagen, Imagen: emprendimientoImagen.Imagen });
             const emprendimientoImg = {Imagen: emprendimientoImagen.Imagen};
             storeUpdate(emprendimientoImg);
         }      
@@ -174,10 +177,18 @@ function StoreImgUpdate() {
         setEmprendimientoImagen({ ...emprendimientoImagen, Imagen: newPhotosString });
         setDisableImg(false);
     }
+    const [accClass, setAccClass] = useState("collapsed")
+    const [accItemClass, setAccItemClass] = useState("")
     const ImagesView = () => {
         let photos;
         let f = [] 
         let fa = ""
+        let aclass = "collapsed"
+        let bclass = ""
+        if (imgs){
+            aclass = ""
+            bclass = "show"
+        }
         const [selected, setSelected] = useState(0);
         if (emprendimientoImagen.Imagen) {
             console.log("emprendimiento imagen")
@@ -227,11 +238,11 @@ function StoreImgUpdate() {
                 <div className="accordion m-2 rounded " id="accordionSubirImgs">
                     <div className="accordion-item">
                         <h2 className="accordion-header" id="headingSubirImgs">
-                            <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSubirImgs" aria-expanded="true" aria-controls="collapseSubirImgs">
+                            <button className={`accordion-button ${aclass}`} type="button" data-bs-toggle="collapse" data-bs-target="#collapseSubirImgs" aria-expanded="true" aria-controls="collapseSubirImgs">
                             Subir más Imágenes
                             </button>
                         </h2>
-                        <div id="collapseSubirImgs" class="accordion-collapse collapse" aria-labelledby="headingSubirImgs" data-bs-parent="#accordionSubirImgs">
+                        <div id="collapseSubirImgs" className={`accordion-collapse collapse ${bclass}`} aria-labelledby="headingSubirImgs" data-bs-parent="#accordionSubirImgs">
                             <div className="accordion-body">
                                 <div className='text-center'>
                                     {photos.length < 5 && <div className="d-flex flex-row nuevas-imgs justify-content-center">

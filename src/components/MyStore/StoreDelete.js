@@ -3,10 +3,10 @@ import { useAuth } from "../../context/AuthContext";
 import { useMyStore } from "../../context/MyStoreContext";
 import Alert from '../../utilities/alert.utilities';
 function StoreDelete() {
-    const { deletePhoto} = useAuth();
+    const {deletePhoto,readStorePays} = useAuth();
     const {deleteStore, userStore } = useMyStore();
     const [error, setError] = useState("");
-    const [emprendimientoImg, setEmprendimientoImg] = useState(null); 
+    const [emprendimientoImg, setEmprendimientoImg] = useState(null);
     useEffect(() => {
         if (userStore){
             if (userStore.Imagen) {
@@ -18,10 +18,20 @@ function StoreDelete() {
         e.preventDefault();
         if (window.confirm("¿Realmente desea eliminar su emprendimiento?")){
         try {
+            readStorePays(userStore._id).then((res) => {
+                console.log(res)
+                if (res.data.length > 0){
+                  console.log("tiene Pendientes")
+                } else{
+                  console.log("no tiene pendientes")
+                }
+              })
             await deleteStore(userStore);
             if (emprendimientoImg){
             let url = `/emprendimiento/perfil/`;
             let fotos = emprendimientoImg.split(",");
+
+            
             for (let i = 0; i < fotos.length; i++) {
                 try {
                     deletePhoto(url+i);

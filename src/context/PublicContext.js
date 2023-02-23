@@ -10,7 +10,7 @@ export const usePublic = () => {
 };
 export function PublicProvider({ children }) {
     //const { token, loading, userData } = useAuth();
-    const dbUrl= 'https://qopit3-4000.preview.csb.app/';
+    const dbUrl= 'https://colombia-emprende-server.onrender.com/';
     const [stores, setStores] = useState(null);
     const [products, setProducts] = useState(null);
     const [storesData, setStoresData] = useState(null);
@@ -33,7 +33,7 @@ export function PublicProvider({ children }) {
     useEffect(() => {
         const getStores = async () => {
             await axios.get(`${dbUrl}`)
-            .then(res => {setStoresData(res.data); console.log(res.data)})
+            .then(res => {setStoresData(res.data);})
             .catch(err => {console.log(err); setLoadingPublic(false)})
         }
         const setStore = async () => {

@@ -1,16 +1,15 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
+import { ModalFooter } from "react-bootstrap";
 function MyOrders() {
   const {
     user,
     readStores,
     readProducts,
-    deletePricing,
     updatePricing,
     readOrders,
     setStars,
@@ -31,7 +30,6 @@ function MyOrders() {
     currency: "COP",
     minimumFractionDigits: 0,
   });
-  const navigate = useNavigate();
   const [start, setStart] = useState(true);
   const [cargando, setCargando] = useState(true);
   const [group, setGroup] = useState(null);
@@ -43,15 +41,32 @@ function MyOrders() {
       objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
       return objectsByKeyValue;
     }, {});
-
+  const [alertDel, setAlertDel] = useState(false);
+  const sAlertDel = () => {
+    window.scroll(0, 0);
+    setTimeout(() => {
+      setAlertDel(false);
+    }, 4000);
+  };
+  const AlertDelete = () => {
+    return (
+      <div
+        className=" alert alert-danger d-flex flex-row flex-wrap justify-content-center"
+        role="alert"
+      >
+        <i className="fa-solid fa-circle-check fa-2x me-1 text-danger"></i>
+        <h5 className=" m-1 sm:inline text-danger align-middle ">
+          Cotización Eliminada
+        </h5>
+      </div>
+    );
+  };
   const resolveProducts = async (products) => {
     await readProducts(products).then((res) => {
-      console.log("resData", res.data);
       setProductosOrders(res.data);
     });
     setCargando(false);
   };
-
   const resolveTiendas = async (tienda) => {
     await readStores(tienda).then((res) => {
       setTiendasCotizar(res.data);
@@ -60,7 +75,6 @@ function MyOrders() {
   const resolveOrders = async () => {
     await readOrders(user.uid).then((res) => {
       const data = res.data;
-      console.log(data);
       let listaTiendas = [];
       let listaProductos = [];
       data.forEach((element) => {
@@ -76,8 +90,6 @@ function MyOrders() {
       const group = groupBy(["Estado"]);
       let lista = [];
       let objeto = group(data);
-
-      console.log("object", objeto);
       let creadas;
       let rechazadas;
       let final;
@@ -113,44 +125,126 @@ function MyOrders() {
       if (final) {
         lista.push(final);
       }
-
       setGroup(lista);
-      console.log(listaProductos);
       resolveProducts(listaProductos);
       return;
     });
   };
-  const handlePagar = async (cotizacion, total, tienda) => {
-    console.log(cotizacion);
-    navigate("/pago", { state: { cotizacion, total, tienda } });
-  };
-
   if (start) {
     resolveOrders();
     setStart(false);
   }
-  const handleDelete = async (id) => {
-    await deletePricing(id);
-  };
-  const handleEnvio = async (id, envio) => {
-    await updatePricing(id, envio);
-  };
+  const [startT, setStartT] = useState(false);
   const handleFinalizar = async (id) => {
     let estado = { User_Delete: true };
     await updatePricing(id, estado);
+    setAlertDel(true);
+    sAlertDel();
+    let lista1;
+    let grupo = group;
+    group.map((estado, eindex) => {
+      lista1 = estado.Cotizaciones;
+      estado.Cotizaciones.map((cotizacion, index) => {
+        if (cotizacion._id === id) {
+          lista1.splice(index, 1);
+          grupo[eindex].Cotizaciones.splice(index, 1);
+          if (grupo[eindex].Cotizaciones.length === 0) {
+            grupo.splice(eindex, 1);
+          }
+          setGroup(grupo);
+          return false;
+        } else {
+          return false;
+        }
+      });
+      return false;
+    });
+    setStartT(true);
+  };
+  useEffect(() => {
+    const stGroup = () => {
+      setGroup(group);
+    };
+    if (startT) {
+      setStartT(false);
+      return () => {
+        stGroup();
+      };
+    }
+  }, [startT, group]);
+  const setNewGroupProblem = async (id, comentarios) => {
+    let grupo = group;
+    let obj;
+    let n;
+    let num = null;
+    group.map((estado, ai) => {
+      if (estado.Estado === "envio") {
+        n = ai;
+        return false;
+      }
+      return false;
+    });
+    group[n].Cotizaciones.map((cotizacion, index) => {
+      if (cotizacion._id === id) {
+        obj = cotizacion;
+        obj.Estado = "problema";
+        obj.User_Problem[0] = comentarios;
+        grupo[n].Cotizaciones.splice(index, 1);
+        if (grupo[n].Cotizaciones.length === 0) {
+          grupo.splice(n, 1);
+        }
+        return false;
+      } else {
+        return false;
+      }
+    });
+    grupo.map((estado, ei) => {
+      if (estado.Estado === "problema") {
+        num = ei;
+        return false;
+      }
+      return false;
+    });
+    if (num !== null) {
+      grupo[num].Cotizaciones.push(obj);
+    } else {
+      let c = { Estado: "problema", Cotizaciones: [obj] };
+      grupo.push(c);
+    }
+    setGroup(grupo);
+    setStartT(true);
   };
   const ModalProblem = (data) => {
     const [comentarios, setComentarios] = useState("");
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
+    const [alertProblem, setAlertProblem] = useState(false);
+    const sAlertProblem = (id) => {
+      setTimeout(async () => {
+        await setNewGroupProblem(id, comentarios);
+        setAlertProblem(false);
+        handleClose();
+      }, 3500);
+    };
+    const AlertProblem = () => {
+      return (
+        <div
+          className=" alert alert-danger d-flex flex-row flex-wrap justify-content-center"
+          role="alert"
+        >
+          <i className="fa-solid fa-circle-check fa-2x me-1 text-danger"></i>
+          <h5 className=" m-1 sm:inline text-success align-middle ">
+            Se ha enviado el mensaje y se ha declarado el pedido en problema
+          </h5>
+        </div>
+      );
+    };
     return (
       <div>
         <Button variant="secondary" onClick={handleShow}>
           ¿Tienes un Problema?
         </Button>
-
         <Modal
           show={show}
           onHide={handleClose}
@@ -160,44 +254,58 @@ function MyOrders() {
           <Modal.Header closeButton>
             <Modal.Title>¿Tienes un Problema?</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            <h5>Problema.</h5>
-            Envia un mensaje a la tienda sobre este pedido
-            <div>
-              <input
-                type="text-area"
-                className=""
-                onChange={(e) => {
-                  e.preventDefault();
-                  setComentarios(e.target.value);
-                }}
-              />
-            </div>
-            <div>
-              ¿No encuentras una solución? Comunicate con soporte o directamente
-              con la tienda en sus canales de contacto.
-            </div>
-          </Modal.Body>
+          {alertProblem && <AlertProblem></AlertProblem>}
+          {!alertProblem && (
+            <Modal.Body>
+              <h5>Problema.</h5>
+              Envia un mensaje a la tienda sobre este pedido
+              <div>
+                <textarea
+                  type="text-area"
+                  className="form-control mt-2 mb-2"
+                  onChange={(e) => {
+                    e.preventDefault();
+                    setComentarios(e.target.value);
+                  }}
+                />
+              </div>
+              <div>
+                ¿No encuentras una solución? Comunicate con soporte o
+                directamente con la tienda en sus canales de contacto.
+              </div>
+            </Modal.Body>
+          )}
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Cerrar
-            </Button>
-            <button
-              className="btn btn-primary"
-              onClick={(e) => {
-                const problem = { User_Problem: comentarios };
-                setUserProblem(data.data.pedido._id, problem);
+            <Button
+              variant="secondary"
+              onClick={() => {
+                if (alertProblem) {
+                  setNewGroupProblem(data.data.pedido._id);
+                }
+                handleClose();
               }}
             >
-              Enviar mensaje
-            </button>
+              Cerrar
+            </Button>
+            {!alertProblem && (
+              <button
+                className="btn btn-primary"
+                onClick={(e) => {
+                  const problem = { User_Problem: comentarios };
+                  setUserProblem(data.data.pedido._id, problem);
+                  setAlertProblem(true);
+                  sAlertProblem(data.data.pedido._id);
+                }}
+              >
+                Enviar mensaje
+              </button>
+            )}
           </Modal.Footer>
         </Modal>
       </div>
     );
   };
   const ModalFin = (data) => {
-    console.log(data);
     const [comentarios, setComentarios] = useState("");
     const [show, setShow] = useState(false);
     const [estrella, setEstrella] = useState(0);
@@ -205,17 +313,107 @@ function MyOrders() {
     const [clickNum, setClickNum] = useState(0);
     const [name, setName] = useState(user.displayName);
     const [finalMsg, setFinalMsg] = useState("");
-    const [calificacion, setCalificacion] = useState(false);
     const [send, setSend] = useState("Enviar Mensaje");
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [alertCalificacion, setAlertCalificacion] = useState(false);
+    const [alertFinal, setAlertFinal] = useState(false);
+    const [alertId, setAlertId] = useState(null);
+    const handleEnvio = async (id, envio) => {
+      await updatePricing(id, envio);
+      setAlertFinal(true);
+      sAlertFinal(id);
+      setAlertCalificacion(false);
+    };
+    const setNewGroup = (id) => {
+      let grupo = group;
+      let obj;
+      let num;
+      group.map((estado, eindex) => {
+        estado.Cotizaciones.map((cotizacion, index) => {
+          if (cotizacion._id === id) {
+            obj = cotizacion;
+            obj.Estado = "finalizado";
+            if (alertId === id) {
+              obj.Calificacion = true;
+            }
+            grupo[eindex].Cotizaciones.splice(index, 1);
+            if (grupo[eindex].Cotizaciones.length === 0) {
+              grupo.splice(eindex, 1);
+            }
+            return false;
+          } else {
+            return false;
+          }
+        });
+        return false;
+      });
+      group.map((estado, ei) => {
+        if (estado.Estado === "finalizado") {
+          num = ei;
+          return false;
+        }
+        return false;
+      });
+      if (num) {
+        grupo[num].Cotizaciones.push(obj);
+      } else {
+        let c = { Estado: "finalizado", Cotizaciones: [obj] };
+        grupo.push(c);
+      }
+      setGroup(grupo);
+      setStartT(true);
+    };
+    const AlertCalificacion = () => {
+      return (
+        <div
+          className=" alert alert-success d-flex flex-row flex-wrap justify-content-center"
+          role="alert"
+        >
+          <i className="fa-solid fa-circle-check fa-2x me-1 text-success"></i>
+          <h5 className=" m-1 sm:inline text-success align-middle ">
+            Se ha enviado la calificación de la tienda
+          </h5>
+        </div>
+      );
+    };
+    const AlertFinal = () => {
+      return (
+        <div
+          className=" alert alert-success d-flex flex-row flex-wrap justify-content-center"
+          role="alert"
+        >
+          <i className="fa-solid fa-circle-check fa-2x me-1 text-success"></i>
+          <h5 className=" m-1 sm:inline text-success align-middle ">
+            Se ha declarado el pedido como finalizado
+          </h5>
+        </div>
+      );
+    };
+    const sAlertCalificacion = () => {
+      setTimeout(() => {
+        setAlertCalificacion(false);
+      }, 3500);
+    };
+    const sAlertFinal = (id) => {
+      setTimeout(() => {
+        setNewGroup(id);
+        setAlertFinal(false);
+        handleClose();
+      }, 3500);
+    };
+    const handleEnvioCalificacion = async (id, envio) => {
+      await updatePricing(id, envio);
+      setAlertCalificacion(true);
+      sAlertCalificacion(id);
+      setAlertId(id);
+    };
     const handleMessage = () => {
       document.getElementById("message").classList.remove("d-none");
       document.getElementById("message-btn").classList.remove("btn-primary");
       document.getElementById("message-btn").classList.add("btn-secondary");
       setSend("Cancelar");
     };
-
     const handleNoMessage = () => {
       document.getElementById("message").classList.add("d-none");
       document.getElementById("message-btn").classList.remove("btn-secondary");
@@ -263,13 +461,11 @@ function MyOrders() {
         setName(user.displayName);
       }
     };
-
     return (
       <div>
         <Button variant="primary" onClick={handleShow}>
           {data.data.titulo}
         </Button>
-
         <Modal
           show={show}
           onHide={handleClose}
@@ -279,196 +475,212 @@ function MyOrders() {
           <Modal.Header closeButton>
             <Modal.Title>Finalizar Pedido</Modal.Title>
           </Modal.Header>
-          {(calificacion || !data.data.pedido.Calificacion) && (
-            <div>
-              <Modal.Body>
-                <div className="accordion" id={`accordioncalificacion`}>
-                <div className="accordion-item">
-                  <h3 className="accordion-header" id={`headingcalificacion`}>
-                  <button
-                                  className="accordion-button acc-us-admin"
-                                  type="button"
-                                  data-bs-toggle="collapse"
-                                  data-bs-target={`#collapsecalificacion`}
-                                  aria-expanded="true"
-                                  aria-controls={`#collapsecalificacion`}
-                                >
-                                  Calificar tienda
-                                </button>
-                  </h3>
-                  <div className="accordion-collapse collapse show"
-                                id={`collapsecalificacion`}
-                                aria-labelledby={`headingcalificacion`}
-                                data-bs-parent={`#accordioncalificacion`}>
-                  <div className="accordion-body text-center justify-content-center">
-                  <h3>{data.data.tienda}</h3>
-                  <div>
-                    <div className="stars">
-                      <i
-                        className="fa-regular fa-2x fa-star star-1 estrella"
-                        id="star-1"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setClickNum(1);
-                          if (click === true && clickNum === 1) {
-                            setClick(false);
-                          } else {
-                            setClick(true);
-                          }
-                          setStar(1);
-                        }}
-                        onMouseEnter={(e) => {
-                          e.preventDefault();
-                          setStar(1);
-                        }}
-                        onMouseLeave={(e) => {
-                          e.preventDefault();
-                          unsetStar(1);
-                        }}
-                      ></i>
-                      <i
-                        className="fa-regular fa-star fa-2x  star-2 estrella"
-                        id="star-2"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setClickNum(2);
-                          if (click === true && clickNum === 2) {
-                            setClick(false);
-                          } else {
-                            setClick(true);
-                          }
-                          setStar(2);
-                        }}
-                        onMouseEnter={(e) => {
-                          e.preventDefault();
-                          setStar(2);
-                        }}
-                        onMouseLeave={(e) => {
-                          e.preventDefault();
-                          unsetStar(2);
-                        }}
-                      ></i>
-                      <i
-                        className="fa-regular fa-star fa-2x  star-3 estrella"
-                        id="star-3"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setClickNum(3);
-                          if (click === true && clickNum === 3) {
-                            setClick(false);
-                          } else {
-                            setClick(true);
-                          }
-                          setStar(3);
-                        }}
-                        onMouseEnter={(e) => {
-                          e.preventDefault();
-                          setStar(3);
-                        }}
-                        onMouseLeave={(e) => {
-                          e.preventDefault();
-                          unsetStar(3);
-                        }}
-                      ></i>
-                      <i
-                        className="fa-regular fa-2x  fa-star star-4 estrella"
-                        id="star-4"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setClickNum(4);
-                          if (click === true && clickNum === 4) {
-                            setClick(false);
-                          } else {
-                            setClick(true);
-                          }
-                          setStar(4);
-                        }}
-                        onMouseEnter={(e) => {
-                          e.preventDefault();
-                          setStar(4);
-                        }}
-                        onMouseLeave={(e) => {
-                          e.preventDefault();
-                          unsetStar(4);
-                        }}
-                      ></i>
-                      <i
-                        className="fa-regular fa-2x  fa-star star-5 estrella"
-                        id="star-5"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setClickNum(5);
-                          if (click === true && clickNum === 5) {
-                            setClick(false);
-                          } else {
-                            setClick(true);
-                          }
-                          setStar(5);
-                        }}
-                        onMouseEnter={(e) => {
-                          e.preventDefault();
-                          setStar(5);
-                        }}
-                        onMouseLeave={(e) => {
-                          e.preventDefault();
-                          unsetStar(5);
-                        }}
-                      ></i>
-                    </div>
-                    <div className="m-2">
-                      Comenta tu opinión de la Tienda:{" "}
-                      <div className="d-flex justify-content-center">
-                        <textarea className=" m-2 w-100"
-                          onChange={(e) => {
-                            e.preventDefault();
-                            setComentarios(e.target.value);
-                          }}
-                        />
+          <div>
+            <Modal.Body>
+              <div className="accordion" id={`accordioncalificacion`}>
+                {alertCalificacion &&
+                  data.data.pedido._id === alertId &&
+                  !alertFinal && <AlertCalificacion />}
+                {!data.data.pedido.Calificacion &&
+                  data.data.pedido._id !== alertId &&
+                  !alertFinal && (
+                    <div className="accordion-item">
+                      <h3
+                        className="accordion-header"
+                        id={`headingcalificacion`}
+                      >
+                        <button
+                          className="accordion-button acc-us-admin"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target={`#collapsecalificacion`}
+                          aria-expanded="true"
+                          aria-controls={`#collapsecalificacion`}
+                        >
+                          Calificar tienda
+                        </button>
+                      </h3>
+                      <div
+                        className="accordion-collapse collapse show"
+                        id={`collapsecalificacion`}
+                        aria-labelledby={`headingcalificacion`}
+                        data-bs-parent={`#accordioncalificacion`}
+                      >
+                        <div className="accordion-body text-center justify-content-center">
+                          <h3>{data.data.tienda}</h3>
+                          <div>
+                            <div className="stars">
+                              <i
+                                className="fa-regular fa-2x fa-star star-1 estrella"
+                                id="star-1"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  setClickNum(1);
+                                  if (click === true && clickNum === 1) {
+                                    setClick(false);
+                                  } else {
+                                    setClick(true);
+                                  }
+                                  setStar(1);
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.preventDefault();
+                                  setStar(1);
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.preventDefault();
+                                  unsetStar(1);
+                                }}
+                              ></i>
+                              <i
+                                className="fa-regular fa-star fa-2x  star-2 estrella"
+                                id="star-2"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  setClickNum(2);
+                                  if (click === true && clickNum === 2) {
+                                    setClick(false);
+                                  } else {
+                                    setClick(true);
+                                  }
+                                  setStar(2);
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.preventDefault();
+                                  setStar(2);
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.preventDefault();
+                                  unsetStar(2);
+                                }}
+                              ></i>
+                              <i
+                                className="fa-regular fa-star fa-2x  star-3 estrella"
+                                id="star-3"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  setClickNum(3);
+                                  if (click === true && clickNum === 3) {
+                                    setClick(false);
+                                  } else {
+                                    setClick(true);
+                                  }
+                                  setStar(3);
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.preventDefault();
+                                  setStar(3);
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.preventDefault();
+                                  unsetStar(3);
+                                }}
+                              ></i>
+                              <i
+                                className="fa-regular fa-2x  fa-star star-4 estrella"
+                                id="star-4"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  setClickNum(4);
+                                  if (click === true && clickNum === 4) {
+                                    setClick(false);
+                                  } else {
+                                    setClick(true);
+                                  }
+                                  setStar(4);
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.preventDefault();
+                                  setStar(4);
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.preventDefault();
+                                  unsetStar(4);
+                                }}
+                              ></i>
+                              <i
+                                className="fa-regular fa-2x  fa-star star-5 estrella"
+                                id="star-5"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  setClickNum(5);
+                                  if (click === true && clickNum === 5) {
+                                    setClick(false);
+                                  } else {
+                                    setClick(true);
+                                  }
+                                  setStar(5);
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.preventDefault();
+                                  setStar(5);
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.preventDefault();
+                                  unsetStar(5);
+                                }}
+                              ></i>
+                            </div>
+                            <div className="m-2">
+                              Comenta tu opinión de la Tienda:{" "}
+                              <div className="d-flex justify-content-center">
+                                <textarea
+                                  className=" m-2 w-100"
+                                  onChange={(e) => {
+                                    e.preventDefault();
+                                    setComentarios(e.target.value);
+                                  }}
+                                />
+                              </div>
+                            </div>
+                            <div className="d-flex flex-row justify-content-center mb-3">
+                              <input
+                                className="m-1"
+                                type="checkbox"
+                                id="emailCheck"
+                                onClick={handleNombre}
+                              />
+                              Deseo que mi calificación sea anónima.
+                            </div>
+                            <Modal.Footer>
+                              <button
+                                className="btn btn-primary"
+                                onClick={(e) => {
+                                  let calificacion = {
+                                    Usuario: name,
+                                    Comentarios: comentarios,
+                                    Stars: estrella,
+                                  };
+                                  let ok = {
+                                    Calificacion: true,
+                                  };
+                                  e.preventDefault();
+                                  setStars(
+                                    data.data.pedido.Emprendimiento_id,
+                                    calificacion
+                                  );
+                                  handleEnvioCalificacion(
+                                    data.data.pedido._id,
+                                    ok
+                                  );
+                                }}
+                              >
+                                Enviar Calificación
+                              </button>
+                            </Modal.Footer>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div className="d-flex flex-row justify-content-center mb-3">
-                      <input
-                        className="m-1"
-                        type="checkbox"
-                        id="emailCheck"
-                        onClick={handleNombre}
-                      />
-                      Deseo que mi calificación sea anónima.
-                    </div>
-
-                    <Modal.Footer>
-                      <button
-                        className="btn btn-primary"
-                        onClick={(e) => {
-                          let calificacion = {
-                            Usuario: name,
-                            Comentarios: comentarios,
-                            Stars: estrella,
-                          };
-                          let ok = {
-                            Calificacion: true,
-                          };
-                          e.preventDefault();
-                          setStars(
-                            data.data.pedido.Emprendimiento_id,
-                            calificacion
-                          );
-                          handleEnvio(data.data.pedido._id, ok);
-                        }}
-                      >
-                        Enviar Calificación
-                      </button>
-                    </Modal.Footer>
-                  </div>
-                </div></div></div></div>
-              </Modal.Body>
-            </div>
-          )}
-          {!calificacion &&
-            !data.data.pedido.Calificacion &&
-            data.data.pedido.Estado !== "finalizado" && (
-              <div>
-                {" "}
+                  )}
+              </div>
+            </Modal.Body>
+          </div>
+          {alertFinal && <AlertFinal />}
+          {data.data.pedido.Estado !== "finalizado" && !alertFinal && (
+            <div>
+              {" "}
+              {!data.data.pedido.Comentarios_Finales && (
                 <Modal.Body>
                   <div className="text-center">
                     ¿Deseas enviar un comentario final a la tienda?
@@ -483,84 +695,106 @@ function MyOrders() {
                       }}
                     />
                     {finalMsg && (
-                    <div className="text-center">
-                      Su mensaje será enviado al dar como finalizado el pedido.
-                    </div>
-                  )}
+                      <div className="text-center">
+                        Su mensaje será enviado al dar como finalizado el
+                        pedido.
+                      </div>
+                    )}
                   </div>
-                  
+
                   <div className="d-flex justify-content-center">
-                  <Button
-                    className="btn btn-primary"
-                    id="message-btn"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      if (send === "Enviar Mensaje") {
-                        handleMessage();
-                      } else if (send === "Cancelar") {
-                        handleNoMessage();
-                      }
-                    }}
-                  >
-                    {send}
-                  </Button></div>
+                    <Button
+                      className="btn btn-primary"
+                      id="message-btn"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (send === "Enviar Mensaje") {
+                          handleMessage();
+                        } else if (send === "Cancelar") {
+                          handleNoMessage();
+                        }
+                      }}
+                    >
+                      {send}
+                    </Button>
+                  </div>
                 </Modal.Body>
-                <Modal.Footer>
+              )}
+              <Modal.Footer>
+                {!alertFinal && (
                   <div className="">
                     *Al finalizar se declarará el pedido como recibido y la
                     orden como finalizada.
                   </div>
-                  <Button variant="secondary" onClick={handleClose}>
-                    Cerrar
-                  </Button>
+                )}
+                <Button
+                  variant="secondary"
+                  onClick={(e) => {
+                    if (alertFinal) {
+                      setNewGroup(data.data.pedido._id);
+                    }
+                    handleClose();
+                  }}
+                >
+                  Cerrar
+                </Button>
+                {!alertFinal && (
                   <button
                     className="btn btn-primary"
                     onClick={(e) => {
                       let envio = {
                         Estado: "finalizado",
                       };
-
                       e.preventDefault();
                       handleEnvio(data.data.pedido._id, envio);
-                      setCalificacion(true);
                     }}
                   >
                     Finalizar
                   </button>
-                </Modal.Footer>
-              </div>
-            )}
+                )}
+              </Modal.Footer>
+            </div>
+          )}
         </Modal>
       </div>
     );
   };
   const ModalCalificacion = (data) => {
-    console.log(data);
     const [comentarios, setComentarios] = useState("");
     const [show, setShow] = useState(false);
     const [estrella, setEstrella] = useState(0);
     const [click, setClick] = useState(false);
     const [clickNum, setClickNum] = useState(0);
     const [name, setName] = useState(user.displayName);
-    const [finalMsg, setFinalMsg] = useState("");
-    const [calificacion, setCalificacion] = useState(false);
-    const [send, setSend] = useState("Enviar Mensaje");
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    const handleMessage = () => {
-      document.getElementById("message").classList.remove("d-none");
-      document.getElementById("message-btn").classList.remove("btn-primary");
-      document.getElementById("message-btn").classList.add("btn-secondary");
-      setSend("Cancelar");
+    const [alertCalificacion, setAlertCalificacion] = useState(false);
+    const [alertId, setAlertId] = useState(null);
+    const handleClose = () => {
+      setShow(false);
     };
-
-    const handleNoMessage = () => {
-      document.getElementById("message").classList.add("d-none");
-      document.getElementById("message-btn").classList.remove("btn-secondary");
-      document.getElementById("message-btn").classList.add("btn-primary");
-      document.getElementById("message").value = "";
-      setSend("Enviar Mensaje");
-      setFinalMsg("");
+    const handleShow = () => setShow(true);
+    const AlertCalificacion = () => {
+      return (
+        <div
+          className=" alert alert-success d-flex flex-row flex-wrap justify-content-center"
+          role="alert"
+        >
+          <i className="fa-solid fa-circle-check fa-2x me-1 text-success"></i>
+          <h5 className=" m-1 sm:inline text-success align-middle ">
+            Se ha enviado la calificación de la tienda
+          </h5>
+        </div>
+      );
+    };
+    const sAlertCalificacion = (id) => {
+      setTimeout(() => {
+        handleClose();
+      }, 3500);
+    };
+    const handleEnvioCalificacion = async (id, envio) => {
+      await updatePricing(id, envio);
+      setAlertCalificacion(true);
+      sAlertCalificacion(id);
+      setAlertId(id);
     };
     const setStar = (num) => {
       setEstrella(num);
@@ -601,13 +835,13 @@ function MyOrders() {
         setName(user.displayName);
       }
     };
-
     return (
       <div>
-        <Button variant="primary" onClick={handleShow}>
-          {data.data.titulo}
-        </Button>
-
+        {data.data.pedido._id !== alertId && (
+          <Button variant="primary" onClick={handleShow}>
+            {data.data.titulo}
+          </Button>
+        )}
         <Modal
           show={show}
           onHide={handleClose}
@@ -617,149 +851,154 @@ function MyOrders() {
           <Modal.Header closeButton>
             <Modal.Title>Calificar Tienda</Modal.Title>
           </Modal.Header>
-          {(calificacion || !data.data.pedido.Calificacion) && (
-            <div>
-              <Modal.Body  className="text-center">
-                
-                  <h3>{data.data.tienda}</h3>
+          {alertCalificacion && data.data.pedido._id === alertId && (
+            <AlertCalificacion />
+          )}
+          {!data.data.pedido.Calificacion &&
+            data.data.pedido._id !== alertId && (
+              <div>
+                <Modal.Body className="text-center">
                   <div>
-                    <div className="stars">
-                      <i
-                        className="fa-regular fa-2x fa-star star-1 estrella"
-                        id="star-1"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setClickNum(1);
-                          if (click === true && clickNum === 1) {
-                            setClick(false);
-                          } else {
-                            setClick(true);
-                          }
-                          setStar(1);
-                        }}
-                        onMouseEnter={(e) => {
-                          e.preventDefault();
-                          setStar(1);
-                        }}
-                        onMouseLeave={(e) => {
-                          e.preventDefault();
-                          unsetStar(1);
-                        }}
-                      ></i>
-                      <i
-                        className="fa-regular fa-star fa-2x  star-2 estrella"
-                        id="star-2"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setClickNum(2);
-                          if (click === true && clickNum === 2) {
-                            setClick(false);
-                          } else {
-                            setClick(true);
-                          }
-                          setStar(2);
-                        }}
-                        onMouseEnter={(e) => {
-                          e.preventDefault();
-                          setStar(2);
-                        }}
-                        onMouseLeave={(e) => {
-                          e.preventDefault();
-                          unsetStar(2);
-                        }}
-                      ></i>
-                      <i
-                        className="fa-regular fa-star fa-2x  star-3 estrella"
-                        id="star-3"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setClickNum(3);
-                          if (click === true && clickNum === 3) {
-                            setClick(false);
-                          } else {
-                            setClick(true);
-                          }
-                          setStar(3);
-                        }}
-                        onMouseEnter={(e) => {
-                          e.preventDefault();
-                          setStar(3);
-                        }}
-                        onMouseLeave={(e) => {
-                          e.preventDefault();
-                          unsetStar(3);
-                        }}
-                      ></i>
-                      <i
-                        className="fa-regular fa-2x  fa-star star-4 estrella"
-                        id="star-4"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setClickNum(4);
-                          if (click === true && clickNum === 4) {
-                            setClick(false);
-                          } else {
-                            setClick(true);
-                          }
-                          setStar(4);
-                        }}
-                        onMouseEnter={(e) => {
-                          e.preventDefault();
-                          setStar(4);
-                        }}
-                        onMouseLeave={(e) => {
-                          e.preventDefault();
-                          unsetStar(4);
-                        }}
-                      ></i>
-                      <i
-                        className="fa-regular fa-2x  fa-star star-5 estrella"
-                        id="star-5"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setClickNum(5);
-                          if (click === true && clickNum === 5) {
-                            setClick(false);
-                          } else {
-                            setClick(true);
-                          }
-                          setStar(5);
-                        }}
-                        onMouseEnter={(e) => {
-                          e.preventDefault();
-                          setStar(5);
-                        }}
-                        onMouseLeave={(e) => {
-                          e.preventDefault();
-                          unsetStar(5);
-                        }}
-                      ></i>
-                    </div>
-                    <div className="m-2">
-                      Comenta tu opinión de la Tienda:{" "}
-                      <div className="d-flex justify-content-center">
-                        <textarea className=" m-2 w-100"
-                          onChange={(e) => {
+                    <h3>{data.data.tienda}</h3>
+                    <div>
+                      <div className="stars">
+                        <i
+                          className="fa-regular fa-2x fa-star star-1 estrella"
+                          id="star-1"
+                          onClick={(e) => {
                             e.preventDefault();
-                            setComentarios(e.target.value);
+                            setClickNum(1);
+                            if (click === true && clickNum === 1) {
+                              setClick(false);
+                            } else {
+                              setClick(true);
+                            }
+                            setStar(1);
                           }}
+                          onMouseEnter={(e) => {
+                            e.preventDefault();
+                            setStar(1);
+                          }}
+                          onMouseLeave={(e) => {
+                            e.preventDefault();
+                            unsetStar(1);
+                          }}
+                        ></i>
+                        <i
+                          className="fa-regular fa-star fa-2x  star-2 estrella"
+                          id="star-2"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setClickNum(2);
+                            if (click === true && clickNum === 2) {
+                              setClick(false);
+                            } else {
+                              setClick(true);
+                            }
+                            setStar(2);
+                          }}
+                          onMouseEnter={(e) => {
+                            e.preventDefault();
+                            setStar(2);
+                          }}
+                          onMouseLeave={(e) => {
+                            e.preventDefault();
+                            unsetStar(2);
+                          }}
+                        ></i>
+                        <i
+                          className="fa-regular fa-star fa-2x  star-3 estrella"
+                          id="star-3"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setClickNum(3);
+                            if (click === true && clickNum === 3) {
+                              setClick(false);
+                            } else {
+                              setClick(true);
+                            }
+                            setStar(3);
+                          }}
+                          onMouseEnter={(e) => {
+                            e.preventDefault();
+                            setStar(3);
+                          }}
+                          onMouseLeave={(e) => {
+                            e.preventDefault();
+                            unsetStar(3);
+                          }}
+                        ></i>
+                        <i
+                          className="fa-regular fa-2x  fa-star star-4 estrella"
+                          id="star-4"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setClickNum(4);
+                            if (click === true && clickNum === 4) {
+                              setClick(false);
+                            } else {
+                              setClick(true);
+                            }
+                            setStar(4);
+                          }}
+                          onMouseEnter={(e) => {
+                            e.preventDefault();
+                            setStar(4);
+                          }}
+                          onMouseLeave={(e) => {
+                            e.preventDefault();
+                            unsetStar(4);
+                          }}
+                        ></i>
+                        <i
+                          className="fa-regular fa-2x  fa-star star-5 estrella"
+                          id="star-5"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setClickNum(5);
+                            if (click === true && clickNum === 5) {
+                              setClick(false);
+                            } else {
+                              setClick(true);
+                            }
+                            setStar(5);
+                          }}
+                          onMouseEnter={(e) => {
+                            e.preventDefault();
+                            setStar(5);
+                          }}
+                          onMouseLeave={(e) => {
+                            e.preventDefault();
+                            unsetStar(5);
+                          }}
+                        ></i>
+                      </div>
+                      <div className="m-2">
+                        Comenta tu opinión de la Tienda:{" "}
+                        <div className="d-flex justify-content-center">
+                          <textarea
+                            className=" m-2 w-100"
+                            onChange={(e) => {
+                              e.preventDefault();
+                              setComentarios(e.target.value);
+                            }}
+                          />
+                        </div>
+                      </div>
+                      <div className="d-flex flex-row justify-content-center mb-3">
+                        <input
+                          className="m-1"
+                          type="checkbox"
+                          id="emailCheck"
+                          onClick={handleNombre}
                         />
+                        Deseo que mi calificación sea anónima.
                       </div>
                     </div>
-                    <div className="d-flex flex-row justify-content-center mb-3">
-                      <input
-                        className="m-1"
-                        type="checkbox"
-                        id="emailCheck"
-                        onClick={handleNombre}
-                      />
-                      Deseo que mi calificación sea anónima.
-                    </div>
-
                     <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                    Cerrar
-                  </Button>
+                      <Button variant="secondary" onClick={handleClose}>
+                        Cerrar
+                      </Button>
                       <button
                         className="btn btn-primary"
                         onClick={(e) => {
@@ -776,27 +1015,26 @@ function MyOrders() {
                             data.data.pedido.Emprendimiento_id,
                             calificacion
                           );
-                          handleEnvio(data.data.pedido._id, ok);
+                          handleEnvioCalificacion(data.data.pedido._id, ok);
                         }}
                       >
                         Enviar Calificación
                       </button>
                     </Modal.Footer>
                   </div>
-                  
-              </Modal.Body>
-            </div>
+                </Modal.Body>
+              </div>
+            )}
+          {alertCalificacion && data.data.pedido._id === alertId && (
+            <ModalFooter>
+              <Button variant="secondary" onClick={handleClose}>
+                Cerrar
+              </Button>
+            </ModalFooter>
           )}
-          
         </Modal>
       </div>
     );
-  };
-  const StoreResp = (data) => {
-    console.log(data);
-    if (!data.data.Store_Problem.length <= 0) {
-      return <div>Aun no hay respuesta</div>;
-    }
   };
   const CotizacionItems = () => {
     const [newMsg, setNewMsg] = useState("");
@@ -809,12 +1047,10 @@ function MyOrders() {
       document.getElementById("new-msg").classList.add("d-none");
     };
     if (group && tiendasCotizar && productosOrders) {
-      console.log(group);
       return (
         <div>
+          {alertDel && <AlertDelete />}
           {group.map((estado, tes) => {
-            console.log(tes + " hola " + estado);
-            console.log(estado);
             return (
               <div
                 key={tes}
@@ -848,24 +1084,19 @@ function MyOrders() {
                   >
                     <div className="accordion-body">
                       {estado.Cotizaciones.map((cotiza, index) => {
-                        console.log("cotiza");
-                        console.log(cotiza);
                         let valorProductos = 0;
                         let valorTotal = 0;
                         cotiza.Pedidos.forEach((producto) => {
                           let item = productosOrders.find(
                             (product) => product._id === producto.Producto
                           );
-                          console.log("item", item);
                           let valor = item.Precio * producto.Cantidad;
                           valorProductos += valor;
                         });
-
                         valorTotal =
                           valorProductos +
                           cotiza.Valor_Envio +
                           cotiza.Otros_Valores;
-
                         let store = tiendasCotizar.find(
                           (item) => item._id === cotiza.Emprendimiento_id
                         );
@@ -958,13 +1189,10 @@ function MyOrders() {
                                           )}
                                           {cotiza.Pedidos.map(
                                             (pedido, tkey) => {
-                                              console.log("pedido", pedido);
                                               let item = productosOrders.find(
                                                 (item) =>
                                                   item._id === pedido.Producto
                                               );
-
-                                              /*let  item = productos.find(product => product._id === producto.Producto_id);*/
                                               let total =
                                                 item.Precio * pedido.Cantidad;
                                               let cant;
@@ -998,7 +1226,6 @@ function MyOrders() {
                                                           w > 680 && (
                                                             <h5>Cantidad: </h5>
                                                           )}
-
                                                         <h5 className="prod-car">
                                                           {w <= 680 && (
                                                             <span>{cant}</span>
@@ -1007,7 +1234,6 @@ function MyOrders() {
                                                         </h5>
                                                       </div>
                                                     </div>
-
                                                     <div className="d-flex caja2-carrito">
                                                       <div className="d-flex flex-row caja-213 prod-cel-box">
                                                         <h6 className="caja-50 prod-cant-end prod-cel-res">
@@ -1134,7 +1360,6 @@ function MyOrders() {
                                                     Información del Envio
                                                   </button>
                                                 </h3>
-
                                                 <div
                                                   className="accordion-collapse collapse"
                                                   id={`collapseEnvio${cotiza._id}`}
@@ -1258,7 +1483,6 @@ function MyOrders() {
                                               Mensajes de revisión
                                             </button>
                                           </h3>
-
                                           <div
                                             className="accordion-collapse collapse show"
                                             id={`collapseProblem${cotiza._id}`}
@@ -1421,7 +1645,6 @@ function MyOrders() {
                                         </div>
                                       </div>
                                     )}
-
                                   {estado.Estado === "finalizado" && (
                                     <div className="d-flex flex-row justify-content-center buttons-orders">
                                       {!cotiza.Calificacion && (
@@ -1480,5 +1703,4 @@ function MyOrders() {
     </div>
   );
 }
-
 export default MyOrders;

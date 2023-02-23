@@ -9,7 +9,7 @@ export const useStore = () => {
     return context;
 };
 export function StoreProvider({ children }) {
-    const dbUrl= 'https://qopit3-4000.preview.csb.app/';
+    const dbUrl= 'https://colombia-emprende-server.onrender.com/';
     const { updateUser } = useAuth();
     const token = localStorage.getItem("token");
     const [userEmprendimiento, setUserEmprendimiento] = useState(null);

@@ -10,7 +10,7 @@ export const useMyStore = () => {
 };
 export function MyStoreProvider({ children }) {
     const { token, updateUserStore, userData } = useAuth();
-    const dbUrl= 'https://qopit3-4000.preview.csb.app/';
+    const dbUrl= 'https://colombia-emprende-server.onrender.com/';
     const [userStore, setUserStore] = useState(null);
     const [userProducts, setUserProducts] = useState(null);
     const [showProducts, setShowProducts] = useState("");
@@ -27,10 +27,8 @@ export function MyStoreProvider({ children }) {
         .then(getMyStore())
         .catch(err => {console.log(err)})
     };
-    const deleteStore = async () => {
-        setLoadingStore(true);
-        const id = {id:"userStore"}
-        await axios.post(`${dbUrl}stores/delete-store`, id, token)
+    const deleteStore = async (emprendimiento) => {
+        await axios.put(`${dbUrl}stores/delete-store`, emprendimiento, token)
         .then(()=>{
             setUserStore(null);
             const id = {Emprendimiento_id:""} 
@@ -38,6 +36,7 @@ export function MyStoreProvider({ children }) {
         })
         .catch(err => {console.log(err)})
     };
+
     const createProduct = async (producto) => {
         setLoadingStore(true);
         await axios.post(`${dbUrl}products/create-product`, producto, token)

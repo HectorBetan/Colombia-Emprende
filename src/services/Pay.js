@@ -5,12 +5,28 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate, useLocation } from "react-router-dom";
 function Pay() {
     const location = useLocation();
-    const { user, createOrder} = useAuth();
+    const { createOrder} = useAuth();
     const pedido = location.state;
     const [pago, setPago] = useState({
         Tipo_Pago: "",
         Cedula: "",
     })
+    const [alert, setAlert] = useState(false)
+    const sAlert = () => {
+        window.scroll(0,0);
+        console.log("salert")
+        setTimeout(() => {
+            navigate(-1, { replace: true });
+        }, 5000);
+      }
+      const Alert = () => {
+        return (
+          <div className=" alert alert-success d-flex flex-row flex-wrap justify-content-center" role="alert" >
+            <i className="fa-solid fa-circle-check fa-2x me-1 text-success"></i>
+            <h5 className=" m-1 sm:inline text-success align-middle ">Se ha realizado el Pago y se ha creado la Orden de Pedido</h5>
+          </div>
+        )
+      }
     const handleChange = ({ target: { value, name } }) => 
     {   
         setPago({ ...pago, [name]: value });
@@ -24,7 +40,6 @@ function Pay() {
     const show = useState(true);
     const handleModal = (e) => {
         if (e){e.preventDefault();}
-        
             navigate(-1, { replace: true });
     };
     const handlePagar = (e) => {
@@ -34,13 +49,10 @@ function Pay() {
             Cedula: pago.Cedula,
             Valor_Total: pedido.total,
         }
-        let cot = {
-            Pago: true,
-            Estado: "Pagado",
-            Info_Pago: pay,
-        }
         let id = pedido.cotizacion._id
         createOrder(id, pay)
+        setAlert(true);
+        sAlert();
     }
     const TipoPago = () => {
         if (!pago.Tipo_Pago){
@@ -85,7 +97,9 @@ function Pay() {
                 <Modal.Header closeButton>
                     <Modal.Title className="ms-3">Pago en Colombia Emprende</Modal.Title>
                 </Modal.Header>
-                <Modal.Body className="text-center pe-5 ps-5">
+                {alert && <Alert />}
+
+                {!alert && <Modal.Body className="text-center pe-5 ps-5">
                     
                     <h3>Compra en <span className='pago-info'>{pedido.tienda}</span></h3>
                     <h4>Valor Total: <span className='pago-info'>{formatterPeso.format(
@@ -102,10 +116,10 @@ function Pay() {
                     </h5>
                     <hr />
                     <TipoPago />
-                </Modal.Body>
+                </Modal.Body>}
                 <Modal.Footer className="d-flex flex-row">
                     <Button className="m-2" variant="secondary" onClick={handleModal}>Volver</Button>
-                    <Button className="m-2" variant="primary" type="submit" onClick={handlePagar}>Pagar</Button>
+                    {!alert && <Button className="m-2" variant="primary" type="submit" onClick={handlePagar}>Pagar</Button>}
                 </Modal.Footer> 
             </Modal>
         </div>

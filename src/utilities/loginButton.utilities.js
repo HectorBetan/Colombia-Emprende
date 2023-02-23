@@ -207,14 +207,12 @@ export const UserButton = () => {
     const activar = (ruta) =>{
 
         if (location.pathname === ruta){
-            console.log("paso1")
             return({
                 color:"rgb(29, 184, 255)",
                 fontWeight:"600",
                 textDecoration:"underline"
             });
         } else {
-            console.log("paso2")
             return({
                 borderRadius:"none",
             })

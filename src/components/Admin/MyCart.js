@@ -24,6 +24,18 @@ function MyCart() {
   const handleResize = () => {
     setW(window.innerWidth);
   };
+  const [alert, setAlert] = useState(false);
+  const [alertDel, setAlertDel] = useState(false);
+  const sAlert = () => {
+    setTimeout(() => {
+      setAlert(false);
+    }, 4000);
+  };
+  const sAlertDel = () => {
+    setTimeout(() => {
+      setAlertDel(false);
+    }, 4000);
+  };
   const formatterPeso = new Intl.NumberFormat("es-CO", {
     style: "currency",
     currency: "COP",
@@ -64,8 +76,7 @@ function MyCart() {
       let result = listaTiendas.filter((item, index) => {
         return listaTiendas.indexOf(item) === index;
       });
-      console.log(listaTiendas);
-      console.log("result", result);
+
       resolveTienda(result);
       const group = groupBy(["Emprendimiento_id"]);
       let lista = [];
@@ -96,22 +107,13 @@ function MyCart() {
     //miCarrito[tkey].Productos.Splice(pkey, 1);
     try {
       await deleteCart(id);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const updateOne = async (id, data) => {
     await updateCart(id, data);
   };
-  const resolverUpdate = async (tienda) => {
-    tienda.Productos.forEach((producto) => {
-      let cantidad = document.getElementById(producto._id).value;
-      if (cantidad) {
-        updateOne(producto._id, { Cantidad: cantidad });
-      }
-    });
-  };
+
   const deleteAll = async (tienda) => {
     let listaDelete = [];
     tienda.Productos.forEach((producto) => {
@@ -122,14 +124,17 @@ function MyCart() {
     };
     await deleteCarts(deleteMany).then(() => {
       resolveCarrito();
+      window.scroll(0, 0);
     });
+    setAlertDel(true);
+    sAlertDel();
   };
   const handleCotizar = async (tienda, tkey) => {
-    console.log(tienda);
     const comentarios = document.getElementById(
       `comentarios${tienda.Tienda}`
     ).value;
     const ciudad = document.getElementById(`ciudad${tienda.Tienda}`).value;
+    const dir = document.getElementById(`direccion${tienda.Tienda}`).value;
     let lista = [];
     let listaDelete = [];
     tienda.Productos.forEach((producto) => {
@@ -143,13 +148,13 @@ function MyCart() {
       lista.push(product);
       listaDelete.push(producto._id);
     });
-    console.log("lista", lista);
-    console.log("listadelete", listaDelete);
+
     const cotizacion = {
       User_id: user.uid,
       Emprendimiento_id: tienda.Tienda,
       Pedidos: lista,
       Ciudad_Envio: ciudad,
+      Direccion_Envio: dir,
       Estado: "creada",
       User_Comentarios: comentarios,
       Pago: false,
@@ -157,16 +162,44 @@ function MyCart() {
     miCarrito.splice(tkey, 1);
     setMiCarrito(miCarrito);
     setStartDelete(true);
+    setAlert(true);
+    sAlert();
+    window.scroll(0, 0);
     await sendCotizacion(cotizacion, listaDelete);
   };
   const sendCotizacion = async (cotizacion, lista) => {
-    await createPricing(cotizacion).catch((err) => {
-      console.log(err);
-    });
+    await createPricing(cotizacion).catch((err) => {});
     const deleteMany = {
       id: lista,
     };
     await deleteCarts(deleteMany);
+  };
+
+  const Alert = () => {
+    return (
+      <div
+        className=" alert alert-success d-flex flex-row flex-wrap justify-content-center"
+        role="alert"
+      >
+        <i className="fa-solid fa-circle-check fa-2x me-1 text-success"></i>
+        <h5 className=" m-1 sm:inline text-success align-middle ">
+          Productos enviados a cotización
+        </h5>
+      </div>
+    );
+  };
+  const AlertDelete = () => {
+    return (
+      <div
+        className=" alert alert-danger d-flex flex-row flex-wrap justify-content-center"
+        role="alert"
+      >
+        <i className="fa-solid fa-circle-check fa-2x me-1 text-danger"></i>
+        <h5 className=" m-1 sm:inline text-danger align-middle ">
+          Pedido Eliminado
+        </h5>
+      </div>
+    );
   };
   const CarritoItems = () => {
     const showEdit = (id) => {
@@ -178,10 +211,11 @@ function MyCart() {
       document.getElementById(`edit${id}`).classList.remove("d-none");
     };
     if (miCarrito) {
-      console.log(miCarrito);
       if (miCarrito.length > 0 && tiendas) {
         return (
           <div className="accordion">
+            {alert && <Alert />}
+            {alertDel && <AlertDelete />}
             <h1 className="text-center admin-titles-cel">Mi Carrito</h1>
             {miCarrito.map((tienda, tkey) => {
               let valorTotal = 0;
@@ -447,7 +481,18 @@ function MyCart() {
                               {cityList}
                             </select>
                           </div>
-
+                          <div className="d-flex m-1 me-md-4 ms-md-4 city-select-box">
+                            <label>
+                              <h2 className="valor-titulo mt-1">
+                                Dirección de envio:{" "}
+                              </h2>
+                            </label>
+                            <input
+                              className="form-control city-input"
+                              id={`direccion${tienda.Tienda}`}
+                              required
+                            />
+                          </div>
                           <div className="m-1 me-md-4 ms-md-4">
                             <h4 className="valor-titulo">Comentarios:</h4>
                             <textarea
@@ -476,7 +521,7 @@ function MyCart() {
                               deleteAll(tienda);
                             }}
                           >
-                            Eliminar todos
+                            Eliminar Pedido
                           </button>
                         </div>
                       </div>
@@ -490,6 +535,8 @@ function MyCart() {
       } else {
         return (
           <div>
+            {alert && <Alert />}
+            {alertDel && <AlertDelete />}
             <h3>No hay productos en el carrito</h3>
           </div>
         );

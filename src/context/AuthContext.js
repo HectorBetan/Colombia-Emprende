@@ -28,7 +28,7 @@ export const useAuth = () => {
     return context;
 };
 export function AuthProvider({ children }) {
-    const dbUrl= 'https://qopit3-4000.preview.csb.app/';
+    const dbUrl= 'https://colombia-emprende-server.onrender.com/';
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(null);
@@ -226,6 +226,7 @@ export function AuthProvider({ children }) {
         const response = await axios.get(`${dbUrl}pricing/get-store-pricing/${id}`);
         return response;
       }
+
       const readUserInfo = async (usuarios) =>{
         const response = await axios.post(`${dbUrl}users/get-user-info`, usuarios);
         return response;
@@ -233,8 +234,8 @@ export function AuthProvider({ children }) {
       const updatePricing = async (id, pedido) => {
         await axios.put(`${dbUrl}pricing/update-pricing/${id}`, pedido);
       }
-      const deletePricng = async (id) => {
-        await axios.put(`${dbUrl}pricing/delete-pricing/${id}`);
+      const deletePricing = async (id) => {
+        await axios.delete(`${dbUrl}pricing/delete-pricing/${id}`);
       }
       const createOrder = async (id,pago) => {
         await axios.put(`${dbUrl}pricing/create-order/${id}`, pago);
@@ -247,7 +248,10 @@ export function AuthProvider({ children }) {
         const response = await axios.get(`${dbUrl}pricing/get-store-orders/${id}`);
         return response;
       }
-      
+      const readStorePays = async (id) => {
+        const response = await axios.get(`${dbUrl}pricing/get-store-pays/${id}`);
+        return response;
+      }
       const setStars = async (id, calificacion) => {
         await axios.put(`${dbUrl}stores/set-stars/${id}`, calificacion)
         
@@ -266,6 +270,7 @@ export function AuthProvider({ children }) {
       
     useEffect(() => {
         const getUserData = async () => {
+            setLoading(true)
             await axios.get(`${dbUrl}users/get-user/${user.uid}`)
             .then((response) => {
                 if (response.data.data.length > 0) {
@@ -313,7 +318,6 @@ export function AuthProvider({ children }) {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
-            console.log(currentUser)
             setLoading(false);
         });
         return () => unsubscribe();
@@ -364,11 +368,12 @@ export function AuthProvider({ children }) {
                 createOrder,
                 readOrders,
                 readStoreOrders,
-                deletePricng,
+                deletePricing,
                 createEnvio,
                 setStars,
                 setUserProblem,
                 setStoreProblem,
+                readStorePays,
             }}
         >
             {children}
