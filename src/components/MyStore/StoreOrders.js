@@ -10,7 +10,6 @@ function StoreOrders() {
     userData,
     updatePricing,
     readStoreOrders,
-    readStorePays,
     readUserInfo,
     setStoreProblem,
   } = useAuth();
@@ -257,19 +256,7 @@ function StoreOrders() {
     if (group && usuarios && productosCotizar) {
       return (
         <div>
-          <button onClick={(e)=>{
-            e.preventDefault();
-            readStorePays(userData.Emprendimiento_id).then((res) => {
-              console.log(res)
-              if (res.data.length > 0){
-                console.log("tiene Pendientes")
-              } else{
-                console.log("no tiene pendientes")
-              }
-            })
-          }}>
-            Acer Kliq Haki
-          </button>
+          
           {alertDel && <AlertDelete />}
           {alert && <Alert />}
           {group.map((estado, tes) => {

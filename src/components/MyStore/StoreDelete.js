@@ -16,35 +16,61 @@ function StoreDelete() {
     }, [userStore]);
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (window.confirm("¿Realmente desea eliminar su emprendimiento?")){
-        try {
-            readStorePays(userStore._id).then((res) => {
-                console.log(res)
+        await readStorePays(userStore._id).then((res) => {
+            console.log(res)
+            if (res.data.length > 0){
+                let envio = 0;
+                let problema = 0;
+                let pagado = 0;
+                let e ="";
+                let pro ="";
+                let pa ="";
                 if (res.data.length > 0){
-                  console.log("tiene Pendientes")
-                } else{
-                  console.log("no tiene pendientes")
+                  res.data.forEach((problem) =>{
+                    if (problem.Estado ==="envio"){
+                      envio++
+                    }
+                    if (problem.Estado ==="pagado"){
+                      pagado++
+                    }
+                    if (problem.Estado ==="problema"){
+                      problema++
+                    }
+                  })
+                  if (envio){
+                    e = `${envio} pedidos en envio. `
+                  }
+                  if (pagado){
+                    pa = `${pagado} pedidos pagados. `
+                  }
+                  if (problema){
+                   pro = `${problema} pedidos en problema. `
+                  }
                 }
-              })
-            await deleteStore(userStore);
-            if (emprendimientoImg){
-            let url = `/emprendimiento/perfil/`;
-            let fotos = emprendimientoImg.split(",");
-
-            
-            for (let i = 0; i < fotos.length; i++) {
-                try {
-                    deletePhoto(url+i);
-                } catch (error) {
-                    
-                }
+              window.alert(`No puede eliminar su emprendimiento. Tiene los siguientes pedidos por finalizar: ${e}${pa}${pro} Si existe algun error contacte a soporte de la página.`)
+            } else{
+                if (window.confirm("¿Realmente desea eliminar su emprendimiento?")){
+                    try {
+                        deleteStore(userStore);
+                        if (emprendimientoImg){
+                        let url = `/emprendimiento/perfil/`;
+                        let fotos = emprendimientoImg.split(",");
+                        for (let i = 0; i < fotos.length; i++) {
+                            try {
+                                deletePhoto(url+i);
+                            } catch (error) {
+                                
+                            }
+                        }
+                        }
+                    } catch (error) {
+                        setError(error.message);
+                    }
+                
+                    }
             }
-            }
-        } catch (error) {
-            setError(error.message);
-        }
-    
-        }
+          })
+        
     };
     if (error){
         setTimeout(() => {

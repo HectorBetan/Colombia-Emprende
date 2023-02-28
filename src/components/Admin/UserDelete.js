@@ -1,14 +1,16 @@
 import React from "react";
 import { useState, useEffect } from 'react';
 import { useAuth } from "../../context/AuthContext";
+import { useMyStore } from "../../context/MyStoreContext";
 import Button from "react-bootstrap/Button";
 import Eye from '../../utilities/password.utilities'
 import { handleResetPassword } from "../../services/user.service";
 import Alert from "../../utilities/alert.utilities";
 function UserDelete() {
     const [cargando, setCargando] = useState(false);
-    const { resetPassword, user, emailAuth, reAuthenticate, reAuthenticateGoogle, deleteEmprendimiento, userData,
-    deleteUserDoc, delUser, deletePhoto, emprendimientos, userEmprendimiento } = useAuth();
+    const { resetPassword, user, emailAuth, reAuthenticate, reAuthenticateGoogle, userData,
+    deleteUserDoc, delUser, deletePhoto, readStorePays, readUserPays } = useAuth();
+    const {deleteStore, userStore } = useMyStore();
     const [error, setError] = useState("");
     const [provider, setProvider] = useState("");
     const [emprendimientoImg, setEmprendimientoImg] = useState(null); 
@@ -18,12 +20,12 @@ function UserDelete() {
         password: "",
     });
     useEffect(() => {
-        if (userEmprendimiento){
-            if (userEmprendimiento.Imagen) {
-            setEmprendimientoImg(userEmprendimiento.Imagen);
+        if (userStore){
+            if (userStore.Imagen) {
+                setEmprendimientoImg(userStore.Imagen);
+            }
         }
-    }
-    }, [userEmprendimiento, emprendimientos]);
+    }, [userStore]);
     useEffect(() => {
         if (user.providerData.length > 1) {
             for (let providers in user.providerData) {
@@ -38,51 +40,127 @@ function UserDelete() {
         };
     }, [user.providerData, provider]); 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (window.confirm("¿Realmente desea eliminar su cuenta?")){
-            if (provider === "password") {
-                try {
-                    let credential = emailAuth(usuario.email, usuario.password);
-                    await reAuthenticate(credential);
-                } catch (error) {
-                    setError(error.message);
+        await readStorePays(userStore._id).then((res) => {
+            console.log(res)
+            if (res.data.length > 0){
+                let envio = 0;
+                let problema = 0;
+                let pagado = 0;
+                let e ="";
+                let pro ="";
+                let pa ="";
+                if (res.data.length > 0){
+                  res.data.forEach((problem) =>{
+                    if (problem.Estado ==="envio"){
+                      envio++
+                    }
+                    if (problem.Estado ==="pagado"){
+                      pagado++
+                    }
+                    if (problem.Estado ==="problema"){
+                      problema++
+                    }
+                  })
+                  if (envio){
+                    e = `${envio} pedidos en envio. `
+                  }
+                  if (pagado){
+                    pa = `${pagado} pedidos pagados. `
+                  }
+                  if (problema){
+                   pro = `${problema} pedidos en problema. `
+                  }
                 }
-            }
-            if (provider === "google.com"){
-                try {
-                    await reAuthenticateGoogle();
-                } catch (error) {
-                    setError(error.message);
-                }
-            }
-            if (userData.Emprendimiento_id) {
-                try {
-                    await deleteEmprendimiento(userData.Emprendimiento_id);
-                } catch (error) {
-                    setError(error.message);         
-                }
-                if (emprendimientoImg){
-                    let url = `/emprendimiento/perfil/`;
-                    let fotos = emprendimientoImg.split(",");
-                    for (let i = 0; i < fotos.length; i++) {
-                        try {
-                            deletePhoto(url+i);
-                        } catch (error) {
-                                        
-                        }
+              window.alert(`No puede eliminar su cuenta. Su Emprendimiento tiene los siguientes pedidos por finalizar: ${e}${pa}${pro} Si existe algun error contacte a soporte de la página.`)
+            } else{
+                let e ="";
+                let pro ="";
+                let pa ="";
+                let pends = "";
+                let userPay = "";
+                readUserPays(userData._id).then((res) =>{
+                    if (res.data.length > 0){
+                        let envio = 0;
+                let problema = 0;
+                let pagado = 0;
+                
+                if (res.data.length > 0){
+                  res.data.forEach((problem) =>{
+                    if (problem.Estado ==="envio"){
+                      envio++
+                    }
+                    if (problem.Estado ==="pagado"){
+                      pagado++
+                    }
+                    if (problem.Estado ==="problema"){
+                      problema++
+                    }
+                  })
+                  if (envio){
+                    e = `${envio} pedidos en envio. `
+                  }
+                  if (pagado){
+                    pa = `${pagado} pedidos pagados. `
+                  }
+                  if (problema){
+                   pro = `${problema} pedidos en problema. `
+                  }
+                  pends = "Tu usuario aun tiene los siguientes pendientes en la sección de pedidos: "
                     }
                 }
-            };
-            await deleteUserDoc(userData._id);
-            try {
-                let userPhoto = `/perfil/profilePhoto`;
-                await deletePhoto(userPhoto);
-            } catch (error) {
-            
+                    else {
+
+                    }
+                })
+                if (window.confirm(`${pends}${e}${pa}${pro}¿Esta seguro de eliminar su cuenta y todos los datos asociados a ella?`)){
+                    if (provider === "password") {
+                        try {
+                            let credential = emailAuth(usuario.email, usuario.password);
+                            reAuthenticate(credential);
+                        } catch (error) {
+                            setError(error.message);
+                        }
+                    }
+                    if (provider === "google.com"){
+                        try {
+                            reAuthenticateGoogle();
+                        } catch (error) {
+                            setError(error.message);
+                        }
+                    }
+                    if (userData.Emprendimiento_id) {
+                        try {
+                            deleteStore(userData.Emprendimiento_id);
+                        } catch (error) {
+                            setError(error.message);         
+                        }
+                        if (emprendimientoImg){
+                            let url = `/emprendimiento/perfil/`;
+                            let fotos = emprendimientoImg.split(",");
+                            for (let i = 0; i < fotos.length; i++) {
+                                try {
+                                    deletePhoto(url+i);
+                                } catch (error) {
+                                                
+                                }
+                            }
+                        }
+                    };
+                    deleteUserDoc(userData._id);
+                    try {
+                        let userPhoto = `/perfil/profilePhoto`;
+                        deletePhoto(userPhoto);
+                    } catch (error) {
+                    
+                    }
+                    delUser();
+                    setCargando(false);
+                }
             }
-            delUser();
-            setCargando(false);
-        }
+          })
+        
+        e.preventDefault();
+        
     };
     const ResolveProvider = () => {
         if (provider === "password") {

@@ -140,13 +140,9 @@ export function AuthProvider({ children }) {
         return;
     };
     const deleteUserDoc = async (id) => {
-        if (!token){
-            let config = localStorage.getItem('token')
-            setToken(config) 
-        }
-        await axios.delete(`${dbUrl}users/delete-user`, id, token);
-        return;
-    }
+        await axios.put(`${dbUrl}users/delete-user`, id, token)
+        .catch(err => {console.log(err)})
+    };
     const createStore = async (emprendimiento, storeName, photos, path) => {
         setLoading(true);
         let id = {};
@@ -250,6 +246,10 @@ export function AuthProvider({ children }) {
       }
       const readStorePays = async (id) => {
         const response = await axios.get(`${dbUrl}pricing/get-store-pays/${id}`);
+        return response;
+      }
+      const readUserPays = async (id) => {
+        const response = await axios.get(`${dbUrl}pricing/get-user-pays/${id}`);
         return response;
       }
       const setStars = async (id, calificacion) => {
@@ -374,6 +374,7 @@ export function AuthProvider({ children }) {
                 setUserProblem,
                 setStoreProblem,
                 readStorePays,
+                readUserPays,
             }}
         >
             {children}
