@@ -5,27 +5,31 @@ import CreateProduct from "./StoreProducts/CreateProduct";
 import MyProducts from "./StoreProducts/MyProducts";
 
 function MyStoreProducts() {
-    const {  loading } = useAuth();
+    const {  loading, userData } = useAuth();
     const { userStore, loadingStore, userProducts, getStoreProducts, getMyStore, showProducts } = useMyStore();
     const [cargando, setCargando] = useState(true);
     useEffect(() => {
         const setStore = async () => {
-            if (!userStore && loadingStore && !loading) {
-                await getMyStore();
+            if (!userStore && loadingStore && !loading && userData) {
+                await getMyStore(userData._id);
+                console.log("getMyStore")
+                console.log(loading)
+                console.log(userData)
             }
         }
         setStore();
     }
-    , [ userStore, loading, getMyStore, loadingStore ]);
+    , [ userStore, loading, getMyStore, loadingStore, userData ]);
     useEffect(() => {
         const setStoreProducts = async () => {
-            if (!userProducts && !loading && userStore) {
+            if (!userProducts && !loading && userStore && userData) {
                 await getStoreProducts();
+                console.log("getStoreProducts")
             }
         }
         setStoreProducts();
     }
-    , [ userProducts, loading, getStoreProducts, loadingStore, userStore ]);
+    , [ userProducts, loading, getStoreProducts, loadingStore, userStore, userData ]);
     useEffect(() => {
         const setLoading = async () => {
             if (userProducts !== null && userStore !== null && !loading && !loadingStore) {

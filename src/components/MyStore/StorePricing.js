@@ -360,7 +360,7 @@ function StorePricing() {
                                   aria-expanded="true"
                                   aria-controls={`#collapseuser${cotiza._id}`}
                                 >
-                                  Usuario: {usuario.Nombre}
+                                  Usuario: {usuario.Nombre} {usuario.Delete && ". (Usuario Eliminado)."}
                                 </button>
                               </h2>
                               <div
@@ -549,7 +549,7 @@ function StorePricing() {
                                             )}
                                         </h2>
                                       )}
-                                      {estado.Estado === "creada" && (
+                                      {estado.Estado === "creada" && !usuario.Delete && (
                                         <input
                                           type="number"
                                           id={`valor-envio-${tes}`}
@@ -569,7 +569,7 @@ function StorePricing() {
                                           </h2>
                                         </div>
                                       )}
-                                    {cotiza.Estado === "creada" && (
+                                    {cotiza.Estado === "creada" && !usuario.Delete &&  (
                                       <div className="d-flex flex-row mt-2 mb-2 pricing-data">
                                         <h2 className="valor-titulo me-2">
                                           Otros Valores:{" "}
@@ -604,7 +604,7 @@ function StorePricing() {
                                           </h2>
                                         </div>
                                       )}
-                                    {estado.Estado === "creada" && (
+                                    {estado.Estado === "creada" && !usuario.Delete &&  (
                                       <div className="mt-2 mb-2 pricing-data">
                                         <h2 className="valor-titulo me-2">
                                           Tus Comentarios:{" "}
@@ -619,7 +619,7 @@ function StorePricing() {
                                   </div>
 
                                   <div className="d-flex flex-row justify-content-evenly botones-pricing">
-                                    {estado.Estado === "creada" && (
+                                    {estado.Estado === "creada" && !usuario.Delete &&  (
                                       <div className="btns-pricing">
                                         <button
                                           className="btn btn-primary m-1"
@@ -650,7 +650,7 @@ function StorePricing() {
                                         </button>
                                       </div>
                                     )}
-                                    {estado.Estado === "creada" && (
+                                    {estado.Estado === "creada" && !usuario.Delete && (
                                       <div className="btns-pricing">
                                         <button
                                           className="btn btn-danger m-1"
@@ -660,6 +660,19 @@ function StorePricing() {
                                           }}
                                         >
                                           Rechazar y Eliminar
+                                        </button>
+                                      </div>
+                                    )}
+                                    {estado.Estado === "creada" && usuario.Delete && (
+                                      <div className="btns-pricing">
+                                        <button
+                                          className="btn btn-danger m-1"
+                                          onClick={(e) => {
+                                            e.preventDefault();
+                                            handleDelete(cotiza._id);
+                                          }}
+                                        >
+                                          Eliminar
                                         </button>
                                       </div>
                                     )}

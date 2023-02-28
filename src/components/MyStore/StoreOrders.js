@@ -336,7 +336,7 @@ function StoreOrders() {
                                   aria-expanded="true"
                                   aria-controls={`#collapseuser${cotiza._id}`}
                                 >
-                                  Usuario: {usuario.Nombre}
+                                  Usuario: {usuario.Nombre} {usuario.Delete && ". (Usuario Eliminado)."}
                                 </button>
                               </h2>
                               <div
@@ -552,7 +552,7 @@ function StoreOrders() {
                                     </div>
                                   )}
                                   {cotiza.Estado === "pagado" &&
-                                    cotiza.Pago === true && (
+                                    cotiza.Pago === true && !usuario.Delete && (
                                       <div>
                                         <div className="d-flex flex-row mt-2 mb-2 pricing-data">
                                           <h2 className="valor-titulo me-2">
@@ -858,7 +858,7 @@ function StoreOrders() {
                                                 </div>
                                               </div>
                                             </div>
-                                            <div className="d-flex flex-row justify-content-center m-2">
+                                            {!usuario.Delete && <div className="d-flex flex-row justify-content-center m-2">
                                               <Button
                                                 variant="dark"
                                                 onClick={handleNewMsg}
@@ -901,7 +901,7 @@ function StoreOrders() {
                                                   </Button>
                                                 </div>
                                               </div>
-                                            </div>
+                                            </div>}
                                           </div>
                                         </div>
                                       </div>

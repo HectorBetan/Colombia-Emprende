@@ -10,8 +10,9 @@ function UserDelete() {
     const [cargando, setCargando] = useState(false);
     const { resetPassword, user, emailAuth, reAuthenticate, reAuthenticateGoogle, userData,
     deleteUserDoc, delUser, deletePhoto, readStorePays, readUserPays } = useAuth();
-    const {deleteStore, userStore } = useMyStore();
+    const {deleteStore, userStore, getMyStore } = useMyStore();
     const [error, setError] = useState("");
+    const [start, setStart] = useState(true);
     const [provider, setProvider] = useState("");
     const [emprendimientoImg, setEmprendimientoImg] = useState(null); 
     const handleChange = ({ target: { value, name } }) => setUser({ ...usuario, [name]: value });
@@ -19,6 +20,18 @@ function UserDelete() {
         email: "",
         password: "",
     });
+    useEffect(()=>{
+        const getStore = () => {
+            if (!userStore && start && userData){
+                if(userData.Emprendimiento_id){
+                    getMyStore(userData._id);
+                    setStart(false);
+                }
+                
+            }
+        }
+        getStore()
+    },[userStore, getMyStore, start, userData])
     useEffect(() => {
         if (userStore){
             if (userStore.Imagen) {
@@ -108,9 +121,6 @@ function UserDelete() {
                   pends = "Tu usuario aun tiene los siguientes pendientes en la sección de pedidos: "
                     }
                 }
-                    else {
-
-                    }
                 })
                 if (window.confirm(`${pends}${e}${pa}${pro}¿Esta seguro de eliminar su cuenta y todos los datos asociados a ella?`)){
                     if (provider === "password") {

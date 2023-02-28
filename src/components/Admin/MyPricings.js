@@ -311,7 +311,7 @@ function MyPricings() {
                                     aria-expanded="true"
                                     aria-controls={`#collapseuser${cotiza._id}`}
                                   >
-                                    {store.Nombre}
+                                    {store.Nombre}{store.Delete && ". (Tienda Eliminada)."}
                                   </button>
                                 </h2>
                                 <div
@@ -322,12 +322,13 @@ function MyPricings() {
                                 >
                                   <div className="accordion-body pt-0 pb-0 ">
                                     <div className="d-flex justify-content-end mt-2 mb-2">
-                                      <Link
+                                      {!store.Delete && <Link
                                         to={`/Emprendimientos/${store.Path}`}
                                         className="btn  btn-success  boton-tienda-carrito"
                                       >
                                         Ir a la Tienda
-                                      </Link>
+                                      </Link>}
+                                      {store.Delete && <div>La tienda ha sido Eliminada</div>}
                                     </div>
                                     <div
                                       className="accordion"
@@ -579,13 +580,13 @@ function MyPricings() {
                                         Eliminar
                                       </button>
                                     )}
-                                    {estado.Estado === "cotizacion" && (
+                                    {estado.Estado === "cotizacion" && !store.Delete && (
                                       <div className="d-flex flex-row justify-content-center botones-pricing">
                                         <div className="btns-pricing">
                                           <button
                                             className="btn btn-primary m-1 ms-3 me-3 ms-sm-1 me-sm-1"
                                             onClick={(e) => {
-                                              e.preventDefault();
+                                              e.preventDefault(); 
                                               handlePagar(
                                                 cotiza,
                                                 valorTotal,
@@ -609,7 +610,17 @@ function MyPricings() {
                                         </div>
                                       </div>
                                     )}
-
+                                    {estado.Estado === "cotizacion" && store.Delete && (
+                                      <button
+                                        className="btn btn-danger"
+                                        onClick={(e) => {
+                                          e.preventDefault();
+                                          handleCancelar(cotiza._id);
+                                        }}
+                                      >
+                                        Eliminar
+                                      </button>
+                                    )}
                                     {estado.Estado === "tienda-rechazado" && (
                                       <button
                                         className="btn btn-danger"

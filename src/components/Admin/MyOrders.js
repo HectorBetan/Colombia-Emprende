@@ -1119,7 +1119,7 @@ function MyOrders() {
                                   aria-expanded="true"
                                   aria-controls={`#collapseuser${cotiza._id}`}
                                 >
-                                  {store.Nombre}
+                                  {store.Nombre} {store.Delete && ". (Tienda Eliminada)."}
                                 </button>
                               </h2>
                               <div
@@ -1130,12 +1130,13 @@ function MyOrders() {
                               >
                                 <div className="accordion-body pt-0 pb-0 ">
                                   <div className="d-flex justify-content-end mt-2 mb-2">
-                                    <Link
+                                    {!store.Delete && <Link
                                       to={`/Emprendimientos/${store.Path}`}
                                       className="btn  btn-success  boton-tienda-carrito"
                                     >
                                       Ir a la Tienda
-                                    </Link>
+                                    </Link>}
+                                    {store.Delete && <div>La tienda ha sido Eliminada</div>}
                                   </div>
                                   <div
                                     className="accordion"
@@ -1440,7 +1441,7 @@ function MyOrders() {
                                       )}
                                   </div>
                                   {cotiza.Pago === true &&
-                                    cotiza.Estado === "envio" && (
+                                    cotiza.Estado === "envio" && !store.Delete && (
                                       <div className="d-flex flex-row justify-content-center buttons-orders">
                                         <div className="m-2">
                                           <ModalFin
@@ -1588,7 +1589,7 @@ function MyOrders() {
                                                 </div>
                                               </div>
                                             </div>
-                                            <div className="d-flex flex-row justify-content-center m-2">
+                                            {!store.Delete && <div className="d-flex flex-row justify-content-center m-2">
                                               <Button
                                                 variant="dark"
                                                 onClick={handleNewMsg}
@@ -1631,10 +1632,10 @@ function MyOrders() {
                                                   </Button>
                                                 </div>
                                               </div>
-                                            </div>
+                                            </div>}
                                           </div>
                                         </div>
-                                        <div className="d-flex flex-row justify-content-center p-2">
+                                        {!store.Delete && <div className="d-flex flex-row justify-content-center p-2">
                                           <ModalFin
                                             data={{
                                               pedido: cotiza,
@@ -1642,12 +1643,12 @@ function MyOrders() {
                                               titulo: "Pedido Recibido",
                                             }}
                                           />
-                                        </div>
+                                        </div>}
                                       </div>
                                     )}
                                   {estado.Estado === "finalizado" && (
                                     <div className="d-flex flex-row justify-content-center buttons-orders">
-                                      {!cotiza.Calificacion && (
+                                      {!cotiza.Calificacion && !store.Delete && (
                                         <div className="m-2">
                                           <ModalCalificacion
                                             data={{

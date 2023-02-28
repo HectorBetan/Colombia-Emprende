@@ -23,7 +23,7 @@ function CreateProduct() {
     Imagen: "",
     ImgRoute: "",
     Emprendimiento_id: userStore._id,
-    User_id: userData.id,
+    User_id: userData._id,
   })
   const handleChange = ({ target: { value, name } }) => {setProduct({ ...product, [name]: value })}
   const changeImg = async (e) => {
