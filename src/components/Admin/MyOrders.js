@@ -701,7 +701,6 @@ function MyOrders() {
                       </div>
                     )}
                   </div>
-
                   <div className="d-flex justify-content-center">
                     <Button
                       className="btn btn-primary"
@@ -1119,7 +1118,8 @@ function MyOrders() {
                                   aria-expanded="true"
                                   aria-controls={`#collapseuser${cotiza._id}`}
                                 >
-                                  {store.Nombre} {store.Delete && ". (Tienda Eliminada)."}
+                                  {store.Nombre}{" "}
+                                  {store.Delete && ". (Tienda Eliminada)."}
                                 </button>
                               </h2>
                               <div
@@ -1130,13 +1130,17 @@ function MyOrders() {
                               >
                                 <div className="accordion-body pt-0 pb-0 ">
                                   <div className="d-flex justify-content-end mt-2 mb-2">
-                                    {!store.Delete && <Link
-                                      to={`/Emprendimientos/${store.Path}`}
-                                      className="btn  btn-success  boton-tienda-carrito"
-                                    >
-                                      Ir a la Tienda
-                                    </Link>}
-                                    {store.Delete && <div>La tienda ha sido Eliminada</div>}
+                                    {!store.Delete && (
+                                      <Link
+                                        to={`/Emprendimientos/${store.Path}`}
+                                        className="btn  btn-success  boton-tienda-carrito"
+                                      >
+                                        Ir a la Tienda
+                                      </Link>
+                                    )}
+                                    {store.Delete && (
+                                      <div>La tienda ha sido Eliminada</div>
+                                    )}
                                   </div>
                                   <div
                                     className="accordion"
@@ -1441,7 +1445,8 @@ function MyOrders() {
                                       )}
                                   </div>
                                   {cotiza.Pago === true &&
-                                    cotiza.Estado === "envio" && !store.Delete && (
+                                    cotiza.Estado === "envio" &&
+                                    !store.Delete && (
                                       <div className="d-flex flex-row justify-content-center buttons-orders">
                                         <div className="m-2">
                                           <ModalFin
@@ -1589,76 +1594,81 @@ function MyOrders() {
                                                 </div>
                                               </div>
                                             </div>
-                                            {!store.Delete && <div className="d-flex flex-row justify-content-center m-2">
-                                              <Button
-                                                variant="dark"
-                                                onClick={handleNewMsg}
-                                                id="new-msg-btn"
-                                                className="text-center"
-                                              >
-                                                Agregar nuevo mensaje
-                                              </Button>
-                                              <div
-                                                className="d-none"
-                                                id="new-msg"
-                                              >
-                                                <input
-                                                  type="text-area"
-                                                  onChange={(e) => {
-                                                    e.preventDefault();
-                                                    setNewMsg(e.target.value);
-                                                  }}
-                                                />
-                                                <div>
-                                                  <Button
-                                                    variant="secondary"
-                                                    onClick={cancelNewMsg}
-                                                  >
-                                                    Cancelar
-                                                  </Button>
-                                                  <Button
-                                                    variant="primary"
-                                                    onClick={(e) => {
-                                                      const problem = {
-                                                        User_Problem: newMsg,
-                                                      };
-                                                      setUserProblem(
-                                                        cotiza._id,
-                                                        problem
-                                                      );
+                                            {!store.Delete && (
+                                              <div className="d-flex flex-row justify-content-center m-2">
+                                                <Button
+                                                  variant="dark"
+                                                  onClick={handleNewMsg}
+                                                  id="new-msg-btn"
+                                                  className="text-center"
+                                                >
+                                                  Agregar nuevo mensaje
+                                                </Button>
+                                                <div
+                                                  className="d-none"
+                                                  id="new-msg"
+                                                >
+                                                  <input
+                                                    type="text-area"
+                                                    onChange={(e) => {
+                                                      e.preventDefault();
+                                                      setNewMsg(e.target.value);
                                                     }}
-                                                  >
-                                                    Enviar nuevo msg
-                                                  </Button>
+                                                  />
+                                                  <div>
+                                                    <Button
+                                                      variant="secondary"
+                                                      onClick={cancelNewMsg}
+                                                    >
+                                                      Cancelar
+                                                    </Button>
+                                                    <Button
+                                                      variant="primary"
+                                                      onClick={(e) => {
+                                                        const problem = {
+                                                          User_Problem: newMsg,
+                                                        };
+                                                        setUserProblem(
+                                                          cotiza._id,
+                                                          problem
+                                                        );
+                                                      }}
+                                                    >
+                                                      Enviar nuevo msg
+                                                    </Button>
+                                                  </div>
                                                 </div>
                                               </div>
-                                            </div>}
+                                            )}
                                           </div>
                                         </div>
-                                        {!store.Delete && <div className="d-flex flex-row justify-content-center p-2">
-                                          <ModalFin
-                                            data={{
-                                              pedido: cotiza,
-                                              tienda: store.Nombre,
-                                              titulo: "Pedido Recibido",
-                                            }}
-                                          />
-                                        </div>}
+                                        {!store.Delete && (
+                                          <div className="d-flex flex-row justify-content-center p-2">
+                                            <ModalFin
+                                              data={{
+                                                pedido: cotiza,
+                                                tienda: store.Nombre,
+                                                titulo: "Pedido Recibido",
+                                              }}
+                                            />
+                                          </div>
+                                        )}
                                       </div>
                                     )}
                                   {estado.Estado === "finalizado" && (
                                     <div className="d-flex flex-row justify-content-center buttons-orders">
-                                      {!cotiza.Calificacion && !store.Delete && (
-                                        <div className="m-2">
-                                          <ModalCalificacion
-                                            data={{
-                                              pedido: cotiza,
-                                              tienda: store.Nombre,
-                                              titulo: "Calificar Tienda",
-                                            }}
-                                          />
-                                        </div>
-                                      )}
+                                      {!cotiza.Calificacion &&
+                                        !store.Delete && (
+                                          <div className="m-2">
+                                            <ModalCalificacion
+                                              data={{
+                                                pedido: cotiza,
+                                                tienda: store.Nombre,
+                                                titulo: "Calificar Tienda",
+                                              }}
+                                            />
+                                          </div>
+                                        )}
                                       <div className="m-2">
                                         <button
                                           className="btn btn-danger"

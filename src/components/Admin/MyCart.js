@@ -76,7 +76,6 @@ function MyCart() {
       let result = listaTiendas.filter((item, index) => {
         return listaTiendas.indexOf(item) === index;
       });
-
       resolveTienda(result);
       const group = groupBy(["Emprendimiento_id"]);
       let lista = [];
@@ -99,21 +98,17 @@ function MyCart() {
       setStartDelete(false);
     }
   }, [miCarrito, startDelete]);
-
   const handleDelete = async (tkey, pkey, id) => {
     miCarrito[tkey].Productos.splice(pkey, 1);
     setMiCarrito(miCarrito);
     setStartDelete(true);
-    //miCarrito[tkey].Productos.Splice(pkey, 1);
     try {
       await deleteCart(id);
     } catch (error) {}
   };
-
   const updateOne = async (id, data) => {
     await updateCart(id, data);
   };
-
   const deleteAll = async (tienda) => {
     let listaDelete = [];
     tienda.Productos.forEach((producto) => {
@@ -148,7 +143,6 @@ function MyCart() {
       lista.push(product);
       listaDelete.push(producto._id);
     });
-
     const cotizacion = {
       User_id: user.uid,
       Emprendimiento_id: tienda.Tienda,
@@ -174,7 +168,6 @@ function MyCart() {
     };
     await deleteCarts(deleteMany);
   };
-
   const Alert = () => {
     return (
       <div
@@ -251,7 +244,6 @@ function MyCart() {
                               className="imgcarrito me-2"
                             ></img>
                           )}
-
                           <h1 className="m-1 store-name-admin">
                             {store.Nombre}
                           </h1>
@@ -273,7 +265,6 @@ function MyCart() {
                             Ir a la Tienda
                           </Link>
                         </div>
-
                         <div className="accordion" id={`accordion${tkey}`}>
                           <div className="accordion-item">
                             <h2
@@ -320,12 +311,18 @@ function MyCart() {
                                       </div>
                                     </div>
                                   )}
-
                                   {tienda.Productos.map((producto, pkey) => {
                                     let item = productos.find(
                                       (product) =>
                                         product._id === producto.Producto_id
                                     );
+                                    if (item.Delete) {
+                                      item = {
+                                        Nombre:
+                                          item.Nombre + " (Producto Eliminado)",
+                                        Precio: 0,
+                                      };
+                                    }
                                     let total = item.Precio * producto.Cantidad;
                                     let cant;
                                     if (w < 400) {
@@ -351,68 +348,71 @@ function MyCart() {
                                               {w <= 991 && w > 680 && (
                                                 <h5>Cantidad: </h5>
                                               )}
-                                              <div
-                                                className="d-flex edita-caja"
-                                                id={`edit${pkey}`}
-                                              >
-                                                <h5 className="prod-car">
-                                                  {w <= 680 && (
-                                                    <span>{cant}</span>
-                                                  )}
-                                                  {producto.Cantidad}
-                                                </h5>
-                                                <button
-                                                  className="btn btn-info btn-edit-cant"
-                                                  onClick={(e) => {
-                                                    e.preventDefault();
-                                                    showEdit(pkey);
-                                                  }}
+                                              {!producto.Delete && (
+                                                <div
+                                                  className="d-flex edita-caja"
+                                                  id={`edit${pkey}`}
                                                 >
-                                                  Editar
-                                                </button>
-                                              </div>
-                                              <div
-                                                className="d-flex d-none"
-                                                id={`edit-cant${pkey}`}
-                                              >
-                                                <input
-                                                  type="number"
-                                                  min="1"
-                                                  max="1000"
-                                                  id={`producto${producto._id}`}
-                                                  defaultValue={
-                                                    producto.Cantidad
-                                                  }
-                                                />
-                                                <button
-                                                  className="btn btn-secondary btn-edit-product"
-                                                  onClick={(e) => {
-                                                    e.preventDefault();
-                                                    noShowEdit(pkey);
-                                                  }}
+                                                  <h5 className="prod-car">
+                                                    {w <= 680 && (
+                                                      <span>{cant}</span>
+                                                    )}
+                                                    {producto.Cantidad}
+                                                  </h5>
+                                                  <button
+                                                    className="btn btn-info btn-edit-cant"
+                                                    onClick={(e) => {
+                                                      e.preventDefault();
+                                                      showEdit(pkey);
+                                                    }}
+                                                  >
+                                                    Editar
+                                                  </button>
+                                                </div>
+                                              )}
+                                              {!producto.Delete && (
+                                                <div
+                                                  className="d-flex d-none"
+                                                  id={`edit-cant${pkey}`}
                                                 >
-                                                  <i className="fa-solid fa-xmark"></i>
-                                                </button>
-                                                <button
-                                                  className="btn btn-info btn-edit-product"
-                                                  onClick={(e) => {
-                                                    e.preventDefault();
-                                                    updateOne(producto._id, {
-                                                      Cantidad:
-                                                        document.getElementById(
-                                                          pkey
-                                                        ).value,
-                                                    }).then(() => {
-                                                      resolveCarrito();
-                                                    });
-                                                  }}
-                                                >
-                                                  <i className="fa-solid fa-floppy-disk"></i>
-                                                </button>
-                                              </div>
+                                                  <input
+                                                    type="number"
+                                                    min="1"
+                                                    max="1000"
+                                                    id={`producto${producto._id}`}
+                                                    defaultValue={
+                                                      producto.Cantidad
+                                                    }
+                                                  />
+                                                  <button
+                                                    className="btn btn-secondary btn-edit-product"
+                                                    onClick={(e) => {
+                                                      e.preventDefault();
+                                                      noShowEdit(pkey);
+                                                    }}
+                                                  >
+                                                    <i className="fa-solid fa-xmark"></i>
+                                                  </button>
+                                                  <button
+                                                    className="btn btn-info btn-edit-product"
+                                                    onClick={(e) => {
+                                                      e.preventDefault();
+                                                      updateOne(producto._id, {
+                                                        Cantidad:
+                                                          document.getElementById(
+                                                            pkey
+                                                          ).value,
+                                                      }).then(() => {
+                                                        resolveCarrito();
+                                                      });
+                                                    }}
+                                                  >
+                                                    <i className="fa-solid fa-floppy-disk"></i>
+                                                  </button>
+                                                </div>
+                                              )}
                                             </div>
                                           </div>
-
                                           <div className="d-flex caja2-carrito">
                                             <div className="d-flex flex-row caja-213 prod-cel-box">
                                               <h6 className="caja-50 prod-cant-end prod-cel-res">
@@ -428,7 +428,6 @@ function MyCart() {
                                                 {formatterPeso.format(total)}
                                               </h6>
                                             </div>
-
                                             <div className="caja-13 prod-cant-end">
                                               <button
                                                 className="btn btn-danger"
@@ -558,5 +557,4 @@ function MyCart() {
     </div>
   );
 }
-
 export default MyCart;

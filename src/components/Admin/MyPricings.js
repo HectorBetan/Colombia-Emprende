@@ -23,7 +23,6 @@ function MyPricings() {
     };
   }, []);
   const [startT, setStartT] = useState(false);
-
   const navigate = useNavigate();
   const [start, setStart] = useState(true);
   const [cargando, setCargando] = useState(true);
@@ -53,14 +52,12 @@ function MyPricings() {
     }
   }, [startT, group]);
   const [alertDel, setAlertDel] = useState(false);
-
   const sAlertDel = () => {
     window.scroll(0, 0);
     setTimeout(() => {
       setAlertDel(false);
     }, 4000);
   };
-
   const AlertDelete = () => {
     return (
       <div
@@ -80,7 +77,6 @@ function MyPricings() {
     });
     setCargando(false);
   };
-
   const resolveTiendaCotizar = async (tienda) => {
     await readStores(tienda).then((res) => {
       setTiendasCotizar(res.data);
@@ -129,7 +125,6 @@ function MyPricings() {
       if (creadas) {
         lista.push(creadas);
       }
-
       setGroup(lista);
       resolveProductsCotizar(listaProductos);
       return;
@@ -146,7 +141,6 @@ function MyPricings() {
     await deletePricing(id);
     setAlertDel(true);
     sAlertDel();
-
     let grupo = group;
     group.map((estado, eindex) => {
       estado.Cotizaciones.map((cotizacion, index) => {
@@ -172,10 +166,8 @@ function MyPricings() {
     sAlertDel();
     let lista1;
     let grupo = group;
-
     group.map((estado, eindex) => {
       lista1 = estado.Cotizaciones;
-
       estado.Cotizaciones.map((cotizacion, index) => {
         if (cotizacion._id === id) {
           lista1.splice(index, 1);
@@ -200,10 +192,8 @@ function MyPricings() {
     sAlertDel();
     let lista1;
     let grupo = group;
-
     group.map((estado, eindex) => {
       lista1 = estado.Cotizaciones;
-
       estado.Cotizaciones.map((cotizacion, index) => {
         if (cotizacion._id === id) {
           lista1.splice(index, 1);
@@ -279,7 +269,6 @@ function MyPricings() {
                             let item = productosCotizar.find(
                               (product) => product._id === producto.Producto
                             );
-
                             let valor = item.Precio * producto.Cantidad;
                             valorProductos += valor;
                           });
@@ -311,7 +300,8 @@ function MyPricings() {
                                     aria-expanded="true"
                                     aria-controls={`#collapseuser${cotiza._id}`}
                                   >
-                                    {store.Nombre}{store.Delete && ". (Tienda Eliminada)."}
+                                    {store.Nombre}
+                                    {store.Delete && ". (Tienda Eliminada)."}
                                   </button>
                                 </h2>
                                 <div
@@ -322,13 +312,17 @@ function MyPricings() {
                                 >
                                   <div className="accordion-body pt-0 pb-0 ">
                                     <div className="d-flex justify-content-end mt-2 mb-2">
-                                      {!store.Delete && <Link
-                                        to={`/Emprendimientos/${store.Path}`}
-                                        className="btn  btn-success  boton-tienda-carrito"
-                                      >
-                                        Ir a la Tienda
-                                      </Link>}
-                                      {store.Delete && <div>La tienda ha sido Eliminada</div>}
+                                      {!store.Delete && (
+                                        <Link
+                                          to={`/Emprendimientos/${store.Path}`}
+                                          className="btn  btn-success  boton-tienda-carrito"
+                                        >
+                                          Ir a la Tienda
+                                        </Link>
+                                      )}
+                                      {store.Delete && (
+                                        <div>La tienda ha sido Eliminada</div>
+                                      )}
                                     </div>
                                     <div
                                       className="accordion"
@@ -388,8 +382,14 @@ function MyPricings() {
                                                       item._id ===
                                                       pedido.Producto
                                                   );
-
-                                                /*let  item = productos.find(product => product._id === producto.Producto_id);*/
+                                                if (item.Delete) {
+                                                  item = {
+                                                    Nombre:
+                                                      item.Nombre +
+                                                      " (Producto Eliminado)",
+                                                    Precio: 0,
+                                                  };
+                                                }
                                                 let total =
                                                   item.Precio * pedido.Cantidad;
                                                 let cant;
@@ -425,7 +425,6 @@ function MyPricings() {
                                                                 Cantidad:{" "}
                                                               </h5>
                                                             )}
-
                                                           <h5 className="prod-car">
                                                             {w <= 680 && (
                                                               <span>
@@ -436,7 +435,6 @@ function MyPricings() {
                                                           </h5>
                                                         </div>
                                                       </div>
-
                                                       <div className="d-flex caja2-carrito">
                                                         <div className="d-flex flex-row caja-213 prod-cel-box">
                                                           <h6 className="caja-50 prod-cant-end prod-cel-res">
@@ -580,47 +578,49 @@ function MyPricings() {
                                         Eliminar
                                       </button>
                                     )}
-                                    {estado.Estado === "cotizacion" && !store.Delete && (
-                                      <div className="d-flex flex-row justify-content-center botones-pricing">
-                                        <div className="btns-pricing">
-                                          <button
-                                            className="btn btn-primary m-1 ms-3 me-3 ms-sm-1 me-sm-1"
-                                            onClick={(e) => {
-                                              e.preventDefault(); 
-                                              handlePagar(
-                                                cotiza,
-                                                valorTotal,
-                                                store.Nombre
-                                              );
-                                            }}
-                                          >
-                                            Pagar
-                                          </button>
+                                    {estado.Estado === "cotizacion" &&
+                                      !store.Delete && (
+                                        <div className="d-flex flex-row justify-content-center botones-pricing">
+                                          <div className="btns-pricing">
+                                            <button
+                                              className="btn btn-primary m-1 ms-3 me-3 ms-sm-1 me-sm-1"
+                                              onClick={(e) => {
+                                                e.preventDefault();
+                                                handlePagar(
+                                                  cotiza,
+                                                  valorTotal,
+                                                  store.Nombre
+                                                );
+                                              }}
+                                            >
+                                              Pagar
+                                            </button>
+                                          </div>
+                                          <div className="btns-pricing">
+                                            <button
+                                              className="btn btn-danger m-1 ms-3 me-3"
+                                              onClick={(e) => {
+                                                e.preventDefault();
+                                                handleRechazar(cotiza._id);
+                                              }}
+                                            >
+                                              Rechazar y eliminar
+                                            </button>
+                                          </div>
                                         </div>
-                                        <div className="btns-pricing">
-                                          <button
-                                            className="btn btn-danger m-1 ms-3 me-3"
-                                            onClick={(e) => {
-                                              e.preventDefault();
-                                              handleRechazar(cotiza._id);
-                                            }}
-                                          >
-                                            Rechazar y eliminar
-                                          </button>
-                                        </div>
-                                      </div>
-                                    )}
-                                    {estado.Estado === "cotizacion" && store.Delete && (
-                                      <button
-                                        className="btn btn-danger"
-                                        onClick={(e) => {
-                                          e.preventDefault();
-                                          handleCancelar(cotiza._id);
-                                        }}
-                                      >
-                                        Eliminar
-                                      </button>
-                                    )}
+                                      )}
+                                    {estado.Estado === "cotizacion" &&
+                                      store.Delete && (
+                                        <button
+                                          className="btn btn-danger"
+                                          onClick={(e) => {
+                                            e.preventDefault();
+                                            handleCancelar(cotiza._id);
+                                          }}
+                                        >
+                                          Eliminar
+                                        </button>
+                                      )}
                                     {estado.Estado === "tienda-rechazado" && (
                                       <button
                                         className="btn btn-danger"
@@ -665,5 +665,4 @@ function MyPricings() {
     </div>
   );
 }
-
 export default MyPricings;

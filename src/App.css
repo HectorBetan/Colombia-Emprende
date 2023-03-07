@@ -1,28 +1,29 @@
-html, body {
-    max-width: 100% !important;
-    overflow-x: hidden !important;
+html,
+body {
+  max-width: 100% !important;
+  overflow-x: hidden !important;
 }
-.policy{
-    font-size: 15px;
-    text-align: center;
+.policy {
+  font-size: 15px;
+  text-align: center;
 }
 @media (max-width: 768px) {
-    .policy{
-        font-size: 13px;
-        text-align: center;
-    }
+  .policy {
+    font-size: 13px;
+    text-align: center;
+  }
 }
 @media (max-width: 1023px) {
-    .policy{
-        font-size: 14px;
-        text-align: center;
-    }
+  .policy {
+    font-size: 14px;
+    text-align: center;
+  }
 }
-.navegacion{
-    width: 50%!important;
+.navegacion {
+  width: 50% !important;
 }
 @media (max-width: 450px) {
-    .navegacion{
-        width: 75%!important;
-    }
+  .navegacion {
+    width: 75% !important;
+  }
 }

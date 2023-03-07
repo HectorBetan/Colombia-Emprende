@@ -1,1100 +1,1097 @@
-.popover{
-    --bs-popover-max-width: 800px;
+.popover {
+  --bs-popover-max-width: 800px;
 }
-.acordeon-tienda{
-    background-color: rgb(240, 242, 248)!important;
-    color: rgb(7, 14, 39)!important;
+.acordeon-tienda {
+  background-color: rgb(240, 242, 248) !important;
+  color: rgb(7, 14, 39) !important;
 }
-.botonredes{
-    background-color: rgb(231, 234, 253);
-    font-size: 16px;
-    font-weight: 500;
+.botonredes {
+  background-color: rgb(231, 234, 253);
+  font-size: 16px;
+  font-weight: 500;
 }
-.botonredes:active{
-    background-color: rgb(219, 221, 231)!important;
+.botonredes:active {
+  background-color: rgb(219, 221, 231) !important;
 }
-.botonredes:hover{
-    background-color: rgb(207, 215, 252)!important;
+.botonredes:hover {
+  background-color: rgb(207, 215, 252) !important;
 }
-.store-descripcion{
-    font-size: 16px;
-    margin: 0px 20px;
+.store-descripcion {
+  font-size: 16px;
+  margin: 0px 20px;
 }
-.imagen-btn{
-    width: 59px;
-    height: 59px;
+.imagen-btn {
+  width: 59px;
+  height: 59px;
+  object-fit: cover;
+}
+.estrella {
+  color: #d1d123 !important;
+}
+.img-producto {
+  max-width: 150px;
+  max-height: 150px;
+  object-fit: cover;
+}
+.agregar-carrito-input input {
+  font-size: 18px;
+  font-weight: 400;
+  vertical-align: middle;
+}
+.agregar-carrito-input label {
+  font-size: 20px;
+  font-weight: 500;
+  vertical-align: middle;
+}
+.boton-agregar-carrito {
+  width: 180px;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 10px 0px;
+}
+.ver-mas-descripcion {
+  color: rgb(14, 87, 223);
+  font-weight: 500;
+}
+.estrella-vacia {
+  color: #d1d123 !important;
+}
+.sstars {
+  margin-bottom: 5px;
+}
+.img-principal-cel {
+  width: 100vh;
+  max-height: 80vh;
+  object-fit: cover;
+}
+.img-principal {
+  max-width: 275px;
+  object-fit: cover;
+  max-height: 330px;
+}
+.img-tiendas {
+  width: 250px;
+  height: 250px;
+  margin: 25px 20px !important;
+}
+.txt-1 {
+  font-size: 16px;
+  font-weight: 500;
+}
+.txt-cat {
+  font-size: 18px;
+  font-weight: 700;
+}
+.store-title {
+  font-size: 40px;
+  font-weight: 700 !important;
+}
+.store-box {
+  margin: 15px 50px !important;
+}
+.card-caja {
+  margin: 35px 15px !important;
+  padding: 5px !important;
+}
+.stores-cel {
+  font-weight: 700 !important;
+}
+.foto-modal {
+  max-width: 90vh;
+  max-height: 80vh;
+  object-fit: contain;
+}
+.img-btn-modal {
+  width: 80px;
+  height: 80px;
+}
+@media only screen and (max-width: 1175px) {
+  .popover {
+    --bs-popover-max-width: 700px;
+  }
+  .imagen-btn {
+    width: 55px;
+    height: 55px;
+    margin: 1px 0px !important;
+  }
+  .img-tiendas {
+    width: 225px;
+    height: 225px;
+  }
+  .store-title {
+    font-size: 35px;
+    font-weight: 700 !important;
+  }
+}
+@media only screen and (max-width: 1100px) {
+  .popover {
+    --bs-popover-max-width: 700px;
+  }
+  .imagen-btn {
+    width: 50px;
+    height: 50px;
+    margin: 2px 0px !important;
+  }
+  .img-tiendas {
+    width: 210px;
+    height: 210px;
+    margin: 20px 20px !important;
+  }
+  .store-title {
+    font-size: 32px;
+    font-weight: 650 !important;
+  }
+  .card-caja {
+    margin: 25px 15px !important;
+    padding: 5px !important;
+  }
+  .store-categoria {
+    font-size: 23px;
+  }
+  .store-celular {
+    font-size: 26px;
+  }
+  .store-ciudad {
+    font-size: 26px;
+  }
+  .store-email {
+    font-size: 22px;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .store-descripcion {
+    font-size: 15px;
+    margin: 0px 15px;
+  }
+  .popover {
+    --bs-popover-max-width: 650px;
+  }
+  .imagen-btn {
+    width: 46px;
+    height: 46px;
+    margin: 2px 0px !important;
+  }
+  .img-principal {
+    max-width: 260px;
     object-fit: cover;
+    max-height: 270px;
+  }
+  .store-title {
+    font-size: 27px;
+    font-weight: 650 !important;
+  }
+  .store-categoria {
+    font-size: 21px;
+  }
+  .store-celular {
+    font-size: 24px;
+  }
+  .store-ciudad {
+    font-size: 24px;
+  }
+  .store-email {
+    font-size: 20px;
+  }
+  .card-caja {
+    margin: 30px 15px !important;
+    padding: 5px !important;
+  }
 }
-.estrella{
-    color:#d1d123!important;
-
-}
-.img-producto{
-    max-width: 150px;
-    max-height: 150px;
-    object-fit: cover;
-}
-.agregar-carrito-input input{
+@media only screen and (max-width: 900px) {
+  .store-descripcion {
+    font-size: 14px;
+    margin: 0px 10px;
+  }
+  .producto-data h5 {
     font-size: 18px;
+  }
+  .producto-data h3 {
+    font-size: 23px;
+  }
+  .producto-data .desc {
+    font-size: 15px;
+  }
+  .img-producto {
+    max-width: 140px;
+    max-height: 140px;
+    object-fit: cover;
+  }
+  .agregar-carrito-input input {
+    font-size: 16px;
     font-weight: 400;
     vertical-align: middle;
-}
-.agregar-carrito-input label{
-    font-size: 20px;
+  }
+  .agregar-carrito-input label {
+    font-size: 17px;
     font-weight: 500;
     vertical-align: middle;
-}
-.boton-agregar-carrito{
-    width: 180px;
-    font-size: 18px;
+  }
+  .boton-agregar-carrito {
+    width: 150px;
+    font-size: 15px;
     font-weight: 500;
     margin: 10px 0px;
+  }
+  .popover {
+    --bs-popover-max-width: 550px;
+  }
+  .store-categoria {
+    font-size: 20px;
+  }
+  .store-celular {
+    font-size: 23px;
+  }
+  .store-ciudad {
+    font-size: 23px;
+  }
+  .store-email {
+    font-size: 20px;
+  }
+  .img-tiendas {
+    width: 200px;
+    height: 200px;
+    margin: 20px 15px !important;
+  }
+  .store-title {
+    font-size: 26px;
+    font-weight: 700 !important;
+  }
+  .card-caja {
+    margin: 28px 15px !important;
+    padding: 5px !important;
+  }
 }
-.ver-mas-descripcion{
-    color: rgb(14, 87, 223);
-    font-weight: 500;
-}
-.estrella-vacia{
-    color:#d1d123!important;
-}
-.sstars{
-    margin-bottom: 5px;
-}
-.img-principal-cel{
-    width: 100vh;
-    max-height: 80vh;
+@media only screen and (max-width: 850px) {
+  .store-descripcion {
+    font-size: 13px;
+    margin: 0px 10px;
+  }
+  .producto-data h5 {
+    font-size: 17px;
+  }
+  .producto-data h3 {
+    font-size: 22px;
+  }
+  .producto-data .desc {
+    font-size: 14px;
+  }
+  .img-producto {
+    max-height: 130px;
+    max-width: 130px;
     object-fit: cover;
-}
-.img-principal{
-    max-width: 275px;
-    object-fit: cover;
-    max-height: 330px;
-}
-.img-tiendas{
-    width: 250px;
-    height: 250px;
-    margin: 25px 20px!important;
-}
-.txt-1{
+  }
+  .agregar-carrito-input input {
+    font-size: 15px;
+    font-weight: 400;
+    vertical-align: middle;
+  }
+  .agregar-carrito-input label {
     font-size: 16px;
     font-weight: 500;
-}
-.txt-cat{
+    vertical-align: middle;
+  }
+  .boton-agregar-carrito {
+    width: 150px;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 10px 0px;
+  }
+  .imagen-btn {
+    width: 40px;
+    height: 40px;
+    margin: 2px 0px !important;
+  }
+  .img-principal {
+    max-width: 225px;
+    object-fit: cover;
+    max-height: 225px;
+  }
+  .store-categoria {
     font-size: 18px;
-    font-weight: 700;
+  }
+  .store-celular {
+    font-size: 21px;
+  }
+  .store-ciudad {
+    font-size: 21px;
+  }
+  .store-email {
+    font-size: 19px;
+  }
+  .store-title {
+    font-size: 23px;
+    font-weight: 700 !important;
+  }
+  .store-box {
+    margin: 15px 30px !important;
+  }
+  .card-caja {
+    margin: 30px 15px !important;
+    padding: 5px !important;
+  }
 }
-.store-title{
-    font-size: 40px;
-    font-weight: 700!important;
+@media only screen and (max-width: 800px) {
+  .store-descripcion {
+    font-size: 12px;
+    margin: 0px 10px;
+  }
+  .popover {
+    --bs-popover-max-width: 500px;
+  }
+  .producto-data h5 {
+    font-size: 16px;
+  }
+  .producto-data h3 {
+    font-size: 21px;
+  }
+  .producto-data .desc {
+    font-size: 13px;
+  }
+  .img-producto {
+    max-height: 120px;
+    max-width: 120px;
+    object-fit: cover;
+  }
+  .agregar-carrito-input input {
+    font-size: 14px;
+    font-weight: 400;
+    vertical-align: middle;
+  }
+  .agregar-carrito-input label {
+    font-size: 15px;
+    font-weight: 500;
+    vertical-align: middle;
+  }
+  .boton-agregar-carrito {
+    width: 140px;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 10px 0px;
+  }
+  .imagen-btn {
+    width: 36px;
+    height: 36px;
+    margin: 2px 0px !important;
+  }
+  .img-principal {
+    max-width: 200px;
+    object-fit: cover;
+    max-height: 200px;
+  }
+  .store-categoria {
+    font-size: 17px;
+  }
+  .store-celular {
+    font-size: 20px;
+  }
+  .store-ciudad {
+    font-size: 20px;
+  }
+  .store-email {
+    font-size: 17px;
+  }
+  .img-tiendas {
+    width: 190px;
+    height: 190px;
+    margin: 15px 15px !important;
+  }
+  .store-title {
+    font-size: 22px;
+    font-weight: 700 !important;
+  }
+  .card-caja {
+    margin: 25px 10px !important;
+    padding: 5px !important;
+  }
+  .img-principal-cel {
+    width: 80vh;
+    max-height: 70vh;
+    object-fit: cover;
+  }
 }
-.store-box{
-    margin: 15px 50px!important;
+@media only screen and (max-width: 750px) {
+  .store-descripcion {
+    font-size: 12px;
+    margin: 0px 0px;
+  }
+  .producto-data h5 {
+    font-size: 18px;
+  }
+  .producto-data h3 {
+    font-size: 22px;
+  }
+  .producto-data .desc {
+    font-size: 13px;
+  }
+  .img-producto {
+    max-height: 125px;
+    max-width: 125px;
+    object-fit: cover;
+  }
+  .agregar-carrito-input input {
+    font-size: 13px;
+    font-weight: 400;
+    vertical-align: middle;
+  }
+  .agregar-carrito-input label {
+    font-size: 14px;
+    font-weight: 500;
+    vertical-align: middle;
+  }
+  .agregar-carrito-input-cel input {
+    font-size: 13px;
+    font-weight: 400;
+    height: 30px;
+    width: 40px;
+  }
+  .agregar-carrito-input-cel {
+    margin-top: 2px;
+  }
+  .agregar-carrito-input-cel label {
+    font-size: 15px;
+    font-weight: 500;
+    vertical-align: middle;
+    margin: 3px 10px;
+  }
+  .boton-agregar-carrito {
+    width: 130px;
+    font-size: 13px;
+    font-weight: 500;
+    margin: 10px 0px;
+  }
+  .boton-agregar-carrito-cel {
+    width: 140px;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0px 10px;
+  }
+  .imagen-btn {
+    width: 33px;
+    height: 33px;
+    margin: 2px 0px !important;
+  }
+  .img-principal {
+    max-width: 190px;
+    object-fit: cover;
+    max-height: 190px;
+  }
+  .popover {
+    --bs-popover-max-width: 500px;
+  }
 }
-.card-caja{
-    margin: 35px 15px!important;
-    padding: 5px!important;
+@media only screen and (max-width: 700px) {
+  .store-descripcion {
+    font-size: 14px;
+    margin: 0px 10px;
+  }
+  .store-email {
+    font-size: 14px !important;
+  }
+  .popover {
+    --bs-popover-max-width: 450px;
+  }
+  .img-principal-cel {
+    width: 65vh;
+    max-height: 55vh;
+    object-fit: cover;
+  }
+  .imagen-btn {
+    width: 30px;
+    height: 30px;
+    margin: 1px 0px !important;
+  }
+  .botn-imagen {
+    margin: 2px !important;
+  }
+  .img-principal {
+    max-width: 175px;
+    object-fit: cover;
+    max-height: 175px;
+  }
+  .text-busq-cat {
+    font-size: 18px;
+  }
+  .store-categoria {
+    font-size: 16px;
+  }
+  .store-celular {
+    font-size: 18px;
+  }
+  .store-ciudad {
+    font-size: 18px;
+  }
+  .img-tiendas {
+    width: 180px;
+    height: 180px;
+    margin: 15px 15px !important;
+  }
+  .store-title {
+    font-size: 21px;
+    font-weight: 650 !important;
+  }
+  .card-caja {
+    margin: 25px 15px !important;
+    padding: 5px !important;
+  }
 }
-.stores-cel{
-    font-weight: 700!important;
+@media only screen and (max-width: 650px) {
+  .store-descripcion {
+    font-size: 13px;
+    margin: 0px 6px;
+  }
+  .producto-data .desc {
+    font-size: 12px;
+  }
 }
-.foto-modal{
-    max-width: 90vh;
+@media only screen and (max-width: 600px) {
+  .store-descripcion {
+    font-size: 12px;
+    margin: 0px 3px;
+  }
+  .store-email {
+    font-size: 16px !important;
+  }
+  .popover {
+    --bs-popover-max-width: 450px;
+  }
+  .desc {
+    padding: 5px;
+    font-size: 15px;
+    margin-top: 10px;
+  }
+  .imagen-btn-cel {
+    width: 60px;
+    height: 60px;
+    border-radius: 20px;
+    margin: 0px 10px !important;
+  }
+  .img-producto {
+    max-height: 80px;
+    max-width: 80px;
+    margin: 0px 0px;
+    object-fit: cover;
+    border-radius: 25px !important;
+  }
+  .img-principal-cel {
+    width: 55vh;
+    max-height: 50vh;
+    object-fit: cover;
+  }
+  .img-principal {
+    max-width: 170px;
+    max-height: 180px;
+  }
+  .text-busq-cat {
+    font-size: 17px;
+  }
+  .texto-busqueda {
+    font-size: 16px;
+  }
+  .img-tiendas {
+    width: 170px;
+    height: 170px;
+    margin: 15px 10px !important;
+  }
+  .store-title {
+    font-size: 22px;
+    font-weight: 650 !important;
+  }
+  .card-caja {
+    margin: 20px 10px !important;
+    padding: 5px !important;
+  }
+  .store-email {
+    font-size: 12px;
+  }
+}
+@media only screen and (max-width: 550px) {
+  .store-descripcion {
+    font-size: 12px;
+    margin: 0px 0px;
+  }
+  .popover {
+    --bs-popover-max-width: 400px;
+  }
+  .store-title-1 {
+    font-size: 19px !important;
+    font-weight: 650 !important;
+  }
+  .sstars {
+    margin-bottom: 5px;
+  }
+  .imagen-btn-cel {
+    width: 50px;
+    height: 50px;
+    border-radius: 17px;
+    margin: 0px 10px !important;
+  }
+  .img-principal {
+    max-width: 160px;
+    max-height: 180px;
+  }
+  .texto-busqueda {
+    font-size: 15px;
+  }
+  .img-tiendas {
+    width: 160px;
+    height: 160px;
+    margin: 15px 10px !important;
+  }
+  .store-categoria {
+    font-size: 15px;
+  }
+  .store-celular {
+    font-size: 17px;
+  }
+  .store-ciudad {
+    font-size: 17px;
+  }
+  .store-email {
+    font-size: 15px;
+  }
+  .store-title {
+    font-size: 20px;
+    font-weight: 650 !important;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .store-descripcion {
+    font-size: 13px;
+    margin: 0px 0px;
+  }
+  .popover {
+    --bs-popover-max-width: 350px;
+  }
+  .boton-agregar-carrito-cel {
+    width: 130px;
+    font-size: 13px;
+    font-weight: 500;
+    margin: 0px 10px;
+  }
+  .agregar-carrito-input-cel input {
+    font-size: 12px;
+    font-weight: 400;
+    height: 27px;
+    width: 38px;
+  }
+  .agregar-carrito-input-cel {
+    margin-top: 3px;
+  }
+  .agregar-carrito-input-cel label {
+    font-size: 14px;
+    font-weight: 500;
+    vertical-align: middle;
+    margin: 3px 10px;
+  }
+  .img-producto {
+    max-height: 70px;
+    max-width: 70px;
+    margin: 0px 0px;
+    object-fit: cover;
+    border-radius: 25px !important;
+  }
+  .producto-data h5 {
+    font-size: 17px;
+  }
+  .producto-data h3 {
+    font-size: 21px;
+  }
+  .desc {
+    padding: 5px;
+    font-size: 14px;
+    margin-top: 8px;
+  }
+  .store-title-1 {
+    font-size: 18px !important;
+    font-weight: 650 !important;
+  }
+  .imagen-btn-cel {
+    width: 45px;
+    height: 45px;
+    border-radius: 15px;
+    margin: 0px 5px !important;
+  }
+  .img-principal-cel {
+    width: 40vh;
+    max-height: 40vh;
+    object-fit: cover;
+  }
+  .img-principal {
+    max-width: 130px;
+    max-height: 130px;
+  }
+  .text-busq-cat {
+    font-size: 16px;
+  }
+  .txt-1 {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .txt-cat {
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .texto-filtro {
+    font-size: 14px;
+  }
+  .texto-busqueda {
+    font-size: 13px;
+  }
+  .store-categoria {
+    font-size: 14px;
+  }
+  .store-celular {
+    font-size: 16px;
+  }
+  .store-ciudad {
+    font-size: 16px;
+  }
+  .store-email {
+    font-size: 14px;
+  }
+  .img-tiendas {
+    width: 140px;
+    height: 140px;
+    margin: 10px 10px !important;
+  }
+  .store-title {
+    font-size: 17px;
+    font-weight: 650 !important;
+  }
+  .store-box {
+    margin: 15px 20px !important;
+  }
+  .card-caja {
+    margin: 20px 10px !important;
+    padding: 5px !important;
+  }
+  .producto-data h5 {
+    font-size: 15px;
+  }
+  .producto-data h3 {
+    font-size: 16px;
+  }
+  .foto-modal {
+    max-width: 75vh;
     max-height: 80vh;
     object-fit: contain;
+  }
 }
-.img-btn-modal{
-    width: 80px;
-    height: 80px;
+@media only screen and (max-width: 450px) {
+  .store-email {
+    font-size: 14px !important;
+  }
+  .popover {
+    --bs-popover-max-width: 300px;
+  }
+  .boton-agregar-carrito-cel {
+    width: 140px;
+    font-size: 11px;
+    font-weight: 500;
+    margin: 0px 10px;
+  }
+  .agregar-carrito-input-cel input {
+    font-size: 11px;
+    font-weight: 400;
+    height: 26px;
+    width: 35px;
+  }
+  .agregar-carrito-input-cel {
+    margin-top: 3px;
+  }
+  .agregar-carrito-input-cel label {
+    font-size: 13px;
+    font-weight: 500;
+    vertical-align: middle;
+    margin: 3px 10px;
+  }
+  .img-producto {
+    max-height: 65px;
+    max-width: 65px;
+    margin: 0px 0px;
+    object-fit: cover;
+    border-radius: 25px !important;
+  }
+  .producto-data h5 {
+    font-size: 14px;
+  }
+  .producto-data h3 {
+    font-size: 16px;
+  }
+  .desc {
+    padding: 5px;
+    font-size: 12px;
+    margin-top: 8px;
+  }
+  .foto-modal {
+    max-width: 80vh;
+    max-height: 80vh;
+    object-fit: contain;
+  }
+  .img-btn-modal {
+    width: 67px;
+    height: 67px;
+  }
+  .store-title-1 {
+    font-size: 16px !important;
+    font-weight: 650 !important;
+  }
+  .img-principal-cel {
+    width: 50vh;
+    max-height: 50vh;
+    object-fit: cover;
+  }
+  .caja-datos {
+    margin: 10px 5px !important;
+    padding: 5px !important;
+  }
+  .img-principal-cel {
+    width: 60px;
+    height: 60px;
+    margin: 10px 0px !important;
+  }
+  .buscar-txt {
+    font-size: 14px;
+  }
+  .texto-busqueda {
+    font-size: 12px;
+  }
+  .botonredes {
+    margin: 0px 15px !important;
+  }
 }
-@media only screen and (max-width: 1175px){
-    .popover{
-        --bs-popover-max-width: 700px;
-    }
-    .imagen-btn{
-        width: 55px;
-        height: 55px;
-        margin: 1px 0px !important
-    }
-    .img-tiendas{
-        width: 225px;
-        height: 225px;
-    }
-    .store-title{
-        font-size: 35px;
-        font-weight: 700!important;
-    }
+@media only screen and (max-width: 400px) {
+  .botonredes {
+    margin: 0px 10px !important;
+  }
+  .store-descripcion {
+    font-size: 12px;
+    margin: 0px 0px;
+  }
+  .producto-data h5 {
+    font-size: 14px;
+  }
+  .producto-data h3 {
+    font-size: 15px;
+  }
+  .store-email {
+    font-size: 11px !important;
+  }
+  .popover {
+    --bs-popover-max-width: 250px;
+  }
+  .boton-agregar-carrito-cel {
+    width: 140px;
+    font-size: 10px;
+    font-weight: 500;
+    margin: 0px 5px;
+  }
+  .agregar-carrito-input-cel input {
+    font-size: 10px;
+    font-weight: 400;
+    height: 25px;
+    width: 30px;
+  }
+  .agregar-carrito-input-cel {
+    margin-top: 3px;
+  }
+  .agregar-carrito-input-cel label {
+    font-size: 12px;
+    font-weight: 500;
+    vertical-align: middle;
+    margin: 2px 5px;
+  }
+  .img-producto {
+    max-height: 50px;
+    max-width: 50px;
+    margin: 0px 0px;
+    object-fit: cover;
+    border-radius: 20px !important;
+  }
+  .producto-data h5 {
+    font-size: 12px;
+  }
+  .producto-data h3 {
+    font-size: 14px;
+  }
+  .desc {
+    padding: 5px;
+    font-size: 10px;
+    margin-top: 8px;
+  }
+  .foto-modal {
+    max-width: 70vh;
+    max-height: 75vh;
+    object-fit: contain;
+  }
+  .stores-btn-a {
+    margin-top: 5px !important;
+  }
+  .img-btn-modal {
+    width: 57px;
+    height: 57px;
+  }
+  .imagen-btn-cel {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    margin: 0px 5px !important;
+  }
+  .img-principal-cel {
+    width: 30vh;
+    max-height: 30vh;
+    object-fit: cover;
+  }
+  .img-principal {
+    max-width: 100px;
+    max-height: 120px;
+  }
+  .text-busq-cat {
+    font-size: 15px;
+  }
+  .txt-1 {
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .txt-cat {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .texto-filtro {
+    font-size: 12px;
+  }
+  .texto-busqueda {
+    font-size: 11px;
+  }
+  .store-categoria {
+    font-size: 13px;
+  }
+  .store-celular {
+    font-size: 15px;
+  }
+  .store-ciudad {
+    font-size: 15px;
+  }
+  .store-email {
+    font-size: 13px;
+  }
+  .img-tiendas {
+    width: 120px;
+    height: 120px;
+    margin: 10px 5px !important;
+  }
+  .store-title {
+    font-size: 16px;
+    font-weight: 650 !important;
+  }
+  .card-caja {
+    margin: 15px 10px !important;
+    padding: 5px !important;
+  }
 }
-@media only screen and (max-width: 1100px){
-    .popover{
-        --bs-popover-max-width: 700px;
-    }
-    .imagen-btn{
-        width: 50px;
-        height: 50px;
-        margin: 2px 0px!important;
-    }
-    .img-tiendas{
-        width: 210px;
-        height: 210px;
-        margin: 20px 20px!important;
-    }
-    .store-title{
-        font-size: 32px;
-        font-weight: 650!important;
-    }
-    .card-caja{
-        margin: 25px 15px!important;
-        padding: 5px!important;
-    }
-    .store-categoria{
-        font-size: 23px;
-    }
-    .store-celular{
-        font-size: 26px;
-    }
-    .store-ciudad{
-        font-size: 26px;
-    }
-    .store-email{
-        font-size: 22px;
-    }
-}
-@media only screen and (max-width: 1000px){
-    .store-descripcion{
-        font-size: 15px;
-        margin: 0px 15px;
-    }
-    .popover{
-        --bs-popover-max-width: 650px;
-    }
-    .imagen-btn{
-        width: 46px;
-        height: 46px;
-        margin: 2px 0px!important;
-    }
-    .img-principal{
-        max-width: 260px;
-        object-fit: cover;
-        max-height: 270px;
-    }
-    .store-title{
-        font-size: 27px;
-        font-weight: 650!important;
-    }
-    .store-categoria{
-        font-size: 21px;
-    }
-    .store-celular{
-        font-size: 24px;
-    }
-    .store-ciudad{
-        font-size: 24px;
-    }
-    .store-email{
-        font-size: 20px;
-    }
-    .card-caja{
-        margin: 30px 15px!important;
-        padding: 5px!important;
-    }
-}
-@media only screen and (max-width: 900px){
-    .store-descripcion{
-        font-size: 14px;
-        margin: 0px 10px;
-    }
-    .producto-data h5{
-        font-size: 18px;
-    }
-    .producto-data h3{
-        font-size: 23px;
-    }
-    .producto-data .desc{
-        font-size: 15px;
-    }
-    .img-producto{
-        max-width: 140px;
-        max-height: 140px;
-        object-fit: cover;
-    }
-    .agregar-carrito-input input{
-        font-size: 16px;
-        font-weight: 400;
-        vertical-align: middle;
-    }
-    .agregar-carrito-input label{
-        font-size: 17px;
-        font-weight: 500;
-        vertical-align: middle;
-    }
-    .boton-agregar-carrito{
-        width: 150px;
-        font-size: 15px;
-        font-weight: 500;
-        margin: 10px 0px;
-    }
-    .popover{
-        --bs-popover-max-width: 550px;
-    }
-    .store-categoria{
-        font-size: 20px;
-    }
-    .store-celular{
-        font-size: 23px;
-    }
-    .store-ciudad{
-        font-size: 23px;
-    }
-    .store-email{
-        font-size: 20px;
-    }
-    .img-tiendas{
-        width: 200px;
-        height: 200px;
-        margin: 20px 15px!important;
-    }
-    .store-title{
-        font-size: 26px;
-        font-weight: 700!important;
-    }
-    .card-caja{
-        margin: 28px 15px!important;
-        padding: 5px!important;
-    }
-}
-@media only screen and (max-width: 850px){
-    .store-descripcion{
-        font-size: 13px;
-        margin: 0px 10px;
-    }
-    .producto-data h5{
-        font-size: 17px;
-    }
-    .producto-data h3{
-        font-size: 22px;
-    }
-    .producto-data .desc{
-        font-size: 14px;
-    }
-    .img-producto{
-        max-height: 130px;
-        max-width: 130px;
-        object-fit: cover;
-    }
-    .agregar-carrito-input input{
-        font-size: 15px;
-        font-weight: 400;
-        vertical-align: middle;
-    }
-    .agregar-carrito-input label{
-        font-size: 16px;
-        font-weight: 500;
-        vertical-align: middle;
-    }
-    .boton-agregar-carrito{
-        width: 150px;
-        font-size: 15px;
-        font-weight: 500;
-        margin: 10px 0px;
-    }
-    .imagen-btn{
-        width: 40px;
-        height: 40px;
-        margin: 2px 0px!important;
-    }
-    .img-principal{
-        max-width: 225px;
-        object-fit: cover;
-        max-height: 225px;
-    }
-    .store-categoria{
-        font-size: 18px;
-    }
-    .store-celular{
-        font-size: 21px;
-    }
-    .store-ciudad{
-        font-size: 21px;
-    }
-    .store-email{
-        font-size: 19px;
-    }
-    .store-title{
-        font-size: 23px;
-        font-weight: 700!important;
-    }
-    .store-box{
-        margin: 15px 30px!important;
-    }
-    .card-caja{
-        margin: 30px 15px!important;
-        padding: 5px!important;
-    }
-}
-@media only screen and (max-width: 800px){
-    .store-descripcion{
-        font-size: 12px;
-        margin: 0px 10px;
-    }
-    .popover{
-        --bs-popover-max-width: 500px;
-    }
-    .producto-data h5{
-        font-size: 16px;
-    }
-    .producto-data h3{
-        font-size: 21px;
-    }
-    .producto-data .desc{
-        font-size: 13px;
-    }
-    .img-producto{
-        max-height: 120px;
-        max-width: 120px;
-        object-fit: cover;
-    }
-    .agregar-carrito-input input{
-        font-size: 14px;
-        font-weight: 400;
-        vertical-align: middle;
-    }
-    .agregar-carrito-input label{
-        font-size: 15px;
-        font-weight: 500;
-        vertical-align: middle;
-    }
-    .boton-agregar-carrito{
-        width: 140px;
-        font-size: 14px;
-        font-weight: 500;
-        margin: 10px 0px;
-    }
-    .imagen-btn{
-        width: 36px;
-        height: 36px;
-        margin: 2px 0px!important;
-        
-    }
-    .img-principal{
-        max-width: 200px;
-        object-fit: cover;
-        max-height: 200px;
-    }
-    .store-categoria{
-        font-size: 17px;
-    }
-    .store-celular{
-        font-size: 20px;
-    }
-    .store-ciudad{
-        font-size: 20px;
-    }
-    .store-email{
-        font-size: 17px;
-    }
-    .img-tiendas{
-        width: 190px;
-        height: 190px;
-        margin: 15px 15px!important;
-    }
-    .store-title{
-        font-size: 22px;
-        font-weight: 700!important;
-    }
-    .card-caja{
-        margin: 25px 10px!important;
-        padding: 5px!important;
-    }
-    .img-principal-cel{
-        width: 80vh;
-        max-height: 70vh;
-        object-fit: cover;
-    }
-}
-@media only screen and (max-width: 750px){
-    .store-descripcion{
-        font-size: 12px;
-        margin: 0px 0px;
-    }
-    .producto-data h5{
-        font-size: 18px;
-    }
-    .producto-data h3{
-        font-size: 22px;
-    }
-    .producto-data .desc{
-        font-size: 13px;
-    }
-    .img-producto{
-        max-height: 125px;
-        max-width: 125px;
-        object-fit: cover;
-    }
-    .agregar-carrito-input input{
-        font-size: 13px;
-        font-weight: 400;
-        vertical-align: middle;
-    }
-    .agregar-carrito-input label{
-        font-size: 14px;
-        font-weight: 500;
-        vertical-align: middle;
-    }
-    .agregar-carrito-input-cel input{
-        font-size: 13px;
-        font-weight: 400;
-        height: 30px;
-        width: 40px;
-    }
-    .agregar-carrito-input-cel{
-        margin-top: 2px;
-    }
-    .agregar-carrito-input-cel label{
-        font-size: 15px;
-        font-weight: 500;
-        vertical-align: middle;
-        margin:3px 10px;
-    }
-    .boton-agregar-carrito{
-        width: 130px;
-        font-size: 13px;
-        font-weight: 500;
-        margin: 10px 0px;
-    }
-    .boton-agregar-carrito-cel{
-        width: 140px;
-        font-size: 14px;
-        font-weight: 500;
-        margin: 0px 10px;
-    }
-    .imagen-btn{
-        width: 33px;
-        height: 33px;
-        margin: 2px 0px!important;
-    }
-    .img-principal{
-        max-width: 190px;
-        object-fit: cover;
-        max-height: 190px;
-    }
-    .popover{
-        --bs-popover-max-width: 500px;
-    }
-}
-@media only screen and (max-width: 700px){
-    .store-descripcion{
-        font-size: 14px;
-        margin: 0px 10px;
-    }
-    .store-email{
-        font-size: 14px!important;
-    }
-    .popover{
-        --bs-popover-max-width: 450px;
-    }
-    .img-principal-cel{
-        width: 65vh;
-        max-height: 55vh;
-        object-fit: cover;
-    }
-    .imagen-btn{
-        width: 30px;
-        height: 30px;
-        margin: 1px 0px!important;
-    }
-    .botn-imagen{
-        margin: 2px!important;
-    }
-    .img-principal{
-        max-width: 175px;
-        object-fit: cover;
-        max-height: 175px;
-    }
-    .text-busq-cat{
-        font-size: 18px;
-    }
-    .store-categoria{
-        font-size: 16px;
-    }
-    .store-celular{
-        font-size: 18px;
-    }
-    .store-ciudad{
-        font-size: 18px;
-    }
-    .img-tiendas{
-        width: 180px;
-        height: 180px;
-        margin: 15px 15px!important;
-    }
-    .store-title{
-        font-size: 21px;
-        font-weight: 650!important;
-    }
-    .card-caja{
-        margin: 25px 15px!important;
-        padding: 5px!important;
-    }
-}@media only screen and (max-width: 650px){
-    .store-descripcion{
-        font-size: 13px;
-        margin: 0px 6px;
-    }
-    .producto-data .desc{
-        font-size: 12px;
-    }
-}
-@media only screen and (max-width: 600px){
-    .store-descripcion{
-        font-size: 12px;
-        margin: 0px 3px;
-    }
-    .store-email{
-        font-size: 16px!important;
-    }
-    .popover{
-        --bs-popover-max-width: 450px;
-    }
-    .desc{
-        padding: 5px;
-        font-size: 15px;
-        margin-top: 10px;
-    }
-    .imagen-btn-cel{
-        width: 60px;
-        height: 60px;
-        border-radius: 20px;
-        margin: 0px 10px!important;
-    }
-    .img-producto{
-        max-height: 80px;
-        max-width: 80px;
-        margin: 0px 0px;
-        object-fit: cover;
-        border-radius: 25px!important;
-    }
-    .img-principal-cel{
-        width: 55vh;
-        max-height: 50vh;
-        object-fit: cover;
-    }
-    .img-principal{
-        max-width: 170px;
-        max-height: 180px;
-    }
-    .text-busq-cat{
-        font-size: 17px;
-    }
-    .texto-busqueda{
-        font-size: 16px;
-    }
-    .img-tiendas{
-        width: 170px;
-        height: 170px;
-        margin: 15px 10px!important;
-    }
-    .store-title{
-        font-size: 22px;
-        font-weight: 650!important;
-    }
-    .card-caja{
-        margin: 20px 10px!important;
-        padding: 5px!important;
-    }
-    .store-email{
-        font-size: 12px;
-    }
-}
-@media only screen and (max-width: 550px){
-    .store-descripcion{
-        font-size: 12px;
-        margin: 0px 0px;
-    }
-    .popover{
-        --bs-popover-max-width: 400px;
-    }
-    .store-title-1{
-        font-size: 19px!important;
-        font-weight: 650!important;
-    }
-    .sstars{
-        margin-bottom: 5px;
-    }
-    .imagen-btn-cel{
-        width: 50px;
-        height: 50px;
-        border-radius: 17px;
-        margin: 0px 10px!important;
-    }
-    .img-principal{
-        max-width: 160px;
-        max-height: 180px;
-    }
-    .texto-busqueda{
-        font-size: 15px;
-    }
-    .img-tiendas{
-        width: 160px;
-        height: 160px;
-        margin: 15px 10px!important;
-    }
-    .store-categoria{
-        font-size: 15px;
-    }
-    .store-celular{
-        font-size: 17px;
-    }
-    .store-ciudad{
-        font-size: 17px;
-    }
-    .store-email{
-        font-size: 15px;
-    }
-    .store-title{
-        font-size: 20px;
-        font-weight: 650!important;
-    }
-
-}
-@media only screen and (max-width: 500px){
-    .store-descripcion{
-        font-size: 13px;
-        margin: 0px 0px;
-    }
-    .popover{
-        --bs-popover-max-width: 350px;
-    }
-    .boton-agregar-carrito-cel{
-        width: 130px;
-        font-size: 13px;
-        font-weight: 500;
-        margin: 0px 10px;
-    }
-    .agregar-carrito-input-cel input{
-        font-size: 12px;
-        font-weight: 400;
-        height: 27px;
-        width: 38px;
-    }
-    .agregar-carrito-input-cel{
-        margin-top: 3px;
-    }
-    .agregar-carrito-input-cel label{
-        font-size: 14px;
-        font-weight: 500;
-        vertical-align: middle;
-        margin:3px 10px;
-    }
-    .img-producto{
-        max-height: 70px;
-        max-width: 70px;
-        margin: 0px 0px;
-        object-fit: cover;
-        border-radius: 25px!important;
-    }
-    .producto-data h5{
-        font-size: 17px;
-    }
-    .producto-data h3{
-        font-size: 21px;
-    }
-    .desc{
-        padding: 5px;
-        font-size: 14px;
-        margin-top: 8px;
-    }
-    .store-title-1{
-        font-size: 18px!important;
-        font-weight: 650!important;
-    }
-    .imagen-btn-cel{
-        width: 45px;
-        height: 45px;
-        border-radius: 15px;
-        margin: 0px 5px!important;
-    }
-    .img-principal-cel{
-        width: 40vh;
-        max-height: 40vh;
-        object-fit: cover;
-    }
-    .img-principal{
-        max-width: 130px;
-        max-height: 130px;
-    }
-    .text-busq-cat{
-        font-size: 16px;
-    }
-    .txt-1{
-        font-size: 14px;
-        font-weight: 500;
-    }
-    .txt-cat{
-        font-size: 16px;
-        font-weight: 600;
-    }
-    .texto-filtro{
-        font-size: 14px;
-    }
-    .texto-busqueda{
-        font-size: 13px;
-    }
-    .store-categoria{
-        font-size: 14px;
-    }
-    .store-celular{
-        font-size: 16px;
-    }
-    .store-ciudad{
-        font-size: 16px;
-    }
-    .store-email{
-        font-size: 14px;
-    }
-    .img-tiendas{
-        width: 140px;
-        height: 140px;
-        margin: 10px 10px!important;
-    }
-    .store-title{
-        font-size: 17px;
-        font-weight: 650!important;
-    }
-    .store-box{
-        margin: 15px 20px!important;
-    }
-    .card-caja{
-        margin: 20px 10px!important;
-        padding: 5px!important;
-    }
-    .producto-data h5{
-        font-size: 15px;
-    }
-    .producto-data h3{
-        font-size: 16px;
-    }
-    .foto-modal{
-        max-width: 75vh;
-        max-height: 80vh;
-        object-fit: contain;
-    }
-    
-}
-@media only screen and (max-width: 450px){
-    .store-email{
-        font-size: 14px!important;
-    }
-    .popover{
-        --bs-popover-max-width: 300px;
-    }
-    .boton-agregar-carrito-cel{
-        width: 140px;
-        font-size: 11px;
-        font-weight: 500;
-        margin: 0px 10px;
-    }
-    .agregar-carrito-input-cel input{
-        font-size: 11px;
-        font-weight: 400;
-        height: 26px;
-        width: 35px;
-    }
-    .agregar-carrito-input-cel{
-        margin-top: 3px;
-    }
-    .agregar-carrito-input-cel label{
-        font-size: 13px;
-        font-weight: 500;
-        vertical-align: middle;
-        margin:3px 10px;
-    }
-    .img-producto{
-        max-height: 65px;
-        max-width: 65px;
-        margin: 0px 0px;
-        object-fit: cover;
-        border-radius: 25px!important;
-    }
-    .producto-data h5{
-        font-size: 14px;
-    }
-    .producto-data h3{
-        font-size: 16px;
-    }
-    .desc{
-        padding: 5px;
-        font-size: 12px;
-        margin-top: 8px;
-    }
-    .foto-modal{
-        max-width: 80vh;
-        max-height: 80vh;
-        object-fit: contain;
-    }
-    .img-btn-modal{
-        width: 67px;
-        height: 67px;
-    }
-    .store-title-1{
-        font-size: 16px!important;
-        font-weight: 650!important;
-    }
-    .img-principal-cel{
-        width: 50vh;
-        max-height: 50vh;
-        object-fit: cover;
-    }
-    .caja-datos{
-        margin: 10px 5px !important;
-        padding: 5px!important;
-    }
-    .img-principal-cel{
-        width: 60px;
-        height: 60px;
-        margin: 10px 0px!important
-    }
-    .buscar-txt{
-        font-size: 14px;
-    }
-    .texto-busqueda{
-        font-size: 12px;
-    }
-    .botonredes{
-        margin: 0px 15px!important;
-    }
-}
-@media only screen and (max-width: 400px){
-    .botonredes{
-        margin: 0px 10px!important;
-    }
-    .store-descripcion{
-        font-size: 12px;
-        margin: 0px 0px;
-    }
-    .producto-data h5{
-        font-size: 14px;
-    }
-    .producto-data h3{
-        font-size: 15px;
-    }
-    .store-email{
-        font-size: 11px!important;
-    }
-    .popover{
-        --bs-popover-max-width: 250px;
-    }
-    .boton-agregar-carrito-cel{
-        width: 140px;
-        font-size: 10px;
-        font-weight: 500;
-        margin: 0px 5px;
-    }
-    .agregar-carrito-input-cel input{
-        font-size: 10px;
-        font-weight: 400;
-        height: 25px;
-        width: 30px;
-    }
-    .agregar-carrito-input-cel{
-        margin-top: 3px;
-    }
-    .agregar-carrito-input-cel label{
-        font-size: 12px;
-        font-weight: 500;
-        vertical-align: middle;
-        margin:2px 5px;
-    }
-    .img-producto{
-        max-height: 50px;
-        max-width: 50px;
-        margin: 0px 0px;
-        object-fit: cover;
-        border-radius: 20px!important;
-    }
-    .producto-data h5{
-        font-size: 12px;
-    }
-    .producto-data h3{
-        font-size: 14px;
-    }
-    .desc{
-        padding: 5px;
-        font-size: 10px;
-        margin-top: 8px;
-    }
-    .foto-modal{
-        max-width: 70vh;
-        max-height: 75vh;
-        object-fit: contain;
-    }
-    .stores-btn-a{
-        margin-top: 5px!important;
-    }
-    .img-btn-modal{
-        width: 57px;
-        height: 57px;
-    }
-    .imagen-btn-cel{
-        width: 40px;
-        height: 40px;
-        border-radius: 20px;
-        margin: 0px 5px!important;
-    }
-    .img-principal-cel{
-        width: 30vh;
-        max-height: 30vh;
-        object-fit: cover;
-    }
-    .img-principal{
-        max-width: 100px;
-        max-height: 120px;
-    }
-    .text-busq-cat{
-        font-size: 15px;
-    }
-    .txt-1{
-        font-size: 13px;
-        font-weight: 500;
-    }
-    .txt-cat{
-        font-size: 15px;
-        font-weight: 600;
-    }
-    .texto-filtro{
-        font-size: 12px;
-    }
-    .texto-busqueda{
-        font-size: 11px;
-    }
-    .store-categoria{
-        font-size: 13px;
-    }
-    .store-celular{
-        font-size: 15px;
-    }
-    .store-ciudad{
-        font-size: 15px;
-    }
-    .store-email{
-        font-size: 13px;
-    }
-    .img-tiendas{
-        width: 120px;
-        height: 120px;
-        margin: 10px 5px!important;
-    }
-    .store-title{
-        font-size: 16px;
-        font-weight: 650!important;
-    }
-    .card-caja{
-        margin: 15px 10px!important;
-        padding: 5px!important;
-    }
-}
-@media only screen and (max-width: 370px){
-    .store-descripcion{
-        font-size: 12px;
-        margin: 0px 0px;
-        padding: 0px 10px 10px 10px!important;
-    }
-    .foto-modal{
-        max-width: 220px;
-        max-height: 70vh;
-        object-fit: contain;
-    }
-    .img-btn-modal{
-        width: 50px;
-        height: 50px;
-    }
-    .text-busq-cat{
-        font-size: 14px;
-    }
-    .buscar-txt{
-        font-size: 12px;
-    }
-    .texto-busqueda{
-        font-size: 10px;
-    }
-    .img-tiendas{
-        width: 110px;
-        height: 110px;
-        margin: 5px 5px!important;
-    }
-    .store-title{
-        font-size: 14px;
-        font-weight: 650!important;
-    }
-    .card-caja{
-        margin: 10px 5px!important;
-        padding: 5px!important;
-    }
+@media only screen and (max-width: 370px) {
+  .store-descripcion {
+    font-size: 12px;
+    margin: 0px 0px;
+    padding: 0px 10px 10px 10px !important;
+  }
+  .foto-modal {
+    max-width: 220px;
+    max-height: 70vh;
+    object-fit: contain;
+  }
+  .img-btn-modal {
+    width: 50px;
+    height: 50px;
+  }
+  .text-busq-cat {
+    font-size: 14px;
+  }
+  .buscar-txt {
+    font-size: 12px;
+  }
+  .texto-busqueda {
+    font-size: 10px;
+  }
+  .img-tiendas {
+    width: 110px;
+    height: 110px;
+    margin: 5px 5px !important;
+  }
+  .store-title {
+    font-size: 14px;
+    font-weight: 650 !important;
+  }
+  .card-caja {
+    margin: 10px 5px !important;
+    padding: 5px !important;
+  }
 }
 
-@media only screen and (max-width: 350px){
-    .botonredes{
-        margin: 0px 5px!important;
-    }
-    .store-descripcion{
-        padding: 0px 10px 10px 10px!important;
-        font-size: 11px;
-        margin: 0px 0px;
-    }
-    .popover{
-        --bs-popover-max-width: 230px;
-    }
-    .boton-agregar-carrito-cel{
-        width: 130px;
-        font-size: 9px;
-        font-weight: 500;
-        margin: 0px 5px;
-    }
-    .agregar-carrito-input-cel input{
-        font-size: 9px;
-        font-weight: 400;
-        height: 23px;
-        width: 30px;
-    }
-    .agregar-carrito-input-cel{
-        margin-top: 3px;
-    }
-    .agregar-carrito-input-cel label{
-        font-size: 11px;
-        font-weight: 500;
-        vertical-align: middle;
-        margin:2px 5px;
-    }
-    .img-producto{
-        max-height: 45px;
-        max-width: 45px;
-        margin: 0px 0px;
-        object-fit: cover;
-        border-radius: 20px!important;
-    }
-    .producto-data h5{
-        font-size: 13px;
-    }
-    .producto-data h3{
-        font-size: 14px;
-    }
-    .producto-data{
-        margin: 0px 3px!important;
-    }
-    .desc{
-        padding: 5px;
-        font-size: 10px;
-        margin-top: 8px;
-    }
-    .foto-modal{
-        max-width: 200px;
-        max-height: 70vh;
-        object-fit: contain;
-    }
+@media only screen and (max-width: 350px) {
+  .botonredes {
+    margin: 0px 5px !important;
+  }
+  .store-descripcion {
+    padding: 0px 10px 10px 10px !important;
+    font-size: 11px;
+    margin: 0px 0px;
+  }
+  .popover {
+    --bs-popover-max-width: 230px;
+  }
+  .boton-agregar-carrito-cel {
+    width: 130px;
+    font-size: 9px;
+    font-weight: 500;
+    margin: 0px 5px;
+  }
+  .agregar-carrito-input-cel input {
+    font-size: 9px;
+    font-weight: 400;
+    height: 23px;
+    width: 30px;
+  }
+  .agregar-carrito-input-cel {
+    margin-top: 3px;
+  }
+  .agregar-carrito-input-cel label {
+    font-size: 11px;
+    font-weight: 500;
+    vertical-align: middle;
+    margin: 2px 5px;
+  }
+  .img-producto {
+    max-height: 45px;
+    max-width: 45px;
+    margin: 0px 0px;
+    object-fit: cover;
+    border-radius: 20px !important;
+  }
+  .producto-data h5 {
+    font-size: 13px;
+  }
+  .producto-data h3 {
+    font-size: 14px;
+  }
+  .producto-data {
+    margin: 0px 3px !important;
+  }
+  .desc {
+    padding: 5px;
+    font-size: 10px;
+    margin-top: 8px;
+  }
+  .foto-modal {
+    max-width: 200px;
+    max-height: 70vh;
+    object-fit: contain;
+  }
 }
-@media only screen and (max-width: 300px){
-    .foto-modal{
-        max-width: 180px;
-        max-height: 70vh;
-        object-fit: contain;
-    }
+@media only screen and (max-width: 300px) {
+  .foto-modal {
+    max-width: 180px;
+    max-height: 70vh;
+    object-fit: contain;
+  }
 }

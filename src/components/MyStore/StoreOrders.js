@@ -2,7 +2,6 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import Button from "react-bootstrap/Button";
-
 function StoreOrders() {
   const {
     readProducts,
@@ -17,7 +16,6 @@ function StoreOrders() {
   const handleResize = () => {
     setW(window.innerWidth);
   };
-
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => {
@@ -34,7 +32,6 @@ function StoreOrders() {
   const [group, setGroup] = useState(null);
   const [productosCotizar, setProductosCotizar] = useState(null);
   const [usuarios, setUsuarios] = useState(null);
-
   const [alertDel, setAlertDel] = useState(false);
   const sAlertDel = () => {
     window.scroll(0, 0);
@@ -93,14 +90,12 @@ function StoreOrders() {
       objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
       return objectsByKeyValue;
     }, {});
-
   const resolveProductsOrders = async (products) => {
     await readProducts(products).then((res) => {
       setProductosCotizar(res.data);
     });
     setCargando(false);
   };
-
   const resolveUsers = async (tienda) => {
     await readUserInfo(tienda).then((res) => {
       setUsuarios(res.data);
@@ -120,7 +115,6 @@ function StoreOrders() {
       let result = listaUsuarios.filter((item, index) => {
         return listaUsuarios.indexOf(item) === index;
       });
-
       resolveUsers(result);
       const group = groupBy(["Estado"]);
       let lista = [];
@@ -151,7 +145,6 @@ function StoreOrders() {
       if (rechazadas) {
         lista.push(rechazadas);
       }
-
       if (creadas) {
         lista.push(creadas);
       }
@@ -161,7 +154,6 @@ function StoreOrders() {
       if (final) {
         lista.push(final);
       }
-
       setGroup(lista);
       resolveProductsOrders(listaProductos);
       return;
@@ -171,11 +163,9 @@ function StoreOrders() {
     await createEnvio(id, envio).then(() => {});
     setAlert(true);
     sAlert();
-
     let grupo = group;
     let num = null;
     let co;
-
     group.map((estado, eindex) => {
       estado.Cotizaciones.map((cotizacion, index) => {
         if (cotizacion._id === id) {
@@ -208,12 +198,10 @@ function StoreOrders() {
     setGroup(grupo);
     setStartT(true);
   };
-
   if (start && userData) {
     resolveCotizacion();
     setStart(false);
   }
-
   const handleDelete = async (id) => {
     let estado = { Store_Delete: true };
     await updatePricing(id, estado);
@@ -221,10 +209,8 @@ function StoreOrders() {
     sAlertDel();
     let lista1;
     let grupo = group;
-
     group.map((estado, eindex) => {
       lista1 = estado.Cotizaciones;
-
       estado.Cotizaciones.map((cotizacion, index) => {
         if (cotizacion._id === id) {
           lista1.splice(index, 1);
@@ -242,7 +228,6 @@ function StoreOrders() {
     });
     setStartT(true);
   };
-
   const CotizacionItems = () => {
     const [newMsg, setNewMsg] = useState("");
     const handleNewMsg = () => {
@@ -256,7 +241,6 @@ function StoreOrders() {
     if (group && usuarios && productosCotizar) {
       return (
         <div>
-          
           {alertDel && <AlertDelete />}
           {alert && <Alert />}
           {group.map((estado, tes) => {
@@ -336,7 +320,8 @@ function StoreOrders() {
                                   aria-expanded="true"
                                   aria-controls={`#collapseuser${cotiza._id}`}
                                 >
-                                  Usuario: {usuario.Nombre} {usuario.Delete && ". (Usuario Eliminado)."}
+                                  Usuario: {usuario.Nombre}{" "}
+                                  {usuario.Delete && ". (Usuario Eliminado)."}
                                 </button>
                               </h2>
                               <div
@@ -402,7 +387,11 @@ function StoreOrders() {
                                                 (item) =>
                                                   item._id === pedido.Producto
                                               );
-
+                                              if (item.Delete) {
+                                                item.Nombre =
+                                                  item.Nombre +
+                                                  " (Producto Eliminado)";
+                                              }
                                               /*let  item = productos.find(product => product._id === producto.Producto_id);*/
                                               let total =
                                                 item.Precio * pedido.Cantidad;
@@ -437,7 +426,6 @@ function StoreOrders() {
                                                           w > 680 && (
                                                             <h5>Cantidad: </h5>
                                                           )}
-
                                                         <h5 className="prod-car">
                                                           {w <= 680 && (
                                                             <span>{cant}</span>
@@ -446,7 +434,6 @@ function StoreOrders() {
                                                         </h5>
                                                       </div>
                                                     </div>
-
                                                     <div className="d-flex caja2-carrito">
                                                       <div className="d-flex flex-row caja-213 prod-cel-box">
                                                         <h6 className="caja-50 prod-cant-end prod-cel-res">
@@ -476,7 +463,6 @@ function StoreOrders() {
                                       </div>
                                     </div>
                                   </div>
-
                                   <div className=" mt-2 mb-2 pricing-data">
                                     <h2 className="valor-titulo mt-2 mb-2">
                                       Valor Productos:{" "}
@@ -552,15 +538,15 @@ function StoreOrders() {
                                     </div>
                                   )}
                                   {cotiza.Estado === "pagado" &&
-                                    cotiza.Pago === true && !usuario.Delete && (
+                                    cotiza.Pago === true &&
+                                    !usuario.Delete && (
                                       <div>
                                         <div className="d-flex flex-row mt-2 mb-2 pricing-data">
                                           <h2 className="valor-titulo me-2">
                                             Fecha Envio:{" "}
                                           </h2>
-
                                           <input
-                                            type="text"
+                                            type="date"
                                             id={`fecha-envio-${tes}`}
                                           />
                                         </div>
@@ -568,7 +554,6 @@ function StoreOrders() {
                                           <h2 className="valor-titulo me-2">
                                             Empresa Envio:{" "}
                                           </h2>
-
                                           <input
                                             type="text"
                                             id={`empresa-envio-${tes}`}
@@ -578,9 +563,8 @@ function StoreOrders() {
                                           <h2 className="valor-titulo me-2">
                                             Numero de Guia:{" "}
                                           </h2>
-
                                           <input
-                                            type="text"
+                                            type="number"
                                             id={`numero-guia-${tes}`}
                                           />
                                         </div>
@@ -588,7 +572,6 @@ function StoreOrders() {
                                           <h2 className="valor-titulo me-2">
                                             Comentarios de Envio:{" "}
                                           </h2>
-
                                           <textarea
                                             className="w-100"
                                             type="text"
@@ -618,7 +601,6 @@ function StoreOrders() {
                                                   ).value,
                                                 Estado: "envio",
                                               };
-
                                               e.preventDefault();
                                               handleNewEnvio(cotiza._id, envio);
                                             }}
@@ -652,7 +634,6 @@ function StoreOrders() {
                                                   Información del Envio
                                                 </button>
                                               </h3>
-
                                               <div
                                                 className="accordion-collapse collapse"
                                                 id={`collapseEnvio${cotiza._id}`}
@@ -752,7 +733,6 @@ function StoreOrders() {
                                               Mensajes de revisión
                                             </button>
                                           </h3>
-
                                           <div
                                             className="accordion-collapse collapse show"
                                             id={`collapseProblem${cotiza._id}`}
@@ -858,50 +838,52 @@ function StoreOrders() {
                                                 </div>
                                               </div>
                                             </div>
-                                            {!usuario.Delete && <div className="d-flex flex-row justify-content-center m-2">
-                                              <Button
-                                                variant="dark"
-                                                onClick={handleNewMsg}
-                                                id="new-msg-btn"
-                                                className="text-center"
-                                              >
-                                                {nuevoMensaje}
-                                              </Button>
-                                              <div
-                                                className="d-none"
-                                                id="new-msg"
-                                              >
-                                                <input
-                                                  type="text-area"
-                                                  onChange={(e) => {
-                                                    e.preventDefault();
-                                                    setNewMsg(e.target.value);
-                                                  }}
-                                                />
-                                                <div>
-                                                  <Button
-                                                    variant="secondary"
-                                                    onClick={cancelNewMsg}
-                                                  >
-                                                    Cancelar
-                                                  </Button>
-                                                  <Button
-                                                    variant="primary"
-                                                    onClick={(e) => {
-                                                      const problem = {
-                                                        User_Problem: newMsg,
-                                                      };
-                                                      setStoreProblem(
-                                                        cotiza._id,
-                                                        problem
-                                                      );
+                                            {!usuario.Delete && (
+                                              <div className="d-flex flex-row justify-content-center m-2">
+                                                <Button
+                                                  variant="dark"
+                                                  onClick={handleNewMsg}
+                                                  id="new-msg-btn"
+                                                  className="text-center"
+                                                >
+                                                  {nuevoMensaje}
+                                                </Button>
+                                                <div
+                                                  className="d-none"
+                                                  id="new-msg"
+                                                >
+                                                  <input
+                                                    type="text-area"
+                                                    onChange={(e) => {
+                                                      e.preventDefault();
+                                                      setNewMsg(e.target.value);
                                                     }}
-                                                  >
-                                                    Enviar nuevo msg
-                                                  </Button>
+                                                  />
+                                                  <div>
+                                                    <Button
+                                                      variant="secondary"
+                                                      onClick={cancelNewMsg}
+                                                    >
+                                                      Cancelar
+                                                    </Button>
+                                                    <Button
+                                                      variant="primary"
+                                                      onClick={(e) => {
+                                                        const problem = {
+                                                          User_Problem: newMsg,
+                                                        };
+                                                        setStoreProblem(
+                                                          cotiza._id,
+                                                          problem
+                                                        );
+                                                      }}
+                                                    >
+                                                      Enviar nuevo msg
+                                                    </Button>
+                                                  </div>
                                                 </div>
                                               </div>
-                                            </div>}
+                                            )}
                                           </div>
                                         </div>
                                       </div>
@@ -951,5 +933,4 @@ function StoreOrders() {
     </div>
   );
 }
-
 export default StoreOrders;

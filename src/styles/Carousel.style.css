@@ -1,16 +1,16 @@
 @media (max-width: 768px) {
-    .carousel-indicators {
-        margin-bottom: 1px!important;
-    }
-    .img-carousel-center {
-        height: 125px;
-        max-height: 125px;
-        object-fit: cover;
-    }
-    .img-carousel-left {
-        height: 125px;
-        max-height: 125px;
-        object-fit: cover;
-        object-position: left;
-    }
+  .carousel-indicators {
+    margin-bottom: 1px !important;
+  }
+  .img-carousel-center {
+    height: 125px;
+    max-height: 125px;
+    object-fit: cover;
+  }
+  .img-carousel-left {
+    height: 125px;
+    max-height: 125px;
+    object-fit: cover;
+    object-position: left;
+  }
 }

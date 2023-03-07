@@ -30,7 +30,6 @@ function StorePricing() {
   const [alertDel, setAlertDel] = useState(false);
   const sAlert = () => {
     window.scroll(0, 0);
-
     setTimeout(() => {
       setAlert(false);
     }, 4000);
@@ -103,7 +102,6 @@ function StorePricing() {
   const resolveCotizacion = async () => {
     await readStorePricing(userData.Emprendimiento_id).then((res) => {
       const data = res.data;
-
       let listaUsuarios = [];
       let listaProductos = [];
       data.forEach((element) => {
@@ -115,12 +113,10 @@ function StorePricing() {
       let result = listaUsuarios.filter((item, index) => {
         return listaUsuarios.indexOf(item) === index;
       });
-
       resolveUsers(result);
       const group = groupBy(["Estado"]);
       let lista = [];
       let objeto = group(data);
-
       let creadas;
       let rechazadas;
       let enviadas;
@@ -154,7 +150,6 @@ function StorePricing() {
         lista.push(cancel);
       }
       setGroup(lista);
-
       resolveProductsCotizar(listaProductos);
       return;
     });
@@ -167,10 +162,8 @@ function StorePricing() {
     let grupo = group;
     let num = null;
     let co;
-
     group.map((estado, eindex) => {
       lista1 = estado.Cotizaciones;
-
       estado.Cotizaciones.map((cotizacion, index) => {
         if (cotizacion._id === id) {
           lista1.splice(index, 1);
@@ -215,10 +208,8 @@ function StorePricing() {
     sAlertDel();
     let lista1;
     let grupo = group;
-
     group.map((estado, eindex) => {
       lista1 = estado.Cotizaciones;
-
       estado.Cotizaciones.map((cotizacion, index) => {
         if (cotizacion._id === id) {
           lista1.splice(index, 1);
@@ -236,7 +227,6 @@ function StorePricing() {
     });
     setStartT(true);
   };
-
   if (start && userData) {
     resolveCotizacion();
     setStart(false);
@@ -247,10 +237,8 @@ function StorePricing() {
     sAlertDel();
     let lista1;
     let grupo = group;
-
     group.map((estado, eindex) => {
       lista1 = estado.Cotizaciones;
-
       estado.Cotizaciones.map((cotizacion, index) => {
         if (cotizacion._id === id) {
           lista1.splice(index, 1);
@@ -267,7 +255,6 @@ function StorePricing() {
       return false;
     });
   };
-
   const CotizacionItems = () => {
     if (group && usuarios && productosCotizar) {
       if (group.length === 0) {
@@ -360,7 +347,8 @@ function StorePricing() {
                                   aria-expanded="true"
                                   aria-controls={`#collapseuser${cotiza._id}`}
                                 >
-                                  Usuario: {usuario.Nombre} {usuario.Delete && ". (Usuario Eliminado)."}
+                                  Usuario: {usuario.Nombre}{" "}
+                                  {usuario.Delete && ". (Usuario Eliminado)."}
                                 </button>
                               </h2>
                               <div
@@ -426,7 +414,14 @@ function StorePricing() {
                                                 (item) =>
                                                   item._id === pedido.Producto
                                               );
-
+                                              if (item.Delete) {
+                                                item = {
+                                                  Nombre:
+                                                    item.Nombre +
+                                                    " (Producto Eliminado)",
+                                                  Precio: 0,
+                                                };
+                                              }
                                               /*let  item = productos.find(product => product._id === producto.Producto_id);*/
                                               let total =
                                                 item.Precio * pedido.Cantidad;
@@ -461,7 +456,6 @@ function StorePricing() {
                                                           w > 680 && (
                                                             <h5>Cantidad: </h5>
                                                           )}
-
                                                         <h5 className="prod-car">
                                                           {w <= 680 && (
                                                             <span>{cant}</span>
@@ -470,7 +464,6 @@ function StorePricing() {
                                                         </h5>
                                                       </div>
                                                     </div>
-
                                                     <div className="d-flex caja2-carrito">
                                                       <div className="d-flex flex-row caja-213 prod-cel-box">
                                                         <h6 className="caja-50 prod-cant-end prod-cel-res">
@@ -549,12 +542,13 @@ function StorePricing() {
                                             )}
                                         </h2>
                                       )}
-                                      {estado.Estado === "creada" && !usuario.Delete && (
-                                        <input
-                                          type="number"
-                                          id={`valor-envio-${tes}`}
-                                        />
-                                      )}
+                                      {estado.Estado === "creada" &&
+                                        !usuario.Delete && (
+                                          <input
+                                            type="number"
+                                            id={`valor-envio-${tes}`}
+                                          />
+                                        )}
                                     </div>
                                     {cotiza.Otros_Valores > 0 &&
                                       cotiza.Estado !== "creada" && (
@@ -569,17 +563,18 @@ function StorePricing() {
                                           </h2>
                                         </div>
                                       )}
-                                    {cotiza.Estado === "creada" && !usuario.Delete &&  (
-                                      <div className="d-flex flex-row mt-2 mb-2 pricing-data">
-                                        <h2 className="valor-titulo me-2">
-                                          Otros Valores:{" "}
-                                        </h2>
-                                        <input
-                                          type="number"
-                                          id={`otros-valores-${tes}`}
-                                        />
-                                      </div>
-                                    )}
+                                    {cotiza.Estado === "creada" &&
+                                      !usuario.Delete && (
+                                        <div className="d-flex flex-row mt-2 mb-2 pricing-data">
+                                          <h2 className="valor-titulo me-2">
+                                            Otros Valores:{" "}
+                                          </h2>
+                                          <input
+                                            type="number"
+                                            id={`otros-valores-${tes}`}
+                                          />
+                                        </div>
+                                      )}
                                     {cotiza.Comentarios && (
                                       <div>
                                         {cotiza.Comentarios.length > 1 && (
@@ -592,7 +587,6 @@ function StorePricing() {
                                         )}
                                       </div>
                                     )}
-
                                     {estado.Estado !== "creada" &&
                                       estado.Estado !== "cancelado" && (
                                         <div className="d-flex flex-row mt-2 mb-2 pricing-data">
@@ -604,78 +598,84 @@ function StorePricing() {
                                           </h2>
                                         </div>
                                       )}
-                                    {estado.Estado === "creada" && !usuario.Delete &&  (
-                                      <div className="mt-2 mb-2 pricing-data">
-                                        <h2 className="valor-titulo me-2">
-                                          Tus Comentarios:{" "}
-                                        </h2>
-                                        <textarea
-                                          className="w-100"
-                                          type="text"
-                                          id={`comentarios-${tes}`}
-                                        />
-                                      </div>
-                                    )}
+                                    {estado.Estado === "creada" &&
+                                      !usuario.Delete && (
+                                        <div className="mt-2 mb-2 pricing-data">
+                                          <h2 className="valor-titulo me-2">
+                                            Tus Comentarios:{" "}
+                                          </h2>
+                                          <textarea
+                                            className="w-100"
+                                            type="text"
+                                            id={`comentarios-${tes}`}
+                                          />
+                                        </div>
+                                      )}
                                   </div>
-
                                   <div className="d-flex flex-row justify-content-evenly botones-pricing">
-                                    {estado.Estado === "creada" && !usuario.Delete &&  (
-                                      <div className="btns-pricing">
-                                        <button
-                                          className="btn btn-primary m-1"
-                                          onClick={(e) => {
-                                            let newCotizacion = {
-                                              Valor_Envio:
-                                                document.getElementById(
-                                                  `valor-envio-${tes}`
-                                                ).value,
-                                              Otros_Valores:
-                                                document.getElementById(
-                                                  `otros-valores-${tes}`
-                                                ).value,
-                                              Comentarios:
-                                                document.getElementById(
-                                                  `comentarios-${tes}`
-                                                ).value,
-                                              Estado: "cotizacion",
-                                            };
-                                            e.preventDefault();
-                                            handleNewCotizacion(
-                                              cotiza._id,
-                                              newCotizacion
-                                            );
-                                          }}
-                                        >
-                                          Enviar Cotización
-                                        </button>
-                                      </div>
-                                    )}
-                                    {estado.Estado === "creada" && !usuario.Delete && (
-                                      <div className="btns-pricing">
-                                        <button
-                                          className="btn btn-danger m-1"
-                                          onClick={(e) => {
-                                            e.preventDefault();
-                                            handleRechazar(cotiza._id, cotiza);
-                                          }}
-                                        >
-                                          Rechazar y Eliminar
-                                        </button>
-                                      </div>
-                                    )}
-                                    {estado.Estado === "creada" && usuario.Delete && (
-                                      <div className="btns-pricing">
-                                        <button
-                                          className="btn btn-danger m-1"
-                                          onClick={(e) => {
-                                            e.preventDefault();
-                                            handleDelete(cotiza._id);
-                                          }}
-                                        >
-                                          Eliminar
-                                        </button>
-                                      </div>
-                                    )}
+                                    {estado.Estado === "creada" &&
+                                      !usuario.Delete && (
+                                        <div className="btns-pricing">
+                                          <button
+                                            className="btn btn-primary m-1"
+                                            onClick={(e) => {
+                                              let newCotizacion = {
+                                                Valor_Envio:
+                                                  document.getElementById(
+                                                    `valor-envio-${tes}`
+                                                  ).value,
+                                                Otros_Valores:
+                                                  document.getElementById(
+                                                    `otros-valores-${tes}`
+                                                  ).value,
+                                                Comentarios:
+                                                  document.getElementById(
+                                                    `comentarios-${tes}`
+                                                  ).value,
+                                                Estado: "cotizacion",
+                                              };
+                                              e.preventDefault();
+                                              handleNewCotizacion(
+                                                cotiza._id,
+                                                newCotizacion
+                                              );
+                                            }}
+                                          >
+                                            Enviar Cotización
+                                          </button>
+                                        </div>
+                                      )}
+                                    {estado.Estado === "creada" &&
+                                      !usuario.Delete && (
+                                        <div className="btns-pricing">
+                                          <button
+                                            className="btn btn-danger m-1"
+                                            onClick={(e) => {
+                                              e.preventDefault();
+                                              handleRechazar(
+                                                cotiza._id,
+                                                cotiza
+                                              );
+                                            }}
+                                          >
+                                            Rechazar y Eliminar
+                                          </button>
+                                        </div>
+                                      )}
+                                    {estado.Estado === "creada" &&
+                                      usuario.Delete && (
+                                        <div className="btns-pricing">
+                                          <button
+                                            className="btn btn-danger m-1"
+                                            onClick={(e) => {
+                                              e.preventDefault();
+                                              handleDelete(cotiza._id);
+                                            }}
+                                          >
+                                            Eliminar
+                                          </button>
+                                        </div>
+                                      )}
                                     {estado.Estado === "cancelado" && (
                                       <button
                                         className="btn btn-danger m-1"
@@ -731,5 +731,4 @@ function StorePricing() {
     </div>
   );
 }
-
 export default StorePricing;
