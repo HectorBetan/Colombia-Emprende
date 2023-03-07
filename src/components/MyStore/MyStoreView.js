@@ -160,7 +160,7 @@ function MyStoreView() {
                 aria-expanded="false"
                 aria-controls="flush-collapse2"
               >
-                <h6 className="align-items-center">Editar Imagenes</h6>
+                <h6 className="align-items-center m-2 me-2">Editar Imagenes</h6>
               </button>
             </h2>
             <div
@@ -184,7 +184,7 @@ function MyStoreView() {
                 aria-expanded="false"
                 aria-controls="flush-collapse3"
               >
-                <h6 className="align-items-center">Eliminar Emprendimiento</h6>
+                <h6 className="align-items-center m-2 me-2">Eliminar Emprendimiento</h6>
               </button>
             </h2>
             <div

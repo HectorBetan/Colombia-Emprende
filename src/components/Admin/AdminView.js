@@ -100,7 +100,7 @@ function AdminView() {
                 aria-expanded="false"
                 aria-controls="flush-collapse2"
               >
-                <h6 className="align-items-center">Cambiar Contraseña</h6>
+                <h6 className="align-items-center m-2 me-2">Cambiar Contraseña</h6>
               </button>
             </h2>
             <div
@@ -114,7 +114,7 @@ function AdminView() {
               </div>
             </div>
           </div>
-          <div className="accordion-item w-100">
+          <div className="accordion-item w-100 boton-delete-cuenta">
             <h2 className="accordion-header" id="deleteAccount">
               <button
                 className="accordion-button collapsed"
@@ -124,7 +124,7 @@ function AdminView() {
                 aria-expanded="false"
                 aria-controls="flush-collapse3"
               >
-                <h6 className="align-items-center">Eliminar Cuenta</h6>
+                <h6 className="align-items-center m-2 me-2 ">Eliminar Cuenta</h6>
               </button>
             </h2>
             <div

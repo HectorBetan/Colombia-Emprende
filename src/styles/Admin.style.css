@@ -64,6 +64,10 @@
   border-radius: 25px;
   align-self: center;
 }
+.boton-delete-cuenta{
+    border-bottom:  var(--bs-accordion-border-width) solid var(--bs-accordion-border-color)!important;
+    border-left: var(--bs-accordion-border-width) solid var(--bs-accordion-border-color)!important;
+}
 .admin-nav div {
   font-weight: 500 !important;
   color: #fff !important;
