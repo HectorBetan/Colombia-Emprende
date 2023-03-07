@@ -174,7 +174,7 @@ function MyStoreView() {
               </div>
             </div>
           </div>
-          <div className="accordion-item  w-100 ">
+          <div className="accordion-item  w-100  boton-delete-store">
             <h2 className="accordion-header" id="deleteAccount">
               <button
                 className="accordion-button collapsed"
