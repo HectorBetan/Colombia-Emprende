@@ -217,7 +217,9 @@ function MyPricings() {
         return (
           <div>
             <div>{alertDel && <AlertDelete />}</div>
-            <h3>No hay cotizaciones</h3>
+            <div className="text-center mt-3">
+              <h3>Actualmente no tienes ninguna cotización.</h3>
+            </div>
           </div>
         );
       }
@@ -651,8 +653,8 @@ function MyPricings() {
   };
   if (cargando) {
     return (
-      <div className="d-flex justify-content-center">
-        <div className="spinner-border" role="status">
+      <div className="d-flex justify-content-center mt-5 mb-5">
+        <div className="spinner-border" style={{ width: "3rem", height: "3rem" }} role="status">
           <span className="sr-only">Loading...</span>
         </div>
       </div>

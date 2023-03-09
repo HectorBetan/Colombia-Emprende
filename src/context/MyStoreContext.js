@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import axios from "axios";
 import { useAuth } from "./AuthContext";
+import { useNavigate } from "react-router-dom";
 const myStoreContext = createContext();
 export const useMyStore = () => {
   const context = useContext(myStoreContext);
@@ -8,18 +9,23 @@ export const useMyStore = () => {
   return context;
 };
 export function MyStoreProvider({ children }) {
-  const { token, updateUserStore, userData } = useAuth();
+  const { token, userData, createStoreAuth } = useAuth();
+  const navigate = useNavigate();
   const dbUrl = "https://colombia-emprende-server.onrender.com/";
   const [userStore, setUserStore] = useState(null);
   const [userProducts, setUserProducts] = useState(null);
   const [showProducts, setShowProducts] = useState("");
-  const [loadingStore, setLoadingStore] = useState(true);
+  const [loadingStore, setLoadingStore] = useState(false);
   const [alertCreateProduct, setAlertCreateProduct] = useState(false);
   const [alertEditProduct, setAlertEditProduct] = useState(false);
   const [alertEditImgProduct, setAlertEditImgProduct] = useState(false);
   const [alertDeleteProduct, setAlertDeleteProduct] = useState(false);
+  const [alert1CreateStore, setAlert1CreateStore] = useState(false);
   const alertCreateProdFalse = () => {
     setAlertCreateProduct(false);
+  };
+  const alert1CreateStoreTrue = () => {
+    setAlert1CreateStore(true);
   };
   const alertEditProdFalse = () => {
     setAlertEditProduct(false);
@@ -31,9 +37,11 @@ export function MyStoreProvider({ children }) {
     setAlertDeleteProduct(false);
   };
   const [alertCreateStore, setAlertCreateStore] = useState(false);
+  
   const [alertEditStore, setAlertEditStore] = useState(false);
   const [alertEditImgStore, setAlertEditImgStore] = useState(false);
   const [alertDeleteStore, setAlertDeleteStore] = useState(false);
+  const [alert1DeleteStore, setAlert1DeleteStore] = useState(false);
   const alertCreateStoreFalse = () => {
     setAlertCreateStore(false);
   };
@@ -46,6 +54,9 @@ export function MyStoreProvider({ children }) {
   const alertDeleteStoreFalse = () => {
     setAlertDeleteStore(false);
   };
+  const alert1DeleteStoreTrue = () => {
+    setAlert1DeleteStore(true);
+  };
   const getMyStore = async (data) => {
     const id = { user_id: data };
     await axios
@@ -55,11 +66,40 @@ export function MyStoreProvider({ children }) {
         setLoadingStore(false);
       })
       .catch((err) => {
-        console.log(err);
       });
     return;
   };
+  const createStore = async (emprendimiento, storeName, photos, path) => {
+    setLoadingStore(true)
+    let id = {};
+    let data = {
+      Nombre: storeName,
+      Email: emprendimiento.Email,
+      Celular: emprendimiento.Celular,
+      Telefono: emprendimiento.Telefono,
+      Ciudad: emprendimiento.Ciudad,
+      Direccion: emprendimiento.Direccion,
+      Categoria: emprendimiento.Categoria,
+      Imagen: photos,
+      Facebook: emprendimiento.Facebook,
+      Instagram: emprendimiento.Instagram,
+      Web: emprendimiento.Web,
+      Descripcion: emprendimiento.Descripcion,
+      Calificacion: emprendimiento.Calificacion,
+      Path: path,
+    };
+    await axios.post(`${dbUrl}stores/create-store`, data, token).then((res) => {
+      id = { Emprendimiento_id: res.data._id };
+      createStoreAuth(id);
+      setUserStore(res.data)
+      setAlertCreateStore(true);
+      setAlert1CreateStore(false);
+      navigate("/admin/mi-emprendimiento");
+      return;
+    });
+  };
   const updateStore = async (emprendimiento) => {
+    setLoadingStore(true)
     await axios
       .put(`${dbUrl}stores/update-store`, emprendimiento, token)
       .then(() => {
@@ -67,10 +107,11 @@ export function MyStoreProvider({ children }) {
         setAlertEditStore(true);
       })
       .catch((err) => {
-        console.log(err);
+
       });
   };
   const updateStoreImage = async (emprendimiento) => {
+    setLoadingStore(true)
     await axios
       .put(`${dbUrl}stores/update-store`, emprendimiento, token)
       .then(() => {
@@ -78,19 +119,22 @@ export function MyStoreProvider({ children }) {
         setAlertEditImgStore(true);
       })
       .catch((err) => {
-        console.log(err);
       });
   };
   const deleteStore = async (emprendimiento) => {
+    
+    setLoadingStore(true);
+    setAlertDeleteStore(true);
     await axios
       .put(`${dbUrl}stores/delete-store`, emprendimiento, token)
       .then(() => {
         setUserStore(null);
+        setUserProducts(null);
         const id = { Emprendimiento_id: "" };
-        updateUserStore(id);
+        createStoreAuth(id);
+        setAlert1DeleteStore(false);
       })
       .catch((err) => {
-        console.log(err);
       });
   };
   const createProduct = async (producto) => {
@@ -136,12 +180,12 @@ export function MyStoreProvider({ children }) {
         setLoadingStore(false);
       })
       .catch((err) => {
-        console.log(err);
         setLoadingStore(false);
       });
     return;
   };
   const deleteProduct = async (id) => {
+    setLoadingStore(true);
     const data = {
       User_id: userData._id,
     };
@@ -163,6 +207,7 @@ export function MyStoreProvider({ children }) {
         getMyStore,
         updateStore,
         deleteStore,
+        createStore,
         createProduct,
         getStoreProducts,
         userProducts,
@@ -188,6 +233,10 @@ export function MyStoreProvider({ children }) {
         updateProductImage,
         alertEditImgProduct,
         alertEditImgProdFalse,
+        alert1CreateStoreTrue,
+        alert1CreateStore,
+        alert1DeleteStoreTrue,
+        alert1DeleteStore,
       }}
     >
       {children}

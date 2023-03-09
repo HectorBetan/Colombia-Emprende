@@ -4,24 +4,21 @@ import StoreImgUpdate from "./StoreImgUpdate";
 import StoreInfoUpdate from "./StoreInfoUpdate";
 import { useMyStore } from "../../context/MyStoreContext";
 import CreateProduct from "./StoreProducts/CreateProduct";
-import { useState, useEffect } from "react";
-import { usePublic } from "../../context/PublicContext";
+import { useEffect } from "react";
 function MyStoreView() {
-  const { stores } = usePublic();
   const {
     userStore,
-    getMyStore,
     alertEditStoreFalse,
     alertEditStore,
     alertEditImgStoreFalse,
     alertEditImgStore,
+    loadingStore
   } = useMyStore();
-  const { user, loading, userData } = useAuth();
-  const [myShop, setMyShop] = useState(null);
+  const { user, loading } = useAuth();
   useEffect(() => {
     const edit = () => {
       setTimeout(() => {
-        alertEditStoreFalse(false);
+        alertEditStoreFalse();
       }, 5000);
     };
     if (alertEditStore) {
@@ -33,7 +30,7 @@ function MyStoreView() {
   useEffect(() => {
     const edit = () => {
       setTimeout(() => {
-        alertEditImgStoreFalse(false);
+        alertEditImgStoreFalse();
       }, 5000);
     };
     if (alertEditImgStore) {
@@ -68,23 +65,11 @@ function MyStoreView() {
       </div>
     );
   };
-  useEffect(() => {
-    const getStore = () => {
-      if (!userStore && userData) {
-        getMyStore(userData._id);
-      }
-    };
-    getStore();
-  }, [userStore, getMyStore, userData]);
-  if (stores && userData && !myShop) {
-    let s = stores.find((store) => store.store.User_id === userData._id);
-    setMyShop(s);
-  }
-  if (loading && !userStore)
+  if (loading || !userStore || loadingStore )
     return (
-      <div style={{ width: "239.61px" }} className="text-end me-5">
-        <div className="spinner-border text-primary text-start" role="status">
-          <span className="visually-hidden">Loading...</span>
+      <div className="d-flex justify-content-center mt-5 mb-5">
+        <div className="spinner-border" style={{ width: "3rem", height: "3rem" }} role="status">
+          <span className="sr-only">Loading...</span>
         </div>
       </div>
     );

@@ -7,9 +7,9 @@ import { cityList } from "../../utilities/citys.utilities";
 import { categoryList } from "../../utilities/categorys.utilities";
 import Alert from "../../utilities/alert.utilities";
 function StoreRegister() {
-  const { getMyStore } = useMyStore();
+  const { getMyStore, createStore, alert1CreateStoreTrue } = useMyStore();
   const [cargando, setCargando] = useState(false);
-  const { user, uploadPhoto, getPhotoURL, createStore, findPath } = useAuth();
+  const { user, uploadPhoto, getPhotoURL,  findPath } = useAuth();
   const [emprendimiento, setEmprendimiento] = useState({
     Nombre: "",
     Email: "",
@@ -89,6 +89,7 @@ function StoreRegister() {
   const handleEmailChange = (e) => {
     if (e.target.checked) {
       setRequired(false);
+      document.getElementById("email").value = "";
       setEmprendimiento({ ...emprendimiento, Email: user.email });
     }
     if (!e.target.checked) {
@@ -110,6 +111,7 @@ function StoreRegister() {
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
+    alert1CreateStoreTrue();
     setError("");
     setCargando(true);
     let photosURL = [];
@@ -184,6 +186,7 @@ function StoreRegister() {
         setCargando(false);
       }
     }
+    
   };
   const create = async (storeName, photos, path) => {
     try {
@@ -210,11 +213,14 @@ function StoreRegister() {
   }
   if (cargando)
     return (
-      <div
-        className="spinner-border text-primary text-center align-middle"
-        role="status"
-      >
-        <span className="visually-hidden">Loading...</span>
+      <div className="d-flex justify-content-center mt-5 mb-5">
+        <div
+          className="spinner-border"
+          style={{ width: "3rem", height: "3rem" }}
+          role="status"
+        >
+          <span className="sr-only">Loading...</span>
+        </div>
       </div>
     );
   return (

@@ -533,10 +533,10 @@ function MyCart() {
         );
       } else {
         return (
-          <div>
+          <div className="text-center mt-3">
             {alert && <Alert />}
             {alertDel && <AlertDelete />}
-            <h3>No hay productos en el carrito</h3>
+            <h3>No hay productos en el carrito.</h3>
           </div>
         );
       }
@@ -544,8 +544,8 @@ function MyCart() {
   };
   if (cargando) {
     return (
-      <div className="d-flex justify-content-center">
-        <div className="spinner-border" role="status">
+      <div className="d-flex justify-content-center mt-5 mb-5">
+        <div className="spinner-border" style={{ width: "3rem", height: "3rem" }} role="status">
           <span className="sr-only">Loading...</span>
         </div>
       </div>

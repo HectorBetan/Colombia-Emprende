@@ -23,7 +23,6 @@ export function PublicProvider({ children }) {
           setSixStores(res.data);
         })
         .catch((err) => {
-          console.log(err);
         });
     };
     const set5Store = async () => {
@@ -41,8 +40,6 @@ export function PublicProvider({ children }) {
           setStoresData(res.data);
         })
         .catch((err) => {
-          console.log(err);
-          setLoadingPublic(false);
         });
     };
     const setStore = async () => {
@@ -60,8 +57,6 @@ export function PublicProvider({ children }) {
           setProducts(res.data);
         })
         .catch((err) => {
-          console.log(err);
-          setLoadingPublic(false);
         });
     };
     const setProductsData = async () => {

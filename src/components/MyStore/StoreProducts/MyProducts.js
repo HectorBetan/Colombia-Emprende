@@ -31,7 +31,7 @@ function MyProducts(userProducts) {
   useEffect(() => {
     const create = () => {
       setTimeout(() => {
-        alertCreateProdFalse(false);
+        alertCreateProdFalse();
       }, 5000);
     };
     if (alertCreateProduct) {
@@ -43,7 +43,7 @@ function MyProducts(userProducts) {
   useEffect(() => {
     const edit = () => {
       setTimeout(() => {
-        alertEditProdFalse(false);
+        alertEditProdFalse();
       }, 5000);
     };
     if (alertEditProduct) {
@@ -55,7 +55,7 @@ function MyProducts(userProducts) {
   useEffect(() => {
     const edit = () => {
       setTimeout(() => {
-        alertEditImgProdFalse(false);
+        alertEditImgProdFalse();
       }, 5000);
     };
     if (alertEditImgProduct) {
@@ -67,7 +67,7 @@ function MyProducts(userProducts) {
   useEffect(() => {
     const del = () => {
       setTimeout(() => {
-        alertDeleteProdFalse(false);
+        alertDeleteProdFalse();
       }, 5000);
     };
     if (alertDeleteProduct) {
@@ -217,12 +217,31 @@ function MyProducts(userProducts) {
     if (userProducts.products) {
       let desc;
       let verMas;
+      let y = 0
+    let z = 0
+    let noProd = false
+    for (y in userProducts.products){
+      console.log(userProducts.products)
+      if (userProducts.products[y].Delete === true){
+        z++;
+      }
+      y++;
+    }
+    if (z===y){
+      noProd = true
+    }
+    
       return (
         <div className="d-flex flex-column">
           {alertDeleteProduct && <AlertDelete />}
           {alertCreateProduct && <AlertCreate />}
           {alertEditProduct && <AlertEdit />}
           {alertEditImgProduct && <AlertEditImg />}
+          {noProd && <div className="text-center m-3">
+            {alertDeleteProduct && <AlertDelete />}
+            <h3>Tu Emprendimiento aun no tiene Productos registrados.</h3>
+            <h6>Haz click en el botón de abajo para añadir un nuevo producto.</h6>
+          </div>}
           <CreateProduct />
           {userProducts.products.map((product, i) => {
             if (w <= 400) {
@@ -339,9 +358,12 @@ function MyProducts(userProducts) {
               return true;
             }
           })}
+          
         </div>
       );
-    }
+      
+    } 
+    
   };
   if (loadingStore) {
     return (

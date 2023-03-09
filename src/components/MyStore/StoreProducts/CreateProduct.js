@@ -6,7 +6,7 @@ import {
   PhotoProductView,
   ProductLogo,
 } from "../../../utilities/photoView.utilities";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Alert from "../../../utilities/alert.utilities";
 function CreateProduct() {
   const { userStore, createProduct } = useMyStore();
@@ -24,9 +24,19 @@ function CreateProduct() {
     Precio: 0,
     Imagen: "",
     ImgRoute: "",
-    Emprendimiento_id: userStore._id,
-    User_id: userData._id,
+    Emprendimiento_id: "",
+    User_id: "",
   });
+  useEffect(() => {
+    const create = () => {
+      setProduct({ ...product, Emprendimiento_id: userStore._id, User_id: userData._id });
+    };
+    if (userData && userStore) {
+      if (!product.Emprendimiento_id || !product.User_id){return () => {
+        create();
+      };}
+    }
+  }, [userData, userStore, product]);
   const handleChange = ({ target: { value, name } }) => {
     setProduct({ ...product, [name]: value });
   };

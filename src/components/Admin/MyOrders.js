@@ -1046,6 +1046,16 @@ function MyOrders() {
       document.getElementById("new-msg").classList.add("d-none");
     };
     if (group && tiendasCotizar && productosOrders) {
+      if (group.length === 0) {
+        return (
+          <div>
+            <div>{alertDel && <AlertDelete />}</div>
+            <div className="text-center mt-3">
+              <h3>Actualmente no tienes ningun pedido.</h3>
+            </div>
+          </div>
+        );
+      }
       return (
         <div>
           {alertDel && <AlertDelete />}
@@ -1700,8 +1710,8 @@ function MyOrders() {
   };
   if (cargando) {
     return (
-      <div className="d-flex justify-content-center">
-        <div className="spinner-border" role="status">
+      <div className="d-flex justify-content-center mt-5 mb-5">
+        <div className="spinner-border" style={{ width: "3rem", height: "3rem" }} role="status">
           <span className="sr-only">Loading...</span>
         </div>
       </div>

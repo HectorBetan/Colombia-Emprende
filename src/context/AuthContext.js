@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { storage, auth } from "../firebase";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   createUserWithEmailAndPassword,
@@ -32,11 +33,20 @@ export const useAuth = () => {
   return context;
 };
 export function AuthProvider({ children }) {
+  const navigate = useNavigate();
   const dbUrl = "https://colombia-emprende-server.onrender.com/";
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [userData, setUserData] = useState(null);
+  const [alertDeleteUser, setAlertDeleteUser] = useState(false);
+  const [alert1DeleteUser, setAlert1DeleteUser] = useState(false);
+
+  const [alert1CreateUser, setAlert1CreateUser] = useState(false);
+  const alertDeleteUserFalse = () => {
+    setAlertDeleteUser(false);
+  };
+
   const signup = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
@@ -55,6 +65,12 @@ export function AuthProvider({ children }) {
       return;
     });
   };
+  const deletePhotoURL = async () => {
+    await updateProfile(auth.currentUser, { photoURL:null }).then(() => {
+      setUser({ ...user, photoURL: null });
+      return;
+    });
+  };
   const uploadPhoto = (file, photoName) => {
     return uploadBytes(ref(storage, `${user.uid}/${photoName}`), file);
   };
@@ -62,7 +78,7 @@ export function AuthProvider({ children }) {
     return await getDownloadURL(ref(storage, `${user.uid}/${photoLocation}`));
   };
   const deletePhoto = async (photoLocation) => {
-    return await deleteObject(ref(storage, `${user.uid}/${photoLocation}`));
+    return await deleteObject(ref(storage, `${user.uid}/${photoLocation}`)).catch(error => {});
   };
   const passwordUpdate = (password) => {
     updatePassword(auth.currentUser, password).then(() => {
@@ -82,9 +98,9 @@ export function AuthProvider({ children }) {
     await signInWithRedirect(auth, googleProvider);
     await getRedirectResult(auth);
   };
-  const reAuthenticateGoogle = () => {
+  const reAuthenticateGoogle = async () => {
     const googleProvider = new GoogleAuthProvider();
-    return reauthenticateWithPopup(auth.currentUser, googleProvider);
+    await reauthenticateWithPopup(auth.currentUser, googleProvider);
   };
   const getUserData = async () => {
     await axios
@@ -114,12 +130,28 @@ export function AuthProvider({ children }) {
   const resetPassword = async (email) => sendPasswordResetEmail(auth, email);
   const emailVerification = () => sendEmailVerification(auth.currentUser);
   const emailReVerification = (email) => sendEmailVerification(email);
-  const delUser = async () => await deleteUser(auth.currentUser);
+  const delUser = async () => {
+    setLoading(true);
+    await deletePhotoURL();
+    await deleteUser(auth.currentUser).then(()=>{
+      setUserData(null);
+      setAlert1DeleteUser(false)
+      setAlertDeleteUser(true);
+      setLoading(false);
+    }) 
+  };
   const reAuthenticate = (credential) => {
     return reauthenticateWithCredential(auth.currentUser, credential);
   };
-  const createUser = async (user) => {
-    await axios.post(`${dbUrl}users/create-user`, user).catch((error) => {});
+  const createUser = async (userD) => {
+    await axios.post(`${dbUrl}users/create-user`, userD)
+    .then(()=>{
+      setAlert1CreateUser(false)
+      if (user.emailVerified){
+        navigate("/admin")
+      }
+    })
+    .catch((error) => {console.log(error)});
   };
   const updateUser = async (data) => {
     if (!token) {
@@ -148,40 +180,30 @@ export function AuthProvider({ children }) {
     return;
   };
   const deleteUserDoc = async (id) => {
-    await axios.put(`${dbUrl}users/delete-user`, id, token).catch((err) => {
-      console.log(err);
-    });
-  };
-  const createStore = async (emprendimiento, storeName, photos, path) => {
-    setLoading(true);
-    let id = {};
-    let data = {
-      Nombre: storeName,
-      Email: emprendimiento.Email,
-      Celular: emprendimiento.Celular,
-      Telefono: emprendimiento.Telefono,
-      Ciudad: emprendimiento.Ciudad,
-      Direccion: emprendimiento.Direccion,
-      Categoria: emprendimiento.Categoria,
-      Imagen: photos,
-      Facebook: emprendimiento.Facebook,
-      Instagram: emprendimiento.Instagram,
-      Web: emprendimiento.Web,
-      Descripcion: emprendimiento.Descripcion,
-      Calificacion: emprendimiento.Calificacion,
-      Path: path,
-    };
+    setLoading(true)
     if (!token) {
       let config = localStorage.getItem("token");
       setToken(config);
     }
-    await axios.post(`${dbUrl}stores/create-store`, data, token).then((res) => {
-      id = { Emprendimiento_id: res.data._id };
-      setUserData({ ...userData, Emprendimiento_id: res.data._id });
-      updateUserStore(id);
-      setLoading(false);
-      return;
+    setAlert1DeleteUser(true)
+    await axios.delete(`${dbUrl}users/delete-user/${id}`, id, token)
+    .catch((err) => {
     });
+    await delUser()
+    .catch((err) => {
+      if (err){
+        try {
+          loginWithGoogle();
+          delUser();
+        } catch (error) {
+        }
+      }
+    });
+  };
+  const createStoreAuth = async (id) => {
+    await updateUserStore(id);  
+    setUserData(null);
+    setLoading(false);
   };
   const findPath = async (path) => {
     return await axios.get(`${dbUrl}stores/find-store-path/${path}`);
@@ -289,6 +311,7 @@ export function AuthProvider({ children }) {
             setLoading(false);
             return;
           } else {
+            setAlert1CreateUser(true)
             const userData = {
               Uid: user.uid,
               Email: user.email,
@@ -298,25 +321,33 @@ export function AuthProvider({ children }) {
               Ciudad: "",
               Direccion: "",
             };
-            createUser(userData).then((res) => {
-              getUserData();
-            });
+            axios.post(`${dbUrl}users/create-user`, userData)
+            .then(()=>{
+              setAlert1CreateUser(false)
+              if (user.emailVerified){
+                navigate("/admin")
+              }
+            })
+            .catch((error) => {console.log(error)});
           }
-          return;
+
         })
         .catch((error) => {
-          console.log(error);
           setLoading(false);
-          return;
         });
     };
     if (user && !userData) {
+      setLoading(true);
       getUserData();
     }
-  }, [user, userData]);
+  }, [user, userData, loading, navigate]);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      console.log(currentUser)
+      if (!currentUser){
+        setLoading(false)
+      }
     });
     return () => unsubscribe();
   }, [user]);
@@ -349,7 +380,7 @@ export function AuthProvider({ children }) {
         createUser,
         updateUser,
         deleteUserDoc,
-        createStore,
+        createStoreAuth,
         findPath,
         updateUserStore,
         readCart,
@@ -373,6 +404,11 @@ export function AuthProvider({ children }) {
         setStoreProblem,
         readStorePays,
         readUserPays,
+        alertDeleteUser,
+        alertDeleteUserFalse,
+
+        alert1DeleteUser,
+        alert1CreateUser,
       }}
     >
       {children}

@@ -2,6 +2,10 @@
 .foot {
   margin-top: 0px;
 }
+.opa-0 .modal-content{
+  background-color: #00000000!important;
+  border-color: #00000000!important;
+}
 .busqueda {
   width: 50px !important;
   font-size: 18px !important;

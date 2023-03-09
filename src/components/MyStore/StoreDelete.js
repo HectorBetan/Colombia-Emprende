@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useMyStore } from "../../context/MyStoreContext";
 import Alert from "../../utilities/alert.utilities";
+import { useNavigate } from "react-router-dom";
 function StoreDelete() {
-  const { deletePhoto, readStorePays } = useAuth();
-  const { deleteStore, userStore } = useMyStore();
+  const navigate = useNavigate();
+  const { deletePhoto, readStorePays, loading } = useAuth();
+  const { deleteStore, userStore, loadingStore, alert1DeleteStoreTrue } = useMyStore();
   const [error, setError] = useState("");
   const [emprendimientoImg, setEmprendimientoImg] = useState(null);
   useEffect(() => {
@@ -16,6 +18,7 @@ function StoreDelete() {
   }, [userStore]);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    alert1DeleteStoreTrue();
     await readStorePays(userStore._id).then((res) => {
       if (res.data.length > 0) {
         let envio = 0;
@@ -65,6 +68,7 @@ function StoreDelete() {
           } catch (error) {
             setError(error.message);
           }
+          navigate("/admin")
         }
       }
     });
@@ -74,6 +78,14 @@ function StoreDelete() {
       setError("");
     }, 5000);
   }
+  if (loading || loadingStore )
+    return (
+      <div className="d-flex justify-content-center mt-5 mb-5">
+        <div className="spinner-border" style={{ width: "3rem", height: "3rem" }} role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+    );
   return (
     <div>
       {error && <Alert message={error} />}

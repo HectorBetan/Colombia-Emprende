@@ -1,17 +1,53 @@
 import { useAuth } from "../context/AuthContext";
-import { Routes, Route } from "react-router-dom";
+import { useMyStore } from "../context/MyStoreContext";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import MyStoreNav from "../components/MyStore/MyStoreNav";
 import MyStoreView from "../components/MyStore/MyStoreView";
 import MyStoreProducts from "../components/MyStore/MyStoreProducts";
 import StorePricing from "../components/MyStore/StorePricing";
 import StoreOrders from "../components/MyStore/StoreOrders";
 function MyStoreAdmin() {
-  const { loading } = useAuth();
-  if (loading)
+  const { loading, userData } = useAuth();
+  const navigate = useNavigate();
+  const { userStore, loadingStore, getMyStore} = useMyStore();
+  const [startStore, setStartStore] = useState(true)
+  const [startNavig, setStartNavig] = useState(false)
+  const getStore = async()=> {
+    await getMyStore(userData._id)
+  }
+  if (userData && startStore){
+    if (userData.Emprendimiento_id){
+      if (!userStore){
+        getStore();
+        setStartStore(false);
+        
+      } else{
+        setStartNavig(true);
+      }
+    }
+  }
+  useEffect(() => {
+    const nav = () => {
+      navigate("/admin")
+    };
+    if (userData && !loading && startNavig){
+      
+      if (!userData.Emprendimiento_id && !loading){
+        if (!userStore && !loading && !loadingStore && !userData.Emprendimiento_id) {
+          return () => {
+            nav();
+          };
+        }
+      }
+    }
+    
+  }, [navigate, userStore, userData, loadingStore, getMyStore, loading, startNavig]);
+  if (loading || !userStore || loadingStore)
     return (
-      <div style={{ width: "239.61px" }} className="text-end me-5">
-        <div className="spinner-border text-primary text-start" role="status">
-          <span className="visually-hidden">Loading...</span>
+      <div className="d-flex justify-content-center mt-5 mb-5">
+        <div className="spinner-border" style={{ width: "3rem", height: "3rem" }} role="status">
+          <span className="sr-only">Loading...</span>
         </div>
       </div>
     );

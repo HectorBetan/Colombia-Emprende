@@ -290,7 +290,7 @@ function NavigationBar() {
           </div>
         </div>
       );
-    if (user) {
+    if (user && userData) {
       return (
         <div className="d-block d-md-none d-lg-none d-xl-none d-xxl-none">
           <CelNav />
@@ -328,8 +328,8 @@ function NavigationBar() {
                 Emprendimientos
               </Link>
             </li>
-            {user && <div className="separador"></div>}
-            {user && (
+            {user && userData&& <div className="separador"></div>}
+            {user && userData && (
               <li className="nav-item">
                 <Link
                   to={"/admin"}

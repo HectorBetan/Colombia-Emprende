@@ -8,13 +8,13 @@ function AdminView() {
   const { user, loading, userData } = useAuth();
   const RegisterStore = () => {
     if (userData) {
-      if (!userData.Emprendimiento_id)
+      if (!userData.Emprendimiento_id){
         return (
           <div className="">
-            Aqui podras registrar tu emprendimiento.
+            Desde este panel puedes administrar tu Usuario y Registrar Tu Emprendimiento.
             <br />
             <button
-              className="btn btn-primary"
+              className="btn btn-primary m-3"
               onClick={(e) => {
                 e.preventDefault();
                 navigate("/admin/registrar-emprendimiento");
@@ -24,13 +24,35 @@ function AdminView() {
             </button>
           </div>
         );
+      }
+      if (userData.Emprendimiento_id){
+        return (
+          <div className="">
+            Desde este panel puedes administrar tu Usuario y Tu Emprendimiento.
+            <br />
+            <button
+              className="btn btn-primary m-3"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/admin/mi-emprendimiento");
+              }}
+            >
+              Ir a Mi Emprendimiento
+            </button>
+          </div>
+        );
+      }
     }
   };
   if (loading)
     return (
-      <div style={{ width: "239.61px" }} className="text-end me-5">
-        <div className="spinner-border text-primary text-start" role="status">
-          <span className="visually-hidden">Loading...</span>
+      <div className="d-flex justify-content-center mt-5 mb-5">
+        <div
+          className="spinner-border"
+          style={{ width: "3rem", height: "3rem" }}
+          role="status"
+        >
+          <span className="sr-only">Loading...</span>
         </div>
       </div>
     );
@@ -100,7 +122,9 @@ function AdminView() {
                 aria-expanded="false"
                 aria-controls="flush-collapse2"
               >
-                <h6 className="align-items-center m-2 me-2">Cambiar Contraseña</h6>
+                <h6 className="align-items-center m-2 me-2">
+                  Cambiar Contraseña
+                </h6>
               </button>
             </h2>
             <div
@@ -124,7 +148,9 @@ function AdminView() {
                 aria-expanded="false"
                 aria-controls="flush-collapse3"
               >
-                <h6 className="align-items-center m-2 me-2 ">Eliminar Cuenta</h6>
+                <h6 className="align-items-center m-2 me-2 ">
+                  Eliminar Cuenta
+                </h6>
               </button>
             </h2>
             <div

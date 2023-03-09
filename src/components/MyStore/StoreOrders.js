@@ -239,6 +239,19 @@ function StoreOrders() {
       document.getElementById("new-msg").classList.add("d-none");
     };
     if (group && usuarios && productosCotizar) {
+      if (group.length === 0) {
+        return (
+          <div>
+            <div>
+              {alertDel && <AlertDelete />}
+              {alert && <Alert />}
+            </div>
+            <div className="text-center mt-3">
+              <h3>Actualmente tu tienda no tiene ningun pedido.</h3>
+            </div>
+          </div>
+        );
+      }
       return (
         <div>
           {alertDel && <AlertDelete />}
@@ -295,6 +308,12 @@ function StoreOrders() {
                         let usuario = usuarios.find(
                           (item) => item.Uid === cotiza.User_id
                         );
+                        if (!usuario){
+                          usuario = {
+                            Nombre: "Usuario Eliminado",
+                            Delete: true
+                          }
+                        }
                         let nuevoMensaje;
                         if (cotiza.Store_Problem.length <= 0) {
                           nuevoMensaje = "Responder el Mensaje";
@@ -321,7 +340,6 @@ function StoreOrders() {
                                   aria-controls={`#collapseuser${cotiza._id}`}
                                 >
                                   Usuario: {usuario.Nombre}{" "}
-                                  {usuario.Delete && ". (Usuario Eliminado)."}
                                 </button>
                               </h2>
                               <div
@@ -919,8 +937,8 @@ function StoreOrders() {
   };
   if (cargando) {
     return (
-      <div className="d-flex justify-content-center">
-        <div className="spinner-border" role="status">
+      <div className="d-flex justify-content-center mt-5 mb-5">
+        <div className="spinner-border" style={{ width: "3rem", height: "3rem" }} role="status">
           <span className="sr-only">Loading...</span>
         </div>
       </div>

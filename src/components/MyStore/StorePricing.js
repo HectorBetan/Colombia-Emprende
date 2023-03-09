@@ -264,7 +264,9 @@ function StorePricing() {
               {alertDel && <AlertDelete />}
               {alert && <Alert />}
             </div>
-            <h3>No hay cotizaciones</h3>
+            <div className="text-center mt-3">
+              <h3>Actualmente tu tienda no tiene ninguna cotización.</h3>
+            </div>
           </div>
         );
       }
@@ -328,6 +330,12 @@ function StorePricing() {
                         let usuario = usuarios.find(
                           (item) => item.Uid === cotiza.User_id
                         );
+                        if (!usuario){
+                          usuario = {
+                            Nombre: "Usuario Eliminado",
+                            Delete: true
+                          }
+                        }
                         return (
                           <div
                             className="accordion"
@@ -717,8 +725,8 @@ function StorePricing() {
   };
   if (cargando) {
     return (
-      <div className="d-flex justify-content-center">
-        <div className="spinner-border" role="status">
+      <div className="d-flex justify-content-center mt-5 mb-5">
+        <div className="spinner-border" style={{ width: "3rem", height: "3rem" }} role="status">
           <span className="sr-only">Loading...</span>
         </div>
       </div>

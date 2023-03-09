@@ -1,5 +1,5 @@
-import ley from "../assets/publicidad/ley.png";
-import publicidad from "../assets/publicidad/publicidad.jpeg";
+import ley from "../assets/home/ley.png";
+import info from "../assets/home/info.jpeg";
 import { ModalAd } from "../utilities/loginButton.utilities";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -28,7 +28,7 @@ function HomeAds() {
           <div className="me-xl-5 me-lg-3 me-md-3 me-0 me-xxl-5">
             <div className="tarjeta-registro-1 card">
               <img
-                src={publicidad}
+                src={info}
                 className="tarjeta-emprendedor-imagen-1 card-img"
                 alt="..."
               />
@@ -82,7 +82,7 @@ function HomeAds() {
           <div className="me-xl-5 me-lg-3 me-md-3 me-0 me-xxl-5">
             <div className="tarjeta-registro-2 card">
               <img
-                src={publicidad}
+                src={info}
                 className="tarjeta-emprendedor-imagen-2 card-img"
                 alt="..."
               />
@@ -148,7 +148,7 @@ function HomeAds() {
           <div className="me-xl-5 me-lg-3 me-md-3 me-0 me-xxl-5">
             <div className="tarjeta-registro card">
               <img
-                src={publicidad}
+                src={info}
                 className="tarjeta-emprendedor-imagen card-img"
                 alt="..."
               />

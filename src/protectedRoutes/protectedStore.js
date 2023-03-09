@@ -5,11 +5,10 @@ export function ProtectedStore({ children }) {
   const { loading } = useAuth();
   if (loading)
     return (
-      <div
-        className="spinner-border text-primary text-center align-middle"
-        role="status"
-      >
-        <span className="visually-hidden">Loading...</span>
+      <div className="d-flex justify-content-center mt-5 mb-5">
+        <div className="spinner-border" style={{ width: "3rem", height: "3rem" }} role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
       </div>
     );
   return <>{children}</>;
@@ -19,11 +18,10 @@ export function ProtectedRegisterStore({ children }) {
   const { userStore } = useMyStore();
   if (loading)
     return (
-      <div
-        className="spinner-border text-primary text-center align-middle"
-        role="status"
-      >
-        <span className="visually-hidden">Loading...</span>
+      <div className="d-flex justify-content-center mt-5 mb-5">
+        <div className="spinner-border" style={{ width: "3rem", height: "3rem" }} role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
       </div>
     );
   if (userStore) {

@@ -16,7 +16,6 @@ function UserDelete() {
     reAuthenticateGoogle,
     userData,
     deleteUserDoc,
-    delUser,
     deletePhoto,
     readStorePays,
     readUserPays,
@@ -62,121 +61,206 @@ function UserDelete() {
     }
   }, [user.providerData, provider]);
   const handleSubmit = async (e) => {
-    await readStorePays(userStore._id).then((res) => {
-      if (res.data.length > 0) {
-        let envio = 0;
-        let problema = 0;
-        let pagado = 0;
-        let e = "";
-        let pro = "";
-        let pa = "";
+    if (userData.Emprendimiento_id && userStore){
+      await readStorePays(userStore._id).then((res) => {
         if (res.data.length > 0) {
-          res.data.forEach((problem) => {
-            if (problem.Estado === "envio") {
-              envio++;
+          let envio = 0;
+          let problema = 0;
+          let pagado = 0;
+          let e = "";
+          let pro = "";
+          let pa = "";
+          if (res.data.length > 0) {
+            res.data.forEach((problem) => {
+              if (problem.Estado === "envio") {
+                envio++;
+              }
+              if (problem.Estado === "pagado") {
+                pagado++;
+              }
+              if (problem.Estado === "problema") {
+                problema++;
+              }
+            });
+            if (envio) {
+              e = `${envio} pedidos en envio. `;
             }
-            if (problem.Estado === "pagado") {
-              pagado++;
+            if (pagado) {
+              pa = `${pagado} pedidos pagados. `;
             }
-            if (problem.Estado === "problema") {
-              problema++;
+            if (problema) {
+              pro = `${problema} pedidos en problema. `;
+            }
+          }
+          window.alert(
+            `No puede eliminar su cuenta. Su Emprendimiento tiene los siguientes pedidos por finalizar: ${e}${pa}${pro} Si existe algun error contacte a soporte de la página.`
+          );
+        } else {
+          let e = "";
+          let pro = "";
+          let pa = "";
+          let pends = "";
+          readUserPays(userData._id).then((res) => {
+            if (res.data.length > 0) {
+              let envio = 0;
+              let problema = 0;
+              let pagado = 0;
+              if (res.data.length > 0) {
+                res.data.forEach((problem) => {
+                  if (problem.Estado === "envio") {
+                    envio++;
+                  }
+                  if (problem.Estado === "pagado") {
+                    pagado++;
+                  }
+                  if (problem.Estado === "problema") {
+                    problema++;
+                  }
+                });
+                if (envio) {
+                  e = `${envio} pedidos en envio. `;
+                }
+                if (pagado) {
+                  pa = `${pagado} pedidos pagados. `;
+                }
+                if (problema) {
+                  pro = `${problema} pedidos en problema. `;
+                }
+                pends =
+                  "Tu usuario aun tiene los siguientes pendientes en la sección de pedidos: ";
+              }
             }
           });
-          if (envio) {
-            e = `${envio} pedidos en envio. `;
-          }
-          if (pagado) {
-            pa = `${pagado} pedidos pagados. `;
-          }
-          if (problema) {
-            pro = `${problema} pedidos en problema. `;
+          if (
+            window.confirm(
+              `${pends}${e}${pa}${pro}¿Esta seguro de eliminar su cuenta y todos los datos asociados a ella?`
+            )
+          ) {
+            if (provider === "password") {
+              try {
+                let credential = emailAuth(usuario.email, usuario.password);
+                reAuthenticate(credential);
+              } catch (error) {
+                setError(error.message);
+              }
+            }
+            if (provider === "google.com") {
+              try {
+                reAuthenticateGoogle();
+              } catch (error) {
+                setError(error.message);
+              }
+            }
+            if (userData.Emprendimiento_id) {
+              try {
+                deleteStore(userData.Emprendimiento_id);
+              } catch (error) {
+                setError(error.message);
+              }
+              if (emprendimientoImg) {
+                let url = `/emprendimiento/perfil/`;
+                let fotos = emprendimientoImg.split(",");
+                for (let i = 0; i < fotos.length; i++) {
+                  try {
+                    deletePhoto(url + i);
+                  } catch (error) {}
+                }
+              }
+            }
+            
+            try {
+              let userPhoto = `/perfil/profilePhoto`;
+              deletePhoto(userPhoto);
+            } catch (error) {}
+            deleteUserDoc(userData._id);
+
+            
+            setCargando(false);
           }
         }
-        window.alert(
-          `No puede eliminar su cuenta. Su Emprendimiento tiene los siguientes pedidos por finalizar: ${e}${pa}${pro} Si existe algun error contacte a soporte de la página.`
-        );
-      } else {
-        let e = "";
-        let pro = "";
-        let pa = "";
-        let pends = "";
-        readUserPays(userData._id).then((res) => {
-          if (res.data.length > 0) {
-            let envio = 0;
-            let problema = 0;
-            let pagado = 0;
-            if (res.data.length > 0) {
-              res.data.forEach((problem) => {
-                if (problem.Estado === "envio") {
-                  envio++;
-                }
-                if (problem.Estado === "pagado") {
-                  pagado++;
-                }
-                if (problem.Estado === "problema") {
-                  problema++;
-                }
-              });
-              if (envio) {
-                e = `${envio} pedidos en envio. `;
-              }
-              if (pagado) {
-                pa = `${pagado} pedidos pagados. `;
-              }
-              if (problema) {
-                pro = `${problema} pedidos en problema. `;
-              }
-              pends =
-                "Tu usuario aun tiene los siguientes pendientes en la sección de pedidos: ";
-            }
-          }
-        });
-        if (
-          window.confirm(
-            `${pends}${e}${pa}${pro}¿Esta seguro de eliminar su cuenta y todos los datos asociados a ella?`
-          )
-        ) {
+      });
+    } else {
+      let e = "";
+          let pro = "";
+          let pa = "";
+          let pends = "";
           if (provider === "password") {
             try {
               let credential = emailAuth(usuario.email, usuario.password);
-              reAuthenticate(credential);
+              await reAuthenticate(credential);
             } catch (error) {
               setError(error.message);
             }
           }
           if (provider === "google.com") {
             try {
-              reAuthenticateGoogle();
+              await reAuthenticateGoogle();
             } catch (error) {
               setError(error.message);
             }
           }
-          if (userData.Emprendimiento_id) {
-            try {
-              deleteStore(userData.Emprendimiento_id);
-            } catch (error) {
-              setError(error.message);
-            }
-            if (emprendimientoImg) {
-              let url = `/emprendimiento/perfil/`;
-              let fotos = emprendimientoImg.split(",");
-              for (let i = 0; i < fotos.length; i++) {
-                try {
-                  deletePhoto(url + i);
-                } catch (error) {}
+          await readUserPays(userData._id).then((res) => {
+            if (res.data.length > 0) {
+              let envio = 0;
+              let problema = 0;
+              let pagado = 0;
+              if (res.data.length > 0) {
+                res.data.forEach((problem) => {
+                  if (problem.Estado === "envio") {
+                    envio++;
+                  }
+                  if (problem.Estado === "pagado") {
+                    pagado++;
+                  }
+                  if (problem.Estado === "problema") {
+                    problema++;
+                  }
+                });
+                if (envio) {
+                  e = `${envio} pedidos en envio. `;
+                }
+                if (pagado) {
+                  pa = `${pagado} pedidos pagados. `;
+                }
+                if (problema) {
+                  pro = `${problema} pedidos en problema. `;
+                }
+                pends =
+                  "Tu usuario aun tiene los siguientes pendientes en la sección de pedidos: ";
               }
             }
+          });
+          if (
+            window.confirm(
+              `${pends}${e}${pa}${pro}¿Esta seguro de eliminar su cuenta y todos los datos asociados a ella?`
+            )
+          ) {
+            
+            if (userData.Emprendimiento_id) {
+              try {
+                deleteStore(userData.Emprendimiento_id);
+              } catch (error) {
+                setError(error.message);
+              }
+              if (emprendimientoImg) {
+                let url = `/emprendimiento/perfil/`;
+                let fotos = emprendimientoImg.split(",");
+                for (let i = 0; i < fotos.length; i++) {
+                  try {
+                    deletePhoto(url + i);
+                  } catch (error) {}
+                }
+              }
+            }
+            await deleteUserDoc(userData._id);
+            if (user.photoURL.includes("firebasestorage")){try {
+              let userPhoto = `/perfil/profilePhoto`;
+              deletePhoto(userPhoto);
+            } catch (error) {}}
+            setCargando(false);
           }
-          deleteUserDoc(userData._id);
-          try {
-            let userPhoto = `/perfil/profilePhoto`;
-            deletePhoto(userPhoto);
-          } catch (error) {}
-          delUser();
-          setCargando(false);
-        }
-      }
-    });
+    }
+    
 
     e.preventDefault();
   };
@@ -234,11 +318,14 @@ function UserDelete() {
   }
   if (cargando) {
     return (
-      <div
-        className="spinner-border text-primary text-center align-middle"
-        role="status"
-      >
-        <span className="visually-hidden">Loading...</span>
+      <div className="d-flex justify-content-center mt-5 mb-5">
+        <div
+          className="spinner-border"
+          style={{ width: "3rem", height: "3rem" }}
+          role="status"
+        >
+          <span className="sr-only">Loading...</span>
+        </div>
       </div>
     );
   }
