@@ -13,12 +13,13 @@ function MyStoreAdmin() {
   const { userStore, loadingStore, getMyStore, getStoreProducts} = useMyStore();
   const [startStore, setStartStore] = useState(true)
   const [startNavig, setStartNavig] = useState(false)
-  const getStore = async()=> {
-    await getMyStore(userData._id)
-    await getStoreProducts();
-  }
+  
   
   useEffect(() => {
+    const getStore = async()=> {
+      await getMyStore(userData._id)
+      await getStoreProducts();
+    }
     const nav = () => {
       navigate("/admin", {replace:true})
     };
@@ -42,7 +43,7 @@ function MyStoreAdmin() {
         }
       }
     }
-  }, [navigate, userStore, userData, loadingStore, getMyStore, loading, startNavig]);
+  }, [navigate, userStore, userData, loadingStore, getMyStore, loading, startNavig, startStore,getStoreProducts]);
   if (loading || !userStore || loadingStore)
     return (
       <div className="d-flex justify-content-center mt-5 mb-5">
