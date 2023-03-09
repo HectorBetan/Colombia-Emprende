@@ -370,6 +370,9 @@ function AdminNav() {
             </Link>
           </li>
           <NavEmprendimiento />
+          <div className="text-white ms-4 me-4 hr-nav">
+            <hr />
+          </div>
           <li
             className="nav-item d-flex flex-row"
             role="button"

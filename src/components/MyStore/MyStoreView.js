@@ -12,7 +12,8 @@ function MyStoreView() {
     alertEditStore,
     alertEditImgStoreFalse,
     alertEditImgStore,
-    loadingStore
+    loadingStore,
+    userProducts,
   } = useMyStore();
   const { user, loading } = useAuth();
   useEffect(() => {
@@ -73,6 +74,7 @@ function MyStoreView() {
         </div>
       </div>
     );
+
   return (
     <div className="d-block">
       {alertEditStore && <AlertEdit />}
@@ -104,7 +106,14 @@ function MyStoreView() {
                   <h5>Bienvenido al panel admin de {userStore.Nombre}</h5>
                 )}
               </div>
+              {!userProducts && <div className="text-center">
+              Desde aqui puedes agregar productos a tu emprendimiento  
+              </div>}
+              {userProducts.length===0 && <div className="text-center">
+              Desde aqui puedes agregar productos a tu emprendimiento  
+              </div>}
             </div>
+
             {userStore && <CreateProduct />}
           </div>
         </div>

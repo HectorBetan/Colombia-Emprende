@@ -204,17 +204,7 @@ function CreateProduct() {
                   required
                 />
               </div>
-              <div className="form-group mb-2">
-                <label className="m-1">Descripción del Producto</label>
-                <input
-                  type="text"
-                  onChange={handleChange}
-                  name="Descripcion"
-                  value={product.Descripcion}
-                  className="form-control"
-                  placeholder="Ingrese Descripción del Producto"
-                />
-              </div>
+              
               <div className="form-group mb-2">
                 <label className="m-1">Precio del Producto</label>
                 <input
@@ -224,6 +214,17 @@ function CreateProduct() {
                   className="form-control"
                   placeholder="Ingrese Valor del Producto"
                   required
+                />
+              </div>
+              <div className="form-group mb-2">
+                <label className="m-1">Descripción del Producto</label>
+                <textarea
+                  type="text"
+                  onChange={handleChange}
+                  name="Descripcion"
+                  value={product.Descripcion}
+                  className="form-control"
+                  placeholder="Ingrese Descripción del Producto"
                 />
               </div>
               <label className="m-1">

@@ -148,7 +148,7 @@ export function AuthProvider({ children }) {
     .then(()=>{
       setAlert1CreateUser(false)
       if (user.emailVerified){
-        navigate("/admin")
+        navigate("/admin", {replace:true})
       }
     })
     .catch((error) => {console.log(error)});
@@ -321,6 +321,7 @@ export function AuthProvider({ children }) {
               Ciudad: "",
               Direccion: "",
             };
+            window.scroll(0, 0);
             axios.post(`${dbUrl}users/create-user`, userData)
             .then(()=>{
               setAlert1CreateUser(false)
@@ -344,7 +345,6 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      console.log(currentUser)
       if (!currentUser){
         setLoading(false)
       }

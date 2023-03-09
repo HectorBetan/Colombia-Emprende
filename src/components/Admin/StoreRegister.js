@@ -112,6 +112,7 @@ function StoreRegister() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     alert1CreateStoreTrue();
+    window.scroll(0, 0);
     setError("");
     setCargando(true);
     let photosURL = [];

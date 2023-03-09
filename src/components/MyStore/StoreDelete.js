@@ -19,6 +19,7 @@ function StoreDelete() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     alert1DeleteStoreTrue();
+    window.scroll(0, 0);
     await readStorePays(userStore._id).then((res) => {
       if (res.data.length > 0) {
         let envio = 0;

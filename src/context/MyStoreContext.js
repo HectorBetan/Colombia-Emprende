@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import axios from "axios";
 import { useAuth } from "./AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 const myStoreContext = createContext();
 export const useMyStore = () => {
   const context = useContext(myStoreContext);
@@ -11,6 +11,7 @@ export const useMyStore = () => {
 export function MyStoreProvider({ children }) {
   const { token, userData, createStoreAuth } = useAuth();
   const navigate = useNavigate();
+  let location = useLocation();
   const dbUrl = "https://colombia-emprende-server.onrender.com/";
   const [userStore, setUserStore] = useState(null);
   const [userProducts, setUserProducts] = useState(null);
@@ -145,6 +146,9 @@ export function MyStoreProvider({ children }) {
         getStoreProducts();
         setShowProducts("show");
         setAlertCreateProduct(true);
+        if (location.pathname !== "/admin/mi-emprendimiento/productos"){
+          navigate("/admin/mi-emprendimiento/productos")
+        }
       });
     return;
   };
@@ -176,6 +180,7 @@ export function MyStoreProvider({ children }) {
     await axios
       .post(`${dbUrl}products/get-store-products`, id)
       .then((res) => {
+        console.log(res.data)
         setUserProducts(res.data);
         setLoadingStore(false);
       })

@@ -61,6 +61,8 @@ function UserDelete() {
     }
   }, [user.providerData, provider]);
   const handleSubmit = async (e) => {
+    setCargando(true)
+    window.scroll(0, 0);
     if (userData.Emprendimiento_id && userStore){
       await readStorePays(userStore._id).then((res) => {
         if (res.data.length > 0) {

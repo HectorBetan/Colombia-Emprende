@@ -10,26 +10,17 @@ import StoreOrders from "../components/MyStore/StoreOrders";
 function MyStoreAdmin() {
   const { loading, userData } = useAuth();
   const navigate = useNavigate();
-  const { userStore, loadingStore, getMyStore} = useMyStore();
+  const { userStore, loadingStore, getMyStore, getStoreProducts} = useMyStore();
   const [startStore, setStartStore] = useState(true)
   const [startNavig, setStartNavig] = useState(false)
   const getStore = async()=> {
     await getMyStore(userData._id)
+    await getStoreProducts();
   }
-  if (userData && startStore){
-    if (userData.Emprendimiento_id){
-      if (!userStore){
-        getStore();
-        setStartStore(false);
-        
-      } else{
-        setStartNavig(true);
-      }
-    }
-  }
+  
   useEffect(() => {
     const nav = () => {
-      navigate("/admin")
+      navigate("/admin", {replace:true})
     };
     if (userData && !loading && startNavig){
       
@@ -41,7 +32,16 @@ function MyStoreAdmin() {
         }
       }
     }
-    
+    if (userData && startStore){
+      if (userData.Emprendimiento_id){
+        if (!userStore){
+          getStore();
+          setStartStore(false);
+        } else{
+          setStartNavig(true);
+        }
+      }
+    }
   }, [navigate, userStore, userData, loadingStore, getMyStore, loading, startNavig]);
   if (loading || !userStore || loadingStore)
     return (

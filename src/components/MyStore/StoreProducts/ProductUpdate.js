@@ -107,7 +107,7 @@ function ProductUpdate(userProduct) {
                       value={existProduct.Descripcion}
                     />
                   </div>
-                  <div className="form-group text-center m-3">
+                  <div className="form-group text-center m-3 mt-4">
                     <button className="btn btn-primary" type="submit">
                       Actualizar Producto
                     </button>

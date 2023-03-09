@@ -352,6 +352,9 @@ function MyStoreNav() {
             </div>
           </li>
           <NavUser />
+          <div className="text-white ms-4 me-4 hr-nav">
+            <hr />
+          </div>
           <li
             className="nav-item d-flex flex-row"
             role="button"
