@@ -180,7 +180,6 @@ export function MyStoreProvider({ children }) {
     await axios
       .post(`${dbUrl}products/get-store-products`, id)
       .then((res) => {
-        console.log(res.data)
         setUserProducts(res.data);
         setLoadingStore(false);
       })
