@@ -246,6 +246,12 @@ function UserDelete() {
       }
     });
     setUserMsg({...userMsg, pendientes:pends})
+    
+    handleShow();
+    setCargando(false)
+  }
+  const handleSubmit = async (e) => {
+    setCargando(true);
     if (provider === "password") {
       try {
         let credential = emailAuth(usuario.email, usuario.password);
@@ -261,11 +267,6 @@ function UserDelete() {
         setError(error.message);
       }
     }
-    handleShow();
-    setCargando(false)
-  }
-  const handleSubmit = async (e) => {
-    setCargando(true);
     if (userData.Emprendimiento_id) {
       try {
         deleteStore(userData.Emprendimiento_id);
