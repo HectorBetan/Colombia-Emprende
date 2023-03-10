@@ -73,45 +73,42 @@ function UserUpdate() {
     if (usuario.Nombre.length < 4) {
       return setError("Ingresa un nombre valido");
     }
-    if (window.confirm("¿Realmente desea actualizar sus datos?")) {
-      //setCargando(true);
-      const dName = camelize(usuario.Nombre);
-      setUser({ ...usuario, Nombre: dName });
-      try {
-        await updateName(dName);
-      } catch (error) {
-        setError(error.message);
-        setCargando(false);
-        return;
-      }
-      try {
-        await updateUser(usuario);
-      } catch (error) {
-        setError(error.message);
-        setCargando(false);
-        return;
-      }
-      if (imgResult !== null) {
-        try {
-          await uploadPhoto(imgResult, "perfil/profilePhoto");
-        } catch (error) {
-          setError(error.message);
-          setCargando(false);
-        }
-        try {
-          await getPhotoURL("perfil/profilePhoto").then((url) => {
-            updatePhotoURL(url);
-            setError({ success: true, msg: "Hemos actualizado tus datos" });
-            setCargando(false);
-          });
-        } catch (error) {
-          setError(error.message);
-          setCargando(false);
-        }
-      }
-      setError({ success: true, msg: "Hemos actualizado tus datos" });
+    const dName = camelize(usuario.Nombre);
+    setUser({ ...usuario, Nombre: dName });
+    try {
+      await updateName(dName);
+    } catch (error) {
+      setError(error.message);
       setCargando(false);
+      return;
     }
+    try {
+      await updateUser(usuario);
+    } catch (error) {
+      setError(error.message);
+      setCargando(false);
+      return;
+    }
+    if (imgResult !== null) {
+      try {
+        await uploadPhoto(imgResult, "perfil/profilePhoto");
+      } catch (error) {
+        setError(error.message);
+        setCargando(false);
+      }
+      try {
+        await getPhotoURL("perfil/profilePhoto").then((url) => {
+          updatePhotoURL(url);
+          setError({ success: true, msg: "Hemos actualizado tus datos" });
+          setCargando(false);
+        });
+      } catch (error) {
+        setError(error.message);
+        setCargando(false);
+      }
+    }
+    setError({ success: true, msg: "Hemos actualizado tus datos" });
+    setCargando(false);
   };
   if (error) {
     setTimeout(() => {

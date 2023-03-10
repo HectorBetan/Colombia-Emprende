@@ -109,7 +109,7 @@ function MyStoreView() {
               {!userProducts && <div className="text-center">
               Desde aqui puedes agregar productos a tu emprendimiento  
               </div>}
-              {userProducts.length===0 && <div className="text-center">
+              {(!userProducts || userProducts.length === 0) && <div className="text-center">
               Desde aqui puedes agregar productos a tu emprendimiento  
               </div>}
             </div>

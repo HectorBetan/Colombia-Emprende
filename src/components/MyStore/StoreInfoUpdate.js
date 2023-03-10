@@ -9,7 +9,7 @@ function StoreInfoUpdate() {
   const [start, setStart] = useState(false);
   const [disable, setDisable] = useState(true);
   const { findPath } = useAuth();
-  const { userStore, updateStore, loadingStore, getMyStore } = useMyStore();
+  const { userStore, updateStore, loadingStore, getMyStore, alert1CreateStoreTrue } = useMyStore();
   const [error, setError] = useState("");
   const [emprendimiento, setEmprendimiento] = useState({
     _id: "",
@@ -79,6 +79,7 @@ function StoreInfoUpdate() {
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
+    alert1CreateStoreTrue();
     setError("");
     setCargando(true);
     let name = emprendimiento.Nombre;

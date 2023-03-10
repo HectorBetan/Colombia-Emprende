@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
-import Button from "react-bootstrap/Button";
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 import Eye from "../../utilities/password.utilities";
 import { handleResetPassword } from "../../services/user.service";
 import Alert from "../../utilities/alert.utilities";
@@ -46,12 +47,44 @@ function PasswordChange() {
       setPassTitle2("Confirmar Contraseña");
     }
   }, [user.providerData, provider]);
+  const [show, setShow] = useState(false);
+  const handleClose = () => {
+      setShow(false);
+      document.getElementById("passwordChange1").value = "";
+      document.getElementById("passwordChange2").value = "";
+    };
+  const handleShow = () => setShow(true);
+  const ModalAccept = () =>{
+    return (
+      <>
+        <Modal
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Actualizar Tu Contraseña</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            ¿Realmente deseas cambiar la contraseña?
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Cancelar
+            </Button>
+            <Button variant="primary" onClick={handleSubmit}>Aceptar</Button>
+          </Modal.Footer>
+        </Modal>
+      </>
+    );
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (usuario.newPassword.length < 8) {
       return setError("Ingresa una contraseña valida");
     }
-    if (window.confirm("¿Realmente desea cambiar su contraseña?")) {
+
       if (provider === "password") {
         let credential;
         setCargando(true);
@@ -96,7 +129,7 @@ function PasswordChange() {
         setError(error.message);
         setCargando(false);
       }
-    }
+    
   };
   const ResetPasswordView = () => {
     if (provider === "password") {
@@ -137,7 +170,9 @@ function PasswordChange() {
   return (
     <div>
       {error && <Alert message={error} />}
-      <form>
+      <ModalAccept></ModalAccept>
+      <form onSubmit={(e) => {
+              e.preventDefault(); handleShow()}}>
         <div className="d-block d-sm-flex d-md-flex flex-row d-lg-flex justify-content-center">
           <div className="form-group mb-3 me-2 ms-2 pe-1 ps-1">
             <label className="m-1">{passTitle1}</label>
@@ -175,7 +210,6 @@ function PasswordChange() {
         <ResetPasswordView />
         <div className="mt-4 mb-3 me-5 ms-5 ps-5 pe-1 text-center">
           <Button
-            onClick={handleSubmit}
             variant="primary"
             type="submit"
             className="me-4 mb-1 mt-1"

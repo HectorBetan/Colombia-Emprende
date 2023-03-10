@@ -47,9 +47,9 @@ function Admin() {
       <>
         <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Emprendimiento Eliminado</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Se ha Eliminado tu emprendimiento</Modal.Body>
+        <Modal.Body>Se ha Eliminado tu emprendimiento y los datos asociados a este.</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Cerrar

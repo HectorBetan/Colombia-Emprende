@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useMyStore } from "../../context/MyStoreContext";
+import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Eye from "../../utilities/password.utilities";
 import { handleResetPassword } from "../../services/user.service";
@@ -25,6 +26,12 @@ function UserDelete() {
   const [start, setStart] = useState(true);
   const [provider, setProvider] = useState("");
   const [emprendimientoImg, setEmprendimientoImg] = useState(null);
+  const [userMsg, setUserMsg] = useState({
+    envio: "",
+    pagado: "",
+    problema: "",
+    pendientes: false
+  })
   const handleChange = ({ target: { value, name } }) =>
     setUser({ ...usuario, [name]: value });
   const [usuario, setUser] = useState({
@@ -60,10 +67,74 @@ function UserDelete() {
       setProvider(user.providerData[0].providerId);
     }
   }, [user.providerData, provider]);
-  const handleSubmit = async (e) => {
-    setCargando(true)
-    window.scroll(0, 0);
-    if (userData.Emprendimiento_id && userStore){
+  const [show, setShow] = useState(false);
+  const handleClose = () => {
+    setShow(false);
+  };
+  const handleShow = () => setShow(true);
+  const [showProblem, setShowProblem] = useState(false);
+  const handleCloseProblem = () => {
+    setShowProblem(false);
+  };
+
+  const ModalAccept = () => {
+    return (
+      <>
+        <Modal
+          show={show}
+          onHide={handleClose}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Eliminar Tu Cuenta</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {userMsg.pendientes && <div>
+              Tu Usuario aun tiene los siguientes pendientes en la sección de pedidos: {userMsg.envio}{userMsg.pagado}{userMsg.problema}, de igual manera puedes continuar y eliminar tu usuario.
+              </div>}
+            ¿Realmente deseas eliminar tu cuenta y todos los datos asociados a ella?
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Cancelar
+            </Button>
+            <Button variant="primary" onClick={handleSubmit}>
+              Aceptar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
+    );
+  };
+  const ModalProblem = () => {
+    return (
+      <>
+        <Modal
+          show={showProblem}
+          onHide={handleCloseProblem}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Tienes Pendientes</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+          No puede eliminar su cuenta. Su Emprendimiento tiene los siguientes pedidos por finalizar: {userMsg.envio}{userMsg.pagado}{userMsg.problema} Si existe algun error contacte a soporte de la página.
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseProblem}>
+              Cerrar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
+    );
+  };
+  const storePays = async() =>{
+    setCargando(true);
+    if (userData.Emprendimiento_id && userStore) {
+      
       await readStorePays(userStore._id).then((res) => {
         if (res.data.length > 0) {
           let envio = 0;
@@ -72,7 +143,6 @@ function UserDelete() {
           let e = "";
           let pro = "";
           let pa = "";
-          if (res.data.length > 0) {
             res.data.forEach((problem) => {
               if (problem.Estado === "envio") {
                 envio++;
@@ -85,186 +155,141 @@ function UserDelete() {
               }
             });
             if (envio) {
-              e = `${envio} pedidos en envio. `;
+              if (envio === 1){
+                e = `${envio} pedido en envio. `;
+              } else {
+                e = `${envio} pedidos en envio. `;
+              }
+              
+              setUserMsg({...userMsg, envio: e})
             }
             if (pagado) {
-              pa = `${pagado} pedidos pagados. `;
+              if (pagado === 1){
+                pa = `${pagado} pedido pagado. `;
+              } else{
+                pa = `${pagado} pedidos pagados. `;
+              }
+              
+              setUserMsg({...userMsg, pagado: pa})
             }
             if (problema) {
-              pro = `${problema} pedidos en problema. `;
-            }
-          }
-          window.alert(
-            `No puede eliminar su cuenta. Su Emprendimiento tiene los siguientes pedidos por finalizar: ${e}${pa}${pro} Si existe algun error contacte a soporte de la página.`
-          );
-        } else {
-          let e = "";
-          let pro = "";
-          let pa = "";
-          let pends = "";
-          readUserPays(userData._id).then((res) => {
-            if (res.data.length > 0) {
-              let envio = 0;
-              let problema = 0;
-              let pagado = 0;
-              if (res.data.length > 0) {
-                res.data.forEach((problem) => {
-                  if (problem.Estado === "envio") {
-                    envio++;
-                  }
-                  if (problem.Estado === "pagado") {
-                    pagado++;
-                  }
-                  if (problem.Estado === "problema") {
-                    problema++;
-                  }
-                });
-                if (envio) {
-                  e = `${envio} pedidos en envio. `;
-                }
-                if (pagado) {
-                  pa = `${pagado} pedidos pagados. `;
-                }
-                if (problema) {
-                  pro = `${problema} pedidos en problema. `;
-                }
-                pends =
-                  "Tu usuario aun tiene los siguientes pendientes en la sección de pedidos: ";
+              if (pagado === 1){
+                pro = `${problema} pedido en problema. `;
+              } else {
+                pro = `${problema} pedidos en problema. `;
               }
+              setUserMsg({...userMsg, problema: pro})
             }
-          });
-          if (
-            window.confirm(
-              `${pends}${e}${pa}${pro}¿Esta seguro de eliminar su cuenta y todos los datos asociados a ella?`
-            )
-          ) {
-            if (provider === "password") {
-              try {
-                let credential = emailAuth(usuario.email, usuario.password);
-                reAuthenticate(credential);
-              } catch (error) {
-                setError(error.message);
-              }
-            }
-            if (provider === "google.com") {
-              try {
-                reAuthenticateGoogle();
-              } catch (error) {
-                setError(error.message);
-              }
-            }
-            if (userData.Emprendimiento_id) {
-              try {
-                deleteStore(userData.Emprendimiento_id);
-              } catch (error) {
-                setError(error.message);
-              }
-              if (emprendimientoImg) {
-                let url = `/emprendimiento/perfil/`;
-                let fotos = emprendimientoImg.split(",");
-                for (let i = 0; i < fotos.length; i++) {
-                  try {
-                    deletePhoto(url + i);
-                  } catch (error) {}
-                }
-              }
-            }
-            
-            try {
-              let userPhoto = `/perfil/profilePhoto`;
-              deletePhoto(userPhoto);
-            } catch (error) {}
-            deleteUserDoc(userData._id);
-
-            
-            setCargando(false);
-          }
+            setCargando(false)
+            setShowProblem(true)
         }
-      });
+        else {
+          handlePreSubmit()
+        }
+      })
     } else {
-      let e = "";
-          let pro = "";
-          let pa = "";
-          let pends = "";
-          if (provider === "password") {
-            try {
-              let credential = emailAuth(usuario.email, usuario.password);
-              await reAuthenticate(credential);
-            } catch (error) {
-              setError(error.message);
-            }
-          }
-          if (provider === "google.com") {
-            try {
-              await reAuthenticateGoogle();
-            } catch (error) {
-              setError(error.message);
-            }
-          }
-          await readUserPays(userData._id).then((res) => {
-            if (res.data.length > 0) {
-              let envio = 0;
-              let problema = 0;
-              let pagado = 0;
-              if (res.data.length > 0) {
-                res.data.forEach((problem) => {
-                  if (problem.Estado === "envio") {
-                    envio++;
-                  }
-                  if (problem.Estado === "pagado") {
-                    pagado++;
-                  }
-                  if (problem.Estado === "problema") {
-                    problema++;
-                  }
-                });
-                if (envio) {
-                  e = `${envio} pedidos en envio. `;
-                }
-                if (pagado) {
-                  pa = `${pagado} pedidos pagados. `;
-                }
-                if (problema) {
-                  pro = `${problema} pedidos en problema. `;
-                }
-                pends =
-                  "Tu usuario aun tiene los siguientes pendientes en la sección de pedidos: ";
-              }
-            }
-          });
-          if (
-            window.confirm(
-              `${pends}${e}${pa}${pro}¿Esta seguro de eliminar su cuenta y todos los datos asociados a ella?`
-            )
-          ) {
-            
-            if (userData.Emprendimiento_id) {
-              try {
-                deleteStore(userData.Emprendimiento_id);
-              } catch (error) {
-                setError(error.message);
-              }
-              if (emprendimientoImg) {
-                let url = `/emprendimiento/perfil/`;
-                let fotos = emprendimientoImg.split(",");
-                for (let i = 0; i < fotos.length; i++) {
-                  try {
-                    deletePhoto(url + i);
-                  } catch (error) {}
-                }
-              }
-            }
-            await deleteUserDoc(userData._id);
-            if (user.photoURL.includes("firebasestorage")){try {
-              let userPhoto = `/perfil/profilePhoto`;
-              deletePhoto(userPhoto);
-            } catch (error) {}}
-            setCargando(false);
-          }
+      handlePreSubmit()
     }
     
-
-    e.preventDefault();
+  }
+  const handlePreSubmit = async() =>{
+    setCargando(true);
+    let e = "";
+    let pro = "";
+    let pa = "";
+    let pends = false;
+    readUserPays(userData._id).then((res) => {
+      if (res.data.length > 0) {
+        let envio = 0;
+        let problema = 0;
+        let pagado = 0;
+        pends = true
+        if (res.data.length > 0) {
+          res.data.forEach((problem) => {
+            if (problem.Estado === "envio") {
+              envio++;
+            }
+            if (problem.Estado === "pagado") {
+              pagado++;
+            }
+            if (problem.Estado === "problema") {
+              problema++;
+            }
+          });
+          if (envio) {
+            if (envio === 1){
+              e = `${envio} pedido en envio. `;
+            } else {
+              e = `${envio} pedidos en envio. `;
+            }
+            
+            setUserMsg({...userMsg, envio: e})
+          }
+          if (pagado) {
+            if (pagado === 1){
+              pa = `${pagado} pedido pagado. `;
+            } else{
+              pa = `${pagado} pedidos pagados. `;
+            }
+            
+            setUserMsg({...userMsg, pagado: pa})
+          }
+          if (problema) {
+            if (pagado === 1){
+              pro = `${problema} pedido en problema. `;
+            } else {
+              pro = `${problema} pedidos en problema. `;
+            }
+            setUserMsg({...userMsg, problema: pro})
+          }
+        }
+      }
+    });
+    setUserMsg({...userMsg, pendientes:pends})
+    if (provider === "password") {
+      try {
+        let credential = emailAuth(usuario.email, usuario.password);
+        await reAuthenticate(credential);
+      } catch (error) {
+        setError(error.message);
+      }
+    }
+    if (provider === "google.com") {
+      try {
+        await reAuthenticateGoogle();
+      } catch (error) {
+        setError(error.message);
+      }
+    }
+    handleShow();
+    setCargando(false)
+  }
+  const handleSubmit = async (e) => {
+    setCargando(true);
+    if (userData.Emprendimiento_id) {
+      try {
+        deleteStore(userData.Emprendimiento_id);
+      } catch (error) {
+        setError(error.message);
+      }
+      if (emprendimientoImg) {
+        let url = `/emprendimiento/perfil/`;
+        let fotos = emprendimientoImg.split(",");
+        for (let i = 0; i < fotos.length; i++) {
+          try {
+            deletePhoto(url + i);
+          } catch (error) {}
+        }
+      }
+    }
+    await deleteUserDoc(userData._id);
+    if (user.photoURL.includes("firebasestorage")) {
+      try {
+        let userPhoto = `/perfil/profilePhoto`;
+        deletePhoto(userPhoto);
+      } catch (error) {}
+    }
+    setCargando(false);
   };
   const ResolveProvider = () => {
     if (provider === "password") {
@@ -334,18 +359,21 @@ function UserDelete() {
   if (provider === "password") {
     return (
       <div>
+        <ModalAccept></ModalAccept>
+        <ModalProblem></ModalProblem>
         {error && <Alert message={error} />}
         <div className="text-center">
           <h1>Eliminar Cuenta </h1>
           <p>
-            Estas a punto de eliminar tu cuenta, eliminaras todos tus dtos de
+            Estas a punto de eliminar tu cuenta, eliminaras todos tus datos de
             usuario y demas datos de la plataforma.
           </p>
           <form className="d-flex flex-column justify-content-center">
             <ResolveProvider />
             <div className="mt-4 mb-3 me-5 ms-5 ps-4  text-center">
               <Button
-                onClick={handleSubmit}
+                onClick={(e) => {
+                  e.preventDefault(); storePays()}}
                 variant="danger"
                 type="submit"
                 className="me-4 mb-1 mt-1"
@@ -361,11 +389,13 @@ function UserDelete() {
   if (provider === "google.com") {
     return (
       <div>
+        <ModalAccept></ModalAccept>
+        <ModalProblem></ModalProblem>
         {error && <Alert message={error} />}
         <div className="text-center">
           <h1>Eliminar Cuenta</h1>
           <p>
-            Estas a punto de eliminar tu cuenta, eliminaras todos tus dtos de
+            Estas a punto de eliminar tu cuenta, eliminaras todos tus datos de
             usuario y demas datos de la plataforma.
           </p>
           <div className="mt-4 mb-3   text-center">
@@ -374,7 +404,8 @@ function UserDelete() {
               size="lg"
               type="submit"
               className="mb-1 mt-1"
-              onClick={handleSubmit}
+              onClick={(e) => {
+                e.preventDefault(); storePays()}}
             >
               Eliminar Cuenta
             </Button>

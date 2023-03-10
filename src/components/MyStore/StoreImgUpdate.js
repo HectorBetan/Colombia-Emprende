@@ -8,7 +8,7 @@ function StoreImgUpdate() {
   const [cargando, setCargando] = useState(true);
   const [disableImg, setDisableImg] = useState(true);
   const [start, setStart] = useState(false);
-  const { userStore, updateStoreImage, loadingStore, getMyStore } =
+  const { userStore, updateStoreImage, loadingStore, getMyStore, alert1CreateStoreTrue } =
     useMyStore();
   const { loading, uploadPhoto, getPhotoURL, deletePhoto } = useAuth();
   const [error, setError] = useState("");
@@ -61,6 +61,7 @@ function StoreImgUpdate() {
   }
   const handleSubmitImg = async (e) => {
     e.preventDefault();
+    alert1CreateStoreTrue();
     setError("");
     setCargando(true);
     if (borrarImg) {
@@ -316,11 +317,11 @@ function StoreImgUpdate() {
       );
     } else
       return (
-        <div>
-          <h2>No has subido ninguna foto</h2>
+        <div className="text-center">
+          <h4>No has subido ninguna foto</h4>
           <div className="mt-3">
-            <h6 className="">Subir Imágenes</h6>
-            <div className="d-flex flex-row text-center ">
+            <h5 className="">Subir Imágenes</h5>
+            <div className="d-flex flex-row text-center justify-content-center">
               <StorePhoto />
               <input
                 type="file"
@@ -332,6 +333,15 @@ function StoreImgUpdate() {
               ></input>
             </div>
           </div>
+          <div className="text-center mt-1 mt-lg-3">
+              <button
+                className="btn btn-primary"
+                type="submit"
+                disabled={disableImg}
+              >
+                Guardar Cambios
+              </button>
+            </div>
         </div>
       );
   };

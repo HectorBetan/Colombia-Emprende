@@ -12,7 +12,7 @@ export function MyStoreProvider({ children }) {
   const { token, userData, createStoreAuth } = useAuth();
   const navigate = useNavigate();
   let location = useLocation();
-  const dbUrl = "https://colombia-emprende-server.onrender.com/";
+  const dbUrl = "https://colombia-emprende-server-production.up.railway.app/";
   const [userStore, setUserStore] = useState(null);
   const [userProducts, setUserProducts] = useState(null);
   const [showProducts, setShowProducts] = useState("");
@@ -59,7 +59,13 @@ export function MyStoreProvider({ children }) {
     setAlert1DeleteStore(true);
   };
   const getMyStore = async (data) => {
-    const id = { user_id: data };
+    let id
+    if(data){
+      id = { user_id: data };
+    }
+    if (!data){
+      id = { user_id: userData._id };
+    }
     await axios
       .post(`${dbUrl}stores/get-store`, id)
       .then((res) => {
@@ -95,6 +101,7 @@ export function MyStoreProvider({ children }) {
       setUserStore(res.data)
       setAlertCreateStore(true);
       setAlert1CreateStore(false);
+      setLoadingStore(false);
       navigate("/admin/mi-emprendimiento");
       return;
     });
@@ -103,9 +110,12 @@ export function MyStoreProvider({ children }) {
     setLoadingStore(true)
     await axios
       .put(`${dbUrl}stores/update-store`, emprendimiento, token)
-      .then(() => {
-        setUserStore(emprendimiento);
+      .then((res) => {
+        const data = res.data
+        setUserStore(data);
         setAlertEditStore(true);
+        setAlert1CreateStore(false);
+        setLoadingStore(false)
       })
       .catch((err) => {
 
@@ -118,6 +128,8 @@ export function MyStoreProvider({ children }) {
       .then(() => {
         setUserStore(emprendimiento);
         setAlertEditImgStore(true);
+        setAlert1CreateStore(false);
+        setLoadingStore(false)
       })
       .catch((err) => {
       });
@@ -134,6 +146,7 @@ export function MyStoreProvider({ children }) {
         const id = { Emprendimiento_id: "" };
         createStoreAuth(id);
         setAlert1DeleteStore(false);
+        setLoadingStore(false)
       })
       .catch((err) => {
       });
@@ -146,6 +159,7 @@ export function MyStoreProvider({ children }) {
         getStoreProducts();
         setShowProducts("show");
         setAlertCreateProduct(true);
+        setLoadingStore(false)
         if (location.pathname !== "/admin/mi-emprendimiento/productos"){
           navigate("/admin/mi-emprendimiento/productos")
         }
@@ -159,6 +173,7 @@ export function MyStoreProvider({ children }) {
       .then(() => {
         getStoreProducts();
         setShowProducts("show");
+        setLoadingStore(false)
         setAlertEditProduct(true);
       });
     return;
@@ -170,6 +185,7 @@ export function MyStoreProvider({ children }) {
       .then(() => {
         getStoreProducts();
         setShowProducts("show");
+        setLoadingStore(false)
         setAlertEditImgProduct(true);
       });
     return;
@@ -196,6 +212,7 @@ export function MyStoreProvider({ children }) {
     await axios.put(`${dbUrl}products/delete-product/${id}`, data, token);
     setShowProducts("show");
     getStoreProducts();
+    setLoadingStore(false)
     setAlertDeleteProduct(true);
     return;
   };

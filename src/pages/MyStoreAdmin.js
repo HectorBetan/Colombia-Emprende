@@ -44,14 +44,15 @@ function MyStoreAdmin() {
       }
     }
   }, [navigate, userStore, userData, loadingStore, getMyStore, loading, startNavig, startStore,getStoreProducts]);
-  if (loading || !userStore || loadingStore)
-    return (
+  if (loading || loadingStore)
+    {
+      return (
       <div className="d-flex justify-content-center mt-5 mb-5">
         <div className="spinner-border" style={{ width: "3rem", height: "3rem" }} role="status">
           <span className="sr-only">Loading...</span>
         </div>
       </div>
-    );
+    );}
   return (
     <div className="d-flex flex-row">
       <MyStoreNav />

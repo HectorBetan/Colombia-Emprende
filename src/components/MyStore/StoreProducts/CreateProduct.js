@@ -32,7 +32,7 @@ function CreateProduct() {
       setProduct({ ...product, Emprendimiento_id: userStore._id, User_id: userData._id });
     };
     if (userData && userStore) {
-      if (!product.Emprendimiento_id || !product.User_id){return () => {
+      if (!product.Emprendimiento_id && !product.User_id){return () => {
         create();
       };}
     }
