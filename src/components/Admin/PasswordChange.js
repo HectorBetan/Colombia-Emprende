@@ -64,10 +64,12 @@ function PasswordChange() {
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Actualizar Tu Contraseña</Modal.Title>
+            <Modal.Title><i className="fa-solid fa-triangle-exclamation me-2 text-warning"></i>Actualizar Tu Contraseña</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            ¿Realmente deseas cambiar la contraseña?
+            
+            <div className="m-3 text-center fs-5">¿Realmente deseas cambiar tu contraseña?</div>
+            
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
@@ -168,7 +170,7 @@ function PasswordChange() {
     );
   }
   return (
-    <div>
+    <div className="m-2">
       {error && <Alert message={error} />}
       <ModalAccept></ModalAccept>
       <form onSubmit={(e) => {

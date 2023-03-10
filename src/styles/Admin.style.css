@@ -3,6 +3,10 @@ input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none; 
   margin: 0; 
 }
+.admin-dif-color{
+  color: #13406d;
+  font-weight: 700;
+}
 .btn-edit-cant {
   font-weight: 500;
 }
@@ -102,7 +106,7 @@ input[type=number]::-webkit-outer-spin-button {
   border-radius: 0 75px 2px 0;
 }
 .admin-nav li:hover {
-  background-color: rgb(5, 15, 41);
+  background-color: rgb(8, 28, 78);
 }
 .admin-nav li:hover div {
   color: rgb(204, 226, 253) !important;
@@ -487,6 +491,9 @@ input[type=number]::-webkit-outer-spin-button {
   }
 }
 @media only screen and (max-width: 680px) {
+  .panel-admin-view-peq{
+    font-size: 16px!important;
+  }
   .city-cat {
     flex-direction: column !important;
   }
@@ -584,6 +591,12 @@ input[type=number]::-webkit-outer-spin-button {
   }
 }
 @media only screen and (max-width: 600px) {
+  .panel-admin-view{
+    font-size: 20px!important;
+  }
+  .panel-admin-view-peq{
+    font-size: 15px!important;
+  }
   .boton-tienda-carrito {
     font-size: 18px;
   }
@@ -631,6 +644,12 @@ input[type=number]::-webkit-outer-spin-button {
   }
 }
 @media only screen and (max-width: 550px) {
+  .admin-no-item{
+    font-size: 22px!important;
+  }
+  .panel-admin-view{
+    font-size: 18px!important;
+  }
   .botones-redes-regstore {
     flex-direction: column !important;
     padding: 0px 30px !important;
@@ -671,6 +690,12 @@ input[type=number]::-webkit-outer-spin-button {
   align-self: center;
 }
 @media only screen and (max-width: 500px) {
+  .panel-admin-view{
+    font-size: 16px!important;
+  }
+  .panel-admin-view-peq{
+    font-size: 13px!important;
+  }
   .text-email-regstore {
     font-size: 13px !important;
   }

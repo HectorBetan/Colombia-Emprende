@@ -87,7 +87,7 @@ function Home() {
       <>
         <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Cuenta Eliminada</Modal.Title>
+          <Modal.Title><i className="fa-solid fa-circle-check me-2 text-success"></i>Cuenta Eliminada</Modal.Title>
         </Modal.Header>
         <Modal.Body>Se ha Eliminado tu cuenta de usuario y todos los datos asociados a ella.</Modal.Body>
         <Modal.Footer>

@@ -43,16 +43,18 @@ function StoreDelete() {
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Eliminar Tu Emprendimiento</Modal.Title>
+            <Modal.Title><i className="fa-solid fa-triangle-exclamation me-2 text-danger"></i>Eliminar Tu Emprendimiento</Modal.Title>
           </Modal.Header>
           <Modal.Body>
+          <div className="fs-5 text-center m-3">
             ¿Realmente deseas eliminar tu emprendimiento y todos los datos asociados a este?
+            </div>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Cancelar
             </Button>
-            <Button variant="primary" onClick={handleSubmit}>
+            <Button variant="danger" onClick={handleSubmit}>
               Aceptar
             </Button>
           </Modal.Footer>
@@ -70,11 +72,29 @@ function StoreDelete() {
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Tienes Pendientes</Modal.Title>
+            <Modal.Title><i className="fa-solid fa-circle-exclamation me-2 text-danger"></i>Tienes Pendientes</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-          No puede eliminar su cuenta. Su Emprendimiento tiene los siguientes pedidos por finalizar: {userMsg.envio}{userMsg.pagado}{userMsg.problema} Si existe algun error contacte a soporte de la página.
+          <Modal.Body className="justify-content-center">
+          <div
+            className=" alert alert-danger text-center justify-content-center fw-bolder"
+            role="alert"
+          >
+<i className="fa-solid fa-circle-exclamation me-2 text-danger"></i>
+              No puedes eliminar tu emprendimiento
+            
+          </div>
+          <div className="">
+            <div className="text-center">Tu Emprendimiento tiene los siguientes pedidos por finalizar: </div>
+            <ul className="m-1">
+              {userMsg.envio && <li>{userMsg.envio}</li>}
+              {userMsg.pagado && <li>{userMsg.pagado}</li>}
+              {userMsg.problema && <li>{userMsg.problema}</li>}
+            </ul>
+          </div>
           </Modal.Body>
+          <div className="text-center m-2 fw-light">
+            Si existe algun error contacte a soporte de la página.
+          </div>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleCloseProblem}>
               Cerrar
@@ -176,7 +196,7 @@ function StoreDelete() {
       </div>
     );
   return (
-    <div>
+    <div className="m-sm-3 m-1">
       {error && <Alert message={error} />}
       <ModalAccept></ModalAccept>
       <ModalProblem></ModalProblem>

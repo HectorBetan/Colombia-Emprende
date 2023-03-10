@@ -92,14 +92,15 @@ function MyStoreProducts() {
         );
       } else {
         return (
-          <div>
-            <div className="text-center m-3">
+          <div className="m-3">
+            <div className="text-center m-md-4 m-sm-3 m-2">
               {alertDeleteProduct && <AlertDelete />}
-              <h3>Tu Emprendimiento aun no tiene Productos registrados.</h3>
-              <h6>
+              <h3>Tu Emprendimiento <span className="admin-dif-color">{userStore.Nombre}</span> aun no tiene Productos registrados.</h3>
+              
+            </div>
+            <h6 className="text-center m-3">
                 Haz click en el boton de abajo para añadir un nuevo producto.
               </h6>
-            </div>
             <CreateProduct />
           </div>
         );

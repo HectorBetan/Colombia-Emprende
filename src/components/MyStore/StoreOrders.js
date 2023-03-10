@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
+import { useMyStore } from "../../context/MyStoreContext";
 import Button from "react-bootstrap/Button";
 function StoreOrders() {
   const {
@@ -12,6 +13,7 @@ function StoreOrders() {
     readUserInfo,
     setStoreProblem,
   } = useAuth();
+  const {userStore} = useMyStore();
   const [w, setW] = useState(window.innerWidth);
   const handleResize = () => {
     setW(window.innerWidth);
@@ -242,12 +244,12 @@ function StoreOrders() {
       if (group.length === 0) {
         return (
           <div>
-            <div>
+            <div className="m-md-4 m-sm-3 m-2">
               {alertDel && <AlertDelete />}
               {alert && <Alert />}
             </div>
-            <div className="text-center mt-3">
-              <h3>Actualmente tu tienda no tiene ningun pedido.</h3>
+            <div className="text-center m-3">
+              <h3 className="m-md-4 m-sm-3 m-2 admin-no-item">Actualmente tu emprendimiento <span className="admin-dif-color">{userStore.Nombre}</span> no tiene ningun pedido.</h3>
             </div>
           </div>
         );

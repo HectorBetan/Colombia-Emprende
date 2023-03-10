@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
+import { useMyStore } from "../../context/MyStoreContext";
 function StorePricing() {
   const {
     readProducts,
@@ -9,7 +10,9 @@ function StorePricing() {
     readStorePricing,
     readUserInfo,
     deletePricing,
+    
   } = useAuth();
+  const {userStore} = useMyStore();
   const [w, setW] = useState(window.innerWidth);
   const [start, setStart] = useState(true);
   const [cargando, setCargando] = useState(true);
@@ -20,6 +23,7 @@ function StorePricing() {
   const handleResize = () => {
     setW(window.innerWidth);
   };
+  
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     return () => {
@@ -256,16 +260,16 @@ function StorePricing() {
     });
   };
   const CotizacionItems = () => {
-    if (group && usuarios && productosCotizar) {
+    if (group && usuarios && productosCotizar && userStore) {
       if (group.length === 0) {
         return (
-          <div>
+          <div className="m-md-4 m-sm-3 m-2">
             <div>
               {alertDel && <AlertDelete />}
               {alert && <Alert />}
             </div>
-            <div className="text-center mt-3">
-              <h3>Actualmente tu tienda no tiene ninguna cotización.</h3>
+            <div className="text-center m-3">
+              <h3 className="m-md-4 m-sm-3 m-2 admin-no-item">Actualmente tu emprendimiento <span className="admin-dif-color">{userStore.Nombre}</span> no tiene ninguna cotización.</h3>
             </div>
           </div>
         );

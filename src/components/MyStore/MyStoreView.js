@@ -90,7 +90,7 @@ function MyStoreView() {
               aria-expanded="false"
               aria-controls="flush-collapse0"
             >
-              <h6 className="align-items-center m-2 me-2">Mi Emprendimiento</h6>
+              <h4 className="align-items-center m-2 me-2">Mi Emprendimiento</h4>
             </button>
           </h2>
           <div
@@ -101,20 +101,19 @@ function MyStoreView() {
           >
             <div className="accordion-body">
               <div className="flex-column text-center">
-                <h5>Hola {user.displayName}</h5>
+                <h4 className="m-2">Hola <span className="admin-dif-color">{user.displayName}</span></h4>
                 {userStore && (
-                  <h5>Bienvenido al panel admin de {userStore.Nombre}</h5>
+                  <h5 className="m-3 panel-admin-view">Bienvenido al panel de administración de tu emprendimiento <span className="admin-dif-color">{userStore.Nombre}</span></h5>
                 )}
               </div>
-              {!userProducts && <div className="text-center">
-              Desde aqui puedes agregar productos a tu emprendimiento  
-              </div>}
-              {(!userProducts || userProducts.length === 0) && <div className="text-center">
-              Desde aqui puedes agregar productos a tu emprendimiento  
+              <div className="fw-light text-center mb-1 panel-admin-view-peq">Desde aqui puedes manejar todas las funciones relacionadas a tu emprendimiento y administrar sus datos.
+              <br /> Tambien puedes administrar los productos, cotizaciones y pedidos de tu emprendimiento.</div>
+              {(!userProducts || userProducts.length === 0) && <div className="text-center fs-6 fw-light mt-2 panel-admin-view-peq">
+              Haciendo click en el botón de abajo puedes agregar productos a tu emprendimiento.
               </div>}
             </div>
 
-            {userStore && <CreateProduct />}
+            {userStore && <div className="mb-4"><CreateProduct /></div> }
           </div>
         </div>
         <div className="accordion-item">
@@ -127,9 +126,9 @@ function MyStoreView() {
               aria-expanded="false"
               aria-controls="flush-collapse1"
             >
-              <h6 className="align-items-center m-2 me-2">
+              <h4 className="align-items-center m-2 me-2">
                 Editar Emprendimiento
-              </h6>
+              </h4>
             </button>
           </h2>
           <div
@@ -154,7 +153,7 @@ function MyStoreView() {
                 aria-expanded="false"
                 aria-controls="flush-collapse2"
               >
-                <h6 className="align-items-center m-2 me-2">Editar Imagenes</h6>
+                <h4 className="align-items-center m-2 me-2">Editar Imagenes</h4>
               </button>
             </h2>
             <div
@@ -178,7 +177,7 @@ function MyStoreView() {
                 aria-expanded="false"
                 aria-controls="flush-collapse3"
               >
-                <h6 className="align-items-center m-2 me-2">Eliminar Emprendimiento</h6>
+                <h4 className="align-items-center m-2 me-2">Eliminar Emprendimiento</h4>
               </button>
             </h2>
             <div

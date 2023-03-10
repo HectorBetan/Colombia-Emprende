@@ -1048,10 +1048,10 @@ function MyOrders() {
     if (group && tiendasCotizar && productosOrders) {
       if (group.length === 0) {
         return (
-          <div>
+          <div className="m-md-4 m-sm-3 m-2">
             <div>{alertDel && <AlertDelete />}</div>
-            <div className="text-center mt-3">
-              <h3>Actualmente no tienes ningun pedido.</h3>
+            <div className="text-center m-3">
+              <h3 className="m-md-4 m-sm-3 m-2">Actualmente no tienes ningún <span className="admin-dif-color">pedido</span>.</h3>
             </div>
           </div>
         );

@@ -177,7 +177,7 @@ function StoreInfoUpdate() {
       </div>
     );
   return (
-    <div>
+    <div  className="m-1 mt-3 m-md-3 p-lg-1 p-xl-2 p-0">
       <form onSubmit={handleSubmit}>
         {error && <Alert message={error} />}
         <div

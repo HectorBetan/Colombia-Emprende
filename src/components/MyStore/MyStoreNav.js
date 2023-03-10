@@ -352,7 +352,7 @@ function MyStoreNav() {
             </div>
           </li>
           <NavUser />
-          <div className="text-white ms-4 me-4 hr-nav">
+          <div className="text-white  ms-3 me-3 ms-md-4 me-md-4 hr-nav">
             <hr />
           </div>
           <li

@@ -185,9 +185,15 @@ footer {
 }
 .navi-big {
   font-size: 20px;
-  font-weight: 550;
-  color: #d4e9ff;
+  font-weight: 500;
+  color: #eff6fd;
   letter-spacing: 1px;
+}
+.navi-big:hover {
+  letter-spacing: 1.3px;
+  font-weight: 600;
+  color: #a0bfdd;
+
 }
 .separador {
   background-color: #d1deec;

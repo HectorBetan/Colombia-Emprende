@@ -533,10 +533,10 @@ function MyCart() {
         );
       } else {
         return (
-          <div className="text-center mt-3">
+          <div className="text-center m-3">
             {alert && <Alert />}
             {alertDel && <AlertDelete />}
-            <h3>No hay productos en el carrito.</h3>
+            <h3>No tienes ningun producto en <span className="admin-dif-color">tu carrito</span>.</h3>
           </div>
         );
       }

@@ -11,7 +11,10 @@ function AdminView() {
       if (!userData.Emprendimiento_id){
         return (
           <div className="">
-            Desde este panel puedes administrar tu Usuario y Registrar Tu Emprendimiento.
+            <div className="text-center fs-6 fw-light mt-2 panel-admin-view-peq">
+              Haciendo click en el botón de abajo puedes Resgistrar un Emprendimiento.
+              </div>
+            
             <br />
             <button
               className="btn btn-primary m-3"
@@ -28,8 +31,6 @@ function AdminView() {
       if (userData.Emprendimiento_id){
         return (
           <div className="">
-            Desde este panel puedes administrar tu Usuario y Tu Emprendimiento.
-            <br />
             <button
               className="btn btn-primary m-3"
               onClick={(e) => {
@@ -69,7 +70,7 @@ function AdminView() {
               aria-expanded="false"
               aria-controls="flush-collapse0"
             >
-              <h6 className="align-items-center m-2 me-2">Mi Perfil</h6>
+              <h4 className="align-items-center m-2 me-2">Mi Perfil</h4>
             </button>
           </h2>
           <div
@@ -80,8 +81,10 @@ function AdminView() {
           >
             <div className="accordion-body">
               <div className="flex-column text-center w-100">
-                <div>Hola {user.displayName}</div>
-                <div>Bienvenido a Colombia Emprende</div>
+                <h4 className="m-2">Hola <span className="admin-dif-color">{user.displayName}</span></h4>
+                <h5 className="m-3  panel-admin-view">Bienvenido al panel de administración de cuenta en <span className="admin-dif-color">Colombia Emprende</span></h5>
+                <div className="fw-light text-center mb-1 panel-admin-view-peq">Desde aqui puedes manejar todas las funciones relacionadas a tu usuario y administrar tus datos.</div>
+                <div className="fw-light text-center mb-1 panel-admin-view-peq">Tambien tienes tu carrito de mercado y puedes acceder a las cotizaciones y pedidos y que hayas realizado a alguna tienda.</div>
                 <RegisterStore />
               </div>
             </div>
@@ -97,7 +100,7 @@ function AdminView() {
               aria-expanded="false"
               aria-controls="flush-collapse1"
             >
-              <h6 className="align-items-center m-2 me-2">Editar Perfil</h6>
+              <h4 className="align-items-center m-2 me-2">Editar Perfil</h4>
             </button>
           </h2>
           <div
@@ -122,9 +125,9 @@ function AdminView() {
                 aria-expanded="false"
                 aria-controls="flush-collapse2"
               >
-                <h6 className="align-items-center m-2 me-2">
+                <h4 className="align-items-center m-2 me-2">
                   Cambiar Contraseña
-                </h6>
+                </h4>
               </button>
             </h2>
             <div
@@ -148,9 +151,9 @@ function AdminView() {
                 aria-expanded="false"
                 aria-controls="flush-collapse3"
               >
-                <h6 className="align-items-center m-2 me-2 ">
+                <h4 className="align-items-center m-2 me-2 ">
                   Eliminar Cuenta
-                </h6>
+                </h4>
               </button>
             </h2>
             <div

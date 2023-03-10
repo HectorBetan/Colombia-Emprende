@@ -363,7 +363,7 @@ function StoreImgUpdate() {
       </div>
     );
   return (
-    <div>
+    <div className="m-2">
       {error && <Alert message={error} />}
       <div>
         <form onSubmit={handleSubmitImg}>

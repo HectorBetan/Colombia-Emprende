@@ -215,10 +215,10 @@ function MyPricings() {
     if (group && tiendasCotizar && productosCotizar) {
       if (group.length === 0) {
         return (
-          <div>
+          <div className="m-md-4 m-sm-3 m-2">
             <div>{alertDel && <AlertDelete />}</div>
-            <div className="text-center mt-3">
-              <h3>Actualmente no tienes ninguna cotización.</h3>
+            <div className="text-center m-3">
+              <h3 className="m-md-4 m-sm-3 m-2">Actualmente no tienes ninguna <span className="admin-dif-color">cotización</span>.</h3>
             </div>
           </div>
         );

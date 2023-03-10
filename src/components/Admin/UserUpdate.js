@@ -128,7 +128,7 @@ function UserUpdate() {
       </div>
     );
   return (
-    <div>
+    <div className="m-md-4 m-sm-3 m-2">
       {error && <Alert message={error} />}
       <form onSubmit={handleSubmit}>
         <div
