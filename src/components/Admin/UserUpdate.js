@@ -19,6 +19,7 @@ function UserUpdate() {
     userData,
     getPhotoURL,
     loading,
+    alertEditTrue,
   } = useAuth();
   const handleChange = ({ target: { value, name } }) => {
     setDisable(false);
@@ -70,6 +71,7 @@ function UserUpdate() {
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
+    alertEditTrue();
     if (usuario.Nombre.length < 4) {
       return setError("Ingresa un nombre valido");
     }
@@ -99,7 +101,6 @@ function UserUpdate() {
       try {
         await getPhotoURL("perfil/profilePhoto").then((url) => {
           updatePhotoURL(url);
-          setError({ success: true, msg: "Hemos actualizado tus datos" });
           setCargando(false);
         });
       } catch (error) {
@@ -107,7 +108,6 @@ function UserUpdate() {
         setCargando(false);
       }
     }
-    setError({ success: true, msg: "Hemos actualizado tus datos" });
     setCargando(false);
   };
   if (error) {
@@ -129,7 +129,7 @@ function UserUpdate() {
     );
   return (
     <div className="m-md-4 m-sm-3 m-2">
-      {error && <Alert message={error} />}
+      {error && <div id="error"><Alert message={error} /></div>}
       <form onSubmit={handleSubmit}>
         <div
           className="form-group d-column d-lg-flex flex-lg-row d-xl-flex 
