@@ -354,6 +354,7 @@ function Store(data) {
                         <div className="d-flex flex-row  justify-content-evenly agregar-carrito-input">
                           <label>Cantidad:</label>
                           <input
+                          className="inpout"
                             type="number"
                             min="1"
                             max="99"
@@ -390,9 +391,11 @@ function Store(data) {
                       <div className="d-flex flex-row  justify-content-evenly agregar-carrito-input-cel">
                         <label>{c}</label>
                         <input
+                        className="inpout"
                           type="number"
                           min="1"
                           max="99"
+                          
                           id={producto._id}
                           defaultValue=""
                         />
