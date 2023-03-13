@@ -14,6 +14,8 @@ function PasswordChange() {
     passwordUpdate,
     reAuthenticateGoogle,
     alertPasswordTrue,
+    alertUserTrue,
+    alertUserFalse,
   } = useAuth();
   const [error, setError] = useState("");
   const [name1, setName1] = useState("");
@@ -84,7 +86,8 @@ function PasswordChange() {
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
-    alertPasswordTrue()
+    
+    alertUserTrue()
     if (usuario.newPassword.length < 8) {
       return setError("Ingresa una contraseña valida");
     }
@@ -132,6 +135,9 @@ function PasswordChange() {
         setError(error.message);
         setCargando(false);
       }
+      window.scrollTo(0, 0);
+      alertPasswordTrue()
+      alertUserFalse()
   };
   const ResetPasswordView = () => {
     if (provider === "password") {

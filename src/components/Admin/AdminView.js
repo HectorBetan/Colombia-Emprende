@@ -9,13 +9,14 @@ function AdminView() {
   const { user, loading, userData, alertEdit, alertEditFalse, alertPassword, alertPasswordFalse } = useAuth();
   useEffect(() => {
     const edit = () => {
+      
       setTimeout(() => {
         alertEditFalse();
       }, 5000);
     };
     if (alertEdit) {
       return () => {
-        window.scroll(0, 0);
+        
         edit();
       };
     }
@@ -41,7 +42,6 @@ function AdminView() {
     };
     if (alertPassword) {
       return () => {
-        window.scroll(0, 0);
         edit();
       };
     }
@@ -98,6 +98,7 @@ function AdminView() {
       }
     }
   };
+  
   if (loading)
     return (
       <div className="d-flex justify-content-center mt-5 mb-5">

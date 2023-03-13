@@ -42,10 +42,17 @@ export function AuthProvider({ children }) {
   const [alertDeleteUser, setAlertDeleteUser] = useState(false);
   const [alert1DeleteUser, setAlert1DeleteUser] = useState(false);
   const [alertEdit, setAlertEdit] = useState(false)
+  const [alertUser, setAlertUser] = useState(false)
   const [alertPassword, setAlertPassword] = useState(false)
   const [alert1CreateUser, setAlert1CreateUser] = useState(false);
   const alertDeleteUserFalse = () => {
     setAlertDeleteUser(false);
+  };
+  const alertUserFalse = () => {
+    setAlertUser(false);
+  };
+  const alertUserTrue = () => {
+    setAlertUser(true);
   };
   const alertPasswordFalse = () => {
     setAlertPassword(false);
@@ -430,6 +437,9 @@ export function AuthProvider({ children }) {
         alertPassword,
         alertPasswordFalse,
         alertPasswordTrue,
+        alertUser,
+        alertUserFalse,
+        alertUserTrue,
       }}
     >
       {children}

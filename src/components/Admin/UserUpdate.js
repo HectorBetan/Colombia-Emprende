@@ -20,6 +20,8 @@ function UserUpdate() {
     getPhotoURL,
     loading,
     alertEditTrue,
+    alertUserTrue,
+    alertUserFalse,
   } = useAuth();
   const handleChange = ({ target: { value, name } }) => {
     setDisable(false);
@@ -71,7 +73,8 @@ function UserUpdate() {
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
-    alertEditTrue();
+    
+    alertUserTrue();
     if (usuario.Nombre.length < 4) {
       return setError("Ingresa un nombre valido");
     }
@@ -109,6 +112,9 @@ function UserUpdate() {
       }
     }
     setCargando(false);
+    alertEditTrue();
+    window.scrollTo(0, 0);
+    alertUserFalse();
   };
   if (error) {
     setTimeout(() => {

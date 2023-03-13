@@ -17,7 +17,7 @@ import {
   ProtectedStore,
 } from "../protectedRoutes/protectedStore";
 function Admin() {
-  const { loading, userData } = useAuth();
+  const { loading, userData, alertUser } = useAuth();
   const [show, setShow] = useState(false);
   const [startDel, setStartDel] = useState(false);
   const handleClose = () => setShow(false);
@@ -59,6 +59,19 @@ function Admin() {
       </>
     )
   }
+  const ModalLoading = () => {
+    return(
+      <>
+        <Modal show={true} className="opa-0">
+        <div className="d-flex justify-content-center text-white">
+        <div className="spinner-border" style={{ width: "3rem", height: "3rem" }} role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+        </Modal>
+      </>
+    )
+  }
   if (loading || alertDeleteStore)
     return (
       <div className="d-flex justify-content-center mt-5  mb-5">
@@ -69,6 +82,7 @@ function Admin() {
   );
   return (
     <div className="d-flex flex-row">
+      {alertUser && <ModalLoading></ModalLoading>}
       <AdminNav />
       <div className="d-flex flex-row justify-content-center w-100">
         <div className="w-100">

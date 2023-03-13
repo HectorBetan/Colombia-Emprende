@@ -7,10 +7,11 @@
   border-color: #00000000!important;
 }
 .busqueda {
-  width: 50px !important;
+  width: 40px !important;
   font-size: 18px !important;
   font-weight: 600;
-  padding-left: 5px;
+  text-align: center;
+  padding: 0px!important;
 }
 .logo-navcel {
   width: 220px;
@@ -835,6 +836,10 @@ publicidad 2
   }
 }
 @media only screen and (max-width: 500px) {
+  .busqueda {
+    width: 30px !important;
+    font-size: 16px !important;
+  }
   .stores-home {
     width: 180px;
     margin: 6px;
@@ -927,8 +932,12 @@ publicidad 2
     font-weight: 650;
     vertical-align: middle;
   }
+  .busqueda {
+    width: 25px !important;
+    font-size: 15px !important;
+  }
 }
-@media only screen and (max-width: 300px) {
+@media only screen and (max-width: 360px) {
   .stores-home {
     width: 150px;
     margin: 6px;
