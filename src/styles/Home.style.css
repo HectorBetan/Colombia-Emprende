@@ -178,6 +178,9 @@ footer {
   font-weight: 700;
   color: #003668;
 }
+.nav-cel:hover {
+  color: #1383d3;
+}
 .nav-cel-user {
   font-size: 20px;
   font-weight: 700;

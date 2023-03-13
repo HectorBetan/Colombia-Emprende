@@ -553,6 +553,7 @@ function MyCart() {
   }
   return (
     <div>
+      <h1 className="text-center admin-titles-cel">Mi Carrito</h1>
       <CarritoItems />
     </div>
   );

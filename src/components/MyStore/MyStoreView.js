@@ -79,15 +79,6 @@ function MyStoreView() {
     <div className="d-block">
       {alertEditStore && <AlertEdit />}
       {alertEditImgStore && <AlertEditImg />}
-      <div
-        className=" alert alert-success d-flex flex-row flex-wrap justify-content-center"
-        role="alert"
-      >
-        <i className="fa-solid fa-circle-check fa-2x me-1 text-success"></i>
-        <h5 className=" m-1 sm:inline text-success align-middle ">
-          Imagenes de la tienda actualizadas con exito.
-        </h5>
-      </div>
       <div className="accordion accordion-flush" id="#acordionProfile">
         <div className="accordion-item">
           <h2 className="accordion-header" id="myProfile">
