@@ -66,10 +66,6 @@ function ProductImgUpdate(userProduct) {
     e.preventDefault();
     setError("");
     setCargando(true);
-    const name = userProduct.product.Nombre.toLowerCase()
-      .replace(/ /g, "-")
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
     let borrarPosition;
     if (borrarImg && imgs) {
       const imgs = userProduct.product.Imagen.split(",");
