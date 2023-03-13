@@ -194,13 +194,13 @@ function StoreImgUpdate() {
       photos = emprendimientoImagen.Imagen.split(",");
       return (
         <div className="d-flex flex-row justify-content-center caja-editar-imgs">
-          <div className="d-flex flex-row ms-2 me-2 caja-imgs">
+          <div className="d-flex flex-row caja-imgs">
             <img
               className="d-block rounded img-editar"
               src={photos[selected]}
               alt={selected}
             />
-            <div className="d-flex flex-column mt-1 ms-2 me-2">
+            <div className="d-flex flex-column mt-1 ms-1 me-1 ms-1 me-1 ms-sm-2 me-sm-2">
               {photos.map((img, i) => {
                 return (
                   <button
@@ -363,7 +363,7 @@ function StoreImgUpdate() {
       </div>
     );
   return (
-    <div className="m-2">
+    <div className="">
       {error && <Alert message={error} />}
       <div>
         <form onSubmit={handleSubmitImg}>

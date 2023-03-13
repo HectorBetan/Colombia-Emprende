@@ -663,6 +663,12 @@ input[type=number]::-webkit-outer-spin-button {
     width: 90% !important;
     margin-top: 10px;
   }
+  #collapseSubirImgs .accordion-body{
+    padding: 0px!important;
+  }
+  .nuevas-imgs{
+    margin-top: 10px;
+  }
 }
 @media only screen and (max-width: 550px) {
   .alert h5{
@@ -911,6 +917,7 @@ textarea {
     height: 230px;
     width: 230px;
     object-fit: cover;
+    margin-right: 5px ;
   }
   .btn-img-editar {
     height: 39px;
@@ -992,7 +999,8 @@ textarea {
     font-weight: 500;
   }
   .img-update-home {
-    padding-left: 10px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
   }
   .subir-foto {
     font-size: 12px !important;
@@ -1001,6 +1009,7 @@ textarea {
     height: 210px;
     width: 210px;
     object-fit: cover;
+    margin-right: 3px ;
   }
   .btn-img-editar {
     height: 38px;
