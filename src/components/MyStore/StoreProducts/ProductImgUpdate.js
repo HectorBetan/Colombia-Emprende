@@ -71,7 +71,7 @@ function ProductImgUpdate(userProduct) {
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "");
     let borrarPosition;
-    if (borrarImg) {
+    if (borrarImg && imgs) {
       const imgs = userProduct.product.Imagen.split(",");
       for (let j in borrarImg) {
         borrarPosition = imgs[borrarImg[j]].search(`alt=media`) - 5;
@@ -116,20 +116,23 @@ function ProductImgUpdate(userProduct) {
               photoUrl++;
             }
           }
-          url = `emprendimiento/productos/` + name + "/" + photoUrl;
+          url = `emprendimiento/productos/` + userProduct.product._id + "/" + photoUrl;
           try {
-            await uploadPhoto(user.email, imgs[i], url);
+            await uploadPhoto(imgs[i], url);
           } catch (error) {
+            console.log(error)
             setError(error.message);
             setCargando(false);
             return;
           }
           try {
-            await getPhotoURL(user.email, url).then((url) => {
+            console.log(url)
+            await getPhotoURL(url).then((url) => {
               existImgList.push(url);
             });
           } catch (error) {
             setError(error.message);
+            console.log(error)
             setCargando(false);
           }
           iterator++;
@@ -201,8 +204,8 @@ function ProductImgUpdate(userProduct) {
         <div className="">
           <div className="d-flex flex-row justify-content-center mb-2">
             <img
-              className="d-block  rounded"
-              style={{ maxHeight: "315px", width: "100%", objectFit: "cover" }}
+              className="d-block rounded img-editar"
+              
               src={photos[selected]}
               alt={selected}
             />
@@ -218,12 +221,7 @@ function ProductImgUpdate(userProduct) {
                     }}
                   >
                     <img
-                      className="d-block rounded m-1 "
-                      style={{
-                        maxHeight: "50px",
-                        maxWidth: "50px",
-                        objectFit: "cover",
-                      }}
+                      className="d-block rounded m-1 btn-img-editar"
                       src={img}
                       alt={i}
                     />

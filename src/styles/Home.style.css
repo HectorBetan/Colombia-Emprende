@@ -1898,6 +1898,9 @@ publicidad 2
     font-size: 10px;
     margin-top: 3px;
   }
+  .logo-nav-home {
+    width: 170px;
+  }
 }
 
 @media only screen and (max-width: 330px) {

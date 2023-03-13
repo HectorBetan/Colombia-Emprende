@@ -75,7 +75,11 @@ export function AuthProvider({ children }) {
     return uploadBytes(ref(storage, `${user.uid}/${photoName}`), file);
   };
   const getPhotoURL = async (photoLocation) => {
-    return await getDownloadURL(ref(storage, `${user.uid}/${photoLocation}`));
+    console.log(photoLocation)
+    return await getDownloadURL(ref(storage, `${user.uid}/${photoLocation}`))
+    .catch((error)=>{
+      console.log(error)
+    });
   };
   const deletePhoto = async (photoLocation) => {
     return await deleteObject(ref(storage, `${user.uid}/${photoLocation}`)).catch(error => {});

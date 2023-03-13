@@ -137,13 +137,14 @@ input[type=number]::-webkit-outer-spin-button {
   flex-direction: row;
 }
 .img-editar {
-  max-height: 300px;
-  width: "75vh";
-  object-fit: "cover";
+  height: 300px;
+  width: 300px;
+  object-fit: cover;
+  margin-right: 10px ;
 }
 .btn-img-editar {
-  max-height: 50px;
-  max-width: 50px;
+  height: 50px;
+  width: 50px;
   object-fit: cover;
 }
 .subir-foto {
@@ -427,8 +428,9 @@ input[type=number]::-webkit-outer-spin-button {
     font-size: 17px;
   }
   .admin-product-foto {
-    max-width: 100px !important;
-    max-height: 100px !important;
+    width: 100px !important;
+    height: 100px !important;
+    object-fit: cover;
     border-radius: 25px !important;
   }
   .caja-datos-carrito {
@@ -556,7 +558,7 @@ input[type=number]::-webkit-outer-spin-button {
     flex-direction: column !important;
 
     justify-content: center;
-    margin-left: 26px;
+
   }
   .update-store-box .col-5 {
     width: 94% !important;
@@ -565,10 +567,22 @@ input[type=number]::-webkit-outer-spin-button {
     flex-direction: column !important;
 
     justify-content: center;
-    margin-left: 20px;
+
   }
   .update-store-box1 .col-5 {
     width: 94% !important;
+  }
+  .flex-cambio{
+    justify-content: start!important;
+    margin-left: 0!important;
+    margin-right: 0!important;
+  }
+  .flex-pad{
+    padding-left: 0rem!important;
+    padding-right: 0rem!important;
+  }
+  .info-update-admin{
+    margin-left: 8px!important;
   }
   .valor-titulo {
     font-size: 20px;
@@ -591,6 +605,12 @@ input[type=number]::-webkit-outer-spin-button {
   }
 }
 @media only screen and (max-width: 600px) {
+  .alert h5{
+    font-size: 18px!important;
+  }
+  .alert .fa-2x{
+    font-size: 1.8rem!important;
+  }
   .panel-admin-view{
     font-size: 20px!important;
   }
@@ -630,9 +650,10 @@ input[type=number]::-webkit-outer-spin-button {
     font-size: 15px;
   }
   .admin-product-foto {
-    max-width: 90px !important;
-    max-height: 90px !important;
+    width: 90px !important;
+    height: 90px !important;
     border-radius: 25px !important;
+    object-fit: cover;
   }
   .boton-carrito-colla h2 {
     padding-bottom: 1px !important;
@@ -644,6 +665,9 @@ input[type=number]::-webkit-outer-spin-button {
   }
 }
 @media only screen and (max-width: 550px) {
+  .alert h5{
+    font-size: 16px!important;
+  }
   .admin-no-item{
     font-size: 22px!important;
   }
@@ -668,9 +692,10 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 15px 0px;
   }
   .admin-product-foto {
-    max-width: 85px !important;
-    max-height: 85px !important;
+    width: 85px !important;
+    height: 85px !important;
     border-radius: 25px !important;
+    object-fit: cover;
   }
   .nuevas-imgs {
     flex-direction: column !important;
@@ -690,6 +715,12 @@ input[type=number]::-webkit-outer-spin-button {
   align-self: center;
 }
 @media only screen and (max-width: 500px) {
+  .alert h5{
+    font-size: 15px!important;
+  }
+  .alert .fa-2x{
+    font-size: 1.6rem!important;
+  }
   .panel-admin-view{
     font-size: 16px!important;
   }
@@ -714,13 +745,13 @@ input[type=number]::-webkit-outer-spin-button {
     font-weight: 500;
   }
   .img-editar {
-    max-height: 250px;
-
+    height: 250px;
+    width: 250px;
     object-fit: cover;
   }
   .btn-img-editar {
-    max-height: 39px;
-    max-width: 39px;
+    height: 39px;
+    width: 39px;
   }
   .store-name-admin {
     font-size: 24px !important;
@@ -736,9 +767,10 @@ input[type=number]::-webkit-outer-spin-button {
     font-size: 13px;
   }
   .admin-product-foto {
-    max-width: 80px !important;
-    max-height: 80px !important;
+    width: 80px !important;
+    height: 80px !important;
     border-radius: 25px !important;
+    object-fit: cover;
   }
   .col-edit-imgs {
     width: 95% !important;
@@ -848,6 +880,13 @@ textarea {
 }
 
 @media only screen and (max-width: 450px) {
+  .alert h5{
+    font-size: 14px!important;
+  }
+  .alert .fa-2x{
+    font-size: 1.4rem!important;
+    margin-top: 3px;
+  }
   .store-register-admin {
     padding: 0px 8px !important;
   }
@@ -869,13 +908,13 @@ textarea {
     font-size: 13px !important;
   }
   .img-editar {
-    max-height: 230px;
-
+    height: 230px;
+    width: 230px;
     object-fit: cover;
   }
   .btn-img-editar {
-    max-height: 39px;
-    max-width: 39px;
+    height: 39px;
+    width: 39px;
     margin: 2px !important;
   }
   .store-name-admin {
@@ -906,9 +945,10 @@ textarea {
     font-size: 18px;
   }
   .admin-product-foto {
-    max-width: 75px !important;
-    max-height: 75px !important;
+    width: 75px !important;
+    height: 75px !important;
     border-radius: 25px !important;
+    object-fit: cover;
   }
   .admin-nav li {
     border-radius: 0 25px 2px 0;
@@ -935,6 +975,14 @@ textarea {
   }
 }
 @media only screen and (max-width: 400px) {
+  .alert h5{
+    font-size: 14px!important;
+    text-align: center;
+  }
+  .alert .fa-2x{
+    font-size: 1.2rem!important;
+    margin-top: 2px;
+  }
   .acc-titulos-admin {
     font-size: 22px;
     font-weight: 600;
@@ -950,13 +998,13 @@ textarea {
     font-size: 12px !important;
   }
   .img-editar {
-    max-height: 210px;
-
+    height: 210px;
+    width: 210px;
     object-fit: cover;
   }
   .btn-img-editar {
-    max-height: 38px;
-    max-width: 38px;
+    height: 38px;
+    width: 38px;
     margin: 2px !important;
   }
   .store-name-admin {
@@ -1000,9 +1048,10 @@ textarea {
     font-size: 16px;
   }
   .admin-product-foto {
-    max-width: 70px !important;
-    max-height: 70px !important;
+    width: 70px !important;
+    height: 70px !important;
     border-radius: 25px !important;
+    object-fit: cover;
   }
   .ac-delete {
     padding: 10px;
@@ -1016,13 +1065,13 @@ textarea {
     font-size: 11px !important;
   }
   .img-editar {
-    max-height: 200px;
-
+    height: 200px;
+    width: 200px;
     object-fit: cover;
   }
   .btn-img-editar {
-    max-height: 37px;
-    max-width: 37px;
+    height: 37px;
+    width: 37px;
     margin: 2px !important;
   }
   .acordeon-carrito-products {
@@ -1043,13 +1092,13 @@ textarea {
     font-size: 10px !important;
   }
   .img-editar {
-    max-height: 180px;
-
+    height: 180px;
+    width: 180px;
     object-fit: cover;
   }
   .btn-img-editar {
-    max-height: 32px;
-    max-width: 32px;
+    height: 32px;
+    width: 32px;
     margin: 1px !important;
   }
   .acordeon-carrito-products {

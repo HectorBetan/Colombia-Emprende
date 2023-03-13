@@ -81,7 +81,7 @@ function StoreOrders() {
       >
         <i className="fa-solid fa-circle-check fa-2x me-1 text-success"></i>
         <h5 className=" m-1 sm:inline text-success align-middle ">
-          Se han añadido datos de envio y declarado como enviado
+          Se han añadido datos de envio y declarado como enviado.
         </h5>
       </div>
     );

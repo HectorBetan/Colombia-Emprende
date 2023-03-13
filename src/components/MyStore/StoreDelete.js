@@ -80,7 +80,7 @@ function StoreDelete() {
             role="alert"
           >
 <i className="fa-solid fa-circle-exclamation me-2 text-danger"></i>
-              No puedes eliminar tu emprendimiento
+              No puedes eliminar tu emprendimiento.
             
           </div>
           <div className="">

@@ -199,6 +199,9 @@ function AdminNav() {
                   </Link>
                 </li>
                 <NavEmprendimientoCel />
+                <div className="text-white ms-3 me-3 hr-nav">
+                    <hr />
+                  </div>
                 <li
                   className="nav-item d-flex flex-row"
                   role="button"
@@ -221,6 +224,7 @@ function AdminNav() {
                       d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"
                     />
                   </svg>
+                  
                   <div
                     className="nav-link logout-btn"
                     onClick={handleLogout}

@@ -184,7 +184,7 @@ function StoreInfoUpdate() {
           className="col-12 pe-0 ps-0 pe-md-4 ps-md-4"
           style={{ maxHeight: "320px", overflow: "auto" }}
         >
-          <div className="">
+          <div className="info-update-admin">
             <div className="d-flex flex-row justify-content-evenly mb-3 update-store-box">
               <div className="form-group col-5">
                 <label className="m-1">Nombre</label>
@@ -253,8 +253,8 @@ function StoreInfoUpdate() {
                 </div>
               </div>
             </div>
-            <div className="d-flex flex-row justify-content-evenly">
-              <div className="col-11 ps-2 pe-2">
+            <div className="d-flex flex-row justify-content-evenly flex-cambio">
+              <div className="col-11 ps-sm-2 pe-sm-2 flex-pad">
                 <label className="m-1">Dirección</label>
                 <input
                   onChange={handleChange}
@@ -290,7 +290,7 @@ function StoreInfoUpdate() {
                 </select>
               </div>
             </div>
-            <div className="d-flex flex-row justify-content-center me-2 ms-2 mt-2">
+            <div className="d-flex flex-row justify-content-center me-sm-2 ms-sm-2 mt-2  flex-cambio">
               <div className="form-group mb-1 col-11">
                 <label className="m-1">Facebook</label>
                 <input
@@ -304,7 +304,7 @@ function StoreInfoUpdate() {
                 />
               </div>
             </div>
-            <div className="d-flex flex-row justify-content-center me-2 ms-2 mt-2">
+            <div className="d-flex flex-row justify-content-center me-sm-2 ms-sm-2 mt-2  flex-cambio">
               <div className="form-group mb-1 col-11">
                 <label className="m-1">Instagram</label>
                 <input
@@ -318,7 +318,7 @@ function StoreInfoUpdate() {
                 />
               </div>
             </div>
-            <div className="d-flex flex-row justify-content-center me-2 ms-2 mt-2">
+            <div className="d-flex flex-row justify-content-center me-sm-2 ms-sm-2  flex-cambio">
               <div className="form-group mb-1 col-11">
                 <label className="m-1">Página Web</label>
                 <input
@@ -332,7 +332,7 @@ function StoreInfoUpdate() {
                 />
               </div>
             </div>
-            <div className="d-flex flex-row justify-content-center me-2 ms-2 mt-2">
+            <div className="d-flex flex-row justify-content-center me-sm-2 ms-sm-2 flex-cambio">
               <div className="form-group col-11">
                 <label className="m-1">Descripción</label>
                 <textarea

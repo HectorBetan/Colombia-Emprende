@@ -29,8 +29,8 @@
   color: #d1d123 !important;
 }
 .img-producto {
-  max-width: 150px;
-  max-height: 150px;
+  width: 150px;
+  height: 150px;
   object-fit: cover;
 }
 .agregar-carrito-input input {
@@ -97,13 +97,14 @@
   font-weight: 700 !important;
 }
 .foto-modal {
-  max-width: 90vh;
-  max-height: 80vh;
+  width: 80%;
+  height: 300px;
   object-fit: contain;
 }
 .img-btn-modal {
   width: 80px;
   height: 80px;
+  object-fit: cover;
 }
 @media only screen and (max-width: 1175px) {
   .popover {
@@ -212,8 +213,8 @@
     font-size: 15px;
   }
   .img-producto {
-    max-width: 140px;
-    max-height: 140px;
+    width: 140px;
+    height: 140px;
     object-fit: cover;
   }
   .agregar-carrito-input input {
@@ -276,8 +277,8 @@
     font-size: 14px;
   }
   .img-producto {
-    max-height: 130px;
-    max-width: 130px;
+    height: 130px;
+    width: 130px;
     object-fit: cover;
   }
   .agregar-carrito-input input {
@@ -348,8 +349,8 @@
     font-size: 13px;
   }
   .img-producto {
-    max-height: 120px;
-    max-width: 120px;
+    height: 120px;
+    width: 120px;
     object-fit: cover;
   }
   .agregar-carrito-input input {
@@ -424,8 +425,8 @@
     font-size: 13px;
   }
   .img-producto {
-    max-height: 125px;
-    max-width: 125px;
+    height: 125px;
+    width: 125px;
     object-fit: cover;
   }
   .agregar-carrito-input input {
@@ -566,8 +567,8 @@
     margin: 0px 10px !important;
   }
   .img-producto {
-    max-height: 80px;
-    max-width: 80px;
+    height: 80px;
+    width: 80px;
     margin: 0px 0px;
     object-fit: cover;
     border-radius: 25px !important;
@@ -684,8 +685,8 @@
     margin: 3px 10px;
   }
   .img-producto {
-    max-height: 70px;
-    max-width: 70px;
+    height: 70px;
+    width: 70px;
     margin: 0px 0px;
     object-fit: cover;
     border-radius: 25px !important;
@@ -772,9 +773,8 @@
     font-size: 16px;
   }
   .foto-modal {
-    max-width: 75vh;
-    max-height: 80vh;
-    object-fit: contain;
+    height: 250px;
+    width: 90%;
   }
 }
 @media only screen and (max-width: 450px) {
@@ -806,8 +806,8 @@
     margin: 3px 10px;
   }
   .img-producto {
-    max-height: 65px;
-    max-width: 65px;
+    height: 65px;
+    width: 65px;
     margin: 0px 0px;
     object-fit: cover;
     border-radius: 25px !important;
@@ -823,11 +823,7 @@
     font-size: 12px;
     margin-top: 8px;
   }
-  .foto-modal {
-    max-width: 80vh;
-    max-height: 80vh;
-    object-fit: contain;
-  }
+
   .img-btn-modal {
     width: 67px;
     height: 67px;
@@ -902,8 +898,8 @@
     margin: 2px 5px;
   }
   .img-producto {
-    max-height: 50px;
-    max-width: 50px;
+    height: 50px;
+    width: 50px;
     margin: 0px 0px;
     object-fit: cover;
     border-radius: 20px !important;
@@ -919,11 +915,7 @@
     font-size: 10px;
     margin-top: 8px;
   }
-  .foto-modal {
-    max-width: 70vh;
-    max-height: 75vh;
-    object-fit: contain;
-  }
+
   .stores-btn-a {
     margin-top: 5px !important;
   }
@@ -995,11 +987,7 @@
     margin: 0px 0px;
     padding: 0px 10px 10px 10px !important;
   }
-  .foto-modal {
-    max-width: 220px;
-    max-height: 70vh;
-    object-fit: contain;
-  }
+
   .img-btn-modal {
     width: 50px;
     height: 50px;
@@ -1062,8 +1050,8 @@
     margin: 2px 5px;
   }
   .img-producto {
-    max-height: 45px;
-    max-width: 45px;
+    height: 45px;
+    width: 45px;
     margin: 0px 0px;
     object-fit: cover;
     border-radius: 20px !important;
@@ -1082,16 +1070,5 @@
     font-size: 10px;
     margin-top: 8px;
   }
-  .foto-modal {
-    max-width: 200px;
-    max-height: 70vh;
-    object-fit: contain;
-  }
-}
-@media only screen and (max-width: 300px) {
-  .foto-modal {
-    max-width: 180px;
-    max-height: 70vh;
-    object-fit: contain;
-  }
+
 }

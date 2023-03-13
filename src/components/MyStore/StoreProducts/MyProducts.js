@@ -221,7 +221,6 @@ function MyProducts(userProducts) {
     let z = 0
     let noProd = false
     for (y in userProducts.products){
-      console.log(userProducts.products)
       if (userProducts.products[y].Delete === true){
         z++;
       }

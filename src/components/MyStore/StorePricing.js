@@ -52,7 +52,7 @@ function StorePricing() {
       >
         <i className="fa-solid fa-circle-check fa-2x me-1 text-success"></i>
         <h5 className=" m-1 sm:inline text-success align-middle ">
-          Se ha enviado la Cotización Al Cliente
+          Se ha enviado la Cotización Al Cliente.
         </h5>
       </div>
     );

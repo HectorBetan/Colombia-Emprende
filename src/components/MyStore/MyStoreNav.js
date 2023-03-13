@@ -199,6 +199,9 @@ function MyStoreNav() {
                   <div className="nav-link">Pedidos</div>
                 </li>
                 <NavUserCel />
+                <div className="text-white  ms-3 me-3 ms-md-4 me-md-4 hr-nav">
+            <hr />
+          </div>
                 <li
                   className="nav-item d-flex flex-row"
                   role="button"
