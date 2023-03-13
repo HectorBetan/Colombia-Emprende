@@ -11,7 +11,7 @@ function ProductImgUpdate(userProduct) {
   const [disableImg, setDisableImg] = useState(true);
   const [start, setStart] = useState(false);
   const { updateProductImage, loadingStore } = useMyStore();
-  const { user, loading, uploadPhoto, getPhotoURL, deletePhoto } = useAuth();
+  const { loading, uploadPhoto, getPhotoURL, deletePhoto } = useAuth();
   const [error, setError] = useState("");
   const [product, setProduct] = useState({
     Imagen: "",
