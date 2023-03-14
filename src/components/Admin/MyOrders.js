@@ -14,6 +14,8 @@ function MyOrders() {
     readOrders,
     setStars,
     setUserProblem,
+    sendMail,
+    getRegistro,
   } = useAuth();
   const [w, setW] = useState(window.innerWidth);
   const handleResize = () => {
@@ -219,6 +221,8 @@ function MyOrders() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const storeName = data.data.tienda;
+    const storeEmail = data.data.tiendaEmail
     const [alertProblem, setAlertProblem] = useState(false);
     const sAlertProblem = (id) => {
       setTimeout(async () => {
@@ -227,6 +231,8 @@ function MyOrders() {
         handleClose();
       }, 3500);
     };
+    console.log("data")
+    console.log(data)
     const AlertProblem = () => {
       return (
         <div
@@ -290,9 +296,18 @@ function MyOrders() {
             {!alertProblem && (
               <button
                 className="btn btn-primary"
-                onClick={(e) => {
+                onClick={async (e) => {
                   const problem = { User_Problem: comentarios };
                   setUserProblem(data.data.pedido._id, problem);
+                  let mail = {
+                    Email: storeEmail,
+                    Nombre: user.displayName,
+                    Subject: `${user.displayName} ha declarado el pedido en problema.`,
+                    Html: `<div style="text-align:center;"><img src="https://firebasestorage.googleapis.com/v0/b/colombia-emprende-app.appspot.com/o/assets%2Flogo-colombia-emprende.png?alt=media&token=d74058e0-1418-41a6-8e72-d384c48c8cd0"
+                    alt="Logo Colombia Emprende" style="width:300px;" /><h1>Hola <span style="color:#114aa5;">${storeName}</span></h1><h1><span style="color:#114aa5;">${user.displayName}</span> ha declarado el pedido en problema.</h1><div>El usuario ha declarado su pedido en problema y te ha enviado el siguiente mensaje:<br />${comentarios}<br /> Ve a los pedidos de tu emprendimiento y podrás contestar al cliente y resolver el problema.<div><br /><div style="font-size:12px; font-weigth:300;">Si sigues el siguiente link debes tener la sesión iniciada, de lo contrario inicia sesión y ve a los pedidos de tu emprendimiento.</div><a href="http://localhost:3000/admin/mi-emprendimiento/pedidos">Ir a los Pedidos de mi Emprendimiento</a></div></div><h3>Gracias por pertenecer a Colombia Emprende</h3></div>`,
+                    Msj: "Se ha enviado declarado el pedido en problema y enviado un mensaje."
+                  }
+                  await sendMail(mail);
                   setAlertProblem(true);
                   sAlertProblem(data.data.pedido._id);
                 }}
@@ -319,8 +334,19 @@ function MyOrders() {
     const [alertCalificacion, setAlertCalificacion] = useState(false);
     const [alertFinal, setAlertFinal] = useState(false);
     const [alertId, setAlertId] = useState(null);
+    const storeName = data.data.tienda;
+    const storeEmail = data.data.tiendaEmail
     const handleEnvio = async (id, envio) => {
       await updatePricing(id, envio);
+      let mail = {
+        Email: storeEmail,
+        Nombre: user.displayName,
+        Subject: `${user.displayName} recibio el pedido y lo ha declarado como finalizado.`,
+        Html: `<div style="text-align:center;"><img src="https://firebasestorage.googleapis.com/v0/b/colombia-emprende-app.appspot.com/o/assets%2Flogo-colombia-emprende.png?alt=media&token=d74058e0-1418-41a6-8e72-d384c48c8cd0"
+        alt="Logo Colombia Emprende" style="width:300px;" /><h1>Hola <span style="color:#114aa5;">${storeName}</span></h1><h1><span style="color:#114aa5;">${user.displayName}</span> ha recibido el pedido y ha declarado el pedido como finalizado.</h1><div>El usuario declaro el pedido como finalizado.<br /> Puedes ir a los pedidos de tu emprendimiento y ver los detalles o eliminar este pedido finalizado.<div><br /><div style="font-size:12px; font-weigth:300;">Si sigues el siguiente link debes tener la sesión iniciada, de lo contrario inicia sesión y ve a los pedidos de tu emprendimiento.</div><a href="http://localhost:3000/admin/mi-emprendimiento/pedidos">Ir a los Pedidos de mi Emprendimiento</a></div></div><h3>Gracias por pertenecer a Colombia Emprende</h3></div>`,
+        Msj: "se ha enviado un nuevo mensaje del pedido en problema."
+      }
+      await sendMail(mail);
       setAlertFinal(true);
       sAlertFinal(id);
       setAlertCalificacion(false);
@@ -1093,6 +1119,7 @@ function MyOrders() {
                   >
                     <div className="accordion-body">
                       {estado.Cotizaciones.map((cotiza, index) => {
+                        let registro = getRegistro(cotiza._id);
                         let valorProductos = 0;
                         let valorTotal = 0;
                         cotiza.Pedidos.forEach((producto) => {
@@ -1128,8 +1155,14 @@ function MyOrders() {
                                   aria-expanded="true"
                                   aria-controls={`#collapseuser${cotiza._id}`}
                                 >
-                                  {store.Nombre}{" "}
-                                  {store.Delete && ". (Tienda Eliminada)."}
+                                  <div className="d-flex flex-column">
+                                  <div>
+                                   {store.Nombre}
+                                    {store.Delete && ". (Tienda Eliminada)."}
+                                  </div>
+                                    
+                                    <div className="num-pedido">Pedido <i class="fa fa-hashtag" aria-hidden="true"></i>: <b>{registro}</b></div>
+                                  </div>
                                 </button>
                               </h2>
                               <div
@@ -1472,6 +1505,7 @@ function MyOrders() {
                                             data={{
                                               pedido: cotiza,
                                               tienda: store.Nombre,
+                                              tiendaEmail: store.Email,
                                             }}
                                           />
                                         </div>
@@ -1634,14 +1668,24 @@ function MyOrders() {
                                                     </Button>
                                                     <Button
                                                       variant="primary"
-                                                      onClick={(e) => {
+                                                      onClick={async (e) => {
+                                                        e.preventDefault()
                                                         const problem = {
                                                           User_Problem: newMsg,
                                                         };
-                                                        setUserProblem(
+                                                        await setUserProblem(
                                                           cotiza._id,
                                                           problem
                                                         );
+                                                        let mail = {
+                                                          Email: store.Email,
+                                                          Nombre: user.displayName,
+                                                          Subject: `${user.displayName} ha enviado un nuevo mensaje del pedido en problema.`,
+                                                          Html: `<div style="text-align:center;"><img src="https://firebasestorage.googleapis.com/v0/b/colombia-emprende-app.appspot.com/o/assets%2Flogo-colombia-emprende.png?alt=media&token=d74058e0-1418-41a6-8e72-d384c48c8cd0"
+                                                          alt="Logo Colombia Emprende" style="width:300px;" /><h1>Hola <span style="color:#114aa5;">${store.Nombre}</span></h1><h1><span style="color:#114aa5;">${user.displayName}</span> ha enviado un nuevo mensaje sobre el pedido en problema.</h1><div>El usuario te ha enviado el siguiente mensaje:<br />${newMsg}<br /> Ve a los pedidos de tu emprendimiento y podrás contestar al cliente y resolver el problema.<div><br /><div style="font-size:12px; font-weigth:300;">Si sigues el siguiente link debes tener la sesión iniciada, de lo contrario inicia sesión y ve a los pedidos de tu emprendimiento.</div><a href="http://localhost:3000/admin/mi-emprendimiento/pedidos">Ir a los Pedidos de mi Emprendimiento</a></div></div><h3>Gracias por pertenecer a Colombia Emprende</h3></div>`,
+                                                          Msj: "se ha enviado un nuevo mensaje del pedido en problema."
+                                                        }
+                                                        await sendMail(mail);
                                                       }}
                                                     >
                                                       Enviar nuevo msg

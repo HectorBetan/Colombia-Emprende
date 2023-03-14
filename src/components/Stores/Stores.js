@@ -804,7 +804,7 @@ function Stores(data) {
             <div className="d-flex flex-row justify-content-center m-2 buscar-txt">
               <label className="m-1">Resultados por Página</label>
               <input
-                className="form-input busqueda"
+                className="busqueda form-control"
                 type="number"
                 min="1"
                 max="10"
@@ -922,7 +922,7 @@ function Stores(data) {
           <div className="d-flex flex-row justify-content-center m-2  buscar-txt">
             <label className="m-1">Resultados por Página</label>
             <input
-              className="form-input busqueda"
+              className="form-control busqueda"
               type="number"
               min="1"
               max="10"

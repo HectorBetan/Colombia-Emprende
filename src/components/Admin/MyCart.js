@@ -13,6 +13,7 @@ function MyCart() {
     updateCart,
     createPricing,
     deleteCarts,
+    sendMail,
   } = useAuth();
   const [start, setStart] = useState(true);
   const [cargando, setCargando] = useState(true);
@@ -124,11 +125,16 @@ function MyCart() {
     setAlertDel(true);
     sAlertDel();
   };
-  const handleCotizar = async (tienda, tkey) => {
+  const handleCotizar = async (tienda, tkey, store) => {
     const comentarios = document.getElementById(
       `comentarios${tienda.Tienda}`
     ).value;
-    const ciudad = document.getElementById(`ciudad${tienda.Tienda}`).value;
+    console.log(store)
+    console.log(user)
+    let ciudad = document.getElementById(`ciudad${tienda.Tienda}`).value;
+    if (ciudad === "default"){
+      ciudad = "";
+    }
     const dir = document.getElementById(`direccion${tienda.Tienda}`).value;
     let lista = [];
     let listaDelete = [];
@@ -159,14 +165,24 @@ function MyCart() {
     setAlert(true);
     sAlert();
     window.scroll(0, 0);
-    await sendCotizacion(cotizacion, listaDelete);
+    await sendCotizacion(cotizacion, listaDelete, store);
   };
-  const sendCotizacion = async (cotizacion, lista) => {
+  
+  const sendCotizacion = async (cotizacion, lista, store) => {
     await createPricing(cotizacion).catch((err) => {});
     const deleteMany = {
       id: lista,
     };
+    let mail = {
+      Email: store.Email,
+      Nombre: user.displayName,
+      Subject: `${user.displayName} ha solicitado una cotización a tu emprendimiento ${store.Nombre}.`,
+      Html: `<div style="text-align:center;"><img src="https://firebasestorage.googleapis.com/v0/b/colombia-emprende-app.appspot.com/o/assets%2Flogo-colombia-emprende.png?alt=media&token=d74058e0-1418-41a6-8e72-d384c48c8cd0"
+      alt="Logo Colombia Emprende" style="width:300px;" /><h1>Hola <span style="color:#114aa5;">${store.Nombre}</span></h1><h1><span style="color:#114aa5;">${user.displayName}</span> te ha solicitado una cotización</h1><div>Tienes una nueva solicitud de cotización en Colombia Emprende.<br /> Ve a las cotizaciones de tu emprendimiento y podrás responder esta solicitud al cliente.<div><br /><div style="font-size:12px; font-weigth:300;">Si sigues el siguiente link debes tener la sesión iniciada, de lo contrario inicia sesión y ve a las cotizaciones de tu emprendimiento.</div><a href="https://colombia-emprende.vercel.app/admin/mi-emprendimiento/cotizaciones">Ir a las Cotizaciones de Mi Emprendimiento</a></div></div><h3>Gracias por pertenecer a Colombia Emprende</h3></div>`,
+      Msj: "se ha solicitado una nueva cotización"
+    }
     await deleteCarts(deleteMany);
+    await sendMail(mail);
   };
   const Alert = () => {
     return (
@@ -207,6 +223,7 @@ function MyCart() {
       if (miCarrito.length > 0 && tiendas) {
         return (
           <div className="accordion">
+            
             {alert && <Alert />}
             {alertDel && <AlertDelete />}
             <h1 className="text-center admin-titles-cel">Mi Carrito</h1>
@@ -508,7 +525,7 @@ function MyCart() {
                             className="btn btn-primary ms-1 me-1 mt-2 mt-sm-0 "
                             onClick={(e) => {
                               e.preventDefault();
-                              handleCotizar(tienda, tkey);
+                              handleCotizar(tienda, tkey, store);
                             }}
                           >
                             Cotizar Estos Productos

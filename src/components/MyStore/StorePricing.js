@@ -10,7 +10,8 @@ function StorePricing() {
     readStorePricing,
     readUserInfo,
     deletePricing,
-    
+    sendMail,
+    getRegistro,
   } = useAuth();
   const {userStore} = useMyStore();
   const [w, setW] = useState(window.innerWidth);
@@ -158,8 +159,8 @@ function StorePricing() {
       return;
     });
   };
-  const handleNewCotizacion = async (id, cotiza) => {
-    await updatePricing(id, cotiza).then((res) => {});
+  const handleNewCotizacion = async (id, cotiza, usuario) => {
+    await updatePricing(id, cotiza);
     setAlert(true);
     sAlert();
     let lista1;
@@ -203,6 +204,15 @@ function StorePricing() {
       grupo.push(c);
     }
     setGroup(grupo);
+    let mail = {
+      Email: usuario.Email,
+      Nombre: userStore.Nombre,
+      Subject: `${userStore.Nombre} ha enviado la cotización solicitada.`,
+      Html: `<div style="text-align:center;"><img src="https://firebasestorage.googleapis.com/v0/b/colombia-emprende-app.appspot.com/o/assets%2Flogo-colombia-emprende.png?alt=media&token=d74058e0-1418-41a6-8e72-d384c48c8cd0"
+      alt="Logo Colombia Emprende" style="width:300px;" /><h1>Hola <span style="color:#114aa5;">${usuario.Nombre}</span></h1><h1><span style="color:#114aa5;">${userStore.Nombre}</span> te ha enviado la cotización solicitada.</h1><div>Tienes una nueva cotización enviada a tu usuario.<br /> Ve a tus cotizaciones y podrás responder esta solicitud al cliente.<div><br /><div style="font-size:12px; font-weigth:300;">Si sigues el siguiente link debes tener la sesión iniciada, de lo contrario inicia sesión y ve a tus cotizaciones.</div><a href="https://colombia-emprende.vercel.app/admin/mis-cotizaciones">Ir a Mis Cotizaciones</a></div></div><h3>Gracias por pertenecer a Colombia Emprende</h3></div>`,
+      Msj: "Se ha enviado la cotización solicitada."
+    }
+    await sendMail(mail);
     setStartT(true);
   };
   const handleRechazar = async (id) => {
@@ -316,6 +326,7 @@ function StorePricing() {
                   >
                     <div className="accordion-body">
                       {estado.Cotizaciones.map((cotiza, index) => {
+                        let registro = getRegistro(cotiza._id);
                         let valorProductos = 0;
                         let valorTotal = 0;
                         cotiza.Pedidos.forEach((producto) => {
@@ -359,8 +370,12 @@ function StorePricing() {
                                   aria-expanded="true"
                                   aria-controls={`#collapseuser${cotiza._id}`}
                                 >
-                                  Usuario: {usuario.Nombre}{" "}
-                                  {usuario.Delete && ". (Usuario Eliminado)."}
+                                  <div className="d-flex flex-column">
+                                  <div>
+                                    Usuario: {usuario.Nombre}
+                                  </div>
+                                    <div className="num-pedido-1">Cotización <i class="fa fa-hashtag" aria-hidden="true"></i>: <b>{registro}</b></div>
+                                  </div>
                                 </button>
                               </h2>
                               <div
@@ -556,7 +571,7 @@ function StorePricing() {
                                       )}
                                       {estado.Estado === "creada" &&
                                         !usuario.Delete && (
-                                          <input
+                                          <input className="admin-num-input"
                                             type="number"
                                             id={`valor-envio-${tes}`}
                                           />
@@ -582,7 +597,7 @@ function StorePricing() {
                                             Otros Valores:{" "}
                                           </h2>
                                           <input
-                                            type="number"
+                                            type="number" className="admin-num-input"
                                             id={`otros-valores-${tes}`}
                                           />
                                         </div>
@@ -649,7 +664,8 @@ function StorePricing() {
                                               e.preventDefault();
                                               handleNewCotizacion(
                                                 cotiza._id,
-                                                newCotizacion
+                                                newCotizacion,
+                                                usuario,
                                               );
                                             }}
                                           >

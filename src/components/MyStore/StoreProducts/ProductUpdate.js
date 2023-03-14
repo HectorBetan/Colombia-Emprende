@@ -90,7 +90,7 @@ function ProductUpdate(userProduct) {
                       type="number"
                       onChange={handleUpdateChange}
                       name="Precio"
-                      className="form-control"
+                      className="form-control admin-num-input"
                       placeholder="Valor del Producto"
                       value={existProduct.Precio}
                       required

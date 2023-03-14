@@ -352,9 +352,9 @@ function Store(data) {
                     {w >= 750 && (
                       <div className="d-flex flex-column justify-content-center">
                         <div className="d-flex flex-row  justify-content-evenly agregar-carrito-input">
-                          <label>Cantidad:</label>
+                          <label className="m-1 me-2">Cantidad:</label>
                           <input
-                          className="inpout"
+                          className="inpout form-control"
                             type="number"
                             min="1"
                             max="99"

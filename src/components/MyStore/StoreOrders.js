@@ -12,6 +12,8 @@ function StoreOrders() {
     readStoreOrders,
     readUserInfo,
     setStoreProblem,
+    sendMail,
+    getRegistro,
   } = useAuth();
   const {userStore} = useMyStore();
   const [w, setW] = useState(window.innerWidth);
@@ -161,10 +163,12 @@ function StoreOrders() {
       return;
     });
   };
-  const handleNewEnvio = async (id, envio) => {
+  const handleNewEnvio = async (id, envio, usuario) => {
     await createEnvio(id, envio).then(() => {});
+    
     setAlert(true);
     sAlert();
+
     let grupo = group;
     let num = null;
     let co;
@@ -198,7 +202,17 @@ function StoreOrders() {
       grupo.push(c);
     }
     setGroup(grupo);
+    let mail = {
+      Email: usuario.Email,
+      Nombre: userStore.Nombre,
+      Subject: `${userStore.Nombre} te ha enviado el pedido solicitado.`,
+      Html: `<div style="text-align:center;"><img src="https://firebasestorage.googleapis.com/v0/b/colombia-emprende-app.appspot.com/o/assets%2Flogo-colombia-emprende.png?alt=media&token=d74058e0-1418-41a6-8e72-d384c48c8cd0"
+      alt="Logo Colombia Emprende" style="width:300px;" /><h1>Hola <span style="color:#114aa5;">${usuario.Nombre}</span></h1><h1><span style="color:#114aa5;">${userStore.Nombre}</span> te ha enviado el pedido que habias solicitado.</h1><div>La tienda ha realizado el envío, el estado de tu pedido cambio a: en envío.<br /> Ve a tus pedidos y podrás confirmar la llegada de tu pedido o solucionar problemas.<div><br /><div style="font-size:12px; font-weigth:300;">Si sigues el siguiente link debes tener la sesión iniciada, de lo contrario inicia sesión y ve a tus pedidos.</div><a href="https://colombia-emprende.vercel.app/admin/mis-pedidos">Ir a Mis Pedidos</a></div></div><h3>Gracias por pertenecer a Colombia Emprende</h3></div>`,
+      Msj: "Se ha enviado el pedido solicitado."
+    }
+    await sendMail(mail);
     setStartT(true);
+
   };
   if (start && userData) {
     resolveCotizacion();
@@ -292,6 +306,7 @@ function StoreOrders() {
                   >
                     <div className="accordion-body">
                       {estado.Cotizaciones.map((cotiza, index) => {
+                        let registro = getRegistro(cotiza._id);
                         let valorProductos = 0;
                         let valorTotal = 0;
                         cotiza.Pedidos.forEach((producto) => {
@@ -341,7 +356,14 @@ function StoreOrders() {
                                   aria-expanded="true"
                                   aria-controls={`#collapseuser${cotiza._id}`}
                                 >
-                                  Usuario: {usuario.Nombre}{" "}
+                                  <div className="d-flex flex-column">
+                                  <div>
+                                    Usuario: {usuario.Nombre}
+                                  </div>
+                                    
+                                    <div className="num-pedido-1">Pedido <i class="fa fa-hashtag" aria-hidden="true"></i>: <b>{registro}</b></div>
+                                  </div>
+                                  
                                 </button>
                               </h2>
                               <div
@@ -583,7 +605,7 @@ function StoreOrders() {
                                           <h2 className="valor-titulo me-2">
                                             Numero de Guia:{" "}
                                           </h2>
-                                          <input
+                                          <input className="admin-num-input"
                                             type="number"
                                             id={`numero-guia-${tes}`}
                                           />
@@ -622,7 +644,7 @@ function StoreOrders() {
                                                 Estado: "envio",
                                               };
                                               e.preventDefault();
-                                              handleNewEnvio(cotiza._id, envio);
+                                              handleNewEnvio(cotiza._id, envio, usuario);
                                             }}
                                           >
                                             Envio Realizado
@@ -888,14 +910,24 @@ function StoreOrders() {
                                                     </Button>
                                                     <Button
                                                       variant="primary"
-                                                      onClick={(e) => {
+                                                      onClick={async (e) => {
+                                                        e.preventDefault()
                                                         const problem = {
                                                           User_Problem: newMsg,
                                                         };
-                                                        setStoreProblem(
+                                                        await setStoreProblem(
                                                           cotiza._id,
                                                           problem
                                                         );
+                                                        let mail = {
+                                                          Email: usuario.Email,
+                                                          Nombre: userStore.Nombre,
+                                                          Subject: `${userStore.Nombre} ha declarado el pedido en problema.`,
+                                                          Html: `<div style="text-align:center;"><img src="https://firebasestorage.googleapis.com/v0/b/colombia-emprende-app.appspot.com/o/assets%2Flogo-colombia-emprende.png?alt=media&token=d74058e0-1418-41a6-8e72-d384c48c8cd0"
+                                                          alt="Logo Colombia Emprende" style="width:300px;" /><h1>Hola <span style="color:#114aa5;">${usuario.Email}</span></h1><h1><span style="color:#114aa5;">${userStore.Nombre}</span> ha enviado un nuevo mensaje de tu pedido en problema.</h1><div>${userStore.Nombre} te ha enviado el siguiente mensaje sobre tu pedido en problema:<br />${newMsg}<br /> Ve a tus pedidos para enviar mas mensajes a la tienda y resolver el problema.<div><br /><div style="font-size:12px; font-weigth:300;">Si sigues el siguiente link debes tener la sesión iniciada, de lo contrario inicia sesión y ve a tus pedidos.</div><a href="https://colombia-emprende.vercel.app/admin/mis-pedidos">Ir a Mis Pedidos</a></div></div><h3>Gracias por pertenecer a Colombia Emprende</h3></div>`,
+                                                          Msj: "Se ha enviado declarado el pedido en problema y enviado un mensaje."
+                                                        }
+                                                        await sendMail(mail);
                                                       }}
                                                     >
                                                       Enviar nuevo msg

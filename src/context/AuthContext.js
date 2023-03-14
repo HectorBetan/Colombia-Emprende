@@ -316,6 +316,30 @@ export function AuthProvider({ children }) {
   const setStoreProblem = async (id, msg) => {
     await axios.put(`${dbUrl}pricing/set-store-problem/${id}`, msg);
   };
+  const sendMail = async (mail) => {
+    await axios.post(`${dbUrl}enviar-email`, mail);
+  };
+  const getRegistro = (id) => {
+    let meses = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"]
+                          let timeStamp = parseInt(id.toString().substr(0,8), 16)*1000
+                          let date = new Date(timeStamp)
+                          let fecha = date.toString().substring(4, 21);
+                          for (let i = 0; i<meses.length; i++){
+                            if (fecha.includes(meses[i])){
+                              let num = i+1
+                              if (num < 9){
+                                num = "0"+num.toString()
+                              } else {
+                                num = num.toString()
+                              }
+                              fecha = num + fecha.substring(4)
+                            }
+                          }
+                          fecha = fecha.replace(":", "")
+                          fecha = fecha.replace(/\s+/g, '', "")
+                          return fecha
+
+  }
   useEffect(() => {
     const getUserData = async () => {
       await axios
@@ -440,6 +464,8 @@ export function AuthProvider({ children }) {
         alertUser,
         alertUserFalse,
         alertUserTrue,
+        sendMail,
+        getRegistro,
       }}
     >
       {children}

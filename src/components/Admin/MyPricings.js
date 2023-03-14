@@ -11,6 +11,7 @@ function MyPricings() {
     updatePricing,
     readPricing,
     deletePricing,
+    getRegistro,
   } = useAuth();
   const [w, setW] = useState(window.innerWidth);
   const handleResize = () => {
@@ -265,6 +266,7 @@ function MyPricings() {
                     >
                       <div className="accordion-body">
                         {estado.Cotizaciones.map((cotiza, index) => {
+                          let registro = getRegistro(cotiza._id);
                           let valorProductos = 0;
                           let valorTotal = 0;
                           cotiza.Pedidos.forEach((producto) => {
@@ -296,14 +298,22 @@ function MyPricings() {
                                 >
                                   <button
                                     className="accordion-button acc-us-admin"
+                                    
                                     type="button"
                                     data-bs-toggle="collapse"
                                     data-bs-target={`#collapseuser${cotiza._id}`}
                                     aria-expanded="true"
                                     aria-controls={`#collapseuser${cotiza._id}`}
-                                  >
-                                    {store.Nombre}
+                                  > 
+                                  <div className="d-flex flex-column">
+                                  <div>
+                                   {store.Nombre}
                                     {store.Delete && ". (Tienda Eliminada)."}
+                                  </div>
+                                    
+                                    <div className="num-pedido">Cotización <i class="fa fa-hashtag" aria-hidden="true"></i><b>: {registro}</b></div>
+                                  </div>
+                                  
                                   </button>
                                 </h2>
                                 <div

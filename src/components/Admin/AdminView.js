@@ -113,6 +113,7 @@ function AdminView() {
     );
   return (
     <div className="d-block">
+      
       {alertPassword && <AlertPassword />}
       {alertEdit && <AlertEdit />}
       <div className="accordion accordion-flush" id="#acordionProfile">

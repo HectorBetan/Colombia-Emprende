@@ -186,7 +186,6 @@ export function MyStoreProvider({ children }) {
         getStoreProducts();
         setShowProducts("show");
         setLoadingStore(false)
-        console.log("entroe")
         setAlertEditImgProduct(true);
       });
     return;
