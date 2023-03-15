@@ -80,7 +80,7 @@ function NavigationBar() {
         <div className="accordion-item">
           <h2 className="accordion-header" id="ac-menu-1">
             <button
-              className="accordion-button collapsed p-2"
+              className="accordion-button p-2"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#flush-collapse1"
@@ -93,7 +93,7 @@ function NavigationBar() {
           </h2>
           <div
             id="flush-collapse1"
-            className="accordion-collapse collapse"
+            className="accordion-collapse collapse show"
             aria-labelledby="ac-menu-1"
             data-bs-parent="#acordionMenu"
           >

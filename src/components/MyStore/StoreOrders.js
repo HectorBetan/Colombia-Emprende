@@ -207,7 +207,7 @@ function StoreOrders() {
       Nombre: userStore.Nombre,
       Subject: `${userStore.Nombre} te ha enviado el pedido solicitado.`,
       Html: `<div style="text-align:center;"><img src="https://firebasestorage.googleapis.com/v0/b/colombia-emprende-app.appspot.com/o/assets%2Flogo-colombia-emprende.png?alt=media&token=d74058e0-1418-41a6-8e72-d384c48c8cd0"
-      alt="Logo Colombia Emprende" style="width:300px;" /><h1>Hola <span style="color:#114aa5;">${usuario.Nombre}</span></h1><h1><span style="color:#114aa5;">${userStore.Nombre}</span> te ha enviado el pedido que habias solicitado.</h1><div>La tienda ha realizado el envío, el estado de tu pedido cambio a: en envío.<br /> Ve a tus pedidos y podrás confirmar la llegada de tu pedido o solucionar problemas.<div><br /><div style="font-size:12px; font-weigth:300;">Si sigues el siguiente link debes tener la sesión iniciada, de lo contrario inicia sesión y ve a tus pedidos.</div><a href="https://colombia-emprende.vercel.app/admin/mis-pedidos">Ir a Mis Pedidos</a></div></div><h3>Gracias por pertenecer a Colombia Emprende</h3></div>`,
+      alt="Logo Colombia Emprende" style="width:300px;" /><h1>Hola <span style="color:#114aa5;">${usuario.Nombre}</span></h1><h2><span style="color:#114aa5;">${userStore.Nombre}</span> te ha enviado el pedido que habias solicitado.</h2><div>La tienda ha realizado el envío, el estado de tu pedido cambio a: en envío.<br /> Ve a tus pedidos y podrás confirmar la llegada de tu pedido o solucionar problemas.<div><br /><div style="font-size:12px; font-weigth:300;">Si sigues el siguiente link debes tener la sesión iniciada, de lo contrario inicia sesión y ve a tus pedidos.</div><a href="https://colombia-emprende.vercel.app/admin/mis-pedidos">Ir a Mis Pedidos</a></div></div><h3>Gracias por pertenecer a Colombia Emprende</h3></div>`,
       Msj: "Se ha enviado el pedido solicitado."
     }
     await sendMail(mail);
@@ -361,7 +361,7 @@ function StoreOrders() {
                                     Usuario: {usuario.Nombre}
                                   </div>
                                     
-                                    <div className="num-pedido-1">Pedido <i class="fa fa-hashtag" aria-hidden="true"></i>: <b>{registro}</b></div>
+                                    <div className="num-pedido-1">Pedido <i className="fa fa-hashtag" aria-hidden="true"></i>: <b>{registro}</b></div>
                                   </div>
                                   
                                 </button>
@@ -924,7 +924,7 @@ function StoreOrders() {
                                                           Nombre: userStore.Nombre,
                                                           Subject: `${userStore.Nombre} ha declarado el pedido en problema.`,
                                                           Html: `<div style="text-align:center;"><img src="https://firebasestorage.googleapis.com/v0/b/colombia-emprende-app.appspot.com/o/assets%2Flogo-colombia-emprende.png?alt=media&token=d74058e0-1418-41a6-8e72-d384c48c8cd0"
-                                                          alt="Logo Colombia Emprende" style="width:300px;" /><h1>Hola <span style="color:#114aa5;">${usuario.Email}</span></h1><h1><span style="color:#114aa5;">${userStore.Nombre}</span> ha enviado un nuevo mensaje de tu pedido en problema.</h1><div>${userStore.Nombre} te ha enviado el siguiente mensaje sobre tu pedido en problema:<br />${newMsg}<br /> Ve a tus pedidos para enviar mas mensajes a la tienda y resolver el problema.<div><br /><div style="font-size:12px; font-weigth:300;">Si sigues el siguiente link debes tener la sesión iniciada, de lo contrario inicia sesión y ve a tus pedidos.</div><a href="https://colombia-emprende.vercel.app/admin/mis-pedidos">Ir a Mis Pedidos</a></div></div><h3>Gracias por pertenecer a Colombia Emprende</h3></div>`,
+                                                          alt="Logo Colombia Emprende" style="width:300px;" /><h1>Hola <span style="color:#114aa5;">${usuario.Email}</span></h1><h2><span style="color:#114aa5;">${userStore.Nombre}</span> ha enviado un nuevo mensaje de tu pedido en problema.</h2><div>${userStore.Nombre} te ha enviado el siguiente mensaje sobre tu pedido en problema:<br />${newMsg}<br /> Ve a tus pedidos para enviar mas mensajes a la tienda y resolver el problema.<div><br /><div style="font-size:12px; font-weigth:300;">Si sigues el siguiente link debes tener la sesión iniciada, de lo contrario inicia sesión y ve a tus pedidos.</div><a href="https://colombia-emprende.vercel.app/admin/mis-pedidos">Ir a Mis Pedidos</a></div></div><h3>Gracias por pertenecer a Colombia Emprende</h3></div>`,
                                                           Msj: "Se ha enviado declarado el pedido en problema y enviado un mensaje."
                                                         }
                                                         await sendMail(mail);

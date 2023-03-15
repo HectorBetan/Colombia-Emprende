@@ -161,7 +161,7 @@ function MyPricings() {
     setStartT(true);
   };
   const handleRechazar = async (id) => {
-    const pedido = { Estado: "rechazado" };
+    const pedido = { Estado: "rechazado", User_Delete: true };
     await updatePricing(id, pedido);
     setAlertDel(true);
     sAlertDel();
@@ -187,7 +187,7 @@ function MyPricings() {
     setStartT(true);
   };
   const handleCancelar = async (id) => {
-    const pedido = { Estado: "cancelado" };
+    const pedido = { Estado: "cancelado",User_Delete: true  };
     await updatePricing(id, pedido);
     setAlertDel(true);
     sAlertDel();
@@ -311,7 +311,7 @@ function MyPricings() {
                                     {store.Delete && ". (Tienda Eliminada)."}
                                   </div>
                                     
-                                    <div className="num-pedido">Cotización <i class="fa fa-hashtag" aria-hidden="true"></i><b>: {registro}</b></div>
+                                    <div className="num-pedido">Cotización <i className="fa fa-hashtag" aria-hidden="true"></i><b>: {registro}</b></div>
                                   </div>
                                   
                                   </button>

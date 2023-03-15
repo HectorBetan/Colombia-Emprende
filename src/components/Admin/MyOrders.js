@@ -304,7 +304,7 @@ function MyOrders() {
                     Nombre: user.displayName,
                     Subject: `${user.displayName} ha declarado el pedido en problema.`,
                     Html: `<div style="text-align:center;"><img src="https://firebasestorage.googleapis.com/v0/b/colombia-emprende-app.appspot.com/o/assets%2Flogo-colombia-emprende.png?alt=media&token=d74058e0-1418-41a6-8e72-d384c48c8cd0"
-                    alt="Logo Colombia Emprende" style="width:300px;" /><h1>Hola <span style="color:#114aa5;">${storeName}</span></h1><h1><span style="color:#114aa5;">${user.displayName}</span> ha declarado el pedido en problema.</h1><div>El usuario ha declarado su pedido en problema y te ha enviado el siguiente mensaje:<br />${comentarios}<br /> Ve a los pedidos de tu emprendimiento y podrás contestar al cliente y resolver el problema.<div><br /><div style="font-size:12px; font-weigth:300;">Si sigues el siguiente link debes tener la sesión iniciada, de lo contrario inicia sesión y ve a los pedidos de tu emprendimiento.</div><a href="http://localhost:3000/admin/mi-emprendimiento/pedidos">Ir a los Pedidos de mi Emprendimiento</a></div></div><h3>Gracias por pertenecer a Colombia Emprende</h3></div>`,
+                    alt="Logo Colombia Emprende" style="width:300px;" /><h1>Hola <span style="color:#114aa5;">${storeName}</span></h1><h2><span style="color:#114aa5;">${user.displayName}</span> ha declarado el pedido en problema.</h2><div>El usuario ha declarado su pedido en problema y te ha enviado el siguiente mensaje:<br />${comentarios}<br /> Ve a los pedidos de tu emprendimiento y podrás contestar al cliente y resolver el problema.<div><br /><div style="font-size:12px; font-weigth:300;">Si sigues el siguiente link debes tener la sesión iniciada, de lo contrario inicia sesión y ve a los pedidos de tu emprendimiento.</div><a href="http://localhost:3000/admin/mi-emprendimiento/pedidos">Ir a los Pedidos de mi Emprendimiento</a></div></div><h3>Gracias por pertenecer a Colombia Emprende</h3></div>`,
                     Msj: "Se ha enviado declarado el pedido en problema y enviado un mensaje."
                   }
                   await sendMail(mail);
@@ -343,7 +343,7 @@ function MyOrders() {
         Nombre: user.displayName,
         Subject: `${user.displayName} recibio el pedido y lo ha declarado como finalizado.`,
         Html: `<div style="text-align:center;"><img src="https://firebasestorage.googleapis.com/v0/b/colombia-emprende-app.appspot.com/o/assets%2Flogo-colombia-emprende.png?alt=media&token=d74058e0-1418-41a6-8e72-d384c48c8cd0"
-        alt="Logo Colombia Emprende" style="width:300px;" /><h1>Hola <span style="color:#114aa5;">${storeName}</span></h1><h1><span style="color:#114aa5;">${user.displayName}</span> ha recibido el pedido y ha declarado el pedido como finalizado.</h1><div>El usuario declaro el pedido como finalizado.<br /> Puedes ir a los pedidos de tu emprendimiento y ver los detalles o eliminar este pedido finalizado.<div><br /><div style="font-size:12px; font-weigth:300;">Si sigues el siguiente link debes tener la sesión iniciada, de lo contrario inicia sesión y ve a los pedidos de tu emprendimiento.</div><a href="http://localhost:3000/admin/mi-emprendimiento/pedidos">Ir a los Pedidos de mi Emprendimiento</a></div></div><h3>Gracias por pertenecer a Colombia Emprende</h3></div>`,
+        alt="Logo Colombia Emprende" style="width:300px;" /><h1>Hola <span style="color:#114aa5;">${storeName}</span></h1><h2><span style="color:#114aa5;">${user.displayName}</span> ha recibido el pedido y ha declarado el pedido como finalizado.</h2><div>El usuario declaro el pedido como finalizado.<br /> Puedes ir a los pedidos de tu emprendimiento y ver los detalles o eliminar este pedido finalizado.<div><br /><div style="font-size:12px; font-weigth:300;">Si sigues el siguiente link debes tener la sesión iniciada, de lo contrario inicia sesión y ve a los pedidos de tu emprendimiento.</div><a href="http://localhost:3000/admin/mi-emprendimiento/pedidos">Ir a los Pedidos de mi Emprendimiento</a></div></div><h3>Gracias por pertenecer a Colombia Emprende</h3></div>`,
         Msj: "se ha enviado un nuevo mensaje del pedido en problema."
       }
       await sendMail(mail);
@@ -1161,7 +1161,9 @@ function MyOrders() {
                                     {store.Delete && ". (Tienda Eliminada)."}
                                   </div>
                                     
-                                    <div className="num-pedido">Pedido <i class="fa fa-hashtag" aria-hidden="true"></i>: <b>{registro}</b></div>
+                                    <div className="num-pedido">Pedido <i className="fa fa-hashtag" aria-hidden="true">
+                                      </i>: <b>{registro}</b>
+                                    </div>
                                   </div>
                                 </button>
                               </h2>
@@ -1682,7 +1684,7 @@ function MyOrders() {
                                                           Nombre: user.displayName,
                                                           Subject: `${user.displayName} ha enviado un nuevo mensaje del pedido en problema.`,
                                                           Html: `<div style="text-align:center;"><img src="https://firebasestorage.googleapis.com/v0/b/colombia-emprende-app.appspot.com/o/assets%2Flogo-colombia-emprende.png?alt=media&token=d74058e0-1418-41a6-8e72-d384c48c8cd0"
-                                                          alt="Logo Colombia Emprende" style="width:300px;" /><h1>Hola <span style="color:#114aa5;">${store.Nombre}</span></h1><h1><span style="color:#114aa5;">${user.displayName}</span> ha enviado un nuevo mensaje sobre el pedido en problema.</h1><div>El usuario te ha enviado el siguiente mensaje:<br />${newMsg}<br /> Ve a los pedidos de tu emprendimiento y podrás contestar al cliente y resolver el problema.<div><br /><div style="font-size:12px; font-weigth:300;">Si sigues el siguiente link debes tener la sesión iniciada, de lo contrario inicia sesión y ve a los pedidos de tu emprendimiento.</div><a href="http://localhost:3000/admin/mi-emprendimiento/pedidos">Ir a los Pedidos de mi Emprendimiento</a></div></div><h3>Gracias por pertenecer a Colombia Emprende</h3></div>`,
+                                                          alt="Logo Colombia Emprende" style="width:300px;" /><h1>Hola <span style="color:#114aa5;">${store.Nombre}</span></h1><h2><span style="color:#114aa5;">${user.displayName}</span> ha enviado un nuevo mensaje sobre el pedido en problema.</h2><div>El usuario te ha enviado el siguiente mensaje:<br />${newMsg}<br /> Ve a los pedidos de tu emprendimiento y podrás contestar al cliente y resolver el problema.<div><br /><div style="font-size:12px; font-weigth:300;">Si sigues el siguiente link debes tener la sesión iniciada, de lo contrario inicia sesión y ve a los pedidos de tu emprendimiento.</div><a href="http://localhost:3000/admin/mi-emprendimiento/pedidos">Ir a los Pedidos de mi Emprendimiento</a></div></div><h3>Gracias por pertenecer a Colombia Emprende</h3></div>`,
                                                           Msj: "se ha enviado un nuevo mensaje del pedido en problema."
                                                         }
                                                         await sendMail(mail);

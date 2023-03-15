@@ -41,9 +41,9 @@ export function AuthProvider({ children }) {
   const [userData, setUserData] = useState(null);
   const [alertDeleteUser, setAlertDeleteUser] = useState(false);
   const [alert1DeleteUser, setAlert1DeleteUser] = useState(false);
-  const [alertEdit, setAlertEdit] = useState(false)
-  const [alertUser, setAlertUser] = useState(false)
-  const [alertPassword, setAlertPassword] = useState(false)
+  const [alertEdit, setAlertEdit] = useState(false);
+  const [alertUser, setAlertUser] = useState(false);
+  const [alertPassword, setAlertPassword] = useState(false);
   const [alert1CreateUser, setAlert1CreateUser] = useState(false);
   const alertDeleteUserFalse = () => {
     setAlertDeleteUser(false);
@@ -85,7 +85,7 @@ export function AuthProvider({ children }) {
     });
   };
   const deletePhotoURL = async () => {
-    await updateProfile(auth.currentUser, { photoURL:null }).then(() => {
+    await updateProfile(auth.currentUser, { photoURL: null }).then(() => {
       setUser({ ...user, photoURL: null });
       return;
     });
@@ -94,14 +94,17 @@ export function AuthProvider({ children }) {
     return uploadBytes(ref(storage, `${user.uid}/${photoName}`), file);
   };
   const getPhotoURL = async (photoLocation) => {
-    console.log(photoLocation)
-    return await getDownloadURL(ref(storage, `${user.uid}/${photoLocation}`))
-    .catch((error)=>{
-      console.log(error)
+    console.log(photoLocation);
+    return await getDownloadURL(
+      ref(storage, `${user.uid}/${photoLocation}`)
+    ).catch((error) => {
+      console.log(error);
     });
   };
   const deletePhoto = async (photoLocation) => {
-    return await deleteObject(ref(storage, `${user.uid}/${photoLocation}`)).catch(error => {});
+    return await deleteObject(
+      ref(storage, `${user.uid}/${photoLocation}`)
+    ).catch((error) => {});
   };
   const passwordUpdate = (password) => {
     updatePassword(auth.currentUser, password).then(() => {
@@ -156,25 +159,28 @@ export function AuthProvider({ children }) {
   const delUser = async () => {
     setLoading(true);
     await deletePhotoURL();
-    await deleteUser(auth.currentUser).then(()=>{
+    await deleteUser(auth.currentUser).then(() => {
       setUserData(null);
-      setAlert1DeleteUser(false)
+      setAlert1DeleteUser(false);
       setAlertDeleteUser(true);
       setLoading(false);
-    }) 
+    });
   };
   const reAuthenticate = (credential) => {
     return reauthenticateWithCredential(auth.currentUser, credential);
   };
   const createUser = async (userD) => {
-    await axios.post(`${dbUrl}users/create-user`, userD)
-    .then(()=>{
-      setAlert1CreateUser(false)
-      if (user.emailVerified){
-        navigate("/admin", {replace:true})
-      }
-    })
-    .catch((error) => {console.log(error)});
+    await axios
+      .post(`${dbUrl}users/create-user`, userD)
+      .then(() => {
+        setAlert1CreateUser(false);
+        if (user.emailVerified) {
+          navigate("/admin", { replace: true });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   const updateUser = async (data) => {
     if (!token) {
@@ -203,28 +209,26 @@ export function AuthProvider({ children }) {
     return;
   };
   const deleteUserDoc = async (id) => {
-    setLoading(true)
+    setLoading(true);
     if (!token) {
       let config = localStorage.getItem("token");
       setToken(config);
     }
-    setAlert1DeleteUser(true)
-    await axios.delete(`${dbUrl}users/delete-user/${id}`, id, token)
-    .catch((err) => {
-    });
-    await delUser()
-    .catch((err) => {
-      if (err){
+    setAlert1DeleteUser(true);
+    await axios
+      .delete(`${dbUrl}users/delete-user/${id}`, id, token)
+      .catch((err) => {});
+    await delUser().catch((err) => {
+      if (err) {
         try {
           loginWithGoogle();
           delUser();
-        } catch (error) {
-        }
+        } catch (error) {}
       }
     });
   };
   const createStoreAuth = async (id) => {
-    await updateUserStore(id);  
+    await updateUserStore(id);
     setUserData(null);
     setLoading(false);
   };
@@ -263,8 +267,7 @@ export function AuthProvider({ children }) {
     return;
   };
   const createPricing = async (cotizacion) => {
-    await axios.post(`${dbUrl}pricing/create-pricing`, cotizacion);
-    return;
+    return await axios.post(`${dbUrl}pricing/create-pricing`, cotizacion);
   };
   const createEnvio = async (id, envio) => {
     await axios.put(`${dbUrl}pricing/create-envio/${id}`, envio);
@@ -320,26 +323,39 @@ export function AuthProvider({ children }) {
     await axios.post(`${dbUrl}enviar-email`, mail);
   };
   const getRegistro = (id) => {
-    let meses = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"]
-                          let timeStamp = parseInt(id.toString().substr(0,8), 16)*1000
-                          let date = new Date(timeStamp)
-                          let fecha = date.toString().substring(4, 21);
-                          for (let i = 0; i<meses.length; i++){
-                            if (fecha.includes(meses[i])){
-                              let num = i+1
-                              if (num < 9){
-                                num = "0"+num.toString()
-                              } else {
-                                num = num.toString()
-                              }
-                              fecha = num + fecha.substring(4)
-                            }
-                          }
-                          fecha = fecha.replace(":", "")
-                          fecha = fecha.replace(/\s+/g, '', "")
-                          return fecha
-
-  }
+    let meses = [
+      "Ene",
+      "Feb",
+      "Mar",
+      "Abr",
+      "May",
+      "Jun",
+      "Jul",
+      "Ago",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dic",
+    ];
+    let timeStamp = parseInt(id.toString().substr(0, 8), 16) * 1000;
+    let date = new Date(timeStamp);
+    let fecha = date.toString().substring(4, 24);
+    for (let i = 0; i < meses.length; i++) {
+      if (fecha.includes(meses[i])) {
+        let num = i + 1;
+        if (num < 9) {
+          num = "0" + num.toString();
+        } else {
+          num = num.toString();
+        }
+        fecha = num + fecha.substring(4);
+      }
+    }
+    fecha = fecha.replaceAll(":", "");
+    fecha = fecha.replace(/\s+/g, "", "");
+    fecha = fecha.slice(0, 4) + fecha.slice(6);
+    return fecha;
+  };
   useEffect(() => {
     const getUserData = async () => {
       await axios
@@ -358,7 +374,7 @@ export function AuthProvider({ children }) {
             setLoading(false);
             return;
           } else {
-            setAlert1CreateUser(true)
+            setAlert1CreateUser(true);
             const userData = {
               Uid: user.uid,
               Email: user.email,
@@ -369,16 +385,18 @@ export function AuthProvider({ children }) {
               Direccion: "",
             };
             window.scroll(0, 0);
-            axios.post(`${dbUrl}users/create-user`, userData)
-            .then(()=>{
-              setAlert1CreateUser(false)
-              if (user.emailVerified){
-                navigate("/admin")
-              }
-            })
-            .catch((error) => {console.log(error)});
+            axios
+              .post(`${dbUrl}users/create-user`, userData)
+              .then(() => {
+                setAlert1CreateUser(false);
+                if (user.emailVerified) {
+                  navigate("/admin");
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+              });
           }
-
         })
         .catch((error) => {
           setLoading(false);
@@ -392,8 +410,8 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      if (!currentUser){
-        setLoading(false)
+      if (!currentUser) {
+        setLoading(false);
       }
     });
     return () => unsubscribe();

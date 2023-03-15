@@ -14,6 +14,7 @@ function MyCart() {
     createPricing,
     deleteCarts,
     sendMail,
+    getRegistro,
   } = useAuth();
   const [start, setStart] = useState(true);
   const [cargando, setCargando] = useState(true);
@@ -129,8 +130,6 @@ function MyCart() {
     const comentarios = document.getElementById(
       `comentarios${tienda.Tienda}`
     ).value;
-    console.log(store)
-    console.log(user)
     let ciudad = document.getElementById(`ciudad${tienda.Tienda}`).value;
     if (ciudad === "default"){
       ciudad = "";
@@ -169,16 +168,39 @@ function MyCart() {
   };
   
   const sendCotizacion = async (cotizacion, lista, store) => {
-    await createPricing(cotizacion).catch((err) => {});
+    let registro
+    await createPricing(cotizacion)
+    .then((res)=>{
+      if(res.data){
+        registro = getRegistro(res.data._id) 
+      }
+    })
+    .catch((err) => {});
     const deleteMany = {
       id: lista,
     };
+    let numReg
+    if(registro){
+      numReg = `<div style="margin-bottom:15px;"><span style="font-size:20px; margin-right:5px;">Cotización #:</span><span style="font-size:21px; font-weight:600;">${registro}</span></div>`
+    } else {
+      numReg = ""
+    }
     let mail = {
       Email: store.Email,
       Nombre: user.displayName,
       Subject: `${user.displayName} ha solicitado una cotización a tu emprendimiento ${store.Nombre}.`,
-      Html: `<div style="text-align:center;"><img src="https://firebasestorage.googleapis.com/v0/b/colombia-emprende-app.appspot.com/o/assets%2Flogo-colombia-emprende.png?alt=media&token=d74058e0-1418-41a6-8e72-d384c48c8cd0"
-      alt="Logo Colombia Emprende" style="width:300px;" /><h1>Hola <span style="color:#114aa5;">${store.Nombre}</span></h1><h1><span style="color:#114aa5;">${user.displayName}</span> te ha solicitado una cotización</h1><div>Tienes una nueva solicitud de cotización en Colombia Emprende.<br /> Ve a las cotizaciones de tu emprendimiento y podrás responder esta solicitud al cliente.<div><br /><div style="font-size:12px; font-weigth:300;">Si sigues el siguiente link debes tener la sesión iniciada, de lo contrario inicia sesión y ve a las cotizaciones de tu emprendimiento.</div><a href="https://colombia-emprende.vercel.app/admin/mi-emprendimiento/cotizaciones">Ir a las Cotizaciones de Mi Emprendimiento</a></div></div><h3>Gracias por pertenecer a Colombia Emprende</h3></div>`,
+      Html: `<div style="text-align:center;">
+      <img src="https://firebasestorage.googleapis.com/v0/b/colombia-emprende-app.appspot.com/o/assets%2Flogo-colombia-emprende.png?alt=media&token=d74058e0-1418-41a6-8e72-d384c48c8cd0" alt="Logo Colombia Emprende" style="width:300px;" />
+      <h1>Hola <span style="color:#114aa5;">${store.Nombre}</span></h1>
+      <h2><span style="color:#114aa5;">${user.displayName}</span> te ha solicitado una cotización</h2>
+      ${numReg}<div>Tienes una nueva solicitud de cotización en Colombia Emprende.<br /> 
+      Ve a las cotizaciones de tu emprendimiento y podrás responder esta solicitud al cliente.</div>
+      <div style="margin:10px;margin-top:25px;background-color: #1D67DF; padding: 10px; border-radius:10px; display: inline-block;">
+      <a href="https://colombia-emprende.vercel.app/admin/mi-emprendimiento/cotizaciones" style="color: #fff; font-size:15px; font-weight:500; text-decoration:none;">Ir a las Cotizaciones de Mi Emprendimiento</a>
+      </div>
+      <div style="font-size:11px; font-weigth:300;">Si sigues este botón debes tener la sesión iniciada, de lo contrario ve a Colombia Emprende inicia sesión y ve a las cotizaciones de tu emprendimiento.</div>
+      <h3>Gracias por pertenecer a Colombia Emprende</h3>
+      </div>`,
       Msj: "se ha solicitado una nueva cotización"
     }
     await deleteCarts(deleteMany);
@@ -223,7 +245,6 @@ function MyCart() {
       if (miCarrito.length > 0 && tiendas) {
         return (
           <div className="accordion">
-            
             {alert && <Alert />}
             {alertDel && <AlertDelete />}
             <h1 className="text-center admin-titles-cel">Mi Carrito</h1>
@@ -570,6 +591,7 @@ function MyCart() {
   }
   return (
     <div>
+
       <h1 className="text-center admin-titles-cel">Mi Carrito</h1>
       <CarritoItems />
     </div>
