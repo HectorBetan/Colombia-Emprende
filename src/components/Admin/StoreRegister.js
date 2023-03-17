@@ -25,6 +25,7 @@ function StoreRegister() {
     Descripcion: "",
     Calificacion: [],
     Path: "",
+    Recoger: false,
   });
   const [required, setRequired] = useState(true);
   const [img, setImg] = useState(null);
@@ -95,6 +96,14 @@ function StoreRegister() {
     if (!e.target.checked) {
       setRequired(true);
       setEmprendimiento({ ...emprendimiento, Email: e.target.value });
+    }
+  };
+  const handleRecoger = (e) => {
+    if (e.target.checked) {
+      setEmprendimiento({ ...emprendimiento, Recoger: true });
+    }
+    if (!e.target.checked) {
+      setEmprendimiento({ ...emprendimiento, Recoger: false });
     }
   };
   function camelize(str) {
@@ -191,7 +200,8 @@ function StoreRegister() {
   };
   const create = async (storeName, photos, path) => {
     try {
-      await createStore(emprendimiento, storeName, photos, path).then(() => {
+      await createStore(emprendimiento, storeName, photos, path).then((res) => {
+        console.log(res)
         getMyStore();
       });
     } catch (error) {
@@ -259,18 +269,18 @@ function StoreRegister() {
                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                   required={required}
                 />
-                <div className="d-flex flex-row">
+                <h5 className="d-flex flex-row m-1 font-store-reg font-store-reg-1">
                   <input
-                    className="m-1"
+                    className="form-check-input mt-1em"
                     type="checkbox"
                     id="emailCheck"
                     onClick={handleEmailChange}
                     value={user.email}
                   />
-                  <span className="text-email-regstore">
+                  <span className="color-rec">
                     Usar el mismo email de mi cuenta.
                   </span>
-                </div>
+                </h5>
               </div>
             </div>
             <div className="d-flex flex-row justify-content-evenly store-register-input-1">
@@ -332,6 +342,20 @@ function StoreRegister() {
                 />
               </div>
             </div>
+            {emprendimiento.Direccion && 
+            <h5 className="d-flex flex-row justify-content-center m-3 font-store-reg">
+            <input
+              className="form-check-input mt-1em"
+              type="checkbox"
+              id="emailCheck"
+              onClick={handleRecoger}
+              value=""
+            />
+            <span className="color-rec">
+              Habilitar la opción de recoger en tienda.
+            </span>
+          </h5>
+            }
             <div className="d-flex flex-row justify-content-evenly city-cat">
               <div className="form-group col-5 m-1">
                 <label className="m-1">Categoria:</label>

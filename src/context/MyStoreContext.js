@@ -9,7 +9,7 @@ export const useMyStore = () => {
   return context;
 };
 export function MyStoreProvider({ children }) {
-  const { token, userData, createStoreAuth } = useAuth();
+  const { token, userData, createStoreAuth, user, sendUserMail } = useAuth();
   const navigate = useNavigate();
   let location = useLocation();
   const dbUrl = "https://colombia-emprende-server-production.up.railway.app/";
@@ -95,15 +95,40 @@ export function MyStoreProvider({ children }) {
       Calificacion: emprendimiento.Calificacion,
       Path: path,
     };
-    await axios.post(`${dbUrl}stores/create-store`, data, token).then((res) => {
+    return await axios.post(`${dbUrl}stores/create-store`, data, token).then((res) => {
       id = { Emprendimiento_id: res.data._id };
       createStoreAuth(id);
       setUserStore(res.data)
+      
       setAlertCreateStore(true);
       setAlert1CreateStore(false);
       setLoadingStore(false);
+      let mail = {
+        Email: user.email,
+        Nombre: "Emprendimiento Registrado",
+        Subject: `Has registrado tu emprendimiento ${res.data.Nombre} en Colombia Emprende.`,
+        Html: `<div style="text-align:center;">
+        <img src="https://firebasestorage.googleapis.com/v0/b/colombia-emprende-app.appspot.com/o/assets%2Flogo-colombia-emprende.png?alt=media&token=d74058e0-1418-41a6-8e72-d384c48c8cd0" alt="Logo Colombia Emprende" style="width:300px;" />
+        <h1>Hola <span style="color:#114aa5;">${user.displayName}</span></h1>
+        <div style="; background-color:#EFF6FD; border-radius:10px; display: inline-block; padding: 0px 15px; margin-bottom:10px; border-style: solid; border-color: #114aa550;">
+        <h2>Has registrado tu emprendimiento <span style="color:#114aa5;">${res.data.Nombre}</span> en Colombia Emprende</h2>
+        </div>
+        <div>Has registrado un nuevo emprendimiento en nuestra página.<br /> Te damos la bienvenida y te invitamos a hacer uso de todas las posibilidades que Colombia Emprende tiene para tu emprendimiento.</div>
+        <div style="margin:10px;margin-top:25px;background-color: #1D67DF; padding: 10px; border-radius:10px; display: inline-block;">
+        <a href="https://colombia-emprende.vercel.app/admin/mi-emprendimiento" style="color: #fff; font-size:15px; font-weight:500; text-decoration:none;">Ir a Mi Emprendimiento</a>
+        </div>
+        <div style="font-size:11px; font-weigth:300;">Si sigues este botón debes tener la sesión iniciada, de lo contrario ve a Colombia Emprende inicia sesión y ve a tu emprendimiento.</div>
+        <h3>Gracias por pertenecer a Colombia Emprende</h3>
+        </div>`,
+        Msj: `Se ha registrado tu emprendimiento ${res.data.Nombre} en Colombia Emprende.`
+      }
+      try {
+        sendUserMail(mail);
+      } catch (error) {
+        console.log(error)
+      }
+      
       navigate("/admin/mi-emprendimiento");
-      return;
     });
   };
   const updateStore = async (emprendimiento) => {
@@ -136,8 +161,6 @@ export function MyStoreProvider({ children }) {
   };
   const deleteStore = async (emprendimiento) => {
     
-    setLoadingStore(true);
-    setAlertDeleteStore(true);
     await axios
       .put(`${dbUrl}stores/delete-store`, emprendimiento, token)
       .then(() => {
@@ -146,7 +169,8 @@ export function MyStoreProvider({ children }) {
         const id = { Emprendimiento_id: "" };
         createStoreAuth(id);
         setAlert1DeleteStore(false);
-        setLoadingStore(false)
+        setAlertDeleteStore(true);
+        navigate("/admin")
       })
       .catch((err) => {
       });

@@ -44,9 +44,27 @@ export function AuthProvider({ children }) {
   const [alertEdit, setAlertEdit] = useState(false);
   const [alertUser, setAlertUser] = useState(false);
   const [alertPassword, setAlertPassword] = useState(false);
+  const [alertCreateUser, setAlertCreateUser] = useState(false);
   const [alert1CreateUser, setAlert1CreateUser] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [alertLogin, setAlertLogin] = useState(false);
+  const alertLoginFalse = () => {
+    setAlertLogin(false);
+  };
+  const alertLoginTrue = () => {
+    setAlertLogin(true);
+  };
+  const showLoginFalse = () => {
+    setShowLogin(false);
+  };
+  const showLoginTrue = () => {
+    setShowLogin(true);
+  };
   const alertDeleteUserFalse = () => {
     setAlertDeleteUser(false);
+  };
+  const alertCreateUserFalse = () => {
+    setAlertCreateUser(false);
   };
   const alertUserFalse = () => {
     setAlertUser(false);
@@ -174,6 +192,40 @@ export function AuthProvider({ children }) {
       .post(`${dbUrl}users/create-user`, userD)
       .then(() => {
         setAlert1CreateUser(false);
+        setAlertCreateUser(true);
+        let a
+                let b
+                if (user.emailVerified) {
+                  a = `<a href="https://colombia-emprende.vercel.app/admin" style="color: #fff; font-size:15px; font-weight:500; text-decoration:none;">Ir a Mi Perfil</a>`
+                  b = `<div style="font-size:11px; font-weigth:300;">Si sigues este botón debes tener la sesión iniciada, de lo contrario ve a Colombia Emprende inicia sesión y ve a tu perfil.</div>`
+                } else {
+                  a = `<a href="https://colombia-emprende.vercel.app" style="color: #fff; font-size:15px; font-weight:500; text-decoration:none;">Ir Colombia Emprende</a>`
+                  b = `<div style="font-size:11px; font-weigth:300;">Recuerda verificar tu cuenta de usuario para hacer uso de las funciones de Colombia Emprende.</div>`
+                }
+                let mail = {
+                  Email: user.email,
+                  Nombre: "Usuario Registrado",
+                  Subject: `{user.displayName} te damos la bienvenida a Colombia Emprende.`,
+                  Html: `<div style="text-align:center;">
+                  <img src="https://firebasestorage.googleapis.com/v0/b/colombia-emprende-app.appspot.com/o/assets%2Flogo-colombia-emprende.png?alt=media&token=d74058e0-1418-41a6-8e72-d384c48c8cd0" alt="Logo Colombia Emprende" style="width:300px;" />
+                  <h1>Bienvenido <span style="color:#114aa5;">${user.displayName}</span></h1>
+                  <div style="; background-color:#EFF6FD; border-radius:10px; display: inline-block; padding: 0px 15px; margin-bottom:10px; border-style: solid; border-color: #114aa550;">
+                  <h2>Te has registrado con éxito en Colombia Emprende</h2>
+                  </div>
+                  <div>Te has registrado en nuestra página, estamos felices de tenerte aca.<br /> Te damos la bienvenida y te invitamos a hacer uso de todas las posibilidades que Colombia Emprende tiene para ti.</div>
+                  <div style="margin:10px;margin-top:25px;background-color: #1D67DF; padding: 10px; border-radius:10px; display: inline-block;">
+                  ${a}
+                  </div>
+                  ${b}
+                  <h3>Gracias por ser parte de Colombia Emprende</h3>
+                  </div>`,
+                  Msj: `Se ha registrado tu usuario en Colombia Emprende.`
+                }
+                try {
+                  sendUserMail(mail);
+                } catch (error) {
+                  console.log(error)
+                }
         if (user.emailVerified) {
           navigate("/admin", { replace: true });
         }
@@ -273,6 +325,10 @@ export function AuthProvider({ children }) {
     await axios.put(`${dbUrl}pricing/create-envio/${id}`, envio);
     return;
   };
+  const createRecoger = async (id, recoger) => {
+    await axios.put(`${dbUrl}pricing/create-recoger/${id}`, recoger);
+    return;
+  };
   const readPricing = async (id) => {
     const response = await axios.get(`${dbUrl}pricing/get-pricing/${id}`);
     return response;
@@ -320,25 +376,30 @@ export function AuthProvider({ children }) {
     await axios.put(`${dbUrl}pricing/set-store-problem/${id}`, msg);
   };
   const sendMail = async (mail) => {
-    await axios.post(`${dbUrl}enviar-email`, mail);
+    await axios.post(`${dbUrl}enviar-email`, mail, token)
+    .catch((error)=>console.log(error));
   };
+  const sendUserMail = async (mail) => {
+        await axios.post(`${dbUrl}enviar-user-email`, mail, token);
+      };
   const getRegistro = (id) => {
     let meses = [
-      "Ene",
+      "Jan",
       "Feb",
       "Mar",
-      "Abr",
+      "Apr",
       "May",
       "Jun",
       "Jul",
-      "Ago",
+      "Aug",
       "Sep",
       "Oct",
       "Nov",
-      "Dic",
+      "Dec",
     ];
     let timeStamp = parseInt(id.toString().substr(0, 8), 16) * 1000;
     let date = new Date(timeStamp);
+    const onlyNumbers = id.replace(/[^0-9]+/g, "");
     let fecha = date.toString().substring(4, 24);
     for (let i = 0; i < meses.length; i++) {
       if (fecha.includes(meses[i])) {
@@ -352,12 +413,16 @@ export function AuthProvider({ children }) {
       }
     }
     fecha = fecha.replaceAll(":", "");
-    fecha = fecha.replace(/\s+/g, "", "");
-    fecha = fecha.slice(0, 4) + fecha.slice(6);
+    fecha = fecha.replace(/\s+/g, "");
+    fecha = fecha.slice(0, 4) + fecha.slice(6) + onlyNumbers.slice(-1);
     return fecha;
   };
   useEffect(() => {
+    
     const getUserData = async () => {
+      const sendUserMail1 = async (mail) => {
+        await axios.post(`${dbUrl}enviar-user-email`, mail, token);
+      };
       await axios
         .get(`${dbUrl}users/get-user/${user.uid}`)
         .then((response) => {
@@ -389,6 +454,42 @@ export function AuthProvider({ children }) {
               .post(`${dbUrl}users/create-user`, userData)
               .then(() => {
                 setAlert1CreateUser(false);
+                let a
+                let b
+                setAlertCreateUser(true);
+                if (user.emailVerified) {
+                  a = `<a href="https://colombia-emprende.vercel.app/admin" style="color: #fff; font-size:15px; font-weight:500; text-decoration:none;">Ir a Mi Perfil</a>`
+                  b = `<div style="font-size:11px; font-weigth:300;">Si sigues este botón debes tener la sesión iniciada, de lo contrario ve a Colombia Emprende inicia sesión y ve a tu perfil.</div>`
+                } else {
+                  a = `<a href="https://colombia-emprende.vercel.app" style="color: #fff; font-size:15px; font-weight:500; text-decoration:none;">Ir Colombia Emprende</a>`
+                  b = `<div style="font-size:11px; font-weigth:300;">Recuerda verificar tu cuenta de usuario para hacer uso de las funciones de Colombia Emprende.</div>`
+                }
+                
+                let mail = {
+                  Email: user.email,
+                  Nombre: "Usuario Registrado",
+                  Subject: `{user.displayName} te damos la bienvenida a Colombia Emprende.`,
+                  Html: `<div style="text-align:center;">
+                  <img src="https://firebasestorage.googleapis.com/v0/b/colombia-emprende-app.appspot.com/o/assets%2Flogo-colombia-emprende.png?alt=media&token=d74058e0-1418-41a6-8e72-d384c48c8cd0" alt="Logo Colombia Emprende" style="width:300px;" />
+                  <h1>Bienvenido <span style="color:#114aa5;">${user.displayName}</span></h1>
+                  <div style="; background-color:#EFF6FD; border-radius:10px; display: inline-block; padding: 0px 15px; margin-bottom:10px; border-style: solid; border-color: #114aa550;">
+                  <h2>Te has registrado con éxito en Colombia Emprende</h2>
+                  </div>
+                  <div>Te has registrado en nuestra página, estamos felices de tenerte aca.<br /> Te damos la bienvenida y te invitamos a hacer uso de todas las posibilidades que Colombia Emprende tiene para ti.</div>
+                  <div style="margin:10px;margin-top:25px;background-color: #1D67DF; padding: 10px; border-radius:10px; display: inline-block;">
+                  ${a}
+                  </div>
+                  ${b}
+                  <h3>Gracias por ser parte de Colombia Emprende</h3>
+                  </div>`,
+                  Msj: `Se ha registrado tu usuario en Colombia Emprende.`
+                }
+                try {
+                  sendUserMail1(mail);
+                } catch (error) {
+                  console.log(error)
+                }
+                
                 if (user.emailVerified) {
                   navigate("/admin");
                 }
@@ -406,7 +507,7 @@ export function AuthProvider({ children }) {
       setLoading(true);
       getUserData();
     }
-  }, [user, userData, loading, navigate]);
+  }, [user, userData, loading, navigate, token]);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
@@ -484,6 +585,16 @@ export function AuthProvider({ children }) {
         alertUserTrue,
         sendMail,
         getRegistro,
+        showLogin,
+        showLoginFalse,
+        showLoginTrue,
+        alertLogin,
+        alertLoginTrue,
+        alertLoginFalse,
+        sendUserMail,
+        createRecoger,
+        alertCreateUser,
+        alertCreateUserFalse
       }}
     >
       {children}

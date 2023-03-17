@@ -50,9 +50,9 @@ function Home() {
       <>
         <Modal show={showCreate} onHide={handleCloseCreate}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title><i className="fa-solid fa-circle-check me-2 text-success"></i>Cuenta Creada</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Se ha creado tu cuenta de usuario</Modal.Body>
+        <Modal.Body>Se ha creado tu cuenta de usuario.</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseCreate}>
             Cerrar

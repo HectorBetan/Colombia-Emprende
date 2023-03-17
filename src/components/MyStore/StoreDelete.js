@@ -4,9 +4,7 @@ import { useMyStore } from "../../context/MyStoreContext";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Alert from "../../utilities/alert.utilities";
-import { useNavigate } from "react-router-dom";
 function StoreDelete() {
-  const navigate = useNavigate();
   const { deletePhoto, readStorePays, loading } = useAuth();
   const { deleteStore, userStore, loadingStore, alert1DeleteStoreTrue } = useMyStore();
   const [error, setError] = useState("");
@@ -167,7 +165,7 @@ function StoreDelete() {
     alert1DeleteStoreTrue();
     window.scroll(0, 0);
     try {
-      deleteStore(userStore);
+      
       if (emprendimientoImg) {
         let url = `/emprendimiento/perfil/`;
         let fotos = emprendimientoImg.split(",");
@@ -177,10 +175,11 @@ function StoreDelete() {
           } catch (error) {}
         }
       }
+      await deleteStore(userStore);
     } catch (error) {
       setError(error.message);
     }
-    navigate("/admin")
+    
   };
   if (error) {
     setTimeout(() => {

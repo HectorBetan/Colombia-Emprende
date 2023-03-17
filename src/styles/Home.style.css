@@ -2,6 +2,12 @@
 .foot {
   margin-top: 0px;
 }
+.color-rec{
+  color: #0c214e;
+}
+.mt-1em{
+  margin-top: .08em!important;
+}
 .opa-0 .modal-content{
   background-color: #00000000!important;
   border-color: #00000000!important;
@@ -506,6 +512,12 @@ publicidad 2
   display: flex;
   flex-direction: row;
 }
+.font-store-reg{
+  align-items: center!important;
+}
+.font-store-reg input{
+  margin-right: 8px!important;
+}
 @media only screen and (max-width: 1280px) and (min-width: 1150px) {
   .stores-home {
     width: 350px;
@@ -551,6 +563,16 @@ publicidad 2
     margin-bottom: 0px;
     font-weight: 650;
     vertical-align: middle;
+  }
+}
+@media only screen and (max-width: 1150px) {
+  .font-store-reg-1{
+    font-size: 18px!important;
+  }
+}
+@media only screen and (max-width: 1100px) {
+  .font-store-reg-1{
+    font-size: 1.25rem!important;
   }
 }
 @media only screen and (max-width: 1150px) and (min-width: 960px) {
@@ -1293,6 +1315,12 @@ publicidad 2
   }
 }
 @media only screen and (max-width: 650px) {
+  .font-store-up{
+    justify-content: start!important;
+  }
+  .font-store-reg{
+    font-size: 1.15rem!important;
+  }
   .seleccion {
     width: 120px;
   }
@@ -1402,6 +1430,11 @@ publicidad 2
   }
 }
 @media only screen and (max-width: 575px) {
+  .caja-update-store{
+    padding: 10px!important;
+  }
+}
+@media only screen and (max-width: 575px) {
   .logo-footer-acerca {
     height: 70px;
     margin: 0px 10px;
@@ -1418,6 +1451,9 @@ publicidad 2
 }
 
 @media only screen and (max-width: 550px) {
+  .font-store-reg{
+    font-size: 1rem!important;
+  }
   .logo-footer-acerca {
     height: 70px;
     margin: 0px 10px;
@@ -1579,6 +1615,9 @@ publicidad 2
   }
 }
 @media only screen and (max-width: 500px) {
+  .font-store-reg input{
+    margin-right: 5px!important;
+  }
   .seleccion {
     width: 110px;
   }
@@ -1709,6 +1748,14 @@ publicidad 2
     color: #0f2738;
     font-size: 23px;
     font-weight: 650;
+  }
+}
+@media only screen and (max-width: 450px) {
+  .caja-update-store{
+    padding: 5px!important;
+  }
+  .font-store-reg{
+    font-size: 0.9rem!important;
   }
 }
 @media only screen and (max-width: 420px) {
@@ -1877,6 +1924,14 @@ publicidad 2
   }
   .tarjeta-registro-footer-1 a {
     font-size: 21px !important;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .font-store-reg{
+    font-size: 0.8rem!important;
+  }
+  .font-store-reg input{
+    margin-right: 4px!important;
   }
 }
 @media only screen and (max-width: 380px) {

@@ -3,10 +3,12 @@ import UserUpdate from "./UserUpdate";
 import PasswordChange from "./PasswordChange";
 import UserDelete from "./UserDelete";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useMyStore  } from "../../context/MyStoreContext";
+import { useEffect } from 'react';
 function AdminView() {
   const navigate = useNavigate();
   const { user, loading, userData, alertEdit, alertEditFalse, alertPassword, alertPasswordFalse } = useAuth();
+  const {alertDeleteStoreFalse, alertDeleteStore} = useMyStore();
   useEffect(() => {
     const edit = () => {
       
@@ -46,6 +48,7 @@ function AdminView() {
       };
     }
   }, [alertPassword, alertPasswordFalse]);
+  
   const AlertPassword = () => {
     return (
       <div
@@ -54,7 +57,32 @@ function AdminView() {
       >
         <i className="fa-solid fa-circle-check fa-2x me-1 text-success"></i>
         <h5 className=" m-1 sm:inline text-success align-middle ">
-        Información del usuario editada con éxito.
+        Contraseña del usuario actualizada con éxito.
+        </h5>
+      </div>
+    );
+  };
+  useEffect(() => {
+    const edit = () => {
+      setTimeout(() => {
+        alertDeleteStoreFalse();
+      }, 5000);
+    };
+    if (alertDeleteStore) {
+      return () => {
+        edit();
+      };
+    }
+  }, [alertDeleteStore, alertDeleteStoreFalse]);
+  const AlertDelete = () => {
+    return (
+      <div
+        className=" alert alert-danger d-flex flex-row flex-wrap justify-content-center"
+        role="alert"
+      >
+        <i className="fa-solid fa-circle-check fa-2x me-1 text-danger"></i>
+        <h5 className=" m-1 sm:inline text-danger align-middle ">
+        Emprendimiento eliminado con éxito.
         </h5>
       </div>
     );
@@ -113,7 +141,7 @@ function AdminView() {
     );
   return (
     <div className="d-block">
-      
+      {alertDeleteStore && <AlertDelete></AlertDelete>}
       {alertPassword && <AlertPassword />}
       {alertEdit && <AlertEdit />}
       <div className="accordion accordion-flush" id="#acordionProfile">

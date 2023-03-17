@@ -29,7 +29,7 @@ function Alert({ message }) {
   if (message.success) {
     return (
       <div
-        className="text-center border border-green-400 p-2 rounded bg-ligth ms-4 me-4"
+        className="text-center border border-green-400 p-2 rounded bg-ligth ms-1 me-1 ms-sm-4 me-sm-4"
         role="alert"
         id="alerta"
       >
@@ -40,7 +40,7 @@ function Alert({ message }) {
   } else {
     return (
       <div
-        className="text-center border border-red-400 p-2 rounded bg-light ms-5 me-5"
+        className="text-center border border-red-400 p-2 rounded bg-light ms-1 me-1 ms-sm-4 me-sm-4"
         role="alert"
         id="alerta"
       >

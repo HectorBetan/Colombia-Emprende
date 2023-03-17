@@ -12,6 +12,7 @@ function MyPricings() {
     readPricing,
     deletePricing,
     getRegistro,
+    sendMail,
   } = useAuth();
   const [w, setW] = useState(window.innerWidth);
   const handleResize = () => {
@@ -28,8 +29,11 @@ function MyPricings() {
   const [start, setStart] = useState(true);
   const [cargando, setCargando] = useState(true);
   const [group, setGroup] = useState(null);
+  const [group2, setGroup2] = useState(null);
+  const [reg, setReg] = useState("");
   const [productosCotizar, setProductosCotizar] = useState(null);
   const [tiendasCotizar, setTiendasCotizar] = useState(null);
+  
   const groupBy = (keys) => (array) =>
     array.reduce((objectsByKeyValue, obj) => {
       const value = keys.map((key) => obj[key]).join("-");
@@ -44,14 +48,18 @@ function MyPricings() {
   useEffect(() => {
     const stGroup = () => {
       setGroup(group);
+      if (reg) {
+        document.getElementById("reg").value = reg;
+      }
     };
     if (startT) {
       setStartT(false);
+      setCargando(false);
       return () => {
         stGroup();
       };
     }
-  }, [startT, group]);
+  }, [startT, group, reg]);
   const [alertDel, setAlertDel] = useState(false);
   const sAlertDel = () => {
     window.scroll(0, 0);
@@ -72,6 +80,7 @@ function MyPricings() {
       </div>
     );
   };
+  
   const resolveProductsCotizar = async (products) => {
     await readProducts(products).then((res) => {
       setProductosCotizar(res.data);
@@ -85,7 +94,7 @@ function MyPricings() {
   };
   const resolveCotizacion = async () => {
     await readPricing(user.uid).then((res) => {
-      const data = res.data;
+      let data = res.data;
       let listaTiendas = [];
       let listaProductos = [];
       data.forEach((element) => {
@@ -100,6 +109,7 @@ function MyPricings() {
       resolveTiendaCotizar(result);
       const group = groupBy(["Estado"]);
       let lista = [];
+      data = data.reverse();
       let objeto = group(data);
       let creadas;
       let rechazadas;
@@ -127,6 +137,7 @@ function MyPricings() {
         lista.push(creadas);
       }
       setGroup(lista);
+      setGroup2(lista);
       resolveProductsCotizar(listaProductos);
       return;
     });
@@ -142,8 +153,8 @@ function MyPricings() {
     await deletePricing(id);
     setAlertDel(true);
     sAlertDel();
-    let grupo = group;
-    group.map((estado, eindex) => {
+    let grupo = group2;
+    group2.map((estado, eindex) => {
       estado.Cotizaciones.map((cotizacion, index) => {
         if (cotizacion._id === id) {
           grupo[eindex].Cotizaciones.splice(index, 1);
@@ -151,6 +162,7 @@ function MyPricings() {
             grupo.splice(eindex, 1);
           }
           setGroup(grupo);
+          setGroup2(grupo);
           return false;
         } else {
           return false;
@@ -158,16 +170,17 @@ function MyPricings() {
       });
       return false;
     });
+    
     setStartT(true);
   };
-  const handleRechazar = async (id) => {
+  const handleRechazar = async (id, store) => {
     const pedido = { Estado: "rechazado", User_Delete: true };
     await updatePricing(id, pedido);
     setAlertDel(true);
     sAlertDel();
     let lista1;
-    let grupo = group;
-    group.map((estado, eindex) => {
+    let grupo = group2;
+    group2.map((estado, eindex) => {
       lista1 = estado.Cotizaciones;
       estado.Cotizaciones.map((cotizacion, index) => {
         if (cotizacion._id === id) {
@@ -177,6 +190,7 @@ function MyPricings() {
             grupo.splice(eindex, 1);
           }
           setGroup(grupo);
+          setGroup2(grupo);
           return false;
         } else {
           return false;
@@ -184,16 +198,50 @@ function MyPricings() {
       });
       return false;
     });
+    let registro;
+    registro = getRegistro(id);
+    let numReg;
+    if (registro) {
+      numReg = `<div style="margin-bottom:15px;"><span style="font-size:20px; margin-right:5px;">Cotización #:</span><span style="font-size:21px; font-weight:600; color:#114aa5">${registro}</span></div>`;
+    } else {
+      numReg = "";
+    }
+    let mail = {
+      Email: store.Email,
+      Nombre: user.displayName,
+      Subject: `${user.displayName} ha rechazado la cotización enviada.`,
+      Html: `<div style="text-align:center;">
+      <img src="https://firebasestorage.googleapis.com/v0/b/colombia-emprende-app.appspot.com/o/assets%2Flogo-colombia-emprende.png?alt=media&token=d74058e0-1418-41a6-8e72-d384c48c8cd0" alt="Logo Colombia Emprende" style="width:300px;" />
+      <h1>Hola <span style="color:#C1171B;">${store.Nombre}</span></h1>
+      <div style="; background-color:#F8F3F3; border-radius:10px; display: inline-block; padding: 0px 15px; margin-bottom:10px; border-style: solid; border-color: #D7705650;">
+      <h2><span style="color:#C1171B;">${user.displayName}</span> ha rechazado la cotización enviada</h2>
+      ${numReg}
+      </div>
+      <div>El usuario ha rechazado la cotización que le habias enviado.<br /> Ve a los pedidos de tu emprendimiento y podrás ver los detalles de esta cotización y eliminarla.</div>
+      <div style="margin:10px;margin-top:25px;background-color: #CF1519; padding: 10px; border-radius:10px; display: inline-block;">
+      <a href="https://colombia-emprende.vercel.app/admin/mi-emprendimiento/pedidos" style="color: #fff; font-size:15px; font-weight:500; text-decoration:none;">Ir a los Pedidos de Mi Emprendimiento</a>
+      </div>
+      <div style="font-size:11px; font-weigth:300;">Si sigues este botón debes tener la sesión iniciada, de lo contrario ve a Colombia Emprende inicia sesión y ve a los pedidos de tu emprendimiento.</div>
+      <h3>Gracias por pertenecer a Colombia Emprende</h3>
+      </div>`,
+      Msj: "El usuario ha rechazado el pago de la cotización",
+    };
+    try {
+      await sendMail(mail);
+    } catch (error) {
+      console.log(error);
+    }
     setStartT(true);
   };
-  const handleCancelar = async (id) => {
-    const pedido = { Estado: "cancelado",User_Delete: true  };
+  const handleCancelar = async (id, store) => {
+    const pedido = { Estado: "cancelado", User_Delete: true };
     await updatePricing(id, pedido);
     setAlertDel(true);
     sAlertDel();
     let lista1;
-    let grupo = group;
-    group.map((estado, eindex) => {
+    let grupo = group2;
+
+    group2.map((estado, eindex) => {
       lista1 = estado.Cotizaciones;
       estado.Cotizaciones.map((cotizacion, index) => {
         if (cotizacion._id === id) {
@@ -203,6 +251,7 @@ function MyPricings() {
             grupo.splice(eindex, 1);
           }
           setGroup(grupo);
+          setGroup2(grupo);
           return false;
         } else {
           return false;
@@ -210,16 +259,139 @@ function MyPricings() {
       });
       return false;
     });
+    let registro;
+    registro = getRegistro(id);
+    let numReg;
+    if (registro) {
+      numReg = `<div style="margin-bottom:15px;"><span style="font-size:20px; margin-right:5px;">Cotización #:</span><span style="font-size:21px; font-weight:600; color:#114aa5">${registro}</span></div>`;
+    } else {
+      numReg = "";
+    }
+    let mail = {
+      Email: store.Email,
+      Nombre: user.displayName,
+      Subject: `${user.displayName} ha cancelado la cotización solicitada.`,
+      Html: `<div style="text-align:center;">
+      <img src="https://firebasestorage.googleapis.com/v0/b/colombia-emprende-app.appspot.com/o/assets%2Flogo-colombia-emprende.png?alt=media&token=d74058e0-1418-41a6-8e72-d384c48c8cd0" alt="Logo Colombia Emprende" style="width:300px;" />
+      <h1>Hola <span style="color:#C1171B;">${store.Nombre}</span></h1>
+      <div style="; background-color:#F8F3F3; border-radius:10px; display: inline-block; padding: 0px 15px; margin-bottom:10px; border-style: solid; border-color: #D7705650;">
+      <h2><span style="color:#C1171B;">${user.displayName}</span> ha cancelado la solicitud de cotización</h2>
+      ${numReg}
+      </div>
+      <div>El usuario ha cancelado la solicitud de cotización que había pedido previamente.<br /> Ve a los pedidos de tu emprendimiento y podrás ver los detalles de esta cotización y eliminarla.</div>
+      <div style="margin:10px;margin-top:25px;background-color: #CF1519; padding: 10px; border-radius:10px; display: inline-block;">
+      <a href="https://colombia-emprende.vercel.app/admin/mi-emprendimiento/cotizaciones" style="color: #fff; font-size:15px; font-weight:500; text-decoration:none;">Ir a las Cotizaciones de Mi Emprendimiento</a>
+      </div>
+      <div style="font-size:11px; font-weigth:300;">Si sigues este botón debes tener la sesión iniciada, de lo contrario ve a Colombia Emprende inicia sesión y ve a las cotizaciones de tu emprendimiento.</div>
+      <h3>Gracias por pertenecer a Colombia Emprende</h3>
+      </div>`,
+      Msj: "El usuario ha cancelado la cotización solicitada.",
+    };
+    try {
+      await sendMail(mail);
+    } catch (error) {
+      console.log(error);
+    }
     setStartT(true);
   };
+  const [alertBusqueda, setAlertBusqueda] = useState(false);
+  const sAlertBusqueda = () => {
+    window.scroll(0, 0);
+    setTimeout(() => {
+      setAlertBusqueda(false);
+    }, 4000);
+  };
+  const AlertBusqueda = () => {
+    return (
+      <div className="d-flex flex-row justify-content-center">
+<div
+        className=" alert alert-success text-center p-1"
+        role="alert"
+      >
+        <h6 className=" m-1 sm:inline text-success align-middle ">
+          Busqueda de cotización # {reg} exitosa
+        </h6>
+      </div>
+      </div>
+      
+    );
+  };
+  const buscar = (e) => {
+    e.preventDefault();
+    let numeroRegistro = document.getElementById("reg").value;
+    if (numeroRegistro) {
+      setCargando(true);
+      let registro;
+
+      let grupo;
+      group2.map((estado, eindex) => {
+        estado.Cotizaciones.map((cotizacion, index) => {
+          registro = getRegistro(cotizacion._id);
+          if (registro === numeroRegistro) {
+            grupo = [
+              {
+                Estado: group2[eindex].Estado,
+                Cotizaciones: [group2[eindex].Cotizaciones[index]],
+              },
+            ];
+            setGroup(grupo);
+            setReg(numeroRegistro);
+            setAlertBusqueda(true);
+            sAlertBusqueda();
+            setStartT(true);
+            return false;
+          } else {
+            return false;
+          }
+        });
+        return false;
+      });
+      console.log(grupo);
+      if (!grupo) {
+        grupo = null;
+        setGroup(grupo);
+        setReg(numeroRegistro);
+        setStartT(true);
+      }
+    }
+  };
+  const borrar = (e) => {
+    e.preventDefault();
+    if (reg) {
+      setCargando(true);
+
+      setGroup(group2);
+      setReg("");
+      setStartT(true);
+    } else {
+      document.getElementById("reg").value = reg;
+    }
+  };
   const CotizacionItems = () => {
-    if (group && tiendasCotizar && productosCotizar) {
+    if (group && group2 && tiendasCotizar && productosCotizar) {
       if (group.length === 0) {
         return (
           <div className="m-md-4 m-sm-3 m-2">
             <div>{alertDel && <AlertDelete />}</div>
             <div className="text-center m-3">
-              <h3 className="m-md-4 m-sm-3 m-2">Actualmente no tienes ninguna <span className="admin-dif-color">cotización</span>.</h3>
+              <h3 className="m-md-4 m-sm-3 m-2">
+                Actualmente no tienes ninguna{" "}
+                <span className="admin-dif-color">cotización</span>.
+              </h3>
+            </div>
+          </div>
+        );
+      }
+      if (group.length === 0 && group2) {
+        return (
+          <div className="m-md-4 m-sm-3 m-2">
+            <div>{alertDel && <AlertDelete />}</div>
+            <div className="text-center m-3">
+              <h3 className="m-md-4 m-sm-3 m-2">
+                No hay ninguna{" "}
+                <span className="admin-dif-color">cotización</span> por este
+                número.
+              </h3>
             </div>
           </div>
         );
@@ -227,6 +399,7 @@ function MyPricings() {
       return (
         <div>
           {alertDel && <AlertDelete />}
+
           {group.map((estado, tes) => {
             return (
               <div
@@ -264,7 +437,7 @@ function MyPricings() {
                       aria-labelledby={`heading${tes}`}
                       data-bs-parent={`#accordion${tes}`}
                     >
-                      <div className="accordion-body">
+                      <div className="accordion-body  p-0 p-sm-3 mb-0">
                         {estado.Cotizaciones.map((cotiza, index) => {
                           let registro = getRegistro(cotiza._id);
                           let valorProductos = 0;
@@ -277,17 +450,22 @@ function MyPricings() {
                             valorProductos += valor;
                           });
                           if (cotiza.Estado !== "creada") {
-                            valorTotal =
-                              valorProductos +
-                              cotiza.Valor_Envio +
-                              cotiza.Otros_Valores;
+                            let val = 0;
+                            let otro = 0;
+                            if (cotiza.Valor_Envio) {
+                              val = parseInt(cotiza.Valor_Envio);
+                            }
+                            if (cotiza.Otros_Valores) {
+                              otro = parseInt(cotiza.Otros_Valores);
+                            }
+                            valorTotal = valorProductos + val + otro;
                           }
                           let store = tiendasCotizar.find(
                             (item) => item._id === cotiza.Emprendimiento_id
                           );
                           return (
                             <div
-                              className="accordion mb-3"
+                              className="accordion"
                               id={`accordionuser${cotiza._id}`}
                               key={cotiza._id}
                             >
@@ -298,22 +476,28 @@ function MyPricings() {
                                 >
                                   <button
                                     className="accordion-button acc-us-admin"
-                                    
                                     type="button"
                                     data-bs-toggle="collapse"
                                     data-bs-target={`#collapseuser${cotiza._id}`}
                                     aria-expanded="true"
                                     aria-controls={`#collapseuser${cotiza._id}`}
-                                  > 
-                                  <div className="d-flex flex-column">
-                                  <div>
-                                   {store.Nombre}
-                                    {store.Delete && ". (Tienda Eliminada)."}
-                                  </div>
-                                    
-                                    <div className="num-pedido">Cotización <i className="fa fa-hashtag" aria-hidden="true"></i><b>: {registro}</b></div>
-                                  </div>
-                                  
+                                  >
+                                    <div className="d-flex flex-column">
+                                      <div>
+                                        {store.Nombre}
+                                        {store.Delete &&
+                                          ". (Tienda Eliminada)."}
+                                      </div>
+
+                                      <div className="num-pedido">
+                                        Cotización{" "}
+                                        <i
+                                          className="fa fa-hashtag"
+                                          aria-hidden="true"
+                                        ></i>
+                                        <b>: {registro}</b>
+                                      </div>
+                                    </div>
                                   </button>
                                 </h2>
                                 <div
@@ -336,6 +520,9 @@ function MyPricings() {
                                         <div>La tienda ha sido Eliminada</div>
                                       )}
                                     </div>
+                                    <h6 className="text-center m-2 registro">
+                                      Cotización #: {registro}
+                                    </h6>
                                     <div
                                       className="accordion"
                                       id={`accordionproducts${cotiza._id}`}
@@ -495,9 +682,18 @@ function MyPricings() {
                                               <h2 className="valor-titulo">
                                                 Mis Comentarios:{" "}
                                               </h2>
-                                              {cotiza.User_Comentarios}
+                                              <div className="comentarios-1">
+                                                {cotiza.User_Comentarios}
+                                              </div>
                                             </div>
                                           )}
+                                        {cotiza.Envio && (
+                                          <div>
+                                            <h2 className="valor-titulo recoger-titulo ms-0">
+                                              Cotización con envio a domicilio.
+                                            </h2>
+                                          </div>
+                                        )}
                                         {cotiza.Ciudad_Envio &&
                                           cotiza.Ciudad_Envio.length > 1 && (
                                             <div className="d-flex flex-row pricing-data">
@@ -519,35 +715,57 @@ function MyPricings() {
                                             </span>
                                           </div>
                                         )}
+                                        {!cotiza.Envio && (
+                                          <div>
+                                            <h2 className="valor-titulo text-center recoger-titulo">
+                                              Cotización para recoger en tienda.
+                                            </h2>
+                                          </div>
+                                        )}
                                         {estado.Estado === "cotizacion" && (
                                           <div>
                                             <div className="d-flex flex-row mt-2 mb-2 pricing-data">
-                                              {cotiza.Valor_Envio > 0 && (
-                                                <h2 className="valor-titulo me-2">
-                                                  Valor Envio:{" "}
-                                                  {estado.Estado !==
-                                                    "creada" && (
-                                                    <span className="valor-value">
-                                                      {formatterPeso.format(
-                                                        cotiza.Valor_Envio
-                                                      )}
-                                                    </span>
-                                                  )}
-                                                </h2>
-                                              )}
-                                            </div>
-                                            {cotiza.Otros_Valores > 0 && (
-                                              <div className="d-flex flex-row mt-2 mb-2 pricing-data">
-                                                <h2 className="valor-titulo me-2">
-                                                  Otros Valores:{" "}
-                                                  <span className="valor-value">
-                                                    {formatterPeso.format(
-                                                      cotiza.Otros_Valores
+                                              {cotiza.Valor_Envio > 0 &&
+                                                cotiza.Envio && (
+                                                  <h2 className="valor-titulo me-2">
+                                                    Valor Envio:{" "}
+                                                    {estado.Estado !==
+                                                      "creada" && (
+                                                      <span className="valor-value">
+                                                        {formatterPeso.format(
+                                                          cotiza.Valor_Envio
+                                                        )}
+                                                      </span>
                                                     )}
-                                                  </span>
-                                                </h2>
-                                              </div>
-                                            )}
+                                                  </h2>
+                                                )}
+                                            </div>
+                                            {cotiza.Otros_Valores > 0 &&
+                                              cotiza.Estado !== "creada" && (
+                                                <div>
+                                                  <div className="d-flex flex-row mt-2 mb-2 pricing-data">
+                                                    <h2 className="valor-titulo me-2">
+                                                      Otros Cobros:{" "}
+                                                      <span className="valor-value">
+                                                        {formatterPeso.format(
+                                                          cotiza.Otros_Valores
+                                                        )}
+                                                      </span>
+                                                    </h2>
+                                                  </div>
+                                                  {cotiza.Justificacion && (
+                                                    <div className="d-flex flex-column mt-2 mb-2 pricing-data">
+                                                      <h2 className="valor-titulo me-2">
+                                                        Justificación de Otros
+                                                        Cobros:{" "}
+                                                      </h2>
+                                                      <div className="comentarios-1">
+                                                        {cotiza.Justificacion}
+                                                      </div>
+                                                    </div>
+                                                  )}
+                                                </div>
+                                              )}
                                             {cotiza.Comentarios && (
                                               <div>
                                                 {cotiza.Comentarios.length >
@@ -556,7 +774,9 @@ function MyPricings() {
                                                     <h2 className="valor-titulo me-2">
                                                       Comentarios de la tienda:{" "}
                                                     </h2>
-                                                    {cotiza.Comentarios}
+                                                    <div className="comentarios-1">
+                                                      {cotiza.Comentarios}
+                                                    </div>
                                                   </div>
                                                 )}
                                               </div>
@@ -613,7 +833,10 @@ function MyPricings() {
                                               className="btn btn-danger m-1 ms-3 me-3"
                                               onClick={(e) => {
                                                 e.preventDefault();
-                                                handleRechazar(cotiza._id);
+                                                handleRechazar(
+                                                  cotiza._id,
+                                                  store
+                                                );
                                               }}
                                             >
                                               Rechazar y eliminar
@@ -627,7 +850,7 @@ function MyPricings() {
                                           className="btn btn-danger"
                                           onClick={(e) => {
                                             e.preventDefault();
-                                            handleCancelar(cotiza._id);
+                                            handleDelete(cotiza._id);
                                           }}
                                         >
                                           Eliminar
@@ -664,7 +887,11 @@ function MyPricings() {
   if (cargando) {
     return (
       <div className="d-flex justify-content-center mt-5 mb-5">
-        <div className="spinner-border" style={{ width: "3rem", height: "3rem" }} role="status">
+        <div
+          className="spinner-border"
+          style={{ width: "3rem", height: "3rem" }}
+          role="status"
+        >
           <span className="sr-only">Loading...</span>
         </div>
       </div>
@@ -673,6 +900,53 @@ function MyPricings() {
   return (
     <div>
       <h1 className="text-center admin-titles-cel">Mis Cotizaciones</h1>
+      {group2 && (
+        <div className="d-flex flex-lg-row flex-column justify-content-center m-2">
+          <h4 className="as-center text-center">
+            {!reg && "Buscar "}
+            {reg && "Buscando "}por # de Cotización:
+          </h4>
+          <form className="d-flex flex-row caja-column justify-content-center">
+            <input className="m-2" type="text" id="reg" />
+            <div className="d-flex flex-row justify-content-center">
+              <button
+                className="btn btn-primary m-2"
+                type="submit"
+                onClick={buscar}
+              >
+                Buscar
+              </button>
+              <button className="btn btn-danger m-2" onClick={borrar}>
+                {!reg && "Borrar"}
+                {reg && "Borrar y Ver Todos"}
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+      {group && alertBusqueda && <AlertBusqueda />}
+      {!group && (
+        <div className="m-md-4 m-sm-3 m-2">
+          <div>{alertDel && <AlertDelete />}</div>
+          <div className="text-center m-3">
+            <h3 className="m-md-4 m-sm-3 m-2">
+              No hay ninguna <span className="admin-dif-color">cotización</span>{" "}
+              por este número.
+            </h3>
+          </div>
+        </div>
+      )}
+      {!group && !group2 && (
+        <div className="m-md-4 m-sm-3 m-2">
+          <div>{alertDel && <AlertDelete />}</div>
+          <div className="text-center m-3">
+            <h3 className="m-md-4 m-sm-3 m-2">
+              Actualmente no tienes ninguna{" "}
+              <span className="admin-dif-color">cotización</span>.
+            </h3>
+          </div>
+        </div>
+      )}
       <CotizacionItems />
     </div>
   );

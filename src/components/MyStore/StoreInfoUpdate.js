@@ -25,6 +25,7 @@ function StoreInfoUpdate() {
     Instagram: "",
     Web: "",
     Descripcion: "",
+    Recoger: "",
   });
   const [tel2CLass, setTel2Class] = useState("d-none");
   const [tel2BtnCLass, settel2BtnCLass] = useState(" ");
@@ -61,6 +62,7 @@ function StoreInfoUpdate() {
         Instagram: userStore.Instagram,
         Web: userStore.Web,
         Descripcion: userStore.Descripcion,
+        Recoger: userStore.Recoger,
       });
       getEmprendimiento();
     }
@@ -77,6 +79,14 @@ function StoreInfoUpdate() {
     }
     return palabras.join(" ");
   }
+  const handleRecoger = (e) => {
+    if (e.target.checked) {
+      setEmprendimiento({ ...emprendimiento, Recoger: true });
+    }
+    if (!e.target.checked) {
+      setEmprendimiento({ ...emprendimiento, Recoger: false });
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     alert1CreateStoreTrue();
@@ -124,6 +134,7 @@ function StoreInfoUpdate() {
       Instagram: emprendimiento.Instagram,
       Web: emprendimiento.Web,
       Descripcion: emprendimiento.Descripcion,
+      Recoger: emprendimiento.Recoger,
       Path: newPath,
     };
     setCargando(true);
@@ -181,7 +192,7 @@ function StoreInfoUpdate() {
       <form onSubmit={handleSubmit}>
         {error && <Alert message={error} />}
         <div
-          className="col-12 pe-0 ps-0 pe-md-4 ps-md-4"
+          className="col-12 pe-0 ps-0 pe-lg-2 ps-lg-2 pe-xl-3 ps-xl-3 pe-md-0 ps-md-0"
           style={{ maxHeight: "320px", overflow: "auto" }}
         >
           <div className="info-update-admin">
@@ -266,6 +277,20 @@ function StoreInfoUpdate() {
                 />
               </div>
             </div>
+            {emprendimiento.Direccion && 
+            <h5 className="d-flex flex-row justify-content-center m-3 font-store-reg font-store-up">
+            <input
+              className="form-check-input mt-1em"
+              type="checkbox"
+              id="emailCheck"
+              onChange={handleRecoger}
+              checked={emprendimiento.Recoger}
+            />
+            <span className="color-rec">
+              Habilitar la opción de recoger en tienda.
+            </span>
+          </h5>
+            }
             <div className="d-flex flex-row justify-content-evenly mt-2  update-store-box1">
               <div className="form-group col-5 mb-1 mb-sm-0">
                 <label className="m-1">Ciudad</label>

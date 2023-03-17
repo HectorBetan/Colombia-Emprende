@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useState, useEffect } from "react";
 import imgStore from "../../assets/img-store.jpg";
+import { ModalCarrito } from "../../utilities/loginButton.utilities";
 import imgProducts from "../../assets/img-product.png";
 import Popover from "react-bootstrap/Popover";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -37,7 +38,7 @@ function Store(data) {
     };
   }, []);
   const navigate = useNavigate();
-  const { user, createCart } = useAuth();
+  const { user, createCart, showLogin, showLoginTrue, alertLoginTrue } = useAuth();
   const { nombre } = useParams();
   const lista = data.data;
   const [seles, setSeles] = useState(true);
@@ -45,23 +46,32 @@ function Store(data) {
     (emprendimiento) => emprendimiento.value.store.Path === nombre
   );
   const agregar = async (producto) => {
-    const cantidad = document.getElementById(producto._id).value;
-    const pedido = {
-      User_id: user.uid,
-      Emprendimiento_id: producto.Emprendimiento_id,
-      Producto_id: producto._id,
-      Cantidad: cantidad,
-    };
-    try {
-      await createCart(pedido);
-      document.getElementById(producto._id).value = 0;
-      document
-        .getElementById(producto._id + "success")
-        .classList.remove("d-none");
-      suc(producto._id);
-    } catch (error) {
-      console.log(error);
+    if (user){
+      if (user.emailVerified === false){
+        return navigate("/reverificacion");
+      }
+      const cantidad = document.getElementById(producto._id).value;
+      const pedido = {
+        User_id: user.uid,
+        Emprendimiento_id: producto.Emprendimiento_id,
+        Producto_id: producto._id,
+        Cantidad: cantidad,
+      };
+      try {
+        await createCart(pedido);
+        document.getElementById(producto._id).value = "";
+        document
+          .getElementById(producto._id + "success")
+          .classList.remove("d-none");
+        suc(producto._id);
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      showLoginTrue()
+      alertLoginTrue()
     }
+    
   };
   const Alert = () => {
     return (
@@ -78,7 +88,9 @@ function Store(data) {
   };
   const suc = (id) => {
     setTimeout(() => {
-      document.getElementById(id + "success").classList.add("d-none");
+      if(document.getElementById(id + "success")){
+        document.getElementById(id + "success").classList.add("d-none");
+      }
     }, 4000);
   };
   const PhotoProducts = (data) => {
@@ -931,6 +943,12 @@ function Store(data) {
                 </a>
               </span>
             )}
+            
+            
+          </div>
+          <div className="d-flex flex-column justify-content-center mt-2 text-center caja-domicilio">
+          <span className="m-1"><i class="fa-solid fa-truck-fast me-2"></i>{emprendimiento.value.store.Recoger && <span>Disponible en servicio a domicilio.</span>}{!emprendimiento.value.store.Recoger && <span>Disponible solo para domicilios.</span>}</span>
+            {emprendimiento.value.store.Recoger && <span className="m-1"><i class="fa-solid fa-store me-2"></i>Disponible para recoger en tienda.</span>}
           </div>
         </div>
       );
@@ -949,6 +967,7 @@ function Store(data) {
   } else {
     return (
       <div className="text-center">
+        {showLogin && <ModalCarrito data={showLogin}></ModalCarrito>}
         <ModalPhotos></ModalPhotos>
         {ant && (
           <button

@@ -14,6 +14,8 @@ function MyStoreView() {
     alertEditImgStore,
     loadingStore,
     userProducts,
+    alertCreateStore,
+    alertCreateStoreFalse,
   } = useMyStore();
   const { user, loading } = useAuth();
   useEffect(() => {
@@ -53,6 +55,31 @@ function MyStoreView() {
       </div>
     );
   };
+  useEffect(() => {
+    const edit = () => {
+      setTimeout(() => {
+        alertCreateStoreFalse();
+      }, 5000);
+    };
+    if (alertCreateStore) {
+      return () => {
+        edit();
+      };
+    }
+  }, [alertCreateStore, alertCreateStoreFalse]);
+  const AlertCreate = () => {
+    return (
+      <div
+        className=" alert alert-success d-flex flex-row flex-wrap justify-content-center"
+        role="alert"
+      >
+        <i className="fa-solid fa-circle-check fa-2x me-1 text-success"></i>
+        <h5 className=" m-1 sm:inline text-success align-middle ">
+          Emprendimiento creado con éxito
+        </h5>
+      </div>
+    );
+  };
   const AlertEditImg = () => {
     return (
       <div
@@ -79,6 +106,7 @@ function MyStoreView() {
     <div className="d-block">
       {alertEditStore && <AlertEdit />}
       {alertEditImgStore && <AlertEditImg />}
+      {alertCreateStore && <AlertCreate />}
       <div className="accordion accordion-flush" id="#acordionProfile">
         <div className="accordion-item">
           <h2 className="accordion-header" id="myProfile">
@@ -137,7 +165,7 @@ function MyStoreView() {
             aria-labelledby="updateProfile"
             data-bs-parent="#acordionProfile"
           >
-            <div className="accordion-body">
+            <div className="accordion-body caja-update-store">
               <StoreInfoUpdate />
             </div>
           </div>

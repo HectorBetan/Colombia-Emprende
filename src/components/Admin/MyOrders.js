@@ -35,6 +35,8 @@ function MyOrders() {
   const [start, setStart] = useState(true);
   const [cargando, setCargando] = useState(true);
   const [group, setGroup] = useState(null);
+  const [group2, setGroup2] = useState(null);
+  const [reg, setReg] = useState("");
   const [productosOrders, setProductosOrders] = useState(null);
   const [tiendasCotizar, setTiendasCotizar] = useState(null);
   const groupBy = (keys) => (array) =>
@@ -76,7 +78,7 @@ function MyOrders() {
   };
   const resolveOrders = async () => {
     await readOrders(user.uid).then((res) => {
-      const data = res.data;
+      let data = res.data;
       let listaTiendas = [];
       let listaProductos = [];
       data.forEach((element) => {
@@ -91,6 +93,7 @@ function MyOrders() {
       resolveTiendas(result);
       const group = groupBy(["Estado"]);
       let lista = [];
+      data = data.reverse();
       let objeto = group(data);
       let creadas;
       let rechazadas;
@@ -107,6 +110,9 @@ function MyOrders() {
               rechazadas = { Estado: key, Cotizaciones: objeto[key] };
             }
             if (key === "envio") {
+              enviadas = { Estado: key, Cotizaciones: objeto[key] };
+            }
+            if (key === "recoger") {
               enviadas = { Estado: key, Cotizaciones: objeto[key] };
             }
             if (key === "finalizado") {
@@ -128,8 +134,8 @@ function MyOrders() {
         lista.push(final);
       }
       setGroup(lista);
+      setGroup2(lista);
       resolveProducts(listaProductos);
-      return;
     });
   };
   if (start) {
@@ -153,8 +159,9 @@ function MyOrders() {
           if (grupo[eindex].Cotizaciones.length === 0) {
             grupo.splice(eindex, 1);
           }
+          setGroup2(grupo);
           setGroup(grupo);
-          return false;
+          return false
         } else {
           return false;
         }
@@ -166,27 +173,30 @@ function MyOrders() {
   useEffect(() => {
     const stGroup = () => {
       setGroup(group);
+      if (reg) {
+        document.getElementById("reg").value = reg;
+      }
     };
     if (startT) {
       setStartT(false);
+      setCargando(false);
       return () => {
         stGroup();
       };
     }
-  }, [startT, group]);
+  }, [startT, group, reg]);
   const setNewGroupProblem = async (id, comentarios) => {
-    let grupo = group;
+    let grupo = group2;
     let obj;
     let n;
     let num = null;
-    group.map((estado, ai) => {
-      if (estado.Estado === "envio") {
-        n = ai;
-        return false;
+    group2.map((estado, ai) => {
+      if (estado.Estado === "envio" || estado.Estado === "recoger") {
+        return n = ai;
       }
       return false;
     });
-    group[n].Cotizaciones.map((cotizacion, index) => {
+    group2[n].Cotizaciones.map((cotizacion, index) => {
       if (cotizacion._id === id) {
         obj = cotizacion;
         obj.Estado = "problema";
@@ -214,7 +224,81 @@ function MyOrders() {
       grupo.push(c);
     }
     setGroup(grupo);
+    setGroup2(grupo);
     setStartT(true);
+  };
+  const [alertBusqueda, setAlertBusqueda] = useState(false);
+  const sAlertBusqueda = () => {
+    window.scroll(0, 0);
+    setTimeout(() => {
+      setAlertBusqueda(false);
+    }, 4000);
+  };
+  const AlertBusqueda = () => {
+    return (
+      <div className="d-flex flex-row justify-content-center">
+<div
+        className=" alert alert-success text-center p-1"
+        role="alert"
+      >
+        <h6 className=" m-1 sm:inline text-success align-middle ">
+          Busqueda de pedido # {reg} exitosa
+        </h6>
+      </div>
+      </div>
+      
+    );
+  };
+  const buscar = (e) => {
+    e.preventDefault();
+    let numeroRegistro = document.getElementById("reg").value;
+    if (numeroRegistro) {
+      setCargando(true);
+      let registro;
+
+      let grupo;
+      group2.map((estado, eindex) => {
+        estado.Cotizaciones.map((cotizacion, index) => {
+          registro = getRegistro(cotizacion._id);
+          if (registro === numeroRegistro) {
+            grupo = [
+              {
+                Estado: group2[eindex].Estado,
+                Cotizaciones: [group2[eindex].Cotizaciones[index]],
+              },
+            ];
+            setGroup(grupo);
+            setReg(numeroRegistro);
+            setAlertBusqueda(true);
+            sAlertBusqueda();
+            setStartT(true);
+            return false;
+          } else {
+            return false;
+          }
+        });
+        return false;
+      });
+      console.log(grupo);
+      if (!grupo) {
+        grupo = null;
+        setGroup(grupo);
+        setReg(numeroRegistro);
+        setStartT(true);
+      }
+    }
+  };
+  const borrar = (e) => {
+    e.preventDefault();
+    if (reg) {
+      setCargando(true);
+
+      setGroup(group2);
+      setReg("");
+      setStartT(true);
+    } else {
+      document.getElementById("reg").value = reg;
+    }
   };
   const ModalProblem = (data) => {
     const [comentarios, setComentarios] = useState("");
@@ -222,7 +306,7 @@ function MyOrders() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const storeName = data.data.tienda;
-    const storeEmail = data.data.tiendaEmail
+    const storeEmail = data.data.tiendaEmail;
     const [alertProblem, setAlertProblem] = useState(false);
     const sAlertProblem = (id) => {
       setTimeout(async () => {
@@ -231,8 +315,6 @@ function MyOrders() {
         handleClose();
       }, 3500);
     };
-    console.log("data")
-    console.log(data)
     const AlertProblem = () => {
       return (
         <div
@@ -299,14 +381,34 @@ function MyOrders() {
                 onClick={async (e) => {
                   const problem = { User_Problem: comentarios };
                   setUserProblem(data.data.pedido._id, problem);
+                  let registro;
+                  registro = getRegistro(data.data.pedido._id);
+                  let numReg;
+                  if (registro) {
+                    numReg = `<div style="margin-bottom:15px;"><span style="font-size:20px; margin-right:5px;">Cotización #:</span><span style="font-size:21px; font-weight:600; color:#114aa5">${registro}</span></div>`;
+                  } else {
+                    numReg = "";
+                  }
                   let mail = {
                     Email: storeEmail,
                     Nombre: user.displayName,
                     Subject: `${user.displayName} ha declarado el pedido en problema.`,
-                    Html: `<div style="text-align:center;"><img src="https://firebasestorage.googleapis.com/v0/b/colombia-emprende-app.appspot.com/o/assets%2Flogo-colombia-emprende.png?alt=media&token=d74058e0-1418-41a6-8e72-d384c48c8cd0"
-                    alt="Logo Colombia Emprende" style="width:300px;" /><h1>Hola <span style="color:#114aa5;">${storeName}</span></h1><h2><span style="color:#114aa5;">${user.displayName}</span> ha declarado el pedido en problema.</h2><div>El usuario ha declarado su pedido en problema y te ha enviado el siguiente mensaje:<br />${comentarios}<br /> Ve a los pedidos de tu emprendimiento y podrás contestar al cliente y resolver el problema.<div><br /><div style="font-size:12px; font-weigth:300;">Si sigues el siguiente link debes tener la sesión iniciada, de lo contrario inicia sesión y ve a los pedidos de tu emprendimiento.</div><a href="http://localhost:3000/admin/mi-emprendimiento/pedidos">Ir a los Pedidos de mi Emprendimiento</a></div></div><h3>Gracias por pertenecer a Colombia Emprende</h3></div>`,
-                    Msj: "Se ha enviado declarado el pedido en problema y enviado un mensaje."
-                  }
+                    Html: `<div style="text-align:center;">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/colombia-emprende-app.appspot.com/o/assets%2Flogo-colombia-emprende.png?alt=media&token=d74058e0-1418-41a6-8e72-d384c48c8cd0" alt="Logo Colombia Emprende" style="width:300px;" />
+                    <h1>Hola <span style="color:#C1171B;">${storeName}</span></h1>
+                    <div style="; background-color:#F8F3F3; border-radius:10px; display: inline-block; padding: 0px 15px; margin-bottom:10px; border-style: solid; border-color: #D7705650;">
+                    <h2><span style="color:#C1171B;">${user.displayName}</span> ha declarado el pedido en problema</h2>
+                    ${numReg}
+                    </div>
+                    <div>El usuario ha declarado su pedido en problema y te ha enviado el siguiente mensaje:<br /><span style="color:#731717;">${comentarios}</span><br /> Ve a los pedidos de tu emprendimiento y podrás contestar al cliente y resolver el problema.</div>
+                    <div style="margin:10px;margin-top:25px;background-color: #CF1519; padding: 10px; border-radius:10px; display: inline-block;">
+                    <a href="https://colombia-emprende.vercel.app/admin/mi-emprendimiento/pedidos" style="color: #fff; font-size:15px; font-weight:500; text-decoration:none;">Ir a los Pedidos de Mi Emprendimiento</a>
+                    </div>
+                    <div style="font-size:11px; font-weigth:300;">Si sigues este botón debes tener la sesión iniciada, de lo contrario ve a Colombia Emprende inicia sesión y ve a los pedidos de tu emprendimiento.</div>
+                    <h3>Gracias por pertenecer a Colombia Emprende</h3>
+                    </div>`,
+                    Msj: "El usuario ha declarado el pedido en problema y enviado un mensaje.",
+                  };
                   await sendMail(mail);
                   setAlertProblem(true);
                   sAlertProblem(data.data.pedido._id);
@@ -335,27 +437,52 @@ function MyOrders() {
     const [alertFinal, setAlertFinal] = useState(false);
     const [alertId, setAlertId] = useState(null);
     const storeName = data.data.tienda;
-    const storeEmail = data.data.tiendaEmail
+    const storeEmail = data.data.tiendaEmail;
+    
     const handleEnvio = async (id, envio) => {
       await updatePricing(id, envio);
+      let registro;
+      registro = getRegistro(id);
+      let numReg;
+      if (registro) {
+        numReg = `<div style="margin-bottom:15px;"><span style="font-size:20px; margin-right:5px;">Cotización #:</span><span style="font-size:21px; font-weight:600; color:#114aa5">${registro}</span></div>`;
+      } else {
+        numReg = "";
+      }
       let mail = {
         Email: storeEmail,
         Nombre: user.displayName,
         Subject: `${user.displayName} recibio el pedido y lo ha declarado como finalizado.`,
-        Html: `<div style="text-align:center;"><img src="https://firebasestorage.googleapis.com/v0/b/colombia-emprende-app.appspot.com/o/assets%2Flogo-colombia-emprende.png?alt=media&token=d74058e0-1418-41a6-8e72-d384c48c8cd0"
-        alt="Logo Colombia Emprende" style="width:300px;" /><h1>Hola <span style="color:#114aa5;">${storeName}</span></h1><h2><span style="color:#114aa5;">${user.displayName}</span> ha recibido el pedido y ha declarado el pedido como finalizado.</h2><div>El usuario declaro el pedido como finalizado.<br /> Puedes ir a los pedidos de tu emprendimiento y ver los detalles o eliminar este pedido finalizado.<div><br /><div style="font-size:12px; font-weigth:300;">Si sigues el siguiente link debes tener la sesión iniciada, de lo contrario inicia sesión y ve a los pedidos de tu emprendimiento.</div><a href="http://localhost:3000/admin/mi-emprendimiento/pedidos">Ir a los Pedidos de mi Emprendimiento</a></div></div><h3>Gracias por pertenecer a Colombia Emprende</h3></div>`,
-        Msj: "se ha enviado un nuevo mensaje del pedido en problema."
+        Html: `<div style="text-align:center;">
+        <img src="https://firebasestorage.googleapis.com/v0/b/colombia-emprende-app.appspot.com/o/assets%2Flogo-colombia-emprende.png?alt=media&token=d74058e0-1418-41a6-8e72-d384c48c8cd0" alt="Logo Colombia Emprende" style="width:300px;" />
+        <h1>Hola <span style="color:#1F7F3C;">${storeName}</span></h1>
+        <div style="; background-color:#EFF8F1; border-radius:10px; display: inline-block; padding: 0px 15px; margin-bottom:10px; border-style: solid; border-color: #2A894640;">
+        <h2><span style="color:#1F7F3C;">${user.displayName}</span> ha recibido el pedido y ha declarado el pedido como finalizado</h2>
+        ${numReg}
+        </div>
+        <div>El usuario declaro que recibio el pedido en perfectas condiciones y lo ha dado como finalizado.<br /> Puedes ir a los pedidos de tu emprendimiento y ver los detalles o eliminar este pedido finalizado.</div>
+        <div style="margin:10px;margin-top:25px;background-color: #2A8946; padding: 10px; border-radius:10px; display: inline-block;">
+        <a href="https://colombia-emprende.vercel.app/admin/mi-emprendimiento/pedidos" style="color: #fff; font-size:15px; font-weight:500; text-decoration:none;">Ir a los Pedidos de Mi Emprendimiento</a>
+        </div>
+        <div style="font-size:11px; font-weigth:300;">Si sigues este botón debes tener la sesión iniciada, de lo contrario ve a Colombia Emprende inicia sesión y ve a los pedidos de tu emprendimiento.</div>
+        <h3>Gracias por pertenecer a Colombia Emprende</h3>
+        </div>`,
+        Msj: "El usuario ha recibido el pedido y ha declarado el pedido como finalizado.",
+      };
+      try {
+        await sendMail(mail);
+      } catch (error) {
+        console.log(error)
       }
-      await sendMail(mail);
       setAlertFinal(true);
       sAlertFinal(id);
       setAlertCalificacion(false);
     };
     const setNewGroup = (id) => {
-      let grupo = group;
+      let grupo = group2;
       let obj;
       let num;
-      group.map((estado, eindex) => {
+      group2.map((estado, eindex) => {
         estado.Cotizaciones.map((cotizacion, index) => {
           if (cotizacion._id === id) {
             obj = cotizacion;
@@ -374,7 +501,7 @@ function MyOrders() {
         });
         return false;
       });
-      group.map((estado, ei) => {
+      group2.map((estado, ei) => {
         if (estado.Estado === "finalizado") {
           num = ei;
           return false;
@@ -388,6 +515,7 @@ function MyOrders() {
         grupo.push(c);
       }
       setGroup(grupo);
+      setGroup2(grupo);
       setStartT(true);
     };
     const AlertCalificacion = () => {
@@ -1071,13 +1199,30 @@ function MyOrders() {
       document.getElementById("new-msg-btn").classList.remove("d-none");
       document.getElementById("new-msg").classList.add("d-none");
     };
-    if (group && tiendasCotizar && productosOrders) {
+    if (group && group2 && tiendasCotizar && productosOrders) {
       if (group.length === 0) {
         return (
           <div className="m-md-4 m-sm-3 m-2">
             <div>{alertDel && <AlertDelete />}</div>
             <div className="text-center m-3">
-              <h3 className="m-md-4 m-sm-3 m-2">Actualmente no tienes ningún <span className="admin-dif-color">pedido</span>.</h3>
+              <h3 className="m-md-4 m-sm-3 m-2">
+                Actualmente no tienes ningún{" "}
+                <span className="admin-dif-color">pedido</span>.
+              </h3>
+            </div>
+          </div>
+        );
+      }
+      if (group.length === 0 && group2) {
+        return (
+          <div className="m-md-4 m-sm-3 m-2">
+            <div>{alertDel && <AlertDelete />}</div>
+            <div className="text-center m-3">
+              <h3 className="m-md-4 m-sm-3 m-2">
+                No hay ningun{" "}
+                <span className="admin-dif-color">pedido</span> por este
+                número.
+              </h3>
             </div>
           </div>
         );
@@ -1107,6 +1252,7 @@ function MyOrders() {
                     >
                       {estado.Estado === "problema" && <>En Revisión</>}
                       {estado.Estado === "envio" && <>En Envio</>}
+                      {estado.Estado === "recoger" && <>Para Recoger</>}
                       {estado.Estado === "pagado" && <>Pagadas</>}
                       {estado.Estado === "finalizado" && <>Finalizadas</>}
                     </button>
@@ -1117,7 +1263,7 @@ function MyOrders() {
                     aria-labelledby={`heading${tes}`}
                     data-bs-parent={`#accordion${tes}`}
                   >
-                    <div className="accordion-body">
+                    <div className="accordion-body  p-0 p-sm-3 mb-0">
                       {estado.Cotizaciones.map((cotiza, index) => {
                         let registro = getRegistro(cotiza._id);
                         let valorProductos = 0;
@@ -1129,16 +1275,21 @@ function MyOrders() {
                           let valor = item.Precio * producto.Cantidad;
                           valorProductos += valor;
                         });
-                        valorTotal =
-                          valorProductos +
-                          cotiza.Valor_Envio +
-                          cotiza.Otros_Valores;
+                        let val = 0;
+                        let otro = 0;
+                        if (cotiza.Valor_Envio) {
+                          val = parseInt(cotiza.Valor_Envio);
+                        }
+                        if (cotiza.Otros_Valores) {
+                          otro = parseInt(cotiza.Otros_Valores);
+                        }
+                        valorTotal = valorProductos + val + otro;
                         let store = tiendasCotizar.find(
                           (item) => item._id === cotiza.Emprendimiento_id
                         );
                         return (
                           <div
-                            className="accordion mb-3"
+                            className="accordion"
                             id={`accordionuser${cotiza._id}`}
                             key={cotiza._id}
                           >
@@ -1156,13 +1307,18 @@ function MyOrders() {
                                   aria-controls={`#collapseuser${cotiza._id}`}
                                 >
                                   <div className="d-flex flex-column">
-                                  <div>
-                                   {store.Nombre}
-                                    {store.Delete && ". (Tienda Eliminada)."}
-                                  </div>
-                                    
-                                    <div className="num-pedido">Pedido <i className="fa fa-hashtag" aria-hidden="true">
-                                      </i>: <b>{registro}</b>
+                                    <div>
+                                      {store.Nombre}
+                                      {store.Delete && ". (Tienda Eliminada)."}
+                                    </div>
+
+                                    <div className="num-pedido">
+                                      Pedido{" "}
+                                      <i
+                                        className="fa fa-hashtag"
+                                        aria-hidden="true"
+                                      ></i>
+                                      : <b>{registro}</b>
                                     </div>
                                   </div>
                                 </button>
@@ -1187,6 +1343,9 @@ function MyOrders() {
                                       <div>La tienda ha sido Eliminada</div>
                                     )}
                                   </div>
+                                  <h6 className="text-center m-2 registro">
+                                      Pedido #: {registro}
+                                    </h6>
                                   <div
                                     className="accordion"
                                     id={`accordionproducts${cotiza._id}`}
@@ -1325,7 +1484,40 @@ function MyOrders() {
                                         <h2 className="valor-titulo">
                                           Mis Comentarios:{" "}
                                         </h2>
-                                        {cotiza.User_Comentarios}
+                                        <div className="comentarios-1">
+                                          {cotiza.User_Comentarios}
+                                        </div>
+                                      </div>
+                                    )}
+                                    {cotiza.Envio && (
+                                      <div>
+                                        <h2 className="valor-titulo recoger-titulo ms-0">
+                                          Pedido con envio a domicilio.
+                                        </h2>
+                                      </div>
+                                    )}
+                                    {cotiza.Ciudad_Envio &&
+                                      cotiza.Ciudad_Envio.length > 1 && (
+                                        <div className="fs-5  mt-2 mb-2">
+                                          <h2 className="valor-titulo">
+                                            Ciudad de Envio:{" "}
+                                          </h2>
+                                          {cotiza.Ciudad_Envio}
+                                        </div>
+                                      )}
+                                    {cotiza.Direccion_Envio && (
+                                      <div className="fs-5  mt-2 mb-2">
+                                        <h2 className="valor-titulo">
+                                          Direccion de Envio:{" "}
+                                        </h2>
+                                        {cotiza.Direccion_Envio}
+                                      </div>
+                                    )}
+                                    {!cotiza.Envio && (
+                                      <div>
+                                        <h2 className="valor-titulo text-center recoger-titulo">
+                                          Pedido para recoger en tienda.
+                                        </h2>
                                       </div>
                                     )}
                                     {cotiza.Valor_Envio > 0 && (
@@ -1340,18 +1532,31 @@ function MyOrders() {
                                         </h2>
                                       </div>
                                     )}
-                                    {cotiza.Otros_Valores > 0 && (
-                                      <div className="d-flex flex-row mt-2 mb-2 pricing-data">
-                                        <h2 className="valor-titulo me-2">
-                                          Otros Valores:{" "}
-                                          <span className="valor-value">
-                                            {formatterPeso.format(
-                                              cotiza.Otros_Valores
-                                            )}
-                                          </span>
-                                        </h2>
-                                      </div>
-                                    )}
+                                    {cotiza.Otros_Valores > 0 &&
+                                      cotiza.Estado !== "creada" && (
+                                        <div>
+                                          <div className="d-flex flex-row mt-2 mb-2 pricing-data">
+                                            <h2 className="valor-titulo me-2">
+                                              Otros Cobros:{" "}
+                                              <span className="valor-value">
+                                                {formatterPeso.format(
+                                                  cotiza.Otros_Valores
+                                                )}
+                                              </span>
+                                            </h2>
+                                          </div>
+                                          {cotiza.Justificacion && (
+                                            <div className="d-flex flex-column mt-2 mb-2 pricing-data">
+                                              <h2 className="valor-titulo me-2">
+                                                Justificación de Otros Cobros:{" "}
+                                              </h2>
+                                              <div className="comentarios-1">
+                                                {cotiza.Justificacion}
+                                              </div>
+                                            </div>
+                                          )}
+                                        </div>
+                                      )}
                                     {cotiza.Comentarios && (
                                       <div>
                                         {cotiza.Comentarios.length > 1 && (
@@ -1359,7 +1564,9 @@ function MyOrders() {
                                             <h2 className="valor-titulo me-2">
                                               Comentarios de la tienda:{" "}
                                             </h2>
-                                            {cotiza.Comentarios}
+                                            <div className="comentarios-1">
+                                              {cotiza.Comentarios}
+                                            </div>
                                           </div>
                                         )}
                                       </div>
@@ -1381,7 +1588,9 @@ function MyOrders() {
                                             <h2 className="valor-titulo me-2">
                                               Comentarios Finales del Cliente:{" "}
                                             </h2>
-                                            {cotiza.Comentarios_Finales}
+                                            <div className="comentarios-1">
+                                              {cotiza.Comentarios_Finales}
+                                            </div>
                                           </div>
                                         )}
                                       </div>
@@ -1407,7 +1616,7 @@ function MyOrders() {
                                                     aria-expanded="true"
                                                     aria-controls={`#collapseEnvio${cotiza._id}`}
                                                   >
-                                                    Información del Envio
+                                                    Información {cotiza.Envio && " del Envio"}{!cotiza.Envio && "de la Recogida"}
                                                   </button>
                                                 </h3>
                                                 <div
@@ -1433,9 +1642,25 @@ function MyOrders() {
                                                     </div>
                                                     <div>
                                                       {cotiza.Info_Envio
+                                                        .Recogida && (
+                                                        <h5 className="text-center">
+                                                          <span className="d-none d-sm-inline">
+                                                            Fecha de Recogida:{" "}
+                                                          </span>
+                                                          <span className="fs-5 fw-normal">
+                                                            {
+                                                              cotiza.Info_Envio
+                                                                .Recogida
+                                                            }
+                                                          </span>
+                                                        </h5>
+                                                      )}
+                                                    </div>
+                                                    <div>
+                                                      {cotiza.Info_Envio
                                                         .Empresa_Envio && (
                                                         <h2 className="valor-titulo me-2">
-                                                          Fecha de Envio:{" "}
+                                                          Empresa{cotiza.Ciudad_Envio !== store.Ciudad && " de Envio"}{cotiza.Ciudad_Envio === store.Ciudad && " del Domicilio"}:{" "}
                                                           <span className="valor-value">
                                                             {
                                                               cotiza.Info_Envio
@@ -1449,7 +1674,7 @@ function MyOrders() {
                                                       {cotiza.Info_Envio
                                                         .Numero_Guia && (
                                                         <h2 className="valor-titulo me-2">
-                                                          Fecha de Envio:{" "}
+                                                          Numero{cotiza.Ciudad_Envio !== store.Ciudad && " de Guia"}{cotiza.Ciudad_Envio === store.Ciudad && " del Domicilio"}:{" "}
                                                           <span className="valor-value">
                                                             {
                                                               cotiza.Info_Envio
@@ -1471,16 +1696,34 @@ function MyOrders() {
                                                                 Comentarios del
                                                                 Envio:{" "}
                                                               </h2>
-                                                              {
-                                                                cotiza
-                                                                  .Info_Envio
-                                                                  .Comentarios_Envio
-                                                              }
+                                                              <div className="comentarios-1">
+                                                                {
+                                                                  cotiza
+                                                                    .Info_Envio
+                                                                    .Comentarios_Envio
+                                                                }
+                                                              </div>
                                                             </div>
                                                           )}
                                                         </div>
                                                       )}
                                                     </div>
+                                                    <div>
+                                                    {cotiza.Info_Envio.Comentarios_Recogida && (
+                                                      <div>
+                                                        {cotiza.Info_Envio.Comentarios_Recogida.length > 1 && (
+                                                          <div className="mt-2 mb-2 fs-5 comentarios-1">
+                                                            <h5 className="me-2">
+                                                              Comentarios de la Recogida:{" "}
+                                                            </h5>
+                                                            {
+                                                              cotiza.Info_Envio.Comentarios_Recogida
+                                                            }
+                                                          </div>
+                                                        )}
+                                                      </div>
+                                                    )}
+                                                  </div>
                                                   </div>
                                                 </div>
                                               </div>
@@ -1490,7 +1733,7 @@ function MyOrders() {
                                       )}
                                   </div>
                                   {cotiza.Pago === true &&
-                                    cotiza.Estado === "envio" &&
+                                    (cotiza.Estado === "envio" || cotiza.Estado === "recoger" ) &&
                                     !store.Delete && (
                                       <div className="d-flex flex-row justify-content-center buttons-orders">
                                         <div className="m-2">
@@ -1671,7 +1914,7 @@ function MyOrders() {
                                                     <Button
                                                       variant="primary"
                                                       onClick={async (e) => {
-                                                        e.preventDefault()
+                                                        e.preventDefault();
                                                         const problem = {
                                                           User_Problem: newMsg,
                                                         };
@@ -1679,15 +1922,42 @@ function MyOrders() {
                                                           cotiza._id,
                                                           problem
                                                         );
+                                                        let registro;
+                                                        registro = getRegistro(
+                                                          cotiza._id
+                                                        );
+                                                        let numReg;
+                                                        if (registro) {
+                                                          numReg = `<div style="margin-bottom:15px;"><span style="font-size:20px; margin-right:5px;">Cotización #:</span><span style="font-size:21px; font-weight:600; color:#114aa5">${registro}</span></div>`;
+                                                        } else {
+                                                          numReg = "";
+                                                        }
                                                         let mail = {
                                                           Email: store.Email,
-                                                          Nombre: user.displayName,
+                                                          Nombre:
+                                                            user.displayName,
                                                           Subject: `${user.displayName} ha enviado un nuevo mensaje del pedido en problema.`,
-                                                          Html: `<div style="text-align:center;"><img src="https://firebasestorage.googleapis.com/v0/b/colombia-emprende-app.appspot.com/o/assets%2Flogo-colombia-emprende.png?alt=media&token=d74058e0-1418-41a6-8e72-d384c48c8cd0"
-                                                          alt="Logo Colombia Emprende" style="width:300px;" /><h1>Hola <span style="color:#114aa5;">${store.Nombre}</span></h1><h2><span style="color:#114aa5;">${user.displayName}</span> ha enviado un nuevo mensaje sobre el pedido en problema.</h2><div>El usuario te ha enviado el siguiente mensaje:<br />${newMsg}<br /> Ve a los pedidos de tu emprendimiento y podrás contestar al cliente y resolver el problema.<div><br /><div style="font-size:12px; font-weigth:300;">Si sigues el siguiente link debes tener la sesión iniciada, de lo contrario inicia sesión y ve a los pedidos de tu emprendimiento.</div><a href="http://localhost:3000/admin/mi-emprendimiento/pedidos">Ir a los Pedidos de mi Emprendimiento</a></div></div><h3>Gracias por pertenecer a Colombia Emprende</h3></div>`,
-                                                          Msj: "se ha enviado un nuevo mensaje del pedido en problema."
+                                                          Html: `<div style="text-align:center;">
+                                                          <img src="https://firebasestorage.googleapis.com/v0/b/colombia-emprende-app.appspot.com/o/assets%2Flogo-colombia-emprende.png?alt=media&token=d74058e0-1418-41a6-8e72-d384c48c8cd0" alt="Logo Colombia Emprende" style="width:300px;" />
+                                                          <h1>Hola <span style="color:#C1171B;">${store.Nombre}</span></h1>
+                                                          <div style="; background-color:#F8F3F3; border-radius:10px; display: inline-block; padding: 0px 15px; margin-bottom:10px; border-style: solid; border-color: #D7705650;">
+                                                          <h2><span style="color:#C1171B;">${user.displayName}</span> ha enviado un nuevo mensaje del pedido en problema</h2>
+                                                          ${numReg}
+                                                          </div>
+                                                          <div>El usuario te ha enviado el siguiente mensaje sobre su pedido en problema:<br /><span style="color:#731717;">${newMsg}</span><br /> Ve a los pedidos de tu emprendimiento y podrás contestar al cliente y resolver el problema.</div>
+                                                          <div style="margin:10px;margin-top:25px;background-color: #CF1519; padding: 10px; border-radius:10px; display: inline-block;">
+                                                          <a href="https://colombia-emprende.vercel.app/admin/mi-emprendimiento/pedidos" style="color: #fff; font-size:15px; font-weight:500; text-decoration:none;">Ir a los Pedidos de Mi Emprendimiento</a>
+                                                          </div>
+                                                          <div style="font-size:11px; font-weigth:300;">Si sigues este botón debes tener la sesión iniciada, de lo contrario ve a Colombia Emprende inicia sesión y ve a los pedidos de tu emprendimiento.</div>
+                                                          <h3>Gracias por pertenecer a Colombia Emprende</h3>
+                                                          </div>`,
+                                                          Msj: "El usuario te ha enviado un nuevo mensaje del pedido en problema.",
+                                                        };
+                                                        try {
+                                                          await sendMail(mail);
+                                                        } catch (error) {
+                                                          console.log(error)
                                                         }
-                                                        await sendMail(mail);
                                                       }}
                                                     >
                                                       Enviar nuevo msg
@@ -1757,7 +2027,11 @@ function MyOrders() {
   if (cargando) {
     return (
       <div className="d-flex justify-content-center mt-5 mb-5">
-        <div className="spinner-border" style={{ width: "3rem", height: "3rem" }} role="status">
+        <div
+          className="spinner-border"
+          style={{ width: "3rem", height: "3rem" }}
+          role="status"
+        >
           <span className="sr-only">Loading...</span>
         </div>
       </div>
@@ -1766,6 +2040,53 @@ function MyOrders() {
   return (
     <div>
       <h1 className="text-center admin-titles-cel">Mis Pedidos</h1>
+      {group2 && (
+        <div className="d-flex flex-lg-row flex-column justify-content-center m-2">
+          <h4 className="as-center text-center">
+            {!reg && "Buscar "}
+            {reg && "Buscando "}por # de Pedido:
+          </h4>
+          <form className="d-flex flex-row caja-column justify-content-center">
+            <input className="m-2" type="text" id="reg" />
+            <div className="d-flex flex-row justify-content-center">
+              <button
+                className="btn btn-primary m-2"
+                type="submit"
+                onClick={buscar}
+              >
+                Buscar
+              </button>
+              <button className="btn btn-danger m-2" onClick={borrar}>
+                {!reg && "Borrar"}
+                {reg && "Borrar y Ver Todos"}
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+      {group && alertBusqueda && <AlertBusqueda />}
+      {!group && (
+        <div className="m-md-4 m-sm-3 m-2">
+          <div>{alertDel && <AlertDelete />}</div>
+          <div className="text-center m-3">
+            <h3 className="m-md-4 m-sm-3 m-2">
+              No hay ningun <span className="admin-dif-color">pedido</span>{" "}
+              por este número.
+            </h3>
+          </div>
+        </div>
+      )}
+      {!group && !group2 && (
+        <div className="m-md-4 m-sm-3 m-2">
+          <div>{alertDel && <AlertDelete />}</div>
+          <div className="text-center m-3">
+            <h3 className="m-md-4 m-sm-3 m-2">
+              Actualmente no tienes ningun{" "}
+              <span className="admin-dif-color">pedido</span>.
+            </h3>
+          </div>
+        </div>
+      )}
       <CotizacionItems />
     </div>
   );
