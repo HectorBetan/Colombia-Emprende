@@ -1491,7 +1491,7 @@ function MyOrders() {
                                     )}
                                     {cotiza.Envio && (
                                       <div>
-                                        <h2 className="valor-titulo recoger-titulo ms-0">
+                                        <h2 className="valor-titulo recoger-titulo ms-0 text-center">
                                           Pedido con envio a domicilio.
                                         </h2>
                                       </div>
@@ -2041,7 +2041,7 @@ function MyOrders() {
     <div>
       <h1 className="text-center admin-titles-cel">Mis Pedidos</h1>
       {group2 && (
-        <div className="d-flex flex-lg-row flex-column justify-content-center m-2">
+        <div className="d-flex flex-lg-row flex-column justify-content-center m-2 caja-buscar">
           <h4 className="as-center text-center">
             {!reg && "Buscar "}
             {reg && "Buscando "}por # de Pedido:

@@ -636,7 +636,7 @@ function StoreOrders() {
                                 aria-labelledby={`headinguser${cotiza._id}`}
                                 data-bs-parent={`#accordionuser${cotiza._id}`}
                               >
-                                <div className="accordion-body pt-0 pb-0 ">
+                                <div className="accordion-body pt-0 pb-0 ps-2 pe-1 ps-sm-3 pe-sm-3">
                                 <h6 className="text-center m-2 registro">
                                       Pedido #: {registro}
                                     </h6>
@@ -789,7 +789,7 @@ function StoreOrders() {
                                     )}
                                     {cotiza.Envio && (
                                       <div>
-                                        <h2 className="valor-titulo recoger-titulo ms-0">
+                                        <h2 className="valor-titulo recoger-titulo ms-0  text-center">
                                           Pedido con envio a domicilio.
                                         </h2>
                                       </div>
@@ -905,7 +905,7 @@ function StoreOrders() {
                                         e.preventDefault();
                                         handleNewEnvio(cotiza, usuario, tes);
                                       }}>
-                                      <div className="comentarios-1 m-2 ms-1 me-1">
+                                      <div className="comentarios-1 m-1">
                                         <div className="d-flex flex-row mt-2 mb-2 pricing-data">
                                           <h2 className="valor-titulo1 me-2">
                                             Fecha {cotiza.Envio&&"de Envio"}{!cotiza.Envio&&"de Recogida"}:{" "}
@@ -1359,7 +1359,7 @@ function StoreOrders() {
     <div>
       <h1 className="text-center admin-titles-cel">Pedidos</h1>
       {group2 && (
-        <div className="d-flex flex-lg-row flex-column justify-content-center m-2">
+        <div className="d-flex flex-lg-row flex-column justify-content-center m-2 caja-buscar">
           <h4 className="as-center text-center">
             {!reg && "Buscar "}
             {reg && "Buscando "}por # de Pedido:

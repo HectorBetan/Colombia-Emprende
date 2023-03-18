@@ -42,7 +42,7 @@ function HomeView() {
         <h1 className="text-center">Nuevos emprendimientos</h1>
         <HomeStores />
         <div className="text-center mt-2 mb-4">
-          <Link to={"/Emprendimientos"} className="btn btn-lg btn-primary">
+          <Link to={"/Emprendimientos"} className="btn btn-lg btn-dark">
             Ver Todos Los Emprendimientos
           </Link>
         </div>

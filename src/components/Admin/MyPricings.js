@@ -689,7 +689,7 @@ function MyPricings() {
                                           )}
                                         {cotiza.Envio && (
                                           <div>
-                                            <h2 className="valor-titulo recoger-titulo ms-0">
+                                            <h2 className="valor-titulo recoger-titulo ms-0 text-center">
                                               Cotización con envio a domicilio.
                                             </h2>
                                           </div>
@@ -800,6 +800,7 @@ function MyPricings() {
                                   </div>
                                   <div className="d-flex flex-row justify-content-center botones-pricing mb-3">
                                     {estado.Estado === "creada" && (
+                                      <div className="text-center">
                                       <button
                                         className="btn btn-danger"
                                         onClick={(e) => {
@@ -809,6 +810,7 @@ function MyPricings() {
                                       >
                                         Eliminar
                                       </button>
+                                      </div>
                                     )}
                                     {estado.Estado === "cotizacion" &&
                                       !store.Delete && (
@@ -901,7 +903,7 @@ function MyPricings() {
     <div>
       <h1 className="text-center admin-titles-cel">Mis Cotizaciones</h1>
       {group2 && (
-        <div className="d-flex flex-lg-row flex-column justify-content-center m-2">
+        <div className="d-flex flex-lg-row flex-column justify-content-center m-2 caja-buscar">
           <h4 className="as-center text-center">
             {!reg && "Buscar "}
             {reg && "Buscando "}por # de Cotización:

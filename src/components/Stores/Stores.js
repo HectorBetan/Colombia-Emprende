@@ -412,7 +412,7 @@ function Stores(data) {
                               {data.value.store.Nombre}
                             </h5>
                             <h4 className="card-text store-categoria">
-                              {w >= 325 && <span>Categoria: </span>}
+                              {w >= 325 && <span>Categoría: </span>}
                               <span className="stores-cel">
                                 {data.value.store.Categoria}
                               </span>
@@ -528,7 +528,7 @@ function Stores(data) {
                             {data.value.store.Nombre}
                           </h5>
                           <h4 className="card-text store-categoria">
-                            {w >= 325 && <span>Categoria: </span>}
+                            {w >= 325 && <span>Categoría: </span>}
                             <span className="stores-cel">
                               {data.value.store.Categoria}
                             </span>
@@ -744,7 +744,7 @@ function Stores(data) {
           <div>
             <form className="d-flex flex-row  justify-content-center">
               <div className="text-center">
-                <h5 className="text-busq-cat">Buscar por Categoria</h5>
+                <h5 className="text-busq-cat">Buscar por Categoría</h5>
                 <div className="d-flex flex-row  justify-content-center">
                   <select
                     onChange={(e) => {
@@ -864,7 +864,7 @@ function Stores(data) {
           <div>
             <form className="d-flex flex-row  justify-content-center">
               <div className="text-center">
-                <h5 className="text-busq-cat">Buscar por Categoria</h5>
+                <h5 className="text-busq-cat">Buscar por Categoría</h5>
                 <div className="d-flex flex-row  justify-content-center">
                   <select
                     onChange={(e) => {

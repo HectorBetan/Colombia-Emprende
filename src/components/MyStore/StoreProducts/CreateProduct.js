@@ -211,7 +211,7 @@ function CreateProduct() {
                   type="number"
                   onChange={handleChange}
                   name="Precio"
-                  className="form-control admin-num-input"
+                  className="form-control admin-num-input p-2"
                   placeholder="Ingrese Valor del Producto"
                   required
                 />

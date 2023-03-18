@@ -788,7 +788,7 @@ function Store(data) {
               )}
               {w >= 600 && (
                 <h4 className="card-text store-categoria">
-                  {w >= 600 && <span>Categoria: </span>}
+                  {w >= 600 && <span>Categoría: </span>}
                   <span className="stores-cel">
                     {emprendimiento.value.store.Categoria}
                   </span>
@@ -802,7 +802,7 @@ function Store(data) {
                       {emprendimiento.value.store.Nombre}
                     </h5>
                     <h4 className="card-text store-categoria">
-                      {w > 350 && <span>Categoria: </span>}
+                      {w > 350 && <span>Categoría: </span>}
                       {emprendimiento.value.store.Categoria}
                     </h4>
                   </div>
@@ -829,7 +829,7 @@ function Store(data) {
               </h3>
               {emprendimiento.value.store.Telefono && w >= 600 && (
                 <h4 className="card-text store-categoria">
-                  {w >= 600 && <span>Telefono: </span>}
+                  {w >= 600 && <span>Teléfono: </span>}
                   <span className="stores-cel">
                     {emprendimiento.value.store.Telefono}
                   </span>
@@ -860,7 +860,7 @@ function Store(data) {
           {emprendimiento.value.store.Descripcion && <hr />}
           {emprendimiento.value.store.Descripcion && (
             <div className="ps-3 pe-3 store-descripcion">
-              <b>Descripcion: </b>
+              <b>Descripción: </b>
               {descripcion}
               {verMas && (
                 <span className="ver-mas-descripcion">

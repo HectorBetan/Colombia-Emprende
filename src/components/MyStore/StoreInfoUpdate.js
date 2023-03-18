@@ -209,7 +209,7 @@ function StoreInfoUpdate() {
                 />
               </div>
               <div className="form-group col-5">
-                <label className="m-1">Email</label>
+                <label className="m-1">E-mail</label>
                 <input
                   onChange={handleChange}
                   type="text"
@@ -242,7 +242,7 @@ function StoreInfoUpdate() {
                   className="btn btn-primary mt-2"
                   onClick={handleNewPhone}
                 >
-                  Agregar telefono fijo
+                  Agregar teléfono fijo
                 </button>
               </div>
               <div
@@ -251,7 +251,7 @@ function StoreInfoUpdate() {
               >
                 <div className="d-flex flex-row">
                   <h6 className="bg-secondary rounded p-2 text-white mt-1 me-2">
-                    Telefono:
+                    Teléfono:
                   </h6>
                   <input
                     type="text"
@@ -282,7 +282,7 @@ function StoreInfoUpdate() {
             <input
               className="form-check-input mt-1em"
               type="checkbox"
-              id="emailCheck"
+              id="check"
               onChange={handleRecoger}
               checked={emprendimiento.Recoger}
             />
@@ -304,7 +304,7 @@ function StoreInfoUpdate() {
                 </select>
               </div>
               <div className="form-group col-5">
-                <label className="m-1">Categoria</label>
+                <label className="m-1">Categoría</label>
                 <select
                   onChange={handleChange}
                   name="Categoria"

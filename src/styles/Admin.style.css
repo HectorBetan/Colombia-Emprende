@@ -959,6 +959,20 @@
   .caja-column input{
     flex-direction: column!important;
   }
+  .caja-buscar h4{
+    margin:4px!important;
+    font-size: 16px!important;
+  }
+  .caja-buscar input{
+    margin:0px 20px!important;
+    font-size: 14px!important;
+    text-align: center!important;
+  }
+  .caja-buscar button{
+margin: 5px!important;
+    font-size: 14px!important;
+    text-align: center!important;
+  }
 }
 
 input[type="text"] {

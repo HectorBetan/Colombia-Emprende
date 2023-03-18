@@ -347,7 +347,7 @@ function StoreRegister() {
             <input
               className="form-check-input mt-1em"
               type="checkbox"
-              id="emailCheck"
+              id="check"
               onClick={handleRecoger}
               value=""
             />
