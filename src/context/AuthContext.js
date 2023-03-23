@@ -34,7 +34,7 @@ export const useAuth = () => {
 };
 export function AuthProvider({ children }) {
   const navigate = useNavigate();
-  const dbUrl = "https://colombia-emprende-server.onrender.com";
+  const dbUrl = "https://colombia-emprende-server.onrender.com/";
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
