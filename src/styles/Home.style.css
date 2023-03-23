@@ -169,8 +169,11 @@ footer {
 .navi-link:hover {
   color: #f4f7fa;
 }
+.log-button {
+  background-color: #66bbf485 !important;
+}
 .log-button:hover {
-  background-color: #99d3fc !important;
+  background-color: #6cb7ec !important;
 }
 .drop-menu-item {
   padding-top: 6px;

@@ -483,7 +483,7 @@ export const UserButton = () => {
         <Dropdown.Toggle
           variant="info"
           id="dropdown-basic"
-          className="text-end d-flex flex-row align-middle align-items-center log-button"
+          className="text-end d-flex flex-row align-middle align-items-center log-button "
         >
           <h4 className="align-items-center nombre-button">{nombre}</h4>
           <PhotoView img={user.photoURL} s="54px" />

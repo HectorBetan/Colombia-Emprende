@@ -15,7 +15,7 @@ function NavigationBar() {
   const activar = (ruta) => {
     if (location.pathname === ruta) {
       return {
-        color: "#2098ee",
+        color: "#66b7f2",
       };
     } else {
       return {
