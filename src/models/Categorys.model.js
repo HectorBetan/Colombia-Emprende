@@ -1,7 +1,6 @@
 export const categorys = [
   "Moda",
   "Artesanias",
-  "Turismo",
   "Tecnología",
   "Comida",
   "Belleza",

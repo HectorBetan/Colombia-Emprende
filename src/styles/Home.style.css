@@ -248,7 +248,20 @@ footer {
   fill: #091a2e;
   text-decoration: none;
 }
-
+.caja-aviso{
+  background-color: #fffffff9;
+  border: 5px solid #0a5081;
+  border-radius: 25px;
+  padding: 10px;
+  margin: 10px;
+  font-size: 18px;
+  font-weight: 600;
+}
+.caja-aviso .peque{
+  margin: 0 10px;
+  font-size: 14px;
+  font-weight: 500;
+}
 /*
 publicidad1
 

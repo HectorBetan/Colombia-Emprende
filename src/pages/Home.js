@@ -11,6 +11,7 @@ import Button from 'react-bootstrap/Button';
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useMyStore } from "../context/MyStoreContext";
+import { usePublic } from "../context/PublicContext";
 import { useEffect, useState } from "react";
 import { LoginButton, UserButton } from "../utilities/loginButton.utilities";
 import { ProtectedUser } from "../protectedRoutes/protectedUser";
@@ -19,10 +20,29 @@ import "../styles/Home.style.css";
 function Home() {
   const routePath = useLocation();
   const {alert1CreateStore, alert1DeleteStore} = useMyStore();
+  const {showAlert} = usePublic();
   const { user, loading, userData, alertDeleteUser, alertDeleteUserFalse, alert1DeleteUser, alertCreateUser, alertCreateUserFalse, alert1CreateUser } = useAuth();
   const onTop = () => {
     window.scrollTo(0, 0);
   };
+  const ModalLoadingDb = () => {
+    return(
+      <>
+        <Modal show={showAlert} className="opa-0 mt-4">
+        <div className="d-flex justify-content-center text-white">
+        <div className="spinner-border" style={{ width: "3rem", height: "3rem" }} role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      </div>
+      <div className="text-center caja-aviso">
+      <div className="">Estamos cargando los datos del servidor.</div>
+      <div className="peque">*Al estar en un servidor gratuito esto puede tomar algunos segundos de carga.</div>
+      </div>
+      
+        </Modal>
+      </>
+    )
+  }
   useEffect(() => {
     onTop();
   }, [routePath]);
@@ -126,6 +146,7 @@ function Home() {
     <div>
       <ModalCreateUser></ModalCreateUser>
       <ModalDeleteUser></ModalDeleteUser>
+      <ModalLoadingDb  />
       {alert1DeleteUser && <ModalBackDrop></ModalBackDrop>}
       {alert1CreateUser && <ModalLoading></ModalLoading>}
       {alert1CreateStore && <ModalBackDrop></ModalBackDrop>}

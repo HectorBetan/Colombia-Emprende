@@ -418,7 +418,6 @@ export function AuthProvider({ children }) {
     return fecha;
   };
   useEffect(() => {
-    
     const getUserData = async () => {
       const sendUserMail1 = async (mail) => {
         await axios.post(`${dbUrl}enviar-user-email`, mail, token);

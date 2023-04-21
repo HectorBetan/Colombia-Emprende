@@ -15,7 +15,26 @@ export function PublicProvider({ children }) {
   const [storesData, setStoresData] = useState(null);
   const [sixStores, setSixStores] = useState(null);
   const [loadingPublic, setLoadingPublic] = useState(true);
+  const [count, setCount] = useState(0);
+  const [showAlert, setShowAlert] = useState(false);
   useEffect(() => {
+    if (!sixStores) {
+      const intervalId = setInterval(() => {
+        setCount((count) => count + 1);
+        console.log(count)
+      }, 1000);
+
+      return () => clearInterval(intervalId);
+    } else{
+      setShowAlert(false)
+      setCount(0)
+    }
+    if (count >= 3) {
+      setShowAlert(true)
+    }
+  }, [count, sixStores]);
+  useEffect(() => {
+    
     const getSixStores = async () => {
       await axios
         .get(`${dbUrl}six-stores`)
@@ -91,6 +110,7 @@ export function PublicProvider({ children }) {
         products,
         loadingPublic,
         sixStores,
+        showAlert,
       }}
     >
       {children}

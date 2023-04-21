@@ -29,7 +29,7 @@ function Pay() {
         role="alert"
       >
         <i className="fa-solid fa-circle-check fa-2x me-1 text-success"></i>
-        <h5 className=" m-1 sm:inline text-success align-middle ">
+        <h5 className=" m-1 sm:inline text-success align-middle text-center">
           Se ha realizado el Pago y se ha creado la Orden de Pedido
         </h5>
       </div>
@@ -134,7 +134,7 @@ function Pay() {
       return (
         <div className="ms-5 me-5">
           <div className="text-center d-flex flex-column justify-content-center">
-            Numero Cedula: <input name="cedula" className="input-pay m-2" onChange={handleChange} />
+            Numero Cedula: <input name="Cedula" className="input-pay m-2" />
           </div>
           <div className="text-center d-flex flex-column justify-content-center">
             Numero Tarjeta: <input className="input-pay m-2" />
