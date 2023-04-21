@@ -9,7 +9,7 @@ export const usePublic = () => {
 };
 export function PublicProvider({ children }) {
   //const { token, loading, userData } = useAuth();
-  const dbUrl = "https://colombia-emprende-server.onrender.com/";
+  const dbUrl = "https://colombia-emprende-server-production.up.railway.app/";
   const [stores, setStores] = useState(null);
   const [products, setProducts] = useState(null);
   const [storesData, setStoresData] = useState(null);
