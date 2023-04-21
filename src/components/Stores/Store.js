@@ -947,8 +947,8 @@ function Store(data) {
             
           </div>
           <div className="d-flex flex-column justify-content-center mt-2 text-center caja-domicilio">
-          <span className="m-1"><i class="fa-solid fa-truck-fast me-2"></i>{emprendimiento.value.store.Recoger && <span>Disponible en servicio a domicilio.</span>}{!emprendimiento.value.store.Recoger && <span>Disponible solo para domicilios.</span>}</span>
-            {emprendimiento.value.store.Recoger && <span className="m-1"><i class="fa-solid fa-store me-2"></i>Disponible para recoger en tienda.</span>}
+          <span className="m-1"><i className="fa-solid fa-truck-fast me-2"></i>{emprendimiento.value.store.Recoger && <span>Disponible en servicio a domicilio.</span>}{!emprendimiento.value.store.Recoger && <span>Disponible solo para domicilios.</span>}</span>
+            {emprendimiento.value.store.Recoger && <span className="m-1"><i className="fa-solid fa-store me-2"></i>Disponible para recoger en tienda.</span>}
           </div>
         </div>
       );

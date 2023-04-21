@@ -75,6 +75,7 @@ function NavigationBar() {
       }
       nombre = nombre.slice(0, 1).join("");
     }
+
     return (
       <div className="accordion accordion-flush pt-2" id="#acordionMenu">
         <div className="accordion-item">

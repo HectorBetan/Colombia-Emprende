@@ -146,7 +146,7 @@ function Home() {
     <div>
       <ModalCreateUser></ModalCreateUser>
       <ModalDeleteUser></ModalDeleteUser>
-      <ModalLoadingDb  />
+      
       {alert1DeleteUser && <ModalBackDrop></ModalBackDrop>}
       {alert1CreateUser && <ModalLoading></ModalLoading>}
       {alert1CreateStore && <ModalBackDrop></ModalBackDrop>}
@@ -181,6 +181,7 @@ function Home() {
           </div>
         )}
       </Navbar>
+      <ModalLoadingDb  />
       <Navigation />
       <Routes>
         <Route path="/" element={<HomeView />} />

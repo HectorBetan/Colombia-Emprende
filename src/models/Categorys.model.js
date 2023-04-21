@@ -8,7 +8,6 @@ export const categorys = [
   "Niños",
   "Deportes",
   "Hogar",
-  "Servicios",
   "Mascotas",
   "Otros",
 ];

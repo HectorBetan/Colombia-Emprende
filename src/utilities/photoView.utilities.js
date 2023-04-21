@@ -35,10 +35,14 @@ export const StoreLogo = (size) => {
   );
 };
 export const PhotoView = (img) => {
+  let i = img.img
   let num = img.s.substring(0, 2);
   num = num / 2;
   const br = num + "px";
-  if (img.img) {
+  if(i && i.includes("lh3.googleusercontent.com")){
+    i = ""
+  }
+  if (i) {
     return (
       <div>
         <img
@@ -50,7 +54,7 @@ export const PhotoView = (img) => {
             borderRadius: `${br}`,
             objectFit: "cover",
           }}
-          src={img.img}
+          src={i}
           alt="profile"
           className="me-2"
         />

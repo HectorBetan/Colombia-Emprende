@@ -21,7 +21,6 @@ export function PublicProvider({ children }) {
     if (!sixStores) {
       const intervalId = setInterval(() => {
         setCount((count) => count + 1);
-        console.log(count)
       }, 1000);
 
       return () => clearInterval(intervalId);
@@ -29,7 +28,8 @@ export function PublicProvider({ children }) {
       setShowAlert(false)
       setCount(0)
     }
-    if (count >= 3) {
+    if (count > 2) {
+      console.log("entro")
       setShowAlert(true)
     }
   }, [count, sixStores]);
@@ -91,7 +91,7 @@ export function PublicProvider({ children }) {
         let lista = [];
         storesData.map((store) => {
           let storeProducts = products.filter(
-            (product) => product.User_id === store.User_id
+            (product) => product.Emprendimiento_id === store._id
           );
           let newStore = { store: store, products: storeProducts };
           lista.push(newStore);
