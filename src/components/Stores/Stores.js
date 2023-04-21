@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { categorys } from "../../models/Categorys.model";
 import { citys } from "../../models/City.model";
+import { useAuth } from "../../context/AuthContext";
 import imgStore from "../../assets/img-store.jpg";
 import Pagination from "react-bootstrap/Pagination";
 import { useNavigate } from "react-router-dom";
 function Stores(data) {
   const navigate = useNavigate();
+  const {user, userData} = useAuth();
   const [resultados, setResultados] = useState(4);
   const [w, setW] = useState(window.innerWidth);
   const [active, setActive] = useState(1);
@@ -465,6 +467,10 @@ function Stores(data) {
                               )}
                           </div>
                         </div>
+                        {user && userData && userData._id === data.value.store.User_id &&
+                        <div>
+                          *Puedes comprar en tu emprendimiento para realizar pruebas
+                        </div>}
                         <div className="text-center pb-2 card-footer">
                           <button
                             onClick={(e) => {
