@@ -29,8 +29,7 @@ export function PublicProvider({ children }) {
       setCount(0)
     }
     if (count > 2) {
-      console.log("entro")
-      setShowAlert(true)
+      return setShowAlert(true)
     }
   }, [count, sixStores]);
   useEffect(() => {

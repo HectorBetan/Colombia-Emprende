@@ -133,7 +133,7 @@ function Store(data) {
             backdrop="static"
           >
             <Modal.Header closeButton>
-              <Modal.Title>Fotos de Producto: {producto}</Modal.Title>
+              <Modal.Title>{producto}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <div>
@@ -452,7 +452,7 @@ function Store(data) {
       return (
         <Modal show={showModal} onHide={handleCloseModal} backdrop="static">
           <Modal.Header closeButton>
-            <h3>Fotos de {emprendimiento.value.store.Nombre}</h3>
+            <h3>{emprendimiento.value.store.Nombre}</h3>
           </Modal.Header>
           <Modal.Body>
             <div>
@@ -499,7 +499,7 @@ function Store(data) {
       return (
         <Modal show={showModal} onHide={handleCloseModal} backdrop="static">
           <Modal.Header closeButton>
-            <h3>Foto de {emprendimiento.value.store.Nombre}</h3>
+            <h3>{emprendimiento.value.store.Nombre}</h3>
           </Modal.Header>
           <Modal.Body>
             <div>
