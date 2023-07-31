@@ -12,7 +12,7 @@ export function MyStoreProvider({ children }) {
   const { token, userData, createStoreAuth, user, sendUserMail } = useAuth();
   const navigate = useNavigate();
   let location = useLocation();
-  const dbUrl = "https://colombia-emprende-server-production.up.railway.app/";
+  const dbUrl = "https://colombia-emprende-server.onrender.com/";
   const [userStore, setUserStore] = useState(null);
   const [userProducts, setUserProducts] = useState(null);
   const [showProducts, setShowProducts] = useState("");

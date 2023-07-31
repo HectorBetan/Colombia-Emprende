@@ -9,7 +9,7 @@ export const usePublic = () => {
 };
 export function PublicProvider({ children }) {
   //const { token, loading, userData } = useAuth();
-  const dbUrl = "https://colombia-emprende-server-production.up.railway.app/";
+  const dbUrl = "https://colombia-emprende-server.onrender.com/";
   const [stores, setStores] = useState(null);
   const [products, setProducts] = useState(null);
   const [storesData, setStoresData] = useState(null);
@@ -17,6 +17,12 @@ export function PublicProvider({ children }) {
   const [loadingPublic, setLoadingPublic] = useState(true);
   const [count, setCount] = useState(0);
   const [showAlert, setShowAlert] = useState(false);
+  const reinitStoresData = ()=>{
+    setProducts(null)
+    setStores(null)
+    setStoresData(null)
+    setSixStores(null)
+  }
   useEffect(() => {
     if (!sixStores) {
       const intervalId = setInterval(() => {
@@ -48,7 +54,10 @@ export function PublicProvider({ children }) {
         await getSixStores();
       }
     };
-    set5Store();
+    if (sixStores === null) {
+      set5Store();
+    }
+   
   }, [sixStores]);
   useEffect(() => {
     const getStores = async () => {
@@ -65,7 +74,10 @@ export function PublicProvider({ children }) {
         await getStores();
       }
     };
-    setStore();
+    if (storesData === null) {
+      setStore();
+    }
+    
   }, [stores, storesData]);
   useEffect(() => {
     const getProducts = async () => {
@@ -82,7 +94,10 @@ export function PublicProvider({ children }) {
         await getProducts();
       }
     };
-    setProductsData();
+    if(products === null){
+      setProductsData();
+    }
+    
   }, [products]);
   useEffect(() => {
     const resolveStores = () => {
@@ -110,6 +125,7 @@ export function PublicProvider({ children }) {
         loadingPublic,
         sixStores,
         showAlert,
+        reinitStoresData,
       }}
     >
       {children}

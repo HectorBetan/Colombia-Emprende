@@ -38,7 +38,7 @@ function Store(data) {
     };
   }, []);
   const navigate = useNavigate();
-  const { user, createCart, showLogin, showLoginTrue, alertLoginTrue } = useAuth();
+  const { user, userData, createCart, showLogin, showLoginTrue, alertLoginTrue } = useAuth();
   const { nombre } = useParams();
   const lista = data.data;
   const [seles, setSeles] = useState(true);
@@ -950,6 +950,10 @@ function Store(data) {
           <span className="m-1"><i className="fa-solid fa-truck-fast me-2"></i>{emprendimiento.value.store.Recoger && <span>Disponible en servicio a domicilio.</span>}{!emprendimiento.value.store.Recoger && <span>Disponible solo para domicilios.</span>}</span>
             {emprendimiento.value.store.Recoger && <span className="m-1"><i className="fa-solid fa-store me-2"></i>Disponible para recoger en tienda.</span>}
           </div>}
+          {user && userData && userData._id === emprendimiento.value.store.User_id &&
+                        <div className="text-center p-2">
+                          *Puedes comprar en tu emprendimiento para realizar pruebas
+                        </div>}
         </div>
       );
     }

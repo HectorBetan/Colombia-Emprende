@@ -468,7 +468,7 @@ function Stores(data) {
                           </div>
                         </div>
                         {user && userData && userData._id === data.value.store.User_id &&
-                        <div>
+                        <div className="text-center p-2">
                           *Puedes comprar en tu emprendimiento para realizar pruebas
                         </div>}
                         <div className="text-center pb-2 card-footer">
